@@ -88,13 +88,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Linking\ReactPhysics3d\include;$(SolutionDir)\Linking\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Linking\ReactPhysics3d\include;$(SolutionDir)\Linking\GLFW\include;$(SolutionDir)\Linking\GLEW\include;$(SolutionDir)\Linking\SOIL2\include;$(SolutionDir)\Linking\ASSIMP\include;$(SolutionDir)\Linking\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Linking\ReactPhysics3d\lib\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>reactphysics3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Linking\GLFW\lib;$(SolutionDir)\Linking\ASSIMP\lib;$(SolutionDir)\Linking\GLEW\lib;$(SolutionDir)\Linking\SOIL2\lib;$(SolutionDir)\Linking\ReactPhysics3d\lib\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>reactphysics3d.lib;opengl32.lib;glfw3.lib;glew32.lib;assimp-vc140-mt.lib;soil2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -105,15 +106,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Linking\ReactPhysics3d\include;$(SolutionDir)\Linking\GLM\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Linking\ReactPhysics3d\include;$(SolutionDir)\Linking\GLFW\include;$(SolutionDir)\Linking\GLEW\include;$(SolutionDir)\Linking\SOIL2\include;$(SolutionDir)\Linking\ASSIMP\include;$(SolutionDir)\Linking\GLM\include;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Linking\ReactPhysics3d\lib\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>reactphysics3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Linking\GLFW\lib;$(SolutionDir)\Linking\ASSIMP\lib;$(SolutionDir)\Linking\GLEW\lib;$(SolutionDir)\Linking\SOIL2\lib;$(SolutionDir)\Linking\ReactPhysics3d\lib\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>reactphysics3d.lib;opengl32.lib;glfw3.lib;glew32.lib;assimp-vc140-mt.lib;soil2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -145,7 +147,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AnimFileMaker.h" />
+    <ClInclude Include="AnimLoader.h" />
+    <ClInclude Include="AnimMesh.h" />
+    <ClInclude Include="AnimModel.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="FileMaker.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="libs.h" />
+    <ClInclude Include="Lights.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MipMap.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Primitive.h" />
+    <ClInclude Include="ScreenCollision.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="SkelAnimat.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
