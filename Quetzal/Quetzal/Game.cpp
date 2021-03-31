@@ -665,7 +665,7 @@ Game::Game(const char * title,
 
 	ImGuiIO& io = ImGui::GetIO();
 	(void)io;
-	ImGui::StyleColorsClassic();
+	//ImGui::StyleColorsClassic();
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 }
