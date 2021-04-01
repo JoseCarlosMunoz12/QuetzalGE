@@ -5,6 +5,6 @@ class ImGuiTestButton : public ImGuiWindow
 public:
     void Update() override;
 private:
-    int counter = 0;
+    int Counter = 0;
 };
 

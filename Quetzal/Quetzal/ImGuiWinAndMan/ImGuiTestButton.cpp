@@ -13,8 +13,9 @@ void ImGuiTestButton::Update()
             ImGui::Text("Press me:");
             if (ImGui::Button("button"))
             {
-                //do something
+                Counter++ ;
             }
+            ImGui::Text(std::to_string(Counter).c_str());
             end();
         }
     }
