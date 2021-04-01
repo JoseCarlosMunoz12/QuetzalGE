@@ -148,26 +148,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="ImGui\imgui.cpp" />
-    <ClCompile Include="ImGui\imgui_demo.cpp" />
-    <ClCompile Include="ImGui\imgui_draw.cpp" />
-    <ClCompile Include="ImGui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGuiTestButton.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGuiCallh.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGuiTestButton.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiPar.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiWins.h" />
-    <ClInclude Include="ImGui\imconfig.h" />
-    <ClInclude Include="ImGui\imgui.h" />
-    <ClInclude Include="ImGui\imgui_impl_glfw.h" />
-    <ClInclude Include="ImGui\imgui_impl_opengl3.h" />
-    <ClInclude Include="ImGui\imgui_internal.h" />
-    <ClInclude Include="ImGui\imstb_rectpack.h" />
-    <ClInclude Include="ImGui\imstb_textedit.h" />
-    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imconfig.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imgui.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_truetype.h" />
     <ClInclude Include="libs.h" />
   </ItemGroup>
   <ItemGroup>

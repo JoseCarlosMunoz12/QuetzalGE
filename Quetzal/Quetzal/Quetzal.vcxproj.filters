@@ -21,22 +21,25 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_glfw.cpp">
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_widgets.cpp">
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuiWinAndMan\ImGuiTestButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,34 +50,40 @@
     <ClInclude Include="libs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_glfw.h">
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_impl_glfw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_impl_opengl3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_rectpack.h">
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_rectpack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_textedit.h">
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_textedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_truetype.h">
+    <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImGuiWinAndMan\ImGuiPar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImGuiWinAndMan\ImGuiWins.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiWinAndMan\ImGuiTestButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiWinAndMan\ImGuiCallh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
