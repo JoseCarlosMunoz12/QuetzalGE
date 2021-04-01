@@ -15,3 +15,5 @@
 #include <gtc\type_ptr.hpp>
 
 #include <SOIL2.h>
+
+#include "ImGuiWinAndMan/ImGuiPar.h"
