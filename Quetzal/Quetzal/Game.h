@@ -1,11 +1,9 @@
 #pragma once
 
 #include "libs.h"
-#include "Camera.h"
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_glfw.h"
 #include "ImGui/imgui_impl_opengl3.h"
-#include "Input.h"
 #include <random>
 
 //Enumerations
@@ -55,8 +53,6 @@ private:
 	float cuTime;
 	float lastTime;
 	//Mouse Input
-	Mouse MouseToUse;
-
 	float Amount = 0;
 	float AmountZ = 0;
 	
@@ -70,8 +66,6 @@ private:
 	int frameBufferWidth;
 	int frameBufferHeight;
 	bool OtherWindow = true;
-	//Camera
-	Camera camera;
 	//OpenGl context
 	const int GLVerMajor;
 	const int GLVerMinor;
@@ -92,57 +86,6 @@ private:
 	//Position where the Mouse Click does not affect
 	ImVec2 ScreenPos;
 	ImVec2 WinSize;
-	//Colors of the ImGui name
-	glm::vec3 ColorOfBackground = glm::vec3(1.f, 1.f, 1.f);
-	//Shaders
-	std::vector<Shader*> shaders;
-	//Textures
-	std::vector<GeneralTextInfo*> textures;
-	std::vector<ShadowTex*> Shadows;
-	std::vector<MipMap*> MipMapsData;
-	int CurTex = -1;
-	//Materials
-	//Testing the new mat with Polymorphism
-	std::vector<StdMat*> MatTest;
-	//Models
-	std::vector<Model*> models;
-	std::vector<AnimModel*> animModel;
-	//Lights
-	std::vector<MainLight*> LightsToUse;
-	std::vector<DrLights*> DirLights;
-	std::vector<PntLights*> PtLights;
-	std::vector<ConeLights*> CnLights;
-	std::vector<AreaLights*> ArLights;
-	int DirLightsToShow = -1;
-	int CnLightsToShow = -1;
-	int ArLightsToShow = -1;
-	// Meshes to reuse and not refind and make.
-	std::vector<Mesh*> meshes;
-	std::vector<AnimMesh*> animMeshes;
-	//File reader and maker
-	FileRdrMkr RdMkFiles;
-	AnimFileRdrMkr AnimRdrMk;
-	int FileID = -1;
-	std::string FileSave = "";
-	// Empty Variables for new models
-	std::vector<Texture*> NewTex0;
-	glm::vec3 SpaceLoc;
-	Mesh* NewMesh;
-	int CountMesh;
-	//Values To Show Int
-	int NewMatId = -1;
-	int NewTexId0 = -1;
-	int NewTexId1 = -1;
-	int NewMeshID = -1;
-	// Animation variables
-	float TimePass;
-	bool StarAnim = false;
-	bool SliderAnim = false;
-	bool EditAnim = false;
-	bool AddAnim = false;
-	bool BlendAnims = false;
-	bool TransAnims = false;
-	int CurBlend = 0;
 	// Collision and PHysics world and other informations
 	bool AddShape = false;
 	int  ShapeID;
@@ -166,18 +109,10 @@ private:
 	void updateMouseInput();
 	void updateInput();
 	void updateController();
-	
-	std::vector<glm::mat4> updateShadows();
-
 	void ImGuiOptions();
 
 	void updateUniforms();
 	void updateOpenGLOptions();
-	//Static variables
-	Input CheckCntrl;
-	void DrawFileInfo();
-	void DrawAnimInfo();
-	void DrawColAdd();
 public:
 	//Constructors/destructors
 	Game(const char * title,
@@ -194,9 +129,5 @@ public:
 	//Static Functions
 	static void framebuffer_resize_callback(GLFWwindow* window, int fbW, int fbH);
 	//ImGui Functions	
-	bool CheckNum(int Num);
-	//Create New Models With Existing Meshes, Texture, etc.
-	void LoadNewModels(std::vector<MdlToMake> FromFile);
-	void ReleaseModels();
 };
 

@@ -47,63 +47,6 @@
     <ClInclude Include="libs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnimFileMaker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FileMaker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Lights.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SkelAnimat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenCollision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MipMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>

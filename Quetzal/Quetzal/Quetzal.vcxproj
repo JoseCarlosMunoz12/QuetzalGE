@@ -157,12 +157,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimFileMaker.h" />
-    <ClInclude Include="AnimLoader.h" />
-    <ClInclude Include="AnimMesh.h" />
-    <ClInclude Include="AnimModel.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="FileMaker.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
@@ -172,20 +166,7 @@
     <ClInclude Include="ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
-    <ClInclude Include="Input.h" />
     <ClInclude Include="libs.h" />
-    <ClInclude Include="Lights.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MipMap.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Mouse.h" />
-    <ClInclude Include="Primitive.h" />
-    <ClInclude Include="ScreenCollision.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="SkelAnimat.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
