@@ -55,7 +55,7 @@ void Game::initOpenGLOptions()
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
-	glfwSetInputMode(this->window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(this->window,GLFW_CURSOR,GLFW_CURSOR_NORMAL);
 }
 
 void Game::initMatrices()
@@ -138,6 +138,9 @@ void Game::updateController()
  
 void Game::ImGuiOptions()
 {
+	ImGui::Begin("test");
+	ImGui::Text("this is  test");
+	ImGui::End();
 }
 
 void Game::updateUniforms()
