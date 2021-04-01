@@ -16,4 +16,4 @@
 
 #include <SOIL2.h>
 
-#include "ImGuiWinAndMan/ImGuiPar.h"
+#include "ImGuiWinAndMan/ImGuiWins.h"

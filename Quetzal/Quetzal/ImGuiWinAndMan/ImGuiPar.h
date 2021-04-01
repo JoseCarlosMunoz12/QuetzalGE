@@ -11,7 +11,13 @@ public:
 	virtual void Update() {};
 	void Show() {};
 protected:
-	virtual bool Begin(std::string name) {};
-	void end() {};
+	virtual bool Begin(std::string name) 
+	{
+		return ImGui::Begin(name.c_str(), &show);
+	};
+	void end() 
+	{
+		ImGui::End();
+	};
 	bool show;
 };
