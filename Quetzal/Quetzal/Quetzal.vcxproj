@@ -155,6 +155,7 @@
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_glfw.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGuiWinManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_truetype.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGuiWinManager.h" />
     <ClInclude Include="libs.h" />
   </ItemGroup>
   <ItemGroup>
