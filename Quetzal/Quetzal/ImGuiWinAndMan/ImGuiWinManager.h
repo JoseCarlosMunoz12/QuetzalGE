@@ -1,16 +1,16 @@
 #pragma once
 #include <vector>
 #include "ImGuiWins.h"
-class ImGuiWinManager
+class ImGuiWindowManager
 {
 public:
-    ImGuiWinManager(GLFWwindow* window);
-    ~ImGuiWinManager();
+    ImGuiWindowManager(GLFWwindow* window);
+    ~ImGuiWindowManager() {};
     void Update();
     void Render();
-    void AddWindow(ImGuiWindow newWin);
+    void AddWindow(ImGuiWinPar newWin);
 private:
-    std::vector<ImGuiWindow> windows;
+    std::vector<ImGuiWinPar> windows;
     void ShowDockSpace(bool* p_open);
     void Setstyle();
     void UpdateWindows();

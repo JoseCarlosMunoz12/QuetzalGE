@@ -1,6 +1,6 @@
 #pragma once
 #include "ImGuiPar.h"
-class ImGuiTestButton : public ImGuiWindow
+class ImGuiTestButton : public ImGuiWinPar
 {
 public:
     void Update() override;

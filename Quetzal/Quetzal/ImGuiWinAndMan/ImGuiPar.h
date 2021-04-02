@@ -1,13 +1,13 @@
 #pragma once
 #include <string>
 #include "ImGuiCallh.h"
-class ImGuiWindow
+class ImGuiWinPar
 {
 public:
-	ImGuiWindow()
+	ImGuiWinPar()
 		:show(true)
 	{};
-	~ImGuiWindow() {};
+	~ImGuiWinPar() {};
 	virtual void Update() {};
 	void Show() {};
 protected:
