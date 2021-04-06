@@ -97,6 +97,10 @@ void Game::initUniforms()
 {
 }
 
+void Game::initImGui()
+{
+	this->ImManager = std::make_unique<ImGuiWindowManager>(this->window);
+}
 void Game::updateDT()
 {
 	this->cuTime = static_cast<float>(glfwGetTime());

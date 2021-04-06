@@ -90,8 +90,9 @@ private:
 	/// <summary>
 	/// ImGui Window Manager
 	/// </summary>
-	
+	std::unique_ptr<ImGuiWindowManager> ImManager;
 	//Private Functions
+	//--Inits
 	void initGLFW();
 	void initWindow(const char* title,bool resizable);
 	void initGLEW();
@@ -104,7 +105,8 @@ private:
 	void initModels();
 	void initLights();
 	void initUniforms();
-
+	void initImGui();
+	//--Updates
 	void updateDT();
 	void updateKeyboardInput();
 	void updateMouseInput();
