@@ -123,9 +123,6 @@ void Game::updateMouseInput()
 void Game::updateInput()
 {
 	glfwPollEvents();
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
 	this->updateOpenGLOptions();
 	this->updateKeyboardInput();
 	this->updateMouseInput();
@@ -189,7 +186,6 @@ Game::Game(const char * title,
 	this->window = NULL;
 	this->frameBufferHeight = this->Window_Height;
 	this->frameBufferWidth = this->Window_Width;
-	this->Rt = new ImGuiTestButton();
 	this-> camPosition = glm::vec3(0.f, 1.f, 0.f);
 	this-> worldUp = glm::vec3(0.f, 0.f, 1.f);
 	this-> camFront = glm::vec3(0.f, 0.f,-1.f);
@@ -215,19 +211,10 @@ Game::Game(const char * title,
 	this->initLights();
 	this->initUniforms();
 	const char* glsl_version = "#version 130";
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-
-	ImGuiIO& io = ImGui::GetIO();
-	(void)io;
-	ImGui::StyleColorsClassic();
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
 Game::~Game()
 {
-	ImGui::DestroyContext();
 	glfwDestroyWindow(this->window );
 	glfwTerminate();
 }
@@ -248,7 +235,6 @@ void Game::update()
 	this->updateDT();
 	this->updateInput();
 	this->ImGuiOptions();
-	this->Rt->Update();
 }
 
 void Game::render()
@@ -256,7 +242,6 @@ void Game::render()
 	//DRAW---
 	//Updating Shadows Textures
 	//Clear
-	ImGui::Render();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, this->Window_Width, this->Window_Height);
 	glClearColor(this->SkyColor.r, this->SkyColor.g, this->SkyColor.b, 1.f);
@@ -264,7 +249,6 @@ void Game::render()
 	//Update uniforms
 	this->updateUniforms();
 	//render Models
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	glfwSwapBuffers(window);
 	glFlush();
 	glBindVertexArray(0);

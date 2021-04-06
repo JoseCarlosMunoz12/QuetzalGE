@@ -154,6 +154,7 @@
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_glfw.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGuiWinManager.cpp" />
     <ClCompile Include="main.cpp" />
