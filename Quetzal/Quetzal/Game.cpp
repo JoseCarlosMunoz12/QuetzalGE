@@ -101,6 +101,7 @@ void Game::initImGui()
 {
 	this->ImManager = std::make_unique<ImGuiWindowManager>(this->window);
 }
+
 void Game::updateDT()
 {
 	this->cuTime = static_cast<float>(glfwGetTime());
@@ -138,6 +139,7 @@ void Game::updateController()
  
 void Game::ImGuiOptions()
 {
+	this->ImManager->Update();
 }
 
 void Game::updateUniforms()
@@ -213,6 +215,7 @@ Game::Game(const char * title,
 	this->initModels();
 	this->initLights();
 	this->initUniforms();
+	this->initImGui();
 	const char* glsl_version = "#version 130";
 }
 
@@ -244,6 +247,8 @@ void Game::render()
 {
 	//DRAW---
 	//Updating Shadows Textures
+	//render ImGui
+	this->ImManager->Render();
 	//Clear
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, this->Window_Width, this->Window_Height);
