@@ -87,7 +87,10 @@ private:
 	bool AddShape = false;
 	int  ShapeID;
 	int BodId;
-	ImGuiTestButton* Rt;
+	/// <summary>
+	/// ImGui Window Manager
+	/// </summary>
+	
 	//Private Functions
 	void initGLFW();
 	void initWindow(const char* title,bool resizable);

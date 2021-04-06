@@ -24,7 +24,6 @@ void Game::initWindow(const char* title, bool resizable)
 	}
 	glfwGetFramebufferSize(this->window, &this->frameBufferWidth , &this->frameBufferHeight );
 	glfwSetFramebufferSizeCallback(this->window, Game::framebuffer_resize_callback);
-
 	//glViewport(0, 0,framebufferWidth,framebufferWidth );
 	glfwMakeContextCurrent(this->window);//IMPORTANT
 

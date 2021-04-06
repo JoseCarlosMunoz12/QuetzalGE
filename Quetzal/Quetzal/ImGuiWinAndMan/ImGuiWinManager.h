@@ -12,7 +12,7 @@ public:
 private:
     std::vector<ImGuiWinPar> windows;
     void ShowDockSpace(bool* p_open);
-    void Setstyle();
+    void SetStyle();
     void UpdateWindows();
     void DeleteWindows();
 
