@@ -53,7 +53,7 @@ void ImGuiWindowManager::Render()
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void ImGuiWindowManager::AddWindow(ImGuiWinPar newWin)
+void ImGuiWindowManager::AddWindow(std::shared_ptr<ImGuiWinPar> newWin)
 {
     windows.push_back(newWin);
 }
@@ -187,7 +187,7 @@ void ImGuiWindowManager::UpdateWindows()
 
     for (auto i = 0; i < windows.size(); i++)
     {
-        windows[i].Update();
+        windows[i]->Update();
     }
 }
 

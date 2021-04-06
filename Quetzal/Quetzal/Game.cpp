@@ -100,6 +100,7 @@ void Game::initUniforms()
 void Game::initImGui()
 {
 	this->ImManager = std::make_unique<ImGuiWindowManager>(this->window);
+	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>());
 }
 
 void Game::updateDT()
@@ -248,7 +249,6 @@ void Game::render()
 	//DRAW---
 	//Updating Shadows Textures
 	//render ImGui
-	this->ImManager->Render();
 	//Clear
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, this->Window_Width, this->Window_Height);
@@ -256,6 +256,7 @@ void Game::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	//Update uniforms
 	this->updateUniforms();
+	this->ImManager->Render();
 	//render Models
 	glfwSwapBuffers(window);
 	glFlush();

@@ -8,9 +8,9 @@ public:
     ~ImGuiWindowManager() {};
     void Update();
     void Render();
-    void AddWindow(ImGuiWinPar newWin);
+    void AddWindow(std::shared_ptr<ImGuiWinPar> newWin);
 private:
-    std::vector<ImGuiWinPar> windows;
+    std::vector<std::shared_ptr<ImGuiWinPar>> windows;
     void ShowDockSpace(bool* p_open);
     void SetStyle();
     void UpdateWindows();
