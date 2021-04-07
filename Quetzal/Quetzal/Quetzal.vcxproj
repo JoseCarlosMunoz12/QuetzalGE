@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGuiTextureWindow.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGuiTestButton.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_demo.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGuiTextureWindow.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiCallh.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiTestButton.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiPar.h" />

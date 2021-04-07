@@ -100,7 +100,10 @@ void Game::initUniforms()
 void Game::initImGui()
 {
 	this->ImManager = std::make_unique<ImGuiWindowManager>(this->window);
-	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>());
+	this->ImManager->AddWindow(std::make_shared<ImGuiTextureWindow>());
+	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 1"));
+	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 2"));
+	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 3"));
 }
 
 void Game::updateDT()

@@ -48,6 +48,9 @@
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ImGuiWinAndMan\ImGuiTextureWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImGuiWinAndMan\ImGuiWinManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiWinAndMan\ImGuiTextureWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

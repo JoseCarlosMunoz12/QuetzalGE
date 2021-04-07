@@ -1,10 +1,15 @@
 #include "ImGuiTestButton.h"
 
+ImGuiTestButton::ImGuiTestButton(std::string Name = "BaseName")
+    :WinName(Name)
+{
+}
+
 void ImGuiTestButton::Update()
 {
     if (show)
     {
-        if (!Begin("Startup"))
+        if (!Begin(this->WinName.c_str()))
         {
             end();
         }
