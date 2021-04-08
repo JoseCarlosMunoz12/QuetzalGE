@@ -24,7 +24,6 @@ void Game::initWindow(const char* title, bool resizable)
 	}
 	glfwGetFramebufferSize(this->window, &this->frameBufferWidth , &this->frameBufferHeight );
 	glfwSetFramebufferSizeCallback(this->window, Game::framebuffer_resize_callback);
-	//glViewport(0, 0,framebufferWidth,framebufferWidth );
 	glfwMakeContextCurrent(this->window);//IMPORTANT
 
 }
@@ -245,6 +244,7 @@ void Game::update()
 	this->updateDT();
 	this->updateInput();
 	this->ImGuiOptions();
+	this->updateUniforms();
 }
 
 void Game::render()
@@ -258,7 +258,6 @@ void Game::render()
 	glClearColor(this->SkyColor.r, this->SkyColor.g, this->SkyColor.b, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	//Update uniforms
-	this->updateUniforms();
 	this->ImManager->Render();
 	//render Models
 	glfwSwapBuffers(window);
