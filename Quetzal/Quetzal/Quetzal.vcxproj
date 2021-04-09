@@ -150,7 +150,10 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGuiTextureWindow.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGuiTestButton.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\ImCurveEdit.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\ImGradient.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\ImGuizmo.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_impl_glfw.cpp" />
@@ -158,6 +161,11 @@
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGuiWinManager.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\ImSequencer.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\ImWidgets\ImCurveEdit.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\ImWidgets\ImGradient.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\ImWidgets\ImGuizmo.cpp" />
+    <ClCompile Include="ImGuiWinAndMan\ImGui\ImWidgets\ImSequencer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,14 +176,24 @@
     <ClInclude Include="ImGuiWinAndMan\ImGuiPar.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiWins.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imconfig.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImCurveEdit.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImGradient.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imgui.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImGuizmo.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_impl_glfw.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_impl_opengl3.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImSequencer.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\imstb_truetype.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiWinManager.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImCurveEdit.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImGradient.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImGuizmo.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImSequencer.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImZoomSlider.h" />
+    <ClInclude Include="ImGuiWinAndMan\ImGui\ImZoomSlider.h" />
     <ClInclude Include="libs.h" />
   </ItemGroup>
   <ItemGroup>
