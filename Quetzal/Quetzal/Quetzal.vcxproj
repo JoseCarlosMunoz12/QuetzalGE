@@ -191,6 +191,12 @@
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImZoomSlider.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImZoomSlider.h" />
     <ClInclude Include="libs.h" />
+    <ClInclude Include="Renderer\Material.h" />
+    <ClInclude Include="Renderer\Mesh.h" />
+    <ClInclude Include="Renderer\Primitive.h" />
+    <ClInclude Include="Renderer\Shader.h" />
+    <ClInclude Include="Renderer\Texture.h" />
+    <ClInclude Include="Renderer\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
