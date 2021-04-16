@@ -74,20 +74,21 @@ class Nodes
 private:
 	//Children
 	std::vector<std::shared_ptr<Nodes>> Children;
-	std::weak_ptr<Nodes> Par;
 	//basic information
 	glm::vec3 Position;
 	glm::vec3 Offset;
 	glm::vec3 Scale;
 	Quat Rot;
+	glm::mat4 Matrix;
 public:
 	Nodes(glm::vec3 InitPos, glm::vec3 InitOffset,
 		glm::vec3 InitScale, Quat InitRot)
 		:Position(InitPos), Offset(InitOffset),
-		Scale(InitScale),Rot(InitRot)
+		Scale(InitScale),Rot(InitRot), Matrix(glm::mat4(1.f))
 	{
 
 	}
+	//Child related functions
 	std::vector<std::shared_ptr<Nodes>> GetChildren()
 	{
 		return this->Children;
@@ -96,6 +97,28 @@ public:
 	{
 		this->Children.push_back(NewChild);
 	}
+	//Matrix related function
+	void UpdateMatrix()
+	{
+
+		this->Matrix = glm::mat4(1.f);
+		this->Matrix = glm::translate(this->Matrix, this->Position);
+		glm::mat4 Temps = glm::mat4_cast(this->Rot.GetQuat());
+		Matrix *= Temps;
+		this->Matrix = glm::translate(this->Matrix, this->Offset);
+		this->Matrix = glm::scale(this->Matrix, this->Scale);
+	}
+	glm::mat4 GetMatrix()
+	{
+		return this->Matrix;
+	}
+	//Getters
+	glm::vec3 GetPos()    { return this->Position; }
+	glm::vec3 GetOffset() { return this->Offset; }
+	glm::vec3 GetScale()  { return this->Scale; }
+	Quat GetRot()         { return this->Rot; }
+	//Setters
+
 };
 //Data Structures for dynamic models
 struct AnimVertex
