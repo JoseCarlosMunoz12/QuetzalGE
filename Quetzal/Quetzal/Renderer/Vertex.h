@@ -3,7 +3,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+//Universal Data Structures
 
+//Data Structure for static models
 struct Vertex
 {
 	glm::vec3 position;
@@ -11,6 +13,18 @@ struct Vertex
 	glm::vec2 texcoord;
 	glm::vec3 normal;
 };
+class Nodes
+{
+private:
+	//Children
+	std::vector<std::shared_ptr<Nodes>> Children;
+	//basic information
+	glm::vec3 Position;
+	glm::vec3 Offset;
+	glm::vec3 Scale;
+	glm::quat Rot;
+};
+//Data Structures for dynamic models
 struct AnimVertex
 {
 	glm::vec3 position;
