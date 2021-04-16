@@ -5,14 +5,14 @@
 #include <glew.h>
 #include <glfw3.h>
 #include <SOIL2.h>
-class GeneralTextInfo
+class Texture
 {
 protected:
 	GLuint ID;
 	const char* Name;
 	unsigned int Type;
 public:
-	GeneralTextInfo( const char* NewName,GLenum NewType)
+	Texture( const char* NewName,GLenum NewType)
 		:Name(NewName),Type(NewType),ID(0)
 	{
 	}
@@ -34,7 +34,7 @@ public:
 	inline GLuint getID() const { return this->ID; }
 };
 
-class Texture : public GeneralTextInfo
+class Stnd_Tex : public Texture
 {
 private:
 	int width;
@@ -42,8 +42,8 @@ private:
 	int NumOfChannels;
 	unsigned char* ImageRGB;
 public:
-	Texture(const char* fileName, GLenum type, GLenum ColorType)
-		:GeneralTextInfo(fileName,type)
+	Stnd_Tex(const char* fileName, GLenum type, GLenum ColorType)
+		:Texture(fileName,type)
 	{
 		this->Type = type;
 		this->Name = fileName;
@@ -71,7 +71,7 @@ public:
 		SOIL_free_image_data(image);
 	
 	}
-	~Texture()
+	~Stnd_Tex()
 	{
 		glDeleteTextures(1,&this->ID);
 	}
@@ -79,12 +79,12 @@ public:
 
 };
 
-class ShadowTex:public GeneralTextInfo
+class ShadowTex:public Texture
 {
 	GLuint FrameBuffer;
 public:
 	ShadowTex(const char* NewName)
-		:GeneralTextInfo(NewName, GL_TEXTURE_2D)
+		:Texture(NewName, GL_TEXTURE_2D)
 	{
 		this->ID = 0;
 		this->FrameBuffer = 0;

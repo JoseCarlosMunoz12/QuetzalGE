@@ -69,11 +69,11 @@ struct Vertex
 	glm::vec2 texcoord;
 	glm::vec3 normal;
 };
-class Nodes
+class Node
 {
 private:
 	//Children
-	std::vector<std::shared_ptr<Nodes>> Children;
+	std::vector<std::shared_ptr<Node>> Children;
 	//basic information
 	glm::vec3 Position;
 	glm::vec3 Offset;
@@ -84,7 +84,7 @@ private:
 	std::vector<int> TextureID;
 	int MeshId;
 public:
-	Nodes(glm::vec3 InitPos, glm::vec3 InitOffset,
+	Node(glm::vec3 InitPos, glm::vec3 InitOffset,
 		glm::vec3 InitScale, Quat InitRot, int InitMeshId)
 		:Position(InitPos), Offset(InitOffset),
 		Scale(InitScale),Rot(InitRot), Matrix(glm::mat4(1.f)), MeshId(InitMeshId)
@@ -93,11 +93,11 @@ public:
 
 	}
 	//Child related functions
-	std::vector<std::shared_ptr<Nodes>> GetChildren()
+	std::vector<std::shared_ptr<Node>> GetChildren()
 	{
 		return this->Children;
 	}
-	void AddChild(std::shared_ptr<Nodes> NewChild)
+	void AddChild(std::shared_ptr<Node> NewChild)
 	{
 		this->Children.push_back(NewChild);
 	}
