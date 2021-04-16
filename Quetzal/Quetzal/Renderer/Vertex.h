@@ -80,12 +80,16 @@ private:
 	glm::vec3 Scale;
 	Quat Rot;
 	glm::mat4 Matrix;
+	//ID for Meshes and Textures
+	std::vector<int> TextureID;
+	int MeshId;
 public:
 	Nodes(glm::vec3 InitPos, glm::vec3 InitOffset,
-		glm::vec3 InitScale, Quat InitRot)
+		glm::vec3 InitScale, Quat InitRot, int InitMeshId)
 		:Position(InitPos), Offset(InitOffset),
-		Scale(InitScale),Rot(InitRot), Matrix(glm::mat4(1.f))
+		Scale(InitScale),Rot(InitRot), Matrix(glm::mat4(1.f)), MeshId(InitMeshId)
 	{
+		this->TextureID = {};
 
 	}
 	//Child related functions
@@ -96,6 +100,10 @@ public:
 	void AddChild(std::shared_ptr<Nodes> NewChild)
 	{
 		this->Children.push_back(NewChild);
+	}
+	void RemoveChild(int ChildId) 
+	{
+		this->Children.erase(this->Children.begin() + ChildId);
 	}
 	//Matrix related function
 	void UpdateMatrix()
@@ -113,15 +121,26 @@ public:
 		return this->Matrix;
 	}
 	//Getters
-	glm::vec3 GetPos()    { return this->Position; }
-	glm::vec3 GetOffset() { return this->Offset; }
-	glm::vec3 GetScale()  { return this->Scale; }
-	Quat GetRot()         { return this->Rot; }
+	glm::vec3 GetPos()           { return this->Position; }
+	glm::vec3 GetOffset()        { return this->Offset; }
+	glm::vec3 GetScale()         { return this->Scale; }
+	Quat GetRot()                { return this->Rot; }
+	std::vector<int> GetTextId() { return this->TextureID; }
+	int GetMeshId()              { return this->MeshId; }
 	//Setters
 	void SetPos(glm::vec3 NewPos)       { this->Position = NewPos; }
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
 	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
+	//Mesh and Texture relatd Function
+	void AddTextureId(std::vector<int> NewIds)
+	{
+		this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end());
+	}
+	void ChangeModel(int NewID)
+	{
+		this->MeshId = NewID;
+	}
 };
 //Data Structures for dynamic models
 struct AnimVertex
