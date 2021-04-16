@@ -163,6 +163,7 @@
     <ClCompile Include="ImGuiWinAndMan\ImGuiWinManager.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\ImSequencer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderer\Model.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImZoomSlider.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImZoomSlider.h" />
     <ClInclude Include="libs.h" />
+    <ClInclude Include="Renderer\Model.h" />
     <ClInclude Include="Renderer\Material.h" />
     <ClInclude Include="Renderer\Mesh.h" />
     <ClInclude Include="Renderer\Primitive.h" />

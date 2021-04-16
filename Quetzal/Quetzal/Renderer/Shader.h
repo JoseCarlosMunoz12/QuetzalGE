@@ -13,7 +13,7 @@
 #include <mat4x4.hpp>
 #include <gtc\type_ptr.hpp>
 
-enum ShaderType
+enum class ShaderType
 {
 	STATIC = 1,
 	ANIM
@@ -110,10 +110,10 @@ public:
 	{
 		switch (ShdType)
 		{
-		case STATIC:
+		case ShaderType::STATIC:
 			this->FolderChosen += "StaticShaders/";
 			break;
-		case ANIM:
+		case ShaderType::ANIM:
 			this->FolderChosen += "AnimShaders/";
 			break;
 		}
@@ -148,14 +148,13 @@ public:
 	{
 		glUseProgram(0);
 	}
-
+	//Setting shader values
 	void set1i(GLint value, const GLchar* Name)
 	{
 		this->use();
 		glUniform1i(glGetUniformLocation(this->id, Name), value);
 		this->unuse();
 	}
-
 	void setVec1f(GLfloat value, const GLchar* Name)
 	{
 		this->use();
