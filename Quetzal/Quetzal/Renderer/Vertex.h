@@ -118,7 +118,10 @@ public:
 	glm::vec3 GetScale()  { return this->Scale; }
 	Quat GetRot()         { return this->Rot; }
 	//Setters
-
+	void SetPos(glm::vec3 NewPos)       { this->Position = NewPos; }
+	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
+	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
+	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
 };
 //Data Structures for dynamic models
 struct AnimVertex
