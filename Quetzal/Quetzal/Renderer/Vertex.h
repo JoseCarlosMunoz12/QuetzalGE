@@ -84,6 +84,12 @@ private:
 	std::vector<int> TextureID;
 	int MeshId;
 public:
+	Node()
+		:Position(glm::vec3(0.f)),Offset(glm::vec3(0.f)), Scale(glm::vec3(1.f)),
+		Rot(Quat()),Matrix(glm::mat4(1.f))
+	{
+		this->MeshId = -1;
+	}
 	Node(glm::vec3 InitPos, glm::vec3 InitOffset,
 		glm::vec3 InitScale, Quat InitRot, int InitMeshId)
 		:Position(InitPos), Offset(InitOffset),
@@ -137,10 +143,19 @@ public:
 	{
 		this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end());
 	}
+	void AddTextureId(int NewId)
+	{
+		this->TextureID.push_back(NewId);
+	}
 	void ChangeModel(int NewID)
 	{
 		this->MeshId = NewID;
 	}
+	void RemoveTextureId(int Id)
+	{
+		this->TextureID.erase(this->TextureID.begin() + Id);
+	}
+	void RemoveMeshId() { this->MeshId = -1; }
 };
 //Data Structures for dynamic models
 struct AnimVertex

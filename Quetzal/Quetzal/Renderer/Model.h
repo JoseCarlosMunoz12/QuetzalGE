@@ -12,7 +12,6 @@ private:
 	std::vector<std::shared_ptr<Texture>> Textures_Inf;
 	std::vector<std::shared_ptr<Mesh>> Meshes_Inf;
 	std::vector<std::shared_ptr<Node>> Nodes_Inf;
-	//ID of Texture, Meshes and Materials for each Node
 
 public:
 
