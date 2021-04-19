@@ -19,7 +19,8 @@ private:
 	std::string Name;
 	//Holds Physics, Collision information of the Model
 	//Render and Update Recursively
-	void UpdateMatrices(std::shared_ptr<Node> chld_Node);
+	void UpdateMatrices(std::shared_ptr<Node> chld);
+	void RenderNodes(std::shared_ptr<Shader> Cur_Shader, glm::mat4 ParMatrix, std::shared_ptr<Node> chld);
 
 public:
 	Model(std::string NewName);

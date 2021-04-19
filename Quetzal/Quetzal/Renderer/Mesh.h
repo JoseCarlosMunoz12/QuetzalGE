@@ -58,7 +58,7 @@ private:
 		//BIND VAO 0
 		glBindVertexArray(0);
 	}
-	void updateUniforms(glm::mat4 FinalMatrix,Shader* shader)
+	void updateUniforms(glm::mat4 FinalMatrix,std::shared_ptr<Shader> shader)
 	{
 		shader->setMat4fv(FinalMatrix, "ModelMatrix");
 	}
@@ -137,7 +137,7 @@ public:
 		delete[] this->indexArray;
 	}
 	//Accessors
-	void Render(glm::mat4 FinalMatrix,Shader* shader)
+	void Render(glm::mat4 FinalMatrix,std::shared_ptr<Shader> shader)
 	{
 		//Update Uniforms
 		this->updateUniforms(FinalMatrix,shader);

@@ -123,7 +123,7 @@ public:
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 	void WriteToBuffer(unsigned int WindowWidth, unsigned int WindowHeight,
-		Shader* DepthShader,glm::mat4 LightSpaceMatrix)
+		std::shared_ptr<Shader> DepthShader,glm::mat4 LightSpaceMatrix)
 	{
 		DepthShader->use();
 		DepthShader->setMat4fv(LightSpaceMatrix, "LightSpaceMatrix");
