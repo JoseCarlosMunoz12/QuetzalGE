@@ -83,21 +83,25 @@ private:
 	//ID for Meshes and Textures
 	std::vector<int> TextureID;
 	int MeshId;
+	int MatId;
 public:
 	Node()
 		:Position(glm::vec3(0.f)),Offset(glm::vec3(0.f)), Scale(glm::vec3(1.f)),
 		Rot(Quat()),Matrix(glm::mat4(1.f))
 	{
 		this->MeshId = -1;
+		this->MatId = -1;
 	}
 	Node(glm::vec3 InitPos, glm::vec3 InitOffset,
-		glm::vec3 InitScale, Quat InitRot, int InitMeshId)
+		glm::vec3 InitScale, Quat InitRot, int InitMeshId, int InitMatId)
 		:Position(InitPos), Offset(InitOffset),
-		Scale(InitScale),Rot(InitRot), Matrix(glm::mat4(1.f)), MeshId(InitMeshId)
+		Scale(InitScale),Rot(InitRot), Matrix(glm::mat4(1.f)),
+		MeshId(InitMeshId), MatId(InitMatId)
 	{
 		this->TextureID = {};
 
 	}
+	~Node() {}
 	//Child related functions
 	std::vector<std::shared_ptr<Node>> GetChildren()
 	{
@@ -114,7 +118,6 @@ public:
 	//Matrix related function
 	void UpdateMatrix()
 	{
-
 		this->Matrix = glm::mat4(1.f);
 		this->Matrix = glm::translate(this->Matrix, this->Position);
 		glm::mat4 Temps = glm::mat4_cast(this->Rot.GetQuat());
@@ -133,29 +136,19 @@ public:
 	Quat GetRot()                { return this->Rot; }
 	std::vector<int> GetTextId() { return this->TextureID; }
 	int GetMeshId()              { return this->MeshId; }
+	int GetMatId()               { return this->MatId; }
 	//Setters
 	void SetPos(glm::vec3 NewPos)       { this->Position = NewPos; }
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
 	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
 	//Mesh and Texture relatd Function
-	void AddTextureId(std::vector<int> NewIds)
-	{
-		this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end());
-	}
-	void AddTextureId(int NewId)
-	{
-		this->TextureID.push_back(NewId);
-	}
-	void ChangeModel(int NewID)
-	{
-		this->MeshId = NewID;
-	}
-	void RemoveTextureId(int Id)
-	{
-		this->TextureID.erase(this->TextureID.begin() + Id);
-	}
-	void RemoveMeshId() { this->MeshId = -1; }
+	void AddTextureId(std::vector<int> NewIds) { this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end()); }
+	void AddTextureId(int NewId)               { this->TextureID.push_back(NewId); }
+	void ChangeModel(int NewID)	               { this->MeshId = NewID;	}
+	void RemoveTextureId(int Id)               { this->TextureID.erase(this->TextureID.begin() + Id);	}
+	void RemoveMeshId()                        { this->MeshId = -1; }
+	void RemovedMatId()                        { this->MatId = -1; }
 };
 //Data Structures for dynamic models
 struct AnimVertex

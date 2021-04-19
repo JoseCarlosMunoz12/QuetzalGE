@@ -12,7 +12,7 @@
 #include <gtc\type_ptr.hpp>
 
 #include "Shader.h"
-class StdMat
+class Material
 {
 private:
 	std::string MatName;
@@ -27,13 +27,13 @@ protected:
 	glm::vec3 SkyClr;
 	int ShaderID;
 public:
-	StdMat(std::string Name,int SetId, int ShaderId)
+	Material(std::string Name,int SetId, int ShaderId)
 	{
 		this->MatName = Name;
 		this->MatId = SetId;
 		this->ShaderID = ShaderId;
 	}
-	~StdMat()
+	~Material()
 	{
 		std::cout << "Test\n";
 	}
@@ -58,11 +58,11 @@ public:
 
 };
 
-class SingleTextMat : public StdMat
+class SingleTextMat : public Material
 {
 public:
 	SingleTextMat(std::string name, int SetId, int IniShaderId, glm::vec3 Skycolor, GLint TexId)
-		:StdMat(name, SetId, IniShaderId)
+		:Material(name, SetId, IniShaderId)
 	{
 		this->SkyClr = Skycolor;
 		this->TexIndex.push_back(TexId);
@@ -85,11 +85,11 @@ public:
 	}
 };
 
-class Standardmat : public StdMat
+class Standardmat : public Material
 {
 public:
 	Standardmat(std::string Name, int SetId, int ShaderId, glm::vec3 SkyColor)
-		:StdMat(Name,SetId,ShaderID)
+		:Material(Name,SetId,ShaderID)
 	{
 		this->SkyClr = SkyColor;
 	}
@@ -123,7 +123,7 @@ public:
 	}
 };
 
-class TxtMat : public StdMat
+class TxtMat : public Material
 {
 	glm::vec3 Ambient;
 	glm::vec3 Diffuse;
@@ -137,7 +137,7 @@ public:
 			std::vector<GLint> InitCnShadow = {},
 			std::vector<GLint> InitPntShadow = {},
 			std::vector<GLint> InitArShadow = {})
-			:StdMat(Name, SetId, ShaderId)
+			:Material(Name, SetId, ShaderId)
 	{
 		this->ShadowTex = InitShadowTx;
 		this->CnShadow = InitCnShadow;
@@ -209,7 +209,7 @@ public:
 	}
 };
 
-class MipMapMat : public StdMat
+class MipMapMat : public Material
 {
 	glm::vec3 Ambient;
 	glm::vec3 Diffuse;
@@ -224,7 +224,7 @@ public:
 		glm::vec3 ambient = glm::vec3(0.1f),
 		glm::vec3 diffuse = glm::vec3(1.0f),
 		glm::vec3 specular = glm::vec3(1.0f))
-		:StdMat(Name, SetId, ShaderId)
+		:Material(Name, SetId, ShaderId)
 	{
 		this->ShadowTex = InitShadowTex;
 		this->CnShadow = InitCnShadow;
