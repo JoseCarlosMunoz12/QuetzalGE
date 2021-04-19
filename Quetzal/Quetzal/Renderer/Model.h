@@ -18,6 +18,9 @@ private:
 	glm::vec3 Position;
 	std::string Name;
 	//Holds Physics, Collision information of the Model
+	//Render and Update Recursively
+	void UpdateMatrices(std::shared_ptr<Node> chld_Node);
+
 public:
 	Model(std::string NewName);
 	Model(std::string NewName,glm::vec3 InitPos);
@@ -26,9 +29,12 @@ public:
 
 	~Model() {}
 	//Setters
-	void SetPos(glm::vec3 NewPos) { this->Position = NewPos; }
+	void SetPos(glm::vec3 NewPos);
 	//Getters
 	glm::vec3 GetPos()    { return this->Position; }
 	std::string GetName() { return this->Name; }
 	//Render Model
+	void Render(std::shared_ptr<Shader> Shader_Run);
+	//UpdateMatrices
+	void Update();
 };
