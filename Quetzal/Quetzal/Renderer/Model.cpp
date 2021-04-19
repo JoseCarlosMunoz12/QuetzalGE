@@ -72,3 +72,8 @@ void Model::Update()
 	for (auto& ii : this->Nodes_Inf)
 		this->UpdateMatrices(ii);
 }
+
+void Model::UpdateUniforms()
+{
+
+}
