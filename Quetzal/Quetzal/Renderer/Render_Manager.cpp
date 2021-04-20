@@ -19,6 +19,10 @@ void Render_Manager::Render()
 {
 	for (auto& ii : this->All_Models)
 		ii->Render(this->All_Shader[0]);
+}
+
+void Render_Manager::RenderToWindow()
+{
 	this->Main_Model->Render(this->Main_Shader);
 }
 
@@ -45,4 +49,9 @@ void Render_Manager::AddMaterials(std::shared_ptr<Material> NewMaterial)
 void Render_Manager::AddModel(std::shared_ptr<Model> NewModel)
 {
 	this->All_Models.push_back(NewModel);
+}
+
+void Render_Manager::ChangeRenderTarget(bool ToWindow)
+{
+	this->R_Window = ToWindow;
 }

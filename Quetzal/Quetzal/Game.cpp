@@ -250,17 +250,18 @@ void Game::update()
 void Game::render()
 {
 	//DRAW---
-	//Updating Shadows Textures
-	//render ImGui
-	//Clear
 	this->R_Manager->Render();
+	//Clear
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, this->Window_Width, this->Window_Height);
 	glClearColor(this->SkyColor.r, this->SkyColor.g, this->SkyColor.b, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	//Update uniforms
-	this->ImManager->Render();
 	//render Models
+	if (this->R_Manager->ToWindow())
+		this->R_Manager->RenderToWindow();
+	else
+		this->ImManager->Render();
+	//Clean Up
 	glfwSwapBuffers(window);
 	glFlush();
 	glBindVertexArray(0);
