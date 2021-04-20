@@ -66,6 +66,9 @@
     <ClCompile Include="Renderer\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Render_Items\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -146,25 +149,25 @@
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImZoomSlider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Vertex.h">
+    <ClInclude Include="Renderer\Render_Items\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Mesh.h">
+    <ClInclude Include="Renderer\Render_Items\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Primitive.h">
+    <ClInclude Include="Renderer\Render_Items\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Shader.h">
+    <ClInclude Include="Renderer\Render_Items\Primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Texture.h">
+    <ClInclude Include="Renderer\Render_Items\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Material.h">
+    <ClInclude Include="Renderer\Render_Items\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Model.h">
+    <ClInclude Include="Renderer\Render_Items\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

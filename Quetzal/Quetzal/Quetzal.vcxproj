@@ -164,6 +164,7 @@
     <ClCompile Include="ImGuiWinAndMan\ImGui\ImSequencer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
+    <ClCompile Include="Renderer\Render_Items\Model.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -192,13 +193,13 @@
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImZoomSlider.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImZoomSlider.h" />
     <ClInclude Include="libs.h" />
-    <ClInclude Include="Renderer\Model.h" />
-    <ClInclude Include="Renderer\Material.h" />
-    <ClInclude Include="Renderer\Mesh.h" />
-    <ClInclude Include="Renderer\Primitive.h" />
-    <ClInclude Include="Renderer\Shader.h" />
-    <ClInclude Include="Renderer\Texture.h" />
-    <ClInclude Include="Renderer\Vertex.h" />
+    <ClInclude Include="Renderer\Render_Items\Material.h" />
+    <ClInclude Include="Renderer\Render_Items\Mesh.h" />
+    <ClInclude Include="Renderer\Render_Items\Model.h" />
+    <ClInclude Include="Renderer\Render_Items\Primitive.h" />
+    <ClInclude Include="Renderer\Render_Items\Shader.h" />
+    <ClInclude Include="Renderer\Render_Items\Texture.h" />
+    <ClInclude Include="Renderer\Render_Items\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
