@@ -1,9 +1,9 @@
 #pragma once
-#include "Vertex.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "Material.h"
-#include "Mesh.h"
+#include "Render_Items/Vertex.h"
+#include "Render_Items/Shader.h"
+#include "Render_Items/Texture.h"
+#include "Render_Items/Material.h"
+#include "Render_Items/Mesh.h"
 
 class Model
 {

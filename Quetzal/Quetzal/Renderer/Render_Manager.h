@@ -1,5 +1,6 @@
 #pragma once
-#include "Render_Items/Model.h"
+#include "Model.h"
+
 class Render_Manager
 {
 private:
