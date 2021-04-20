@@ -165,6 +165,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\Render_Items\Model.cpp" />
+    <ClCompile Include="Renderer\Render_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Renderer\Render_Items\Shader.h" />
     <ClInclude Include="Renderer\Render_Items\Texture.h" />
     <ClInclude Include="Renderer\Render_Items\Vertex.h" />
+    <ClInclude Include="Renderer\Render_Manager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
