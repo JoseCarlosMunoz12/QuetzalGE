@@ -16,5 +16,7 @@
 
 #include <SOIL2.h>
 
+#include "Renderer/Render_Manager.h"
+
 #include "ImGuiWinAndMan/ImGuiWins.h"
 #include "ImGuiWinAndMan/ImGuiWinManager.h"
