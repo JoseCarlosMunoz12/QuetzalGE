@@ -1,6 +1,7 @@
 #include "Render_Manager.h"
 
-Render_Manager::Render_Manager()
+Render_Manager::Render_Manager(bool Win_Start = false)
+	:R_Window(Win_Start)
 {
 	//Create Default Framebuffer Texture and Main Model to draw on Screen
 }

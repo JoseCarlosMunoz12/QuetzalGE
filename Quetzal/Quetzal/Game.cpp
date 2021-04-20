@@ -253,6 +253,7 @@ void Game::render()
 	//Updating Shadows Textures
 	//render ImGui
 	//Clear
+	this->R_Manager->Render();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, this->Window_Width, this->Window_Height);
 	glClearColor(this->SkyColor.r, this->SkyColor.g, this->SkyColor.b, 1.f);

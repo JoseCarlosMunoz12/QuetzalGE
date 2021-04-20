@@ -91,6 +91,7 @@ private:
 	/// ImGui Window Manager
 	/// </summary>
 	std::unique_ptr<ImGuiWindowManager> ImManager;
+	std::shared_ptr<Render_Manager> R_Manager;
 	//Private Functions
 	//--Inits
 	void initGLFW();

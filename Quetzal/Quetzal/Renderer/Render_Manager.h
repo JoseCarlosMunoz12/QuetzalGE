@@ -17,8 +17,10 @@ private:
 	S_P<Shader> Main_Shader;
 	S_P<Texture> Main_Texture;
 	S_P<Model> Main_Model;
+	//If Render to ImGui or Render to Window
+	bool R_Window;
 public:
-	Render_Manager();
+	Render_Manager(bool Win_Start = false);
 	//Updates Positions, animations for all Models in the world
 	void Update(float dt);
 	//Renders all
