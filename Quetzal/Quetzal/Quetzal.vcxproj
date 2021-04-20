@@ -164,7 +164,6 @@
     <ClCompile Include="ImGuiWinAndMan\ImGui\ImSequencer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
-    <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\Render_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
