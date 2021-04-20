@@ -1,17 +1,24 @@
 #pragma once
 #include "Model.h"
 template <typename T>
-using Vec_SH = std::vector<std::shared_ptr<T>>;
+using S_P = std::shared_ptr<T>;
+template <typename T>
+using Vec_SH = std::vector<S_P<T>>;
 class Render_Manager
 {
 private:
+	//All Items in Render Manager
 	Vec_SH<Texture> All_Texture;
 	Vec_SH<Shader> All_Shader;
 	Vec_SH<Mesh> All_Meshes;
 	Vec_SH<Material> All_Materials;
 	Vec_SH<Model> All_Models;
+	//Default Model, Texture, and Shader to show on main window
+	S_P<Shader> Main_Shader;
+	S_P<Texture> Main_Texture;
+	S_P<Model> Main_Model;
 public:
-	Render_Manager() {}
+	Render_Manager();
 	//Updates Positions, animations for all Models in the world
 	void Update(float dt);
 	//Renders all

@@ -1,5 +1,10 @@
 #include "Render_Manager.h"
 
+Render_Manager::Render_Manager()
+{
+	//Create Default Framebuffer Texture and Main Model to draw on Screen
+}
+
 void Render_Manager::Update(float dt)
 {
 	for (auto& ii : this->All_Models)
@@ -13,6 +18,7 @@ void Render_Manager::Render()
 {
 	for (auto& ii : this->All_Models)
 		ii->Render(this->All_Shader[0]);
+	this->Main_Model->Render(this->Main_Shader);
 }
 
 void Render_Manager::AddTextures(std::shared_ptr<Texture> NewTexture)
