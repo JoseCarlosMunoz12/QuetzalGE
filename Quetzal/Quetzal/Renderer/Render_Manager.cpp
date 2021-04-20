@@ -55,3 +55,28 @@ void Render_Manager::ChangeRenderTarget(bool ToWindow)
 {
 	this->R_Window = ToWindow;
 }
+
+void Render_Manager::RemoveTexture(int Id)
+{
+	this->All_Texture.erase(this->All_Texture.begin() + Id);
+}
+
+void Render_Manager::RemoveShader(int Id)
+{
+	this->All_Shader.erase(this->All_Shader.begin() + Id);
+}
+
+void Render_Manager::RemoveMesh(int Id)
+{
+	this->All_Meshes.erase(this->All_Meshes.begin() + Id);
+}
+
+void Render_Manager::RemoveMaterial(int Id)
+{
+	this->All_Materials.erase(this->All_Materials.begin() + Id);
+}
+
+void Render_Manager::RemoveModel(int Id)
+{
+	this->All_Models.erase(this->All_Models.begin() + Id);
+}

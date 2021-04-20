@@ -42,4 +42,9 @@ public:
 	void AddModel(std::shared_ptr<Model> NewModel);
 	void ChangeRenderTarget(bool ToWindow);
 	//Remove Items
+	void RemoveTexture(int Id);
+	void RemoveShader(int Id);
+	void RemoveMesh(int Id);
+	void RemoveMaterial(int Id);
+	void RemoveModel(int Id);
 };
