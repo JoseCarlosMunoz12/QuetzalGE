@@ -31,6 +31,9 @@ public:
 	~Model() {}
 	//Setters
 	void SetPos(glm::vec3 NewPos);
+	Vec_SH<Mesh> GetMeshes() { return this->Meshes_Inf; }
+	Vec_SH<Texture> GetTextures() { return this->Textures_Inf; }
+	Vec_SH<Material> GetMaterials() { return this->Materials_Inf; }
 	//Getters
 	glm::vec3 GetPos()    { return this->Position; }
 	std::string GetName() { return this->Name; }

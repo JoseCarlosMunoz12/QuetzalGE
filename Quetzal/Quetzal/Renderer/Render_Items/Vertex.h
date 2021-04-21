@@ -5,6 +5,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+template <typename T>
+using S_P = std::shared_ptr<T>;
+template <typename T>
+using Vec_SH = std::vector<S_P<T>>;
 //Universal Data Structures
 
 struct Quat
