@@ -149,6 +149,7 @@ public:
 	//Mesh and Texture relatd Function
 	void AddTextureId(std::vector<int> NewIds) { this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end()); }
 	void AddTextureId(int NewId)               { this->TextureID.push_back(NewId); }
+	void SetMeshId(int NewId)                  { this->MeshId = NewId; }
 	void ChangeModel(int NewID)	               { this->MeshId = NewID;	}
 	void RemoveTextureId(int Id)               { this->TextureID.erase(this->TextureID.begin() + Id);	}
 	void RemoveMeshId()                        { this->MeshId = -1; }

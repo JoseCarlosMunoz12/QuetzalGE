@@ -14,6 +14,12 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh> (std::make_unique<Quad_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	this->Main_Model = std::make_shared<Model>("Main_Model");
+	S_P<Node> NewNode = std::make_shared<Node>();
+	NewNode->AddTextureId(0);
+	NewNode->SetMeshId(0);
+	this->Main_Model->AddMeshes(All_Meshes[0]);
+	this->Main_Model->AddTextures(All_Texture[0]);
+	this->Main_Model->AddBaseNode(NewNode);
 }
 
 void Render_Manager::Update(float dt)
@@ -39,7 +45,8 @@ void Render_Manager::Render()
 
 void Render_Manager::RenderToWindow()
 {
-	this->Main_Model->Render(this->Main_Shader);
+	if (this->Main_Model)
+		this->Main_Model->Render(this->Main_Shader);
 }
 
 void Render_Manager::AddTextures(std::shared_ptr<Texture> NewTexture)
