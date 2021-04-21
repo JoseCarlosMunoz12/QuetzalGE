@@ -1,12 +1,12 @@
 #pragma once
 #include "ImGuiPar.h"
-
 class ImGuiTextureWindow : public ImGuiWinPar
 {
 public:
 	void Update() override;
+	ImGuiTextureWindow(GLuint TextId);
 private:
-	std::vector<std::weak_ptr<GLuint>> Textures;
+	std::vector<GLuint> Textures;
 	int CurId;
 };
 

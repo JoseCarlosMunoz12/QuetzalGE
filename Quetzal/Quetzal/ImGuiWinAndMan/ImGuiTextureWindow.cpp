@@ -11,8 +11,15 @@ void ImGuiTextureWindow::Update()
         else
         {
             ImVec2 Te = ImGui::GetWindowSize();
-            ImGui::Image((void*)0, Te);
+            ImGui::Image((void*)this->Textures[CurId], Te);
             end();
         }
     }
+}
+
+ImGuiTextureWindow::ImGuiTextureWindow(GLuint TextId)
+    :ImGuiWinPar(), CurId(0)
+{
+    this->Textures.push_back(TextId);
+
 }
