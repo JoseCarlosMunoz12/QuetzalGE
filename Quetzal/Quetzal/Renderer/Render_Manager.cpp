@@ -1,11 +1,17 @@
 #include "Render_Manager.h"
 
-Render_Manager::Render_Manager(GLFWwindow* window,bool Win_Start = false)
-	:R_Window(Win_Start),MainWindow(window)
+Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, const int GlVerMinornit,  bool Win_Start = false)
+	:R_Window(Win_Start),MainWindow(window),GLVerMajor(GlVerMajorInit), GLVerMinor(GlVerMinornit)
 {
 	//Get screen information to use to render
 	glfwGetFramebufferSize(this->MainWindow,&this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
-	//Create Default Framebuffer Texture and Main Model to draw on Screen
+	//Create Default Framebuffer Texture 
+	this->Main_Texture = std::make_shared<Frame_Buffer>("Main");
+	this->Main_Texture->Init(this->Frame_Buffer_Width, this->Frame_Bufer_Height);
+	//loads defaults Shaders
+	this->Main_Shader = std::make_shared<Shader>(0,ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
+	//creating Default Model to render on screen
+
 }
 
 void Render_Manager::Update(float dt)
@@ -14,7 +20,6 @@ void Render_Manager::Update(float dt)
 	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ViewMatrix");
 	this->Main_Shader->setVec3f(glm::vec3(1.f), "CameraPos");
 	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ProjectionMatrix");
-
 	for (auto& ii : this->All_Models)
 	{
 		ii->Update();
