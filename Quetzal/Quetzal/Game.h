@@ -99,12 +99,8 @@ private:
 	void initGLEW();
 	void initOpenGLOptions();
 	void initMatrices();
-	void initShaders();
-	void initShadows();
-	void initTextures();
-	void initMaterials();
-	void initModels();
-	void initLights();
+	void InitRenderManager();
+	void InitLights();
 	void initUniforms();
 	void initImGui();
 	//--Updates

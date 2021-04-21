@@ -68,30 +68,16 @@ void Game::initMatrices()
 		this->farPlane);
 }
 
-void Game::initShaders()
+void Game::InitRenderManager()
 {
+	this->R_Manager = std::make_shared<Render_Manager>();
 }
 
-void Game::initShadows()
-{
-}
-
-void Game::initTextures()
-{
-}
-
-void Game::initMaterials()
-{
-}
-
-void Game::initModels()
-{
-}
-
-void Game::initLights()
-{
-}
  
+void Game::InitLights()
+{
+}
+
 void Game::initUniforms()
 {
 }
@@ -99,7 +85,7 @@ void Game::initUniforms()
 void Game::initImGui()
 {
 	this->ImManager = std::make_unique<ImGuiWindowManager>(this->window);
-	this->ImManager->AddWindow(std::make_shared<ImGuiTextureWindow>());
+	this->ImManager->AddWindow(std::make_shared<ImGuiTextureWindow>(this->R_Manager->GetMainTexture()->getID()));
 	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 1"));
 	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 2"));
 	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 3"));
@@ -211,12 +197,8 @@ Game::Game(const char * title,
 	this->initGLEW();
 	this->initOpenGLOptions();
 	this->initMatrices();
-	this->initShaders();
-	this->initShadows();
-	this->initTextures();
-	this->initMaterials();
-	this->initModels();
-	this->initLights();
+	this->InitRenderManager();
+	this->InitLights();
 	this->initUniforms();
 	this->initImGui();
 	const char* glsl_version = "#version 130";
