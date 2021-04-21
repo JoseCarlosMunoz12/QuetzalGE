@@ -81,12 +81,14 @@ void Model::AddMaterials(S_P<Material> NewMaterial)
 void Model::AddBaseNode(S_P<Node> NewNode)
 {
 	this->Nodes_Inf =NewNode;
+	this->Nodes_Inf->SetPos(this->Position);
 }
 
 void Model::Render(std::shared_ptr<Shader> Shader_Run)
 {
 	glm::mat4 Par = glm::mat4(1.f);
-	this->RenderNodes(Shader_Run, Par, this->Nodes_Inf);
+	if (this->Nodes_Inf)
+		this->RenderNodes(Shader_Run, Par, this->Nodes_Inf);
 }
 
 void Model::Update()

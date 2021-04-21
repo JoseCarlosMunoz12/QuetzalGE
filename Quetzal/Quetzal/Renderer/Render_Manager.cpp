@@ -1,6 +1,6 @@
 #include "Render_Manager.h"
 
-Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, const int GlVerMinornit,  bool Win_Start = false)
+Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, const int GlVerMinornit, bool Win_Start)
 	:R_Window(Win_Start),MainWindow(window),GLVerMajor(GlVerMajorInit), GLVerMinor(GlVerMinornit)
 {
 	//Get screen information to use to render
