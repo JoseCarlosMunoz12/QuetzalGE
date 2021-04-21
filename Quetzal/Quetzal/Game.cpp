@@ -72,7 +72,6 @@ void Game::InitRenderManager()
 {
 	this->R_Manager = std::make_shared<Render_Manager>();
 }
-
  
 void Game::InitLights()
 {

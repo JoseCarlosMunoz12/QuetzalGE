@@ -15,10 +15,11 @@ private:
 	Vec_SH<Model> All_Models;
 	//Default Model, Texture, and Shader to show on main window
 	S_P<Shader> Main_Shader;
-	S_P<Texture> Main_Texture;
+	S_P<Frame_Buffer> Main_Texture;
 	S_P<Model> Main_Model;
 	//If Render to ImGui or Render to Window
 	bool R_Window;
+	//Camera information And Windows ID
 public:
 	Render_Manager(bool Win_Start = false);
 	//Updates Positions, animations for all Models in the world
@@ -33,7 +34,7 @@ public:
 	Vec_SH<Material> GetAllMaterials() { return this->All_Materials; }
 	Vec_SH<Model> GetAllModels()       { return this->All_Models; }
 	bool ToWindow()                    { return this->R_Window; }
-	S_P<Texture> GetMainTexture()	   { return this->Main_Texture; }
+	S_P<Frame_Buffer> GetMainTexture()	   { return this->Main_Texture; }
 	//Setters
 	void AddTextures(std::shared_ptr<Texture> NewTexture);
 	void AddShader(std::shared_ptr<Shader> NewShader);

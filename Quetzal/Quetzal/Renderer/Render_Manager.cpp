@@ -17,6 +17,7 @@ void Render_Manager::Update(float dt)
 
 void Render_Manager::Render()
 {
+	this->Main_Texture->WriteToBuffer(12, 12, this->Main_Shader, glm::mat4(1));
 	for (auto& ii : this->All_Models)
 		ii->Render(this->All_Shader[0]);
 }

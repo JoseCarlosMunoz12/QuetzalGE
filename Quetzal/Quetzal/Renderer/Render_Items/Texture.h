@@ -146,25 +146,18 @@ public:
 	}
 	void Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	{
-		//Create the Frame Buffer
-		glGenFramebuffers(1, &this->FrameBuffer);
-		//Create The Depth Buffer
-		glGenTextures(1, &this->ID);
-		glBindTexture(GL_TEXTURE_2D, this->ID);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, WindowWidth, WindowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-		float BorderColor[] = { 1.f,1.f,1.f,1.f };
-		glBindFramebuffer(GL_FRAMEBUFFER, this->FrameBuffer);
-		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, BorderColor);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, this->ID, 0);
 
-		//Disable Writes to the color buffer
-		glDrawBuffer(GL_NONE);
-		glReadBuffer(GL_NONE);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		// -------------------------
+		glGenFramebuffers(1, &this->FrameBuffer);
+		glBindFramebuffer(GL_FRAMEBUFFER, this->FrameBuffer);
+		// create a color attachment texture
+		unsigned int textureColorbuffer;
+		glGenTextures(1, &textureColorbuffer);
+		glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WindowWidth, WindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
 	}
 	void WriteToBuffer(unsigned int WindowWidth, unsigned int WindowHeight,
 		std::shared_ptr<Shader> DepthShader, glm::mat4 LightSpaceMatrix)
