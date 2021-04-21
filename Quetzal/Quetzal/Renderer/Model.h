@@ -13,7 +13,7 @@ private:
 	std::vector<std::shared_ptr<Mesh>> Meshes_Inf;
 	std::vector<std::shared_ptr<Material>> Materials_Inf;
 	//Tree hierarchy of the Model
-	std::vector<std::shared_ptr<Node>> Nodes_Inf;
+	S_P<Node> Nodes_Inf;
 	//Location, orientation and scale of whole model
 	glm::vec3 Position;
 	std::string Name;
@@ -31,12 +31,18 @@ public:
 	~Model() {}
 	//Setters
 	void SetPos(glm::vec3 NewPos);
-	Vec_SH<Mesh> GetMeshes() { return this->Meshes_Inf; }
-	Vec_SH<Texture> GetTextures() { return this->Textures_Inf; }
-	Vec_SH<Material> GetMaterials() { return this->Materials_Inf; }
 	//Getters
-	glm::vec3 GetPos()    { return this->Position; }
-	std::string GetName() { return this->Name; }
+	glm::vec3 GetPos()              { return this->Position; }
+	std::string GetName()           { return this->Name; }
+	Vec_SH<Mesh> GetMeshes()        { return this->Meshes_Inf; }
+	Vec_SH<Texture> GetTextures()   { return this->Textures_Inf; }
+	Vec_SH<Material> GetMaterials() { return this->Materials_Inf; }
+	S_P<Node> GetNodes()            { return this->Nodes_Inf; }
+	//Add Items
+	void AddMeshes(S_P<Mesh> NewMesh);
+	void AddTextures(S_P<Texture> NewTexture);
+	void AddMaterials(S_P<Material> NewMaterial);
+	void AddBaseNode(S_P<Node> NewNode);
 	//Render Model
 	void Render(std::shared_ptr<Shader> Shader_Run);
 	//UpdateMatrices
