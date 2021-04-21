@@ -20,8 +20,11 @@ private:
 	//If Render to ImGui or Render to Window
 	bool R_Window;
 	//Camera information And Windows ID
+	GLFWwindow* MainWindow;
+	int Frame_Buffer_Width;
+	int Frame_Bufer_Height;
 public:
-	Render_Manager(bool Win_Start = false);
+	Render_Manager(GLFWwindow* window,bool Win_Start = false);
 	//Updates Positions, animations for all Models in the world
 	void Update(float dt);
 	//Renders all

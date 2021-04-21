@@ -1,8 +1,10 @@
 #include "Render_Manager.h"
 
-Render_Manager::Render_Manager(bool Win_Start = false)
-	:R_Window(Win_Start)
+Render_Manager::Render_Manager(GLFWwindow* window,bool Win_Start = false)
+	:R_Window(Win_Start),MainWindow(window)
 {
+	//Get screen information to use to render
+	glfwGetFramebufferSize(this->MainWindow,&this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
 	//Create Default Framebuffer Texture and Main Model to draw on Screen
 }
 
@@ -17,7 +19,7 @@ void Render_Manager::Update(float dt)
 
 void Render_Manager::Render()
 {
-	this->Main_Texture->WriteToBuffer(12, 12, this->Main_Shader, glm::mat4(1));
+	this->Main_Texture->WriteToBuffer(this->Frame_Buffer_Width,this->Frame_Bufer_Height,this->Main_Shader, glm::mat4(1));
 	for (auto& ii : this->All_Models)
 		ii->Render(this->All_Shader[0]);
 }
