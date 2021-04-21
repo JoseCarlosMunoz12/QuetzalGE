@@ -10,6 +10,11 @@ Render_Manager::Render_Manager(GLFWwindow* window,bool Win_Start = false)
 
 void Render_Manager::Update(float dt)
 {
+	//updates uniforms of shaders being used
+	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ViewMatrix");
+	this->Main_Shader->setVec3f(glm::vec3(1.f), "CameraPos");
+	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ProjectionMatrix");
+
 	for (auto& ii : this->All_Models)
 	{
 		ii->Update();
