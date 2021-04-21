@@ -160,10 +160,10 @@ public:
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
 	}
 	void WriteToBuffer(unsigned int WindowWidth, unsigned int WindowHeight,
-		std::shared_ptr<Shader> DepthShader, glm::mat4 LightSpaceMatrix)
+		std::shared_ptr<Shader> DepthShader, glm::mat4 CamMatrix)
 	{
 		DepthShader->use();
-		DepthShader->setMat4fv(LightSpaceMatrix, "LightSpaceMatrix");
+		DepthShader->setMat4fv(CamMatrix, "CamMatrix");
 		glViewport(0, 0, WindowWidth, WindowHeight);
 		glBindFramebuffer(GL_FRAMEBUFFER, this->FrameBuffer);
 		glClear(GL_DEPTH_BUFFER_BIT);

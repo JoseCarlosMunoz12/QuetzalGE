@@ -19,6 +19,7 @@ void Render_Manager::Update(float dt)
 
 void Render_Manager::Render()
 {
+	//All of the rendering is saved on this Frame buffer Texture
 	this->Main_Texture->WriteToBuffer(this->Frame_Buffer_Width,this->Frame_Bufer_Height,this->Main_Shader, glm::mat4(1));
 	for (auto& ii : this->All_Models)
 		ii->Render(this->All_Shader[0]);

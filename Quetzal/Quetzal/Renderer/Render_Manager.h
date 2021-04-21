@@ -23,6 +23,7 @@ private:
 	GLFWwindow* MainWindow;
 	int Frame_Buffer_Width;
 	int Frame_Bufer_Height;
+	glm::mat4 MainCamera;
 public:
 	Render_Manager(GLFWwindow* window,bool Win_Start = false);
 	//Updates Positions, animations for all Models in the world
