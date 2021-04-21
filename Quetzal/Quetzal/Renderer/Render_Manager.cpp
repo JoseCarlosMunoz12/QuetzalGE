@@ -11,7 +11,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//loads defaults Shaders
 	this->Main_Shader = std::make_shared<Shader>(0,ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	//creating Default Model to render on screen
-
+	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh> (std::make_unique<Quad_M>(),"Terrain");
+	this->All_Meshes.push_back(InitMesh);
+	this->Main_Model = std::make_shared<Model>("Main_Model");
 }
 
 void Render_Manager::Update(float dt)
