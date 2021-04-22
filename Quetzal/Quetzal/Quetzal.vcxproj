@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Renderer\Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGuiTextureWindow.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGuiTestButton.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Renderer\Render_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Renderer\Camera.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiTextureWindow.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiCallh.h" />

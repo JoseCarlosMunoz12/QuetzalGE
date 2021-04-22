@@ -29,7 +29,7 @@ private:
 	const int GLVerMinor;
 	void UpdateMatrices();
 public:
-	Render_Manager(GLFWwindow* window, const int GlVerMajorInit, const int GlVerMinornit, bool Win_Start = false);
+	Render_Manager(GLFWwindow* window, const int GlVerMajorInit, const int GlVerMinorInit, bool Win_Start = false);
 	//Updates Positions, animations for all Models in the world
 	void Update(float dt);
 	//Renders all
