@@ -27,7 +27,35 @@ Camera::Camera(glm::vec3 Pos, glm::vec3 WorldUp,
 	this->UpdateCameraVectors();
 }
 
+void Camera::Move(const float dt, direction Direc)
+{
+	glm::vec3 ChangePos = glm::vec3(this->front.x, 0.f, this->front.z);
+	switch (Direc)
+	{
+	case direction::FORWARD:
+		this->position += this->front * this->movementSpeed * dt;
+		break;
+	case direction::BACKWARD:
+		this->position -= this->front * this->movementSpeed * dt;
+		break;
+	case direction::LEFT:
+		this->position -= this->right * this->movementSpeed * dt;
+		break;
+	case direction::RIGHT:
+		this->position += this->right * this->movementSpeed * dt;
+		break;
+	case direction::UP:
+		this->position.z += 1.f * this->movementSpeed * dt;
+		break;
+	case direction::DOWN:
+		this->position.z -= 1.f * this->movementSpeed * dt;
+		break;
+	default:
+		break;
+	}
+}
+
 void Camera::Update(float dt, const int Direc)
 {
-	Direc;
+	this->UpdateCameraVectors();
 }

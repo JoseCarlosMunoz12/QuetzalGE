@@ -51,5 +51,6 @@ public:
 	void SetMovement(float NewMv)       { this->movementSpeed = NewMv; }
 	void SetSensitivity(float NewSense) { this->sensitivity = NewSense; }
 	//update matrices
+	void Move(const float dt, const direction Direc);
 	void Update(float dt, const int Direc);
 };
