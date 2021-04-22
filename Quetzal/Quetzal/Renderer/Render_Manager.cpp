@@ -2,7 +2,6 @@
 
 void Render_Manager::UpdateMatrices()
 {
-
 	glfwGetFramebufferSize(this->MainWindow, &this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
 	this->Projection = glm::mat4(1.f);
 	this->Projection = glm::perspective(glm::radians(this->Fov),
@@ -14,6 +13,8 @@ void Render_Manager::UpdateMatrices()
 Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, const int GlVerMinorInit, bool Win_Start)
 	:R_Window(Win_Start),MainWindow(window),GLVerMajor(GlVerMajorInit), GLVerMinor(GlVerMinorInit)
 {
+	//Init camera Position
+	this->Main_Cam = std::make_shared<Camera>(glm::vec3(0), glm::vec3(0.f, 1.f, 0.f));
 	//Get screen information to use to render
 	glfwGetFramebufferSize(this->MainWindow,&this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
 	//Create Default Framebuffer Texture 
@@ -38,9 +39,10 @@ void Render_Manager::Update(float dt)
 {
 	//Update Matrices
 	this->UpdateMatrices();
+	this->Main_Cam->Update(dt, 1);
 	//updates uniforms of shaders being used
-	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ViewMatrix");
-	this->Main_Shader->setVec3f(glm::vec3(1.f), "CameraPos");
+	this->Main_Shader->setMat4fv(this->Main_Cam->GetViewMatrix(), "ViewMatrix");
+	this->Main_Shader->setVec3f(this->Main_Cam->GetPos(), "CameraPos");
 	this->Main_Shader->setMat4fv(this->Projection, "ProjectionMatrix");
 	for (auto& ii : this->All_Models)
 	{

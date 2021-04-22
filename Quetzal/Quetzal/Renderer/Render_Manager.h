@@ -1,5 +1,6 @@
 #pragma once
 #include "Model.h"
+#include "Camera.h"
 class Render_Manager
 {
 private:
@@ -20,7 +21,7 @@ private:
 	int Frame_Buffer_Width;
 	int Frame_Bufer_Height;
 	glm::mat4 Projection;
-	glm::mat4 MainCamera;
+	S_P<Camera> Main_Cam;
 	float NearPlane;
 	float FarPlane;
 	float Fov;

@@ -53,4 +53,5 @@ public:
 	//update matrices
 	void Move(const float dt, const direction Direc);
 	void Update(float dt, const int Direc);
+	void UpdateMouseInput(const float dt, const float OffsetX, const float OffSetY);
 };
