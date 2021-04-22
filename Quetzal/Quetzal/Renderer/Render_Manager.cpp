@@ -1,5 +1,16 @@
 #include "Render_Manager.h"
 
+void Render_Manager::UpdateMatrices()
+{
+
+	glfwGetFramebufferSize(this->MainWindow, &this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
+	this->Projection = glm::mat4(1.f);
+	this->Projection = glm::perspective(glm::radians(this->Fov),
+		static_cast<float>(this->Frame_Buffer_Width) / static_cast<float>(this->Frame_Bufer_Height),
+		this->NearPlane,
+		this->FarPlane);
+}
+
 Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, const int GlVerMinornit, bool Win_Start)
 	:R_Window(Win_Start),MainWindow(window),GLVerMajor(GlVerMajorInit), GLVerMinor(GlVerMinornit)
 {
@@ -25,10 +36,12 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 
 void Render_Manager::Update(float dt)
 {
+	//Update Matrices
+	
 	//updates uniforms of shaders being used
 	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ViewMatrix");
 	this->Main_Shader->setVec3f(glm::vec3(1.f), "CameraPos");
-	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ProjectionMatrix");
+	this->Main_Shader->setMat4fv(this->Projection, "ProjectionMatrix");
 	for (auto& ii : this->All_Models)
 	{
 		ii->Update();
