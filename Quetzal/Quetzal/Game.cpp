@@ -56,18 +56,6 @@ void Game::initOpenGLOptions()
 	glfwSetInputMode(this->window,GLFW_CURSOR,GLFW_CURSOR_NORMAL);
 }
 
-void Game::initMatrices()
-{
-	this->ViewMatrix = glm::mat4(1.f);
-	this->ViewMatrix = glm::lookAt(this->camPosition, this->camPosition + this->camFront, this->worldUp);
-	this->ProjectionMatrix = glm::mat4(1.f);
-
-	this->ProjectionMatrix = glm::perspective(glm::radians(this->fov),
-		static_cast<float>(this->frameBufferWidth) / static_cast<float>(this->frameBufferHeight),
-		this->nearPlane,
-		this->farPlane);
-}
-
 void Game::InitRenderManager()
 {
 	this->R_Manager = std::make_shared<Render_Manager>(this->window,this->GLVerMajor,this->GLVerMinor,true);
@@ -132,13 +120,6 @@ void Game::ImGuiOptions()
 
 void Game::updateUniforms()
 {
-	//Update FrameBuffer size and projection matrix
-	glfwGetFramebufferSize(this->window, &this->frameBufferWidth, &this->frameBufferHeight);
-	this->ProjectionMatrix = glm::mat4(1.f);
-	this->ProjectionMatrix = glm::perspective(glm::radians(this->fov),
-		static_cast<float>(this->frameBufferWidth) / static_cast<float>(this-> frameBufferHeight),
-		this->nearPlane,
-		this->farPlane);
 }
 
 void Game::updateOpenGLOptions()
@@ -179,13 +160,6 @@ Game::Game(const char * title,
 	this->window = NULL;
 	this->frameBufferHeight = this->Window_Height;
 	this->frameBufferWidth = this->Window_Width;
-	this-> camPosition = glm::vec3(0.f, 1.f, 0.f);
-	this-> worldUp = glm::vec3(0.f, 0.f, 1.f);
-	this-> camFront = glm::vec3(0.f, 0.f,-1.f);
-
-	this-> fov = 90.f;
-	this-> nearPlane = .1f;
-	this-> farPlane = 1000.f;
 	
 	this->dt = 0.f;
 	this->cuTime = 0.f;
@@ -195,7 +169,6 @@ Game::Game(const char * title,
 	this->initWindow(title,resizable);
 	this->initGLEW();
 	this->initOpenGLOptions();
-	this->initMatrices();
 	this->InitRenderManager();
 	this->InitLights();
 	this->initUniforms();

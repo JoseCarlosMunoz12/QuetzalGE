@@ -18,7 +18,6 @@ enum class direction {
 	UP,
 	DOWN
 };
-
 struct MousePositions
 {
 	double X;

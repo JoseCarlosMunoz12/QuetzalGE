@@ -66,15 +66,6 @@ private:
 	//OpenGl context
 	const int GLVerMajor;
 	const int GLVerMinor;
-	//Matrices
-	glm::mat4 ViewMatrix;
-	glm::vec3 camPosition;
-	glm::vec3 worldUp;
-	glm::vec3 camFront;
-	glm::mat4 ProjectionMatrix;
-	float fov;
-	float nearPlane;
-	float farPlane;
 	glm::vec3 SkyColor;
 	bool MakeMesh = false;
 	//Variable that changes item to click
@@ -98,7 +89,6 @@ private:
 	void initWindow(const char* title,bool resizable);
 	void initGLEW();
 	void initOpenGLOptions();
-	void initMatrices();
 	void InitRenderManager();
 	void InitLights();
 	void initUniforms();

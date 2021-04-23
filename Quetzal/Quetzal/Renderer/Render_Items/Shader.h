@@ -23,7 +23,6 @@ class Shader
 private:
 	//Member variables
 	GLuint id;
-	int ShaderId;
 	int versionMajor;
 	int versionMinor;
 	const char* TextName;
@@ -104,9 +103,9 @@ private:
 	}
 public:
 	//Constructors and Destructors
-	Shader(int ShaderChosenId, ShaderType ShdType,const int versionMajor,const int versionMinor,const char* vertexFile ,
+	Shader(ShaderType ShdType,const int versionMajor,const int versionMinor,const char* vertexFile ,
 		const char* fragmentFile, const char* geometryFile = "")
-		:versionMajor(versionMajor),versionMinor(versionMinor),ShaderId(ShaderChosenId)
+		:versionMajor(versionMajor),versionMinor(versionMinor)
 	{
 		switch (ShdType)
 		{
@@ -203,9 +202,5 @@ public:
 	const char* GetName()
 	{
 		return this->TextName;
-	}
-	int GetShaderId()
-	{
-		return this->ShaderId;
 	}
 };
