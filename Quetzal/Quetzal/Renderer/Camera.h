@@ -43,7 +43,7 @@ public:
 	~Camera() {}
 	//Getters
 	glm::vec3 GetPos() { return this->position; }
-	glm::mat4 GetViewMatrix() { return this->ViewMatrix; }
+	glm::mat4 GetViewMatrix();
 	float GetMovementSpeed()           { return this->movementSpeed; }
 	float GetSensitivity()             { return this->sensitivity; }
 	//Setters

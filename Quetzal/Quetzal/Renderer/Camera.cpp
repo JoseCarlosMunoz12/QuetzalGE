@@ -4,7 +4,7 @@
 void Camera::UpdateCameraVectors()
 {
 
-	this->front.x = -cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+	this->front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
 	this->front.z = sin(glm::radians(this->pitch));
 	this->front.y = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
 
@@ -21,10 +21,17 @@ Camera::Camera(glm::vec3 Pos, glm::vec3 WorldUp,
 	this->ViewMatrix = glm::mat4(1.f);
 	this->right = glm::vec3(0.f);
 	this->up = worldUp;
-	this->pitch = 0.f;
+	this->pitch = 45.f;
 	this->yaw = 0.f;
 	this->roll = 0.f;
 	this->UpdateCameraVectors();
+}
+
+glm::mat4 Camera::GetViewMatrix()
+{
+	this->UpdateCameraVectors();
+	this->ViewMatrix = glm::lookAt(this->position, this->position + this->front, this->up);
+	return this->ViewMatrix;
 }
 
 void Camera::Move(const float dt, direction Direc)

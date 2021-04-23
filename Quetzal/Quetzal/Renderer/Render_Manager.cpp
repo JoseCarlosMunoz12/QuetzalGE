@@ -13,8 +13,11 @@ void Render_Manager::UpdateMatrices()
 Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, const int GlVerMinorInit, bool Win_Start)
 	:R_Window(Win_Start),MainWindow(window),GLVerMajor(GlVerMajorInit), GLVerMinor(GlVerMinorInit)
 {
+	this->Fov = 90.f;
+	this->NearPlane = 0.1f;
+	this->FarPlane = 100.f;
 	//Init camera Position
-	this->Main_Cam = std::make_shared<Camera>(glm::vec3(0), glm::vec3(0.f, 1.f, 0.f));
+	this->Main_Cam = std::make_shared<Camera>(glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	//Get screen information to use to render
 	glfwGetFramebufferSize(this->MainWindow,&this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
 	//Create Default Framebuffer Texture 
@@ -24,7 +27,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//loads defaults Shaders
 	this->Main_Shader = std::make_shared<Shader>(0,ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	//creating Default Model to render on screen
-	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh> (std::make_unique<Quad_M>(),"Terrain");
+	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh> (std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	this->Main_Model = std::make_shared<Model>("Main_Model");
 	S_P<Node> NewNode = std::make_shared<Node>();
@@ -33,6 +36,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->Main_Model->AddMeshes(All_Meshes[0]);
 	this->Main_Model->AddTextures(All_Texture[0]);
 	this->Main_Model->AddBaseNode(NewNode);
+	this->Main_Model->SetPos(glm::vec3(0));
 }
 
 void Render_Manager::Update(float dt)

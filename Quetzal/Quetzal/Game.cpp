@@ -70,7 +70,7 @@ void Game::initMatrices()
 
 void Game::InitRenderManager()
 {
-	this->R_Manager = std::make_shared<Render_Manager>(this->window,this->GLVerMajor,this->GLVerMinor);
+	this->R_Manager = std::make_shared<Render_Manager>(this->window,this->GLVerMajor,this->GLVerMinor,true);
 }
  
 void Game::InitLights()
