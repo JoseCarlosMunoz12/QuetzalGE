@@ -55,7 +55,6 @@ void Render_Manager::Update(float dt)
 	this->Main_Cam->UpdateMouseInput(dt, this->MainWindow);
 	//updates uniforms of shaders being used
 	this->Main_Shader->setMat4fv(this->Main_Cam->GetViewMatrix(), "ViewMatrix");
-	this->Main_Shader->setVec3f(this->Main_Cam->GetPos(), "CameraPos");
 	this->Main_Shader->setMat4fv(this->Projection, "ProjectionMatrix");
 	for (auto& ii : this->All_Models)
 	{

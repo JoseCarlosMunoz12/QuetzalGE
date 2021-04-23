@@ -1,6 +1,5 @@
 #include "Camera.h"
 
-
 void Camera::UpdateCameraVectors()
 {
 	this->front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));

@@ -41,37 +41,35 @@ struct MouseItems
 class Camera
 {
 private:
-
 	GLfloat movementSpeed;
 	GLfloat sensitivity;
-
+	//world Matrix
 	glm::vec3 worldUp;
 	glm::vec3 position;
 	glm::vec3 front;
 	glm::vec3 right;
 	glm::vec3 up;
-
+	glm::mat4 ViewMatrix;
+	//Angles
 	GLfloat pitch;
 	GLfloat yaw;
 	GLfloat roll;
-
-	glm::mat4 ViewMatrix;
 	//mouse items
 	bool FirstMouse;
 	MousePositions CurrentMouse;
 	MousePositions LastMouse;
 	MouseItems MouseOffset;
-	//
+	//functions
 	void UpdateCameraVectors();
 public:
 	Camera(glm::vec3 Pos, glm::vec3 WorldUp,
 		float InitMovement = 3.f, float InitSensitivity = 5.f);
 	~Camera() {}
 	//Getters
-	glm::vec3 GetPos() { return this->position; }
+	glm::vec3 GetPos()       { return this->position; }
 	glm::mat4 GetViewMatrix();
-	float GetMovementSpeed()           { return this->movementSpeed; }
-	float GetSensitivity()             { return this->sensitivity; }
+	float GetMovementSpeed() { return this->movementSpeed; }
+	float GetSensitivity()   { return this->sensitivity; }
 	//Setters
 	void SetPosition(glm::vec3 NewPos)  { this->position = NewPos; }
 	void SetMovement(float NewMv)       { this->movementSpeed = NewMv; }
