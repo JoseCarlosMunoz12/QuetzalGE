@@ -3,7 +3,7 @@
 void Camera::UpdateCameraVectors()
 {
 	this->front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-	this->front.y = sin(glm::radians(this->pitch));
+	this->front.y = -sin(glm::radians(this->pitch));
 	this->front.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
 
 	this->front = glm::normalize(this->front);

@@ -40,7 +40,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->Main_Model->AddBaseNode(NewNode);
 	this->Main_Model->SetPos(glm::vec3(0));
 	//making default item to render
-	S_P<Model> NewModel = std::make_shared<Model>("RES", glm::vec3(1.f, 0.f, 0.f));
+	S_P<Model> NewModel = std::make_shared<Model>("RES", glm::vec3(0.f, 0.f, 0.f));
 	NewModel->AddMeshes(All_Meshes[0]);
 	NewModel->AddTextures(this->All_Texture[0]);
 	NewModel->AddBaseNode(NewNode);
@@ -73,6 +73,8 @@ void Render_Manager::Render()
 
 void Render_Manager::RenderToWindow()
 {
+	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ViewMatrix");
+	this->Main_Shader->setMat4fv(glm::mat4(1.f), "ProjectionMatrix");
 	if (this->Main_Model)
 		this->Main_Model->Render(this->Main_Shader);
 }
