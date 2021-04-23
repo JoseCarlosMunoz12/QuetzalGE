@@ -67,11 +67,22 @@ void Camera::Update(float dt, const int Direc)
 	this->UpdateCameraVectors();
 }
 
-void Camera::UpdateMouseInput(const float dt, const float OffsetX, const float OffSetY)
+void Camera::UpdateMouseInput(const float dt, GLFWwindow* window)
 {
+	//Calc offest
+	glfwGetCursorPos(window, &this->CurrentMouse.X, &this->CurrentMouse.Y);
+	if (this->FirstMouse)
+	{
+		this->LastMouse = this->CurrentMouse;
+		this->FirstMouse = false;
+	}
+	//Calc offset
+	this->MouseOffset.X = this->CurrentMouse.X - this->LastMouse.X;
+	this->MouseOffset.Y = this->LastMouse.Y - this->CurrentMouse.Y;
+	this->LastMouse = this->CurrentMouse;
 	//Update pitch, yaw and roll
-	this->pitch += static_cast<GLfloat>(OffSetY) * this->sensitivity * dt;
-	this->yaw += static_cast<GLfloat>(OffsetX) * this->sensitivity * dt;
+	this->pitch += static_cast<GLfloat>(this->MouseOffset.Y) * this->sensitivity * dt;
+	this->yaw += static_cast<GLfloat>(this->MouseOffset.X) * this->sensitivity * dt;
 	if (this->pitch > 80.f)
 		this->pitch = 80.f;
 	else if (this->pitch < -90.f)

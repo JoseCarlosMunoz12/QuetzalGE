@@ -26,17 +26,25 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/container.png", GL_TEXTURE_2D, GL_RGBA));
 	//loads defaults Shaders
 	this->Main_Shader = std::make_shared<Shader>(0,ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
+	this->All_Shader.push_back(this->Main_Shader);
 	//creating Default Model to render on screen
-	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh> (std::make_unique<PlaneTerrain_M>(),"Terrain");
+	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
+	std::shared_ptr<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
 	this->Main_Model = std::make_shared<Model>("Main_Model");
 	S_P<Node> NewNode = std::make_shared<Node>();
 	NewNode->AddTextureId(0);
 	NewNode->SetMeshId(0);
-	this->Main_Model->AddMeshes(All_Meshes[0]);
-	this->Main_Model->AddTextures(All_Texture[0]);
+	this->Main_Model->AddMeshes(MainMesh);
+	this->Main_Model->AddTextures(this->Main_Texture);
 	this->Main_Model->AddBaseNode(NewNode);
 	this->Main_Model->SetPos(glm::vec3(0));
+	//making default item to render
+	S_P<Model> NewModel = std::make_shared<Model>("RES", glm::vec3(1.f, 0.f, 0.f));
+	NewModel->AddMeshes(All_Meshes[0]);
+	NewModel->AddTextures(this->All_Texture[0]);
+	NewModel->AddBaseNode(NewNode);
+	this->All_Models.push_back(NewModel);
 }
 
 void Render_Manager::Update(float dt)
@@ -44,6 +52,7 @@ void Render_Manager::Update(float dt)
 	//Update Matrices
 	this->UpdateMatrices();
 	this->Main_Cam->Update(dt, 1);
+	this->Main_Cam->UpdateMouseInput(dt, this->MainWindow);
 	//updates uniforms of shaders being used
 	this->Main_Shader->setMat4fv(this->Main_Cam->GetViewMatrix(), "ViewMatrix");
 	this->Main_Shader->setVec3f(this->Main_Cam->GetPos(), "CameraPos");

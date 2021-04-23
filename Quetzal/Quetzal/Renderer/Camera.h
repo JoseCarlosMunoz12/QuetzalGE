@@ -18,6 +18,26 @@ enum class direction {
 	UP,
 	DOWN
 };
+
+struct MousePositions
+{
+	double X;
+	double Y;
+	MousePositions operator = (MousePositions const& obj)
+	{
+		MousePositions res;
+		X = obj.X;
+		Y = obj.Y;
+		res.X = obj.X;
+		res.Y = obj.Y;
+		return res;
+	}
+};
+struct MouseItems
+{
+	double X;
+	double Y;
+};
 class Camera
 {
 private:
@@ -36,6 +56,12 @@ private:
 	GLfloat roll;
 
 	glm::mat4 ViewMatrix;
+	//mouse items
+	bool FirstMouse;
+	MousePositions CurrentMouse;
+	MousePositions LastMouse;
+	MouseItems MouseOffset;
+	//
 	void UpdateCameraVectors();
 public:
 	Camera(glm::vec3 Pos, glm::vec3 WorldUp,
@@ -53,5 +79,5 @@ public:
 	//update matrices
 	void Move(const float dt, const direction Direc);
 	void Update(float dt, const int Direc);
-	void UpdateMouseInput(const float dt, const float OffsetX, const float OffSetY);
+	void UpdateMouseInput(const float dt, GLFWwindow* window);
 };
