@@ -3,10 +3,9 @@
 
 void Camera::UpdateCameraVectors()
 {
-
 	this->front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-	this->front.z = sin(glm::radians(this->pitch));
-	this->front.y = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+	this->front.y = sin(glm::radians(this->pitch));
+	this->front.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
 
 	this->front = glm::normalize(this->front);
 	this->right = glm::normalize(glm::cross(this->front, this->worldUp));
@@ -20,7 +19,6 @@ Camera::Camera(glm::vec3 Pos, glm::vec3 WorldUp,
 {
 	this->ViewMatrix = glm::mat4(1.f);
 	this->right = glm::vec3(0.f);
-	this->up = worldUp;
 	this->pitch = 45.f;
 	this->yaw = 0.f;
 	this->roll = 0.f;
@@ -69,6 +67,14 @@ void Camera::Update(float dt, const int Direc)
 
 void Camera::UpdateMouseInput(const float dt, GLFWwindow* window)
 {
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		this->position += this->front * this->movementSpeed * dt;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		this->position -= this->front * this->movementSpeed * dt;
+	}
 	//Calc offest
 	glfwGetCursorPos(window, &this->CurrentMouse.X, &this->CurrentMouse.Y);
 	if (this->FirstMouse)

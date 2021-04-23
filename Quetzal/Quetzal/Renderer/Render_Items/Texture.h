@@ -143,6 +143,7 @@ public:
 	{
 		this->ID = 0;
 		this->FrameBuffer = 0;
+		this->rbo = 0;
 	}
 	void Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	{
