@@ -74,6 +74,14 @@ void Camera::UpdateMouseInput(const float dt, GLFWwindow* window)
 	{
 		this->position -= this->front * this->movementSpeed * dt;
 	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		this->position -= this->right * this->movementSpeed * dt;
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		this->position += this->right * this->movementSpeed * dt;
+	}
 	//Calc offest
 	glfwGetCursorPos(window, &this->CurrentMouse.X, &this->CurrentMouse.Y);
 	if (this->FirstMouse)
