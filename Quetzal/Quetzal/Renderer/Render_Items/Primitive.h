@@ -98,8 +98,8 @@ public:
 
 		GLuint indices[] =
 		{
-			1,0,2,  //Triangle 1
-			1,2,3,  //Trianlge 2
+			0,2,1,  //Triangle 1
+			2,3,1  //Trianlge 2
 		};
 		unsigned nrOfIndices = sizeof(indices) / sizeof(GLuint);
 

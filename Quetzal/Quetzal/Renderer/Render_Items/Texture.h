@@ -172,7 +172,7 @@ public:
 		std::shared_ptr<Shader> DepthShader, glm::mat4 CamMatrix)
 	{
 		DepthShader->use();
-		DepthShader->setMat4fv(CamMatrix, "CamMatrix");
+		DepthShader->setMat4fv(CamMatrix, "ViewMatrix");
 		glViewport(0, 0, WindowWidth, WindowHeight);
 		glBindFramebuffer(GL_FRAMEBUFFER, this->FrameBuffer);
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
