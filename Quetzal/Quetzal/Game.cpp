@@ -58,7 +58,7 @@ void Game::initOpenGLOptions()
 
 void Game::InitRenderManager()
 {
-	this->R_Manager = std::make_shared<Render_Manager>(this->window,this->GLVerMajor,this->GLVerMinor,true);
+	this->R_Manager = std::make_shared<Render_Manager>(this->window,this->GLVerMajor,this->GLVerMinor);
 }
  
 void Game::InitLights()

@@ -27,8 +27,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//loads defaults Shaders
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	this->All_Shader.push_back(this->Main_Shader);
+	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor, "Screen_Shader_Vs.glsl", "Screen_Shader_Fs.glsl");
 	//creating Default Model to render on screen
-	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<Pyramid_M>(),"Terrain");
+	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	std::shared_ptr<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
 	this->Main_Model = std::make_shared<Model>("Main_Model");
@@ -54,7 +55,8 @@ void Render_Manager::Update(float dt)
 	this->Main_Cam->Update(dt, 1);
 	this->Main_Cam->UpdateMouseInput(dt, this->MainWindow);
 	//updates uniforms of shaders being used
-	this->Main_Shader->setMat4fv(this->Projection, "ProjectionMatrix");
+	this->All_Shader[0]->setMat4fv(this->Main_Cam->GetViewMatrix(), "ViewMatrix");
+	this->All_Shader[0]->setMat4fv(this->Projection, "ProjectionMatrix");
 	for (auto& ii : this->All_Models)
 	{
 		ii->Update();
@@ -65,7 +67,7 @@ void Render_Manager::Update(float dt)
 void Render_Manager::Render()
 {
 	//All of the rendering is saved on this Frame buffer Texture
-	this->Main_Texture->WriteToBuffer(this->Frame_Buffer_Width,this->Frame_Bufer_Height,this->Main_Shader,this->Main_Cam->GetViewMatrix());
+	this->Main_Texture->WriteToBuffer(this->Frame_Buffer_Width,this->Frame_Bufer_Height, this->Main_Shader,this->Main_Cam->GetViewMatrix());
 	for (auto& ii : this->All_Models)
 		ii->Render(this->All_Shader[0]);
 }
