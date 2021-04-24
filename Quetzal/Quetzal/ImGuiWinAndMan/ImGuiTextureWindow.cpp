@@ -11,7 +11,7 @@ void ImGuiTextureWindow::Update()
         else
         {
             ImVec2 Te = ImGui::GetWindowSize();
-            ImGui::Image((void*)this->Textures[CurId], Te);
+            ImGui::Image((void*)this->Textures[CurId], Te, ImVec2(0, 1), ImVec2(1, 0));
             end();
         }
     }
