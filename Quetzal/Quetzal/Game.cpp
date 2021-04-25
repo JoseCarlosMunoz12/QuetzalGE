@@ -71,7 +71,7 @@ void Game::initUniforms()
 
 void Game::initImGui()
 {
-	this->ImManager = std::make_unique<ImGuiWindowManager>(this->window);
+	this->ImManager = std::make_unique<ImGuiWindowManager>(this->window,this->R_Manager);
 	this->ImManager->AddWindow(std::make_shared<ImGuiTextureWindow>(this->R_Manager->GetMainTexture()->getID()));
 	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 1"));
 	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 2"));
@@ -88,12 +88,13 @@ void Game::updateDT()
 
 void Game::updateKeyboardInput()
 {
-	//End Game
 	if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
-		glfwSetWindowShouldClose(this->window, GLFW_TRUE);
+		if (this->R_Manager->ToWindow())
+			this->R_Manager->ChangeRenderTarget(false);
+		else
+			glfwSetWindowShouldClose(this->window, GLFW_TRUE);
 	}
-
 }
 
 void Game::updateMouseInput()

@@ -1,9 +1,8 @@
 #include "ImGuiWinManager.h"
 
-ImGuiWindowManager::ImGuiWindowManager(GLFWwindow* window)
+ImGuiWindowManager::ImGuiWindowManager(GLFWwindow* window, S_P<Render_Manager> InitManager)
 {
-
-
+    this->Ren_Manager = InitManager;
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
@@ -55,6 +54,7 @@ void ImGuiWindowManager::Render()
 
 void ImGuiWindowManager::AddWindow(std::shared_ptr<ImGuiWinPar> newWin)
 {
+    newWin->AddManager(this->Ren_Manager);
     windows.push_back(newWin);
 }
 
