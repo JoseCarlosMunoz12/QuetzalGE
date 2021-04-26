@@ -40,7 +40,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->Main_Model->AddTextures(this->Main_Texture);
 	this->Main_Model->AddBaseNode(NewNode);
 	this->Main_Model->SetPos(glm::vec3(0));
-	//making default item to render
+	//making default item to render on the framebuffer
 	S_P<Model> NewModel = std::make_shared<Model>("RES", glm::vec3(0.f, 0.f, 0.f));
 	NewModel->AddMeshes(All_Meshes[0]);
 	NewModel->AddTextures(this->All_Texture[0]);
