@@ -92,8 +92,6 @@ void Game::updateKeyboardInput()
 	{
 		if (this->R_Manager->ToWindow())
 			this->R_Manager->ChangeRenderTarget(false);
-		else
-			glfwSetWindowShouldClose(this->window, GLFW_TRUE);
 	}
 }
 
@@ -131,16 +129,7 @@ void Game::updateOpenGLOptions()
 		glDisable(GL_CULL_FACE);
 		
 	}
-	if (glfwGetKey(this->window, GLFW_KEY_Q) == GLFW_PRESS)
-	{
-		glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		this->MakeMesh = false;
-	}
-	if (glfwGetKey(this->window, GLFW_KEY_E) == GLFW_PRESS)
-	{
-		glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		this->MakeMesh = true;
-	}
+	
 	if (glfwGetKey(this->window, GLFW_KEY_F) == GLFW_PRESS)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
