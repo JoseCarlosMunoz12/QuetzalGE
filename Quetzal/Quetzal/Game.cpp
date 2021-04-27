@@ -73,7 +73,7 @@ void Game::initImGui()
 {
 	this->ImManager = std::make_unique<ImGuiWindowManager>(this->window,this->R_Manager);
 	this->ImManager->AddWindow(std::make_shared<ImGuiTextureWindow>(this->R_Manager->GetMainTexture()->getID()));
-	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 1"));
+	this->ImManager->AddWindow(std::make_shared<IG_All_Items>());
 	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 2"));
 	this->ImManager->AddWindow(std::make_shared<ImGuiTestButton>("Name 3"));
 }

@@ -7,4 +7,5 @@
 #include "ImGuiPar.h"
 #include "ImGuiTestButton.h"
 #include "ImGuiTextureWindow.h"
+#include "IG_All_Items.h"
 #include "ImGui/ImGuizmo.h"
