@@ -21,6 +21,12 @@ void IG_All_Items::Update()
         else
         {
             ImGui::Text("All Items avaliable in the world");
+            Vec_SH<Material> Rs = this->Base_Render->GetAllMaterials();
+            Vec_SH<Model> Mdls = this->Base_Render->GetAllModels();
+            for (auto& ii : Rs)
+                ImGui::Text(ii->GetName());
+            for (auto& ii : Mdls)
+                ImGui::Text(ii->GetName().c_str());
             end();
         }
     }
