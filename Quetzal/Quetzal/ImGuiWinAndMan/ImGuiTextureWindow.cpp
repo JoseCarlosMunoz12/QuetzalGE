@@ -13,6 +13,9 @@ void ImGuiTextureWindow::Update()
             if(ImGui::Button("Run Game"))
                 this->Base_Render->ChangeRenderTarget(true);
             ImVec2 Te = ImGui::GetWindowSize();
+            Te.y -= 60;
+            if (Te.y <= 0)
+                Te.y = 1;
             ImGui::Image((void*)this->Textures[CurId], Te, ImVec2(0, 1), ImVec2(1, 0));
             end();
         }
