@@ -19,13 +19,14 @@ void IG_All_Items::Update()
             end();
         }
         else
-        {
+        {           
             ImGui::Text("All Items avaliable in the world");
             Vec_SH<Model> Mdls = this->Base_Render->GetAllModels();
             for (auto& ii : Mdls)
             {
                 if (ImGui::TreeNode(ii->GetName().c_str()))
                 {
+                    ii->GetNodes()->GetMatrix();                        
                     ImGui::Text("General information");
                     glm::vec3 pos = ii->GetPos();
                     float ps[3] = { pos.x, pos.y, pos.z };
