@@ -21,12 +21,27 @@ void IG_All_Items::Update()
         else
         {
             ImGui::Text("All Items avaliable in the world");
-            Vec_SH<Material> Rs = this->Base_Render->GetAllMaterials();
             Vec_SH<Model> Mdls = this->Base_Render->GetAllModels();
-            for (auto& ii : Rs)
-                ImGui::Text(ii->GetName());
             for (auto& ii : Mdls)
-                ImGui::Text(ii->GetName().c_str());
+            {
+                if (ImGui::TreeNode(ii->GetName().c_str()))
+                {
+                    ImGui::Text("General information");
+                    glm::vec3 pos = ii->GetPos();
+                    float ps[3] = { pos.x, pos.y, pos.z };
+                    if (ImGui::DragFloat3("position", ps))
+                    {
+                        pos.x = ps[0];
+                        pos.y = ps[1];
+                        pos.z = ps[2];
+                        ii->SetPos(pos);
+                    }
+                    /// <summary>
+                    /// child nodes
+                    /// </summary>
+                    ImGui::TreePop();
+                }
+            }
             end();
         }
     }
