@@ -44,6 +44,9 @@ public:
 	Vec_SH<Model> GetAllModels()       { return this->All_Models; }
 	bool ToWindow()                    { return this->R_Window; }
 	S_P<Frame_Buffer> GetMainTexture()	   { return this->Main_Texture; }
+	//Get Some Matrices
+	glm::mat4 GetProjMatrix() { return Projection; }
+	glm::mat4 GetCamMatrix()  { return this->Main_Cam->GetViewMatrix(); }
 	//Setters
 	void AddTextures(std::shared_ptr<Texture> NewTexture);
 	void AddShader(std::shared_ptr<Shader> NewShader);
