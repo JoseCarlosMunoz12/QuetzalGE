@@ -61,11 +61,11 @@ public:
 	{
 		Vertex vertices[] =
 		{
-			//Position                    //Color                     //TexCoords			 //Normals
-			glm::vec3(-1.f, 1.f, 0.f), glm::vec3(1.0f,0.0f,0.0f),  glm::vec2(0.0f,1.0f),  glm::vec3(0.0f,0.0f, 1.0f),
-			glm::vec3( 1.f, 1.f, 0.f), glm::vec3(0.0f,1.0f,0.0f),  glm::vec2(1.0f,1.0f),  glm::vec3(0.0f,0.0f, 1.0f),
-			glm::vec3(-1.f,-1.f, 0.f), glm::vec3(0.0f,0.0f,1.0f),  glm::vec2(0.0f,0.0f),  glm::vec3(0.0f,0.0f, 1.0f),
-			glm::vec3( 1.f,-1.f, 0.f), glm::vec3(0.0f,1.0f,0.0f),  glm::vec2(1.0f,0.0f),  glm::vec3(0.0f,0.0f, 1.0f)
+			//Position                    //TexCoords			 //Normals
+			glm::vec3(-1.f, 1.f, 0.f), glm::vec2(0.0f,1.0f),  glm::vec3(0.0f,0.0f, 1.0f),
+			glm::vec3( 1.f, 1.f, 0.f), glm::vec2(1.0f,1.0f),  glm::vec3(0.0f,0.0f, 1.0f),
+			glm::vec3(-1.f,-1.f, 0.f), glm::vec2(0.0f,0.0f),  glm::vec3(0.0f,0.0f, 1.0f),
+			glm::vec3( 1.f,-1.f, 0.f), glm::vec2(1.0f,0.0f),  glm::vec3(0.0f,0.0f, 1.0f)
 		};
 		unsigned nrOfVertices = sizeof(vertices) / sizeof(Vertex);
 
@@ -88,11 +88,11 @@ public:
 	{
 		Vertex vertices[] = 
 		{
-			//Position                    //Color                     //TexCoords			 //Normals
-			glm::vec3(-50.f, 0.f, 50.f), glm::vec3(1.0f,0.0f,0.0f),  glm::vec2(0.0f,1.0f),  glm::vec3( 0.0f, 1.0f, 0.0f),
-			glm::vec3(-50.f, 0.f,-50.f), glm::vec3(0.0f,1.0f,0.0f),  glm::vec2(0.0f,0.0f),  glm::vec3( 0.0f, 1.0f, 0.0f),
-			glm::vec3( 50.f, 0.f, 50.f), glm::vec3(0.0f,0.0f,1.0f),  glm::vec2(1.0f,1.0f),  glm::vec3( 0.0f, 1.0f, 0.0f),
-			glm::vec3( 50.f, 0.f,-50.f), glm::vec3(0.0f,1.0f,0.0f),  glm::vec2(1.0f,0.0f),  glm::vec3( 0.0f, 1.0f, 0.0f)
+			//Position                     //TexCoords			 //Normals
+			glm::vec3(-50.f, 0.f, 50.f),  glm::vec2(0.0f,1.0f),  glm::vec3( 0.0f, 1.0f, 0.0f),
+			glm::vec3(-50.f, 0.f,-50.f),  glm::vec2(0.0f,0.0f),  glm::vec3( 0.0f, 1.0f, 0.0f),
+			glm::vec3( 50.f, 0.f, 50.f),  glm::vec2(1.0f,1.0f),  glm::vec3( 0.0f, 1.0f, 0.0f),
+			glm::vec3( 50.f, 0.f,-50.f),  glm::vec2(1.0f,0.0f),  glm::vec3( 0.0f, 1.0f, 0.0f)
 		};
 		unsigned nrOfVertices = sizeof(vertices) / sizeof(Vertex);
 
@@ -115,10 +115,10 @@ public:
 	{
 		Vertex vertices[] =
 		{
-			//Position                    //Color                     //TexCoords			 //Normals
-			glm::vec3(-0.5f, 0.5f, 0.f), glm::vec3(1.0f,0.0f,0.0f),  glm::vec2(0.0f,1.0f),  glm::vec3(0.0f,0.0f, 1.0f),
-			glm::vec3(-0.5f,-0.5f, 0.f), glm::vec3(0.0f,1.0f,0.0f),  glm::vec2(0.0f,0.0f),  glm::vec3(0.0f,0.0f, 1.0f),
-			glm::vec3( 0.5f,-0.5f, 0.f), glm::vec3(0.0f,0.0f,1.0f),  glm::vec2(1.0f,0.0f),  glm::vec3(0.0f,0.0f, 1.0f)
+			//Position                     //TexCoords			 //Normals
+			glm::vec3(-0.5f, 0.5f, 0.f),  glm::vec2(0.0f,1.0f),  glm::vec3(0.0f,0.0f, 1.0f),
+			glm::vec3(-0.5f,-0.5f, 0.f),  glm::vec2(0.0f,0.0f),  glm::vec3(0.0f,0.0f, 1.0f),
+			glm::vec3( 0.5f,-0.5f, 0.f),  glm::vec2(1.0f,0.0f),  glm::vec3(0.0f,0.0f, 1.0f)
 		};
 		unsigned nrOfVertices = sizeof(vertices) / sizeof(Vertex);
 
@@ -140,9 +140,8 @@ public:
 		int Count = 0;
 		for (auto& jj : Points)
 		{
-			Vertex Temp;
+			Vertex Temp{};
 			Temp.position = jj;
-			Temp.color = glm::vec3(0.f, 1.f, 0.f);
 			Temp.normal = Norm;
 			Temp.texcoord = TexCo[Count];
 			Count++;
@@ -161,26 +160,26 @@ public:
 	{
 		Vertex vertices[] =
 		{
-			//Position								//Color							//Texcoords					//Normals
+			//Position							//Texcoords					//Normals
 			//Triangle front
-			glm::vec3(0.f, 0.5f, 0.f),				glm::vec3(1.f, 0.f, 0.f),		glm::vec2(0.5f, 1.f),		glm::vec3(0.f, 0.f, 1.f),
-			glm::vec3(-0.5f, -0.5f, 0.5f),			glm::vec3(0.f, 1.f, 0.f),		glm::vec2(0.f, 0.f),		glm::vec3(0.f, 0.f, 1.f),
-			glm::vec3(0.5f, -0.5f, 0.5f),			glm::vec3(0.f, 0.f, 1.f),		glm::vec2(1.f, 0.f),		glm::vec3(0.f, 0.f, 1.f),
+			glm::vec3(0.f, 0.5f, 0.f),			glm::vec2(0.5f, 1.f),		glm::vec3(0.f, 0.f, 1.f),
+			glm::vec3(-0.5f, -0.5f, 0.5f),		glm::vec2(0.f, 0.f),		glm::vec3(0.f, 0.f, 1.f),
+			glm::vec3(0.5f, -0.5f, 0.5f),		glm::vec2(1.f, 0.f),		glm::vec3(0.f, 0.f, 1.f),
 
 			//Triangle left
-			glm::vec3(0.f, 0.5f, 0.f),				glm::vec3(1.f, 1.f, 0.f),		glm::vec2(0.5f, 1.f),		glm::vec3(-1.f, 0.f, 0.f),
-			glm::vec3(-0.5f, -0.5f, -0.5f),			glm::vec3(0.f, 0.f, 1.f),		glm::vec2(0.f, 0.f),		glm::vec3(-1.f, 0.f, 0.f),
-			glm::vec3(-0.5f, -0.5f, 0.5f),			glm::vec3(0.f, 0.f, 1.f),		glm::vec2(1.f, 0.f),		glm::vec3(-1.f, 0.f, 0.f),
+			glm::vec3(0.f, 0.5f, 0.f),			glm::vec2(0.5f, 1.f),		glm::vec3(-1.f, 0.f, 0.f),
+			glm::vec3(-0.5f, -0.5f, -0.5f),		glm::vec2(0.f, 0.f),		glm::vec3(-1.f, 0.f, 0.f),
+			glm::vec3(-0.5f, -0.5f, 0.5f),		glm::vec2(1.f, 0.f),		glm::vec3(-1.f, 0.f, 0.f),
 
 			//Triangle back
-			glm::vec3(0.f, 0.5f, 0.f),				glm::vec3(1.f, 1.f, 0.f),		glm::vec2(0.5f, 1.f),		glm::vec3(0.f, 0.f, -1.f),
-			glm::vec3(0.5f, -0.5f, -0.5f),			glm::vec3(0.f, 0.f, 1.f),		glm::vec2(0.f, 0.f),		glm::vec3(0.f, 0.f, -1.f),
-			glm::vec3(-0.5f, -0.5f, -0.5f),			glm::vec3(0.f, 0.f, 1.f),		glm::vec2(1.f, 0.f),		glm::vec3(0.f, 0.f, -1.f),
+			glm::vec3(0.f, 0.5f, 0.f),			glm::vec2(0.5f, 1.f),		glm::vec3(0.f, 0.f, -1.f),
+			glm::vec3(0.5f, -0.5f, -0.5f),		glm::vec2(0.f, 0.f),		glm::vec3(0.f, 0.f, -1.f),
+			glm::vec3(-0.5f, -0.5f, -0.5f),		glm::vec2(1.f, 0.f),		glm::vec3(0.f, 0.f, -1.f),
 
 			//Triangles right
-			glm::vec3(0.f, 0.5f, 0.f),				glm::vec3(1.f, 1.f, 0.f),		glm::vec2(0.5f, 1.f),		glm::vec3(1.f, 0.f, 0.f),
-			glm::vec3(0.5f, -0.5f, 0.5f),			glm::vec3(0.f, 0.f, 1.f),		glm::vec2(0.f, 0.f),		glm::vec3(1.f, 0.f, 0.f),
-			glm::vec3(0.5f, -0.5f, -0.5f),			glm::vec3(0.f, 0.f, 1.f),		glm::vec2(1.f, 0.f),		glm::vec3(1.f, 0.f, 0.f),
+			glm::vec3(0.f, 0.5f, 0.f),			glm::vec2(0.5f, 1.f),		glm::vec3(1.f, 0.f, 0.f),
+			glm::vec3(0.5f, -0.5f, 0.5f),		glm::vec2(0.f, 0.f),		glm::vec3(1.f, 0.f, 0.f),
+			glm::vec3(0.5f, -0.5f, -0.5f),		glm::vec2(1.f, 0.f),		glm::vec3(1.f, 0.f, 0.f),
 		};
 		unsigned nrOfVertices = sizeof(vertices) / sizeof(Vertex);
 
@@ -206,7 +205,6 @@ public:
 			glm::vec2(0.f,0.f),glm::vec2(1.f,0.f),
 			glm::vec2(0.f,1.f),glm::vec2(1.f,1.f)
 		};
-		glm::vec3 ColorsUsed = glm::vec3(0.f, 0.f, 1.f);
 		glm::vec3 Positions[] =
 		{
 			//Top Plane 
@@ -220,12 +218,12 @@ public:
 
 		for (int ii = 0; ii < 4; ii++)
 		{
-			VertexOfCube.push_back({ Positions[Index[0]],ColorsUsed,TexCoords[2],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[3]],ColorsUsed,TexCoords[1],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[0]],TexCoords[2],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[3]],TexCoords[1],Normals[ii] });
 			Index[0]++;
 			Index[1]++;
 			Index[2]++;
@@ -243,12 +241,12 @@ public:
 		for (int ii = 4; ii < 6; ii++)
 		{
 
-			VertexOfCube.push_back({ Positions[TopIndex[0]],ColorsUsed,TexCoords[2],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[3]],ColorsUsed,TexCoords[1],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[0]],TexCoords[2],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[3]],TexCoords[1],Normals[ii] });
 			TopIndex[0] = 6;
 			TopIndex[1] = 5;
 			TopIndex[2] = 7;
@@ -269,7 +267,6 @@ public:
 	{
 		std::vector<Vertex> VertexOfCube;
 		std::vector<GLuint> IndecesOfCube;
-		glm::vec3 Colors = glm::vec3(0.f, 1.f, 1.f);
 		glm::vec3 Normals[] =
 		{
 			glm::vec3(0.f,0.f,1.f), glm::vec3(-1.f,0.f,0.f),
@@ -289,7 +286,7 @@ public:
 					glm::vec2 TexCord = CalcTexcoords(Dimension - 1, Dimension - 1, Dimension - 1, kk, jj, ii);
 					glm::vec3 Positions = CalculatePosition(Dimension - 1, Dimension - 1, Dimension - 1,
 															DimensionSize, DimensionSize,DimensionSize, kk, jj,ii);
-					Vertex TempVertex = { Positions,Colors,TexCord,Normals[kk] };
+					Vertex TempVertex = { Positions,TexCord,Normals[kk] };
 					VertexOfCube.push_back(TempVertex);
 				}
 			}
@@ -385,7 +382,6 @@ public:
 			glm::vec2(0.f,0.f),glm::vec2(1.f,0.f),
 			glm::vec2(0.f,1.f),glm::vec2(1.f,1.f)
 		};
-		glm::vec3 ColorsUsed = glm::vec3(0.f, 0.f, 1.f);
 		glm::vec3 Positions[] =
 		{
 			//Top Plane 
@@ -399,12 +395,12 @@ public:
 
 		for (int ii = 0; ii < 4; ii++)
 		{
-			VertexOfCube.push_back({ Positions[Index[0]],ColorsUsed,TexCoords[2],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[3]],ColorsUsed,TexCoords[1],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[0]],TexCoords[2],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[3]],TexCoords[1],Normals[ii] });
 			Index[0]++;
 			Index[1]++;
 			Index[2]++;
@@ -422,12 +418,12 @@ public:
 		for (int ii = 4; ii < 6; ii++)
 		{
 
-			VertexOfCube.push_back({ Positions[TopIndex[0]],ColorsUsed,TexCoords[2],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[3]],ColorsUsed,TexCoords[1],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[0]],TexCoords[2],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[3]],TexCoords[1],Normals[ii] });
 			TopIndex[0] = 6;
 			TopIndex[1] = 5;
 			TopIndex[2] = 7;
@@ -470,12 +466,12 @@ public:
 
 		for (int ii = 0; ii < 4; ii++)
 		{
-			VertexOfCube.push_back({ Positions[Index[0]],ColorsUsed,TexCoords[2],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[3]],ColorsUsed,TexCoords[1],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[0]],TexCoords[2],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[3]],TexCoords[1],Normals[ii] });
 			Index[0]++;
 			Index[1]++;
 			Index[2]++;
@@ -493,12 +489,12 @@ public:
 		for (int ii = 4; ii < 6; ii++)
 		{
 
-			VertexOfCube.push_back({ Positions[TopIndex[0]],ColorsUsed,TexCoords[2],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[3]],ColorsUsed,TexCoords[1],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[0]],TexCoords[2],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[3]],TexCoords[1],Normals[ii] });
 			TopIndex[0] = 6;
 			TopIndex[1] = 5;
 			TopIndex[2] = 7;
@@ -541,12 +537,12 @@ public:
 
 		for (int ii = 0; ii < 4; ii++)
 		{
-			VertexOfCube.push_back({ Positions[Index[0]],ColorsUsed,TexCoords[2],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[Index[3]],ColorsUsed,TexCoords[1],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[0]],TexCoords[2],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[Index[3]],TexCoords[1],Normals[ii] });
 			Index[0]++;
 			Index[1]++;
 			Index[2]++;
@@ -564,12 +560,12 @@ public:
 		for (int ii = 4; ii < 6; ii++)
 		{
 
-			VertexOfCube.push_back({ Positions[TopIndex[0]],ColorsUsed,TexCoords[2],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[2]],ColorsUsed,TexCoords[3],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[1]],ColorsUsed,TexCoords[0],Normals[ii] });
-			VertexOfCube.push_back({ Positions[TopIndex[3]],ColorsUsed,TexCoords[1],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[0]],TexCoords[2],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[2]],TexCoords[3],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[1]],TexCoords[0],Normals[ii] });
+			VertexOfCube.push_back({ Positions[TopIndex[3]],TexCoords[1],Normals[ii] });
 			TopIndex[0] = 6;
 			TopIndex[1] = 5;
 			TopIndex[2] = 7;
@@ -601,7 +597,6 @@ public:
 		std::vector<glm::vec3> PositionsFound;
 		std::vector<glm::vec2> TexCoordsFound;
 		std::vector<glm::vec3> NormalsFound;
-		glm::vec3 ColorDetermined = glm::vec3(1.f,1.f,1.f);
 		std::vector<std::string> IndexToUse;
 		std::ifstream in_file;
 		//Vertex and Index Info
@@ -643,7 +638,6 @@ public:
 			std::vector<std::string> out;
 			this->ReturnStringArray(ii,'/', out);
 			VertexFound.push_back({ PositionsFound[std::atof(out[0].c_str())-1],
-									ColorDetermined,
 									TexCoordsFound[std::atof(out[1].c_str()) - 1],
 									NormalsFound[std::atof(out[2].c_str()) - 1]});
 		}
@@ -777,7 +771,6 @@ public:
 
 				VertexFound.texcoord.x = ii/ Height;
 				VertexFound.texcoord.y = jj/ SectorCount;
-				VertexFound.color = Clr;
 				TempVertex.push_back(VertexFound);
 			}
 		}
@@ -831,7 +824,6 @@ public:
 				VertexFound.texcoord.x = ii / HeightDiv;
 				VertexFound.texcoord.y = jj / SectorCount;
 
-				VertexFound.color = glm::vec3(1.f, 1.f, 1.f);
 				TempVertex.push_back(VertexFound);
 			}
 		}
@@ -873,8 +865,6 @@ private:
 			NewVertex.normal.x = Meshes->mNormals[ii].x;
 			NewVertex.normal.y = Meshes->mNormals[ii].y;
 			NewVertex.normal.z =  Meshes->mNormals[ii].z;
-			//Color
-			NewVertex.color = glm::vec3(0.f, 1.f, 0.f);
 			//Texture Coordinates
 			NewVertex.texcoord.x = Meshes->mTextureCoords[0][ii].x;
 			NewVertex.texcoord.y = Meshes->mTextureCoords[0][ii].y;

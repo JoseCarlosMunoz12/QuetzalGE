@@ -69,7 +69,6 @@ struct Quat
 struct Vertex
 {
 	glm::vec3 position;
-	glm::vec3 color;
 	glm::vec2 texcoord;
 	glm::vec3 normal;
 };
@@ -159,9 +158,8 @@ public:
 struct AnimVertex
 {
 	glm::vec3 position;
-	glm::vec3 color;
 	glm::vec2 texcoord;
 	glm::vec3 normal;
-	glm::ivec4 MatId;
-	glm::vec4 Weights;
+	glm::ivec3 MatId;
+	glm::vec3 Weights;
 };
