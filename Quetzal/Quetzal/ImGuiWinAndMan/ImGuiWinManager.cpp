@@ -45,8 +45,8 @@ void ImGuiWindowManager::Update()
         ImGui::RenderPlatformWindowsDefault();
         glfwMakeContextCurrent(backup_current_context);
     }
-    ImGuizmo::SetOrthographic(false);
-    ImGuizmo::BeginFrame();
+    //ImGuizmo::SetOrthographic(false);
+    //ImGuizmo::BeginFrame();
 }
 
 void ImGuiWindowManager::Render()
