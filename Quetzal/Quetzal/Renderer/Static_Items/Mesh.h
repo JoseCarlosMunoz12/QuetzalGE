@@ -3,9 +3,9 @@
 #include <iostream>
 #include <vector>
 
-#include "Vertex.h"
-#include "Shader.h"
-#include "Texture.h"
+#include "../Render_Items/Vertex.h"
+#include "../Render_Items/Shader.h"
+#include "../Render_Items/Texture.h"
 #include "Primitive.h"
 
 class Mesh 
@@ -160,5 +160,4 @@ public:
 	{
 		return this->NameOfMesh.c_str();
 	}
-
 };

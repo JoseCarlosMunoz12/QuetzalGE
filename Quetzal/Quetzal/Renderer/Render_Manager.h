@@ -43,7 +43,7 @@ public:
 	Vec_SH<Material> GetAllMaterials() { return this->All_Materials; }
 	Vec_SH<Model> GetAllModels()       { return this->All_Models; }
 	bool ToWindow()                    { return this->R_Window; }
-	S_P<Frame_Buffer> GetMainTexture()	   { return this->Main_Texture; }
+	S_P<Frame_Buffer> GetMainTexture() { return this->Main_Texture; }
 	//Get Some Matrices
 	glm::mat4 GetProjMatrix() { return Projection; }
 	glm::mat4 GetCamMatrix()  { return this->Main_Cam->GetViewMatrix(); }

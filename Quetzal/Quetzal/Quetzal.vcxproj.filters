@@ -161,13 +161,13 @@
     <ClInclude Include="Renderer\Render_Items\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Render_Items\Mesh.h">
+    <ClInclude Include="Renderer\Static_Items\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Render_Items\Primitive.h">
+    <ClInclude Include="Renderer\Static_Items\Primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Render_Items\Shader.h">

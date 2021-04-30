@@ -3,7 +3,7 @@
 #include "Render_Items/Shader.h"
 #include "Render_Items/Texture.h"
 #include "Render_Items/Material.h"
-#include "Render_Items/Mesh.h"
+#include "Static_Items/Mesh.h"
 
 class Model
 {

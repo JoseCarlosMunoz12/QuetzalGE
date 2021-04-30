@@ -33,7 +33,6 @@ public:
 	}
 	~Material()
 	{
-		std::cout << "Test\n";
 	}
 	virtual void SendToShader(std::shared_ptr<Shader> program)
 	{
