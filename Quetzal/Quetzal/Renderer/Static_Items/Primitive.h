@@ -10,7 +10,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "Vertex.h"
+#include "../Render_Items/Vertex.h"
 
 class Primitive
 

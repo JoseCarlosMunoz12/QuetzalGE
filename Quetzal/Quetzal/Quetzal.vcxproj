@@ -170,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGuiWinAndMan\IG_All_Items.h" />
+    <ClInclude Include="Renderer\Anim_Items\Anim_Mesh.h" />
+    <ClInclude Include="Renderer\Anim_Items\Anim_Primitive.h" />
     <ClInclude Include="Renderer\Camera.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGuiTextureWindow.h" />
