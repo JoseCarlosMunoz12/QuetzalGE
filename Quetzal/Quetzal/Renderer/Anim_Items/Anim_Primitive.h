@@ -13,7 +13,7 @@
 
 #include "../Render_Items/Vertex.h"
 
-class Primitive
+class A_Primitive
 
 {
 private:
@@ -21,11 +21,11 @@ private:
 	std::vector<GLuint> indices;
 
 public:
-	Primitive()
+	A_Primitive()
 	{
 
 	}
-	virtual ~Primitive()
+	virtual ~A_Primitive()
 	{
 
 	}
@@ -52,4 +52,58 @@ public:
 	inline const unsigned getNrOfVertices() { return this->vertices.size(); }
 	inline const unsigned getNrOfIndices() { return this->indices.size(); }
 
+};
+
+class A_ASSIMP_LOAD : public A_Primitive
+{
+public:
+	A_ASSIMP_LOAD(const char* FileLoc)
+		:A_Primitive()
+	{
+		std::string File = "Models/ModelCol/";
+		File += FileLoc;
+		Assimp::Importer importer;
+		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
+		if (!scene)
+		{
+			std::cout << "Error";
+		}
+		
+	}
+private:
+	std::vector<AnimVertex> FinalVertex(const aiScene* scene)
+	{
+		std::vector<AnimVertex> TempVerts;
+		aiMesh* Meshes = scene->mMeshes[0];
+		for (int ii = 0; ii < Meshes->mNumVertices; ii++)
+		{
+			AnimVertex NewVertex;
+			//Position
+			NewVertex.position.x = Meshes->mVertices[ii].x;
+			NewVertex.position.y = Meshes->mVertices[ii].y;
+			NewVertex.position.z = Meshes->mVertices[ii].z;
+			//Normals
+			NewVertex.normal.x = Meshes->mNormals[ii].x;
+			NewVertex.normal.y = Meshes->mNormals[ii].y;
+			NewVertex.normal.z = Meshes->mNormals[ii].z;
+			//Texture Coordinates
+			NewVertex.texcoord.x = Meshes->mTextureCoords[0][ii].x;
+			NewVertex.texcoord.y = Meshes->mTextureCoords[0][ii].y;
+			TempVerts.push_back(NewVertex);
+		}
+		return TempVerts;
+	}
+	std::vector<GLuint> FinalGluint(const aiScene* scene)
+	{
+		std::vector<GLuint> TempInd;
+		aiMesh* Meshes = scene->mMeshes[0];
+		for (int ii = 0; ii < Meshes->mNumFaces; ii++)
+		{
+			aiFace face = Meshes->mFaces[ii];
+			TempInd.push_back(face.mIndices[0]);
+			TempInd.push_back(face.mIndices[1]);
+			TempInd.push_back(face.mIndices[2]);
+		}
+		return TempInd;
+	}
 };
