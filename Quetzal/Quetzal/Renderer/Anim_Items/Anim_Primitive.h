@@ -54,27 +54,42 @@ public:
 
 };
 
-class A_ASSIMP_LOAD : public A_Primitive
+class A_ASSIMP_LOAD
 {
 public:
 	A_ASSIMP_LOAD(const char* FileLoc)
-		:A_Primitive()
 	{
-		std::string File = "Models/ModelCol/";
+		File = "Models/ModelCol/";
 		File += FileLoc;
+		
+	}
+	std::vector<A_Primitive> GetPrimitives()
+	{
 		Assimp::Importer importer;
+		std::vector<A_Primitive> Mshs;
 		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 		if (!scene)
 		{
+
 			std::cout << "Error";
+			return Mshs;
 		}
-		
+		int msh_num = scene->mNumMeshes;
+		for (int ii = 0; ii < msh_num; ii++)
+		{
+			scene->mMeshes[ii];
+		}
 	}
 private:
-	std::vector<AnimVertex> FinalVertex(const aiScene* scene)
+	std::string File;
+	A_Primitive GetMesh(const aiMesh* mesh)
+	{
+		A_Primitive Msh;
+		Msh.set(this->FinalVertex(mesh),this->FinalGluint(mesh) );
+	}
+	std::vector<AnimVertex> FinalVertex(const aiMesh* Meshes)
 	{
 		std::vector<AnimVertex> TempVerts;
-		aiMesh* Meshes = scene->mMeshes[0];
 		for (int ii = 0; ii < Meshes->mNumVertices; ii++)
 		{
 			AnimVertex NewVertex;
@@ -93,10 +108,9 @@ private:
 		}
 		return TempVerts;
 	}
-	std::vector<GLuint> FinalGluint(const aiScene* scene)
+	std::vector<GLuint> FinalGluint(const aiMesh* Meshes)
 	{
 		std::vector<GLuint> TempInd;
-		aiMesh* Meshes = scene->mMeshes[0];
 		for (int ii = 0; ii < Meshes->mNumFaces; ii++)
 		{
 			aiFace face = Meshes->mFaces[ii];
