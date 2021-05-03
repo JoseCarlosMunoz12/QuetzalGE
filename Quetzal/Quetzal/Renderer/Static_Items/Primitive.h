@@ -890,9 +890,9 @@ public:
 		std::string File = "Models/ModelCol/";
 		File += FileLoc;
 	}
-	std::vector<Primitive> GetModels()
+	std::vector<std::unique_ptr<Primitive>> GetModels()
 	{
-		std::vector<Primitive> Mshs;
+		std::vector<std::unique_ptr<Primitive>> Mshs;
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 		if (!scene)
@@ -903,8 +903,8 @@ public:
 		int Amount_Mshs = scene->mNumMeshes;
 		for (int ii = 0; ii < Amount_Mshs; ii++)
 		{
-			Primitive prm;
-			prm.set(this->FinalVertex(scene->mMeshes[ii]), this->FinalGluint(scene->mMeshes[ii]));
+			Mshs.push_back(std::make_unique<Primitive>());
+			Mshs[ii]->set(this->FinalVertex(scene->mMeshes[ii]), this->FinalGluint(scene->mMeshes[ii]));
 		}
 		return Mshs;
 	}
