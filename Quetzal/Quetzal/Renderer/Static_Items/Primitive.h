@@ -887,7 +887,7 @@ private:
 public:
 	ASSIMPLOAD_M(const char* FileLoc)
 	{
-		std::string File = "Models/ModelCol/";
+		File = "Models/ModelCol/";
 		File += FileLoc;
 	}
 	std::vector<std::unique_ptr<Primitive>> GetModels()

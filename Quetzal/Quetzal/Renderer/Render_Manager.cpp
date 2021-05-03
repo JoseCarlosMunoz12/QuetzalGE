@@ -29,10 +29,10 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->All_Shader.push_back(this->Main_Shader);
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor, "Screen_Shader_Vs.glsl", "Screen_Shader_Fs.glsl");
 	//creating Default Model to render on screen
-	ASSIMPLOAD_M rs("snek_side.dae");
+	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("snek_side.dae");
 	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
-	std::vector<std::unique_ptr<Primitive>> rss = rs.GetModels();
+	std::vector<std::unique_ptr<Primitive>> rss = rs->GetModels();
 	std::shared_ptr<Mesh> MainMesh;
 	for (auto &ii : rss)
 	{
