@@ -847,13 +847,12 @@ public:
 	}
 };
 
-class ASSIMPLOAD_M :public Primitive
+class ASSIMPLOAD_M
 {
 private:
-	std::vector<Vertex> FinalVertex(const aiScene* scene)
+	std::vector<Vertex> FinalVertex(const aiMesh* Meshes)
 	{
 		std::vector<Vertex> TempVerts;
-		aiMesh* Meshes = scene->mMeshes[0];
 		for (int ii = 0; ii < Meshes->mNumVertices; ii++)
 		{
 			Vertex NewVertex;
@@ -872,10 +871,9 @@ private:
 		}
 		return TempVerts;
 	}
-	std::vector<GLuint> FinalGluint(const aiScene* scene)
+	std::vector<GLuint> FinalGluint(const aiMesh* Meshes)
 	{
 		std::vector<GLuint> TempInd;
-		aiMesh* Meshes = scene->mMeshes[0];
 		for (int ii = 0; ii < Meshes->mNumFaces; ii++)
 		{
 			aiFace face = Meshes->mFaces[ii];
@@ -885,19 +883,30 @@ private:
 		}
 		return TempInd;
 	}
+	std::string File;
 public:
 	ASSIMPLOAD_M(const char* FileLoc)
-		:Primitive()
 	{
 		std::string File = "Models/ModelCol/";
 		File += FileLoc;
+	}
+	std::vector<Primitive> GetModels()
+	{
+		std::vector<Primitive> Mshs;
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 		if (!scene)
 		{
 			std::cout << "Error";
+			return Mshs;
 		}
-		this->set(FinalVertex(scene),FinalGluint(scene));
+		int Amount_Mshs = scene->mNumMeshes;
+		for (int ii = 0; ii < Amount_Mshs; ii++)
+		{
+			Primitive prm;
+			prm.set(this->FinalVertex(scene->mMeshes[ii]), this->FinalGluint(scene->mMeshes[ii]));
+		}
+		return Mshs;
 	}
 };
 
