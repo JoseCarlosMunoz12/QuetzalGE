@@ -24,6 +24,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->Main_Texture = std::make_shared<Frame_Buffer>("Main");
 	this->Main_Texture->Init(this->Frame_Buffer_Width, this->Frame_Bufer_Height);
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/pusheen.png", GL_TEXTURE_2D, GL_RGBA));
+	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/container.png", GL_TEXTURE_2D, GL_RGBA));
 	//loads defaults Shaders
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	this->All_Shader.push_back(this->Main_Shader);
@@ -33,10 +34,10 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	std::vector<std::unique_ptr<Primitive>> rss = rs->GetModels();
-	std::shared_ptr<Mesh> MainMesh;
+	std::shared_ptr<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
 	for (auto &ii : rss)
 	{
-		MainMesh= std::make_shared<Mesh>(std::move(ii), "MainMesh");
+		this->All_Meshes.push_back(std::make_shared<Mesh>(std::move(ii), "MainMesh"));
 	}
 	
 	this->Main_Model = std::make_shared<Model>("Main_Model");
@@ -53,6 +54,11 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewModel->AddTextures(this->All_Texture[0]);
 	NewModel->AddBaseNode(NewNode);
 	this->All_Models.push_back(NewModel);
+	S_P<Model> NewModel1 = std::make_shared<Model>("REsS", glm::vec3(0.f, 0.f, 0.f));
+	NewModel1->AddMeshes(All_Meshes[1]);
+	NewModel1->AddTextures(this->All_Texture[1]);
+	NewModel1->AddBaseNode(NewNode);
+	this->All_Models.push_back(NewModel1);
 }
 
 void Render_Manager::Update(float dt)
