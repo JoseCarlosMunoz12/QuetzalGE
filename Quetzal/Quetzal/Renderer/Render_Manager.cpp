@@ -30,7 +30,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->All_Shader.push_back(this->Main_Shader);
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor, "Screen_Shader_Vs.glsl", "Screen_Shader_Fs.glsl");
 	//creating Default Model to render on screen
-	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("snek_side.dae");
+	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("model_Running.dae");
 	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	glm::mat4 Inv;
@@ -56,10 +56,13 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewModel->AddTextures(this->All_Texture[0]);
 	NewModel->AddBaseNode(NewNode);
 	this->All_Models.push_back(NewModel);
+	S_P<Node> NewNode1 = std::make_shared<Node>();
+	NewNode1->AddTextureId(0);
+	NewNode1->SetMeshId(0);
 	S_P<Model> NewModel1 = std::make_shared<Model>("REsS", glm::vec3(0.f, 0.f, 0.f));
 	NewModel1->AddMeshes(All_Meshes[1]);
 	NewModel1->AddTextures(this->All_Texture[1]);
-	NewModel1->AddBaseNode(NewNode);
+	NewModel1->AddBaseNode(NewNode1);
 	this->All_Models.push_back(NewModel1);
 }
 

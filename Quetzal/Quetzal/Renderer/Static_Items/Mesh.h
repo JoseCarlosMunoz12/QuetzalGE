@@ -164,4 +164,8 @@ public:
 	{
 		Inv = InitInv;
 	}
+	glm::mat4 GetInv()
+	{
+		return this->Inv;
+	}
 };
