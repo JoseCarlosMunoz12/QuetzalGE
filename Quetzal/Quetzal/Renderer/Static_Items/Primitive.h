@@ -850,6 +850,18 @@ public:
 class ASSIMPLOAD_M
 {
 private:
+	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
+	{
+		glm::mat4 glmVal = glm::mat4(aiVal.a1, aiVal.b1, aiVal.c1, aiVal.d1,
+			aiVal.a2, aiVal.b2, aiVal.c2, aiVal.d2,
+			aiVal.a3, aiVal.b3, aiVal.c3, aiVal.d3,
+			aiVal.a4, aiVal.b4, aiVal.c4, aiVal.d4);
+		return glmVal;
+	}
+	glm::vec3 aiVecToglmVec(aiVector3D aiVal)
+	{
+		return glm::vec3(aiVal.x, aiVal.y, aiVal.z);
+	}
 	std::vector<Vertex> FinalVertex(const aiMesh* Meshes)
 	{
 		std::vector<Vertex> TempVerts;
@@ -890,7 +902,7 @@ public:
 		File = "Models/ModelCol/";
 		File += FileLoc;
 	}
-	std::vector<std::unique_ptr<Primitive>> GetModels()
+	std::vector<std::unique_ptr<Primitive>> GetModels(glm::mat4& inv)
 	{
 		std::vector<std::unique_ptr<Primitive>> Mshs;
 		Assimp::Importer importer;
@@ -906,6 +918,7 @@ public:
 			Mshs.push_back(std::make_unique<Primitive>());
 			Mshs[ii]->set(this->FinalVertex(scene->mMeshes[ii]), this->FinalGluint(scene->mMeshes[ii]));
 		}
+		inv =  this->aiMatToglmMat(scene->mRootNode->mTransformation);
 		return Mshs;
 	}
 };

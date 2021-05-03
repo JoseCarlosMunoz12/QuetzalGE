@@ -20,7 +20,7 @@ private:
 	GLuint VBO;
 	GLuint EBO;
 	std::string NameOfMesh;
-
+	glm::mat4 Inv = glm::mat4(1.f);
 	void InitVAO()
 	{
 
@@ -137,7 +137,7 @@ public:
 	void Render(glm::mat4 FinalMatrix,std::shared_ptr<Shader> shader)
 	{
 		//Update Uniforms
-		this->updateUniforms(FinalMatrix,shader);
+		this->updateUniforms(Inv * FinalMatrix,shader);
 		shader->use();
 		//BInd VAO
 		glBindVertexArray(this->VAO);
@@ -159,5 +159,9 @@ public:
 	const char* GiveName()
 	{
 		return this->NameOfMesh.c_str();
+	}
+	void SetInv(glm::mat4 InitInv)
+	{
+		Inv = InitInv;
 	}
 };

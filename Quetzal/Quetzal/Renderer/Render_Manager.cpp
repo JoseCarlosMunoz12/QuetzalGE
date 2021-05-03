@@ -33,13 +33,15 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("snek_side.dae");
 	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
-	std::vector<std::unique_ptr<Primitive>> rss = rs->GetModels();
+	glm::mat4 Inv;
+	std::vector<std::unique_ptr<Primitive>> rss = rs->GetModels(Inv);
 	std::shared_ptr<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
 	for (auto &ii : rss)
 	{
 		this->All_Meshes.push_back(std::make_shared<Mesh>(std::move(ii), "MainMesh"));
-	}
-	
+		int cur_size = this->All_Meshes.size() - 1;
+		this->All_Meshes[cur_size]->SetInv(Inv);
+	}	
 	this->Main_Model = std::make_shared<Model>("Main_Model");
 	S_P<Node> NewNode = std::make_shared<Node>();
 	NewNode->AddTextureId(0);
