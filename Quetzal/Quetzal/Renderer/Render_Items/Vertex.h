@@ -41,7 +41,6 @@ struct Quat
 		}
 		else
 		{
-
 			this->UnitVec = glm::vec3(InitQuat.x / s,
 				InitQuat.y / s, InitQuat.z / s);
 		}
@@ -50,12 +49,7 @@ struct Quat
 	{
 		glm::quat Temp{};
 		float RadAngle = Angle / 180.f * glm::pi<float>();
-		Temp.x = UnitVec.x * glm::sin(RadAngle / 2);
-		Temp.y = UnitVec.y * glm::sin(RadAngle / 2);
-		Temp.z = UnitVec.z * glm::sin(RadAngle / 2);
-		Temp.w = glm::cos(RadAngle / 2);
-		return Temp;
-
+		return glm::angleAxis(RadAngle, UnitVec);
 	}
 	void Cout()
 	{
@@ -141,11 +135,7 @@ public:
 	int GetMeshId()              { return this->MeshId; }
 	int GetMatId()               { return this->MatId; }
 	//Setters
-	void SetPos(glm::vec3 NewPos)
-	{
-		glm::vec4 newPos = glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);
-		this->Position = newPos;
-	}
+	void SetPos(glm::vec3 NewPos)       { this->Position= glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);}
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
 	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
