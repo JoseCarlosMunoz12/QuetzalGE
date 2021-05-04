@@ -133,12 +133,8 @@ public:
 		return this->W_Mat * this->Matrix;
 	}
 	//Getters
-	glm::vec3 GetPos()
-	{
-		glm::vec4 NewPos = this->W_Mat * glm::vec4(this->Position,1.f);
-		return NewPos; 
-	}
-	glm::vec3 GetOffset()        { return this->Offset; }
+	glm::vec3 GetPos()           { return this->W_Mat * glm::vec4(this->Position,1.f); }
+	glm::vec3 GetOffset()	     { return this->W_Mat * glm::vec4(this->Offset, 1.f); }
 	glm::vec3 GetScale()         { return this->Scale; }
 	Quat GetRot()                { return this->Rot; }
 	std::vector<int> GetTextId() { return this->TextureID; }
@@ -148,7 +144,7 @@ public:
 	void SetPos(glm::vec3 NewPos)
 	{
 		glm::vec4 newPos = glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);
-		this->Position = newPos; 
+		this->Position = newPos;
 	}
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
