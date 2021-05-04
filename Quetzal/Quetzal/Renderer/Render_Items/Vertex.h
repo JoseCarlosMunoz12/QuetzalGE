@@ -133,7 +133,11 @@ public:
 		return this->W_Mat * this->Matrix;
 	}
 	//Getters
-	glm::vec3 GetPos()           { return this->Position; }
+	glm::vec3 GetPos()
+	{
+		glm::vec4 NewPos = this->W_Mat * glm::vec4(this->Position,1.f);
+		return NewPos; 
+	}
 	glm::vec3 GetOffset()        { return this->Offset; }
 	glm::vec3 GetScale()         { return this->Scale; }
 	Quat GetRot()                { return this->Rot; }
@@ -141,7 +145,11 @@ public:
 	int GetMeshId()              { return this->MeshId; }
 	int GetMatId()               { return this->MatId; }
 	//Setters
-	void SetPos(glm::vec3 NewPos)       { this->Position = NewPos; }
+	void SetPos(glm::vec3 NewPos)
+	{
+		glm::vec4 newPos = glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);
+		this->Position = newPos; 
+	}
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
 	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
