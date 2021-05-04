@@ -63,7 +63,7 @@ public:
 		File += FileLoc;
 		
 	}
-	std::vector<A_Primitive> GetPrimitives()
+	std::vector<A_Primitive> GetPrimitives(glm::mat4& InitInv)
 	{
 		Assimp::Importer importer;
 		std::vector<A_Primitive> Mshs;
@@ -79,8 +79,21 @@ public:
 		{
 			scene->mMeshes[ii];
 		}
+		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
 	}
 private:
+	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
+	{
+		glm::mat4 glmVal = glm::mat4(aiVal.a1, aiVal.b1, aiVal.c1, aiVal.d1,
+			aiVal.a2, aiVal.b2, aiVal.c2, aiVal.d2,
+			aiVal.a3, aiVal.b3, aiVal.c3, aiVal.d3,
+			aiVal.a4, aiVal.b4, aiVal.c4, aiVal.d4);
+		return glmVal;
+	}
+	glm::vec3 aiVecToglmVec(aiVector3D aiVal)
+	{
+		return glm::vec3(aiVal.x, aiVal.y, aiVal.z);
+	}
 	std::string File;
 	A_Primitive GetMesh(const aiMesh* mesh)
 	{
