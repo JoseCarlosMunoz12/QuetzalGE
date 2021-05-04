@@ -30,7 +30,7 @@ void IG_All_Items::Update()
                     ImGui::Text("General information");
                     glm::vec3 pos = ii->GetPos();
                     float ps[3] = { pos.x, pos.y, pos.z };
-                    if (ImGui::DragFloat3("position", ps))
+                    if (ImGui::SliderFloat3("Position",ps,-20,20))
                     {
                         pos.x = ps[0];
                         pos.y = ps[1];

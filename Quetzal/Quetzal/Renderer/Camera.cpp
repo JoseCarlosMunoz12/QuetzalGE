@@ -67,6 +67,19 @@ void Camera::Update(float dt, const int Direc)
 
 void Camera::UpdateMouseInput(const float dt, GLFWwindow* window)
 {
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		UpdateCamera = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	{
+		UpdateCamera = false;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		this->LastMouse = this->CurrentMouse;
+	}
+	if (!UpdateCamera)
+		return;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		this->position += this->front * this->movementSpeed * dt;
@@ -94,19 +107,6 @@ void Camera::UpdateMouseInput(const float dt, GLFWwindow* window)
 		this->LastMouse = this->CurrentMouse;
 		this->FirstMouse = false;
 	}
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-	{
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		UpdateCamera = true;
-	}
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-	{
-		UpdateCamera = false;
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		this->LastMouse = this->CurrentMouse;
-	}
-	if (!UpdateCamera)
-		return;
 	//Calc offset
 	this->MouseOffset.X = this->CurrentMouse.X - this->LastMouse.X;
 	this->MouseOffset.Y = this->LastMouse.Y - this->CurrentMouse.Y;
