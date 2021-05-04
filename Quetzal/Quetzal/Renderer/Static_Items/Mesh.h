@@ -137,7 +137,7 @@ public:
 	void Render(glm::mat4 FinalMatrix,std::shared_ptr<Shader> shader)
 	{
 		//Update Uniforms
-		this->updateUniforms(Inv * FinalMatrix,shader);
+		this->updateUniforms(FinalMatrix,shader);
 		shader->use();
 		//BInd VAO
 		glBindVertexArray(this->VAO);

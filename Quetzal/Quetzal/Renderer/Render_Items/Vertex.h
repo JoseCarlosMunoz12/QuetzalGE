@@ -82,6 +82,7 @@ private:
 	glm::vec3 Scale;
 	Quat Rot;
 	glm::mat4 Matrix;
+	glm::mat4 W_Mat = glm::mat4(1.f);
 	//ID for Meshes and Textures
 	std::vector<int> TextureID;
 	int MeshId;
@@ -129,7 +130,7 @@ public:
 	}
 	glm::mat4 GetMatrix()
 	{
-		return this->Matrix;
+		return this->W_Mat * this->Matrix;
 	}
 	//Getters
 	glm::vec3 GetPos()           { return this->Position; }
@@ -144,6 +145,7 @@ public:
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
 	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
+	void SetW_Mat(glm::mat4 InitW)      { this->W_Mat = InitW; }
 	//Mesh and Texture relatd Function
 	void AddTextureId(std::vector<int> NewIds) { this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end()); }
 	void AddTextureId(int NewId)               { this->TextureID.push_back(NewId); }
