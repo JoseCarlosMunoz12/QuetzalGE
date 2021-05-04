@@ -47,7 +47,6 @@ struct Quat
 	}
 	glm::quat GetQuat()
 	{
-		glm::quat Temp{};
 		float RadAngle = Angle / 180.f * glm::pi<float>();
 		return glm::angleAxis(RadAngle, UnitVec);
 	}
@@ -136,7 +135,7 @@ public:
 	int GetMatId()               { return this->MatId; }
 	//Setters
 	void SetPos(glm::vec3 NewPos)       { this->Position= glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);}
-	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
+	void SetOffset(glm::vec3 NewOffset) { this->Offset = glm::inverse(this->W_Mat) * glm::vec4(NewOffset,1.f); }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
 	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
 	void SetW_Mat(glm::mat4 InitW)      { this->W_Mat = InitW; }
