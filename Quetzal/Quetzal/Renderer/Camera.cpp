@@ -13,8 +13,9 @@ void Camera::UpdateCameraVectors()
 
 Camera::Camera(glm::vec3 Pos, glm::vec3 WorldUp,
 	float InitMovement, float InitSensitivity)
-	:position(Pos),worldUp(WorldUp),up(WorldUp),
-	movementSpeed(InitMovement), sensitivity(InitSensitivity)
+	:position(Pos), worldUp(WorldUp), up(WorldUp),
+	movementSpeed(InitMovement), sensitivity(InitSensitivity),
+	UpdateCamera(true)
 {
 	this->ViewMatrix = glm::mat4(1.f);
 	this->right = glm::vec3(0.f);
@@ -96,12 +97,16 @@ void Camera::UpdateMouseInput(const float dt, GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		UpdateCamera = true;
 	}
 	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 	{
+		UpdateCamera = false;
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		this->LastMouse = this->CurrentMouse;
 	}
+	if (!UpdateCamera)
+		return;
 	//Calc offset
 	this->MouseOffset.X = this->CurrentMouse.X - this->LastMouse.X;
 	this->MouseOffset.Y = this->LastMouse.Y - this->CurrentMouse.Y;

@@ -55,6 +55,7 @@ private:
 	GLfloat roll;
 	//mouse items
 	bool FirstMouse;
+	bool UpdateCamera;
 	MousePositions CurrentMouse;
 	MousePositions LastMouse;
 	MouseItems MouseOffset;

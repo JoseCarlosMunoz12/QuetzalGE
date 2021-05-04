@@ -134,7 +134,7 @@ public:
 	int GetMeshId()              { return this->MeshId; }
 	int GetMatId()               { return this->MatId; }
 	//Setters
-	void SetPos(glm::vec3 NewPos)       { this->Position= glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);}
+	void SetPos(glm::vec3 NewPos)       { this->Position = glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);}
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = glm::inverse(this->W_Mat) * glm::vec4(NewOffset,1.f); }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
 	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
