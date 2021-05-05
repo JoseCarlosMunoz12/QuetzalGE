@@ -5,6 +5,18 @@
 #include <iostream>
 #include <string>
 #include <vector>
+//math items
+namespace Math
+{
+	void Decompose(glm::mat4 Transform, glm::vec3& Translation, Quat& Rotation, glm::vec3& Scale)
+	{
+		//Getting Translation
+		Translation = Transform[3];
+
+
+	}
+}
+//basic structures needed
 template <typename T>
 using S_P = std::shared_ptr<T>;
 template <typename T>
@@ -31,24 +43,29 @@ struct Quat
 	}
 	Quat(glm::quat InitQuat)
 	{
-		if (InitQuat.w > 1.f)
-			InitQuat = glm::normalize(InitQuat);
-		float s = glm::sqrt(1 - InitQuat.w * InitQuat.w);
-		this->Angle = 2.f * glm::acos(InitQuat.w) * 180.f / glm::pi<float>();;
-		if (Angle == 0.f)
-		{
-			this->UnitVec = glm::vec3(0.f, 0.f, 1.f);
-		}
-		else
-		{
-			this->UnitVec = glm::vec3(InitQuat.x / s,
-				InitQuat.y / s, InitQuat.z / s);
-		}
+		SetQuat(InitQuat);
 	}
 	glm::quat GetQuat()
 	{
 		float RadAngle = Angle / 180.f * glm::pi<float>();
 		return glm::angleAxis(RadAngle, UnitVec);
+	}
+	void SetQuat(glm::quat NewQuat)
+	{
+		if (NewQuat.w > 1.f)
+			NewQuat = glm::normalize(NewQuat);
+		float s = glm::sqrt(1 - NewQuat.w * NewQuat.w);
+		this->Angle = 2.f * glm::acos(NewQuat.w) * 180.f / glm::pi<float>();;
+		if (Angle == 0.f)
+		{
+			this->UnitVec = glm::vec3(0.f, 1.f, 0.f);
+		}
+		else
+		{
+			this->UnitVec = glm::vec3(NewQuat.x / s,
+				NewQuat.y / s, NewQuat.z / s);
+		}
+
 	}
 	void Cout()
 	{
