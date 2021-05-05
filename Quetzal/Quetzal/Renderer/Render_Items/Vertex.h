@@ -129,7 +129,10 @@ public:
 	glm::vec3 GetPos()           { return this->W_Mat * glm::vec4(this->Position,1.f); }
 	glm::vec3 GetOffset()	     { return this->W_Mat * glm::vec4(this->Offset, 1.f); }
 	glm::vec3 GetScale()         { return this->Scale; }
-	Quat GetRot()                { return this->Rot; }
+	Quat GetRot()
+	{
+		return this->Rot;
+	}
 	std::vector<int> GetTextId() { return this->TextureID; }
 	int GetMeshId()              { return this->MeshId; }
 	int GetMatId()               { return this->MatId; }

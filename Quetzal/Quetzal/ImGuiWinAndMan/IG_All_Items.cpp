@@ -37,9 +37,39 @@ void IG_All_Items::Update()
                         pos.z = ps[2];
                         ii->SetPos(pos);
                     }
-                    /// <summary>
-                    /// child nodes
-                    /// </summary>
+                    S_P<Node> s =ii->GetNodes();
+                    if (ImGui::TreeNode("Node Ro"))
+                    {
+                        Quat sd = s->GetRot();
+                        float AxisAngle = sd.Angle;
+                        glm::vec3 UnitVec = sd.UnitVec;
+                        //Orientation
+                        if (ImGui::SliderFloat("Axis Angle",&AxisAngle,0.f,360))
+                        {
+                            sd.Angle = AxisAngle;
+                            s->SetRot(sd);
+                        }
+                        //Unit vector
+                        if (ImGui::SliderFloat("X Vector",&UnitVec.x,-1,1))
+                        {
+                            UnitVec= glm::normalize(UnitVec);
+                            sd.UnitVec = UnitVec;
+                            s->SetRot(sd);
+                        }
+                        if (ImGui::SliderFloat("Y Vector", &UnitVec.y, -1, 1))
+                        {
+                            UnitVec = glm::normalize(UnitVec);
+                            sd.UnitVec = UnitVec;
+                            s->SetRot(sd);
+                        }
+                        if (ImGui::SliderFloat("Z Vector", &UnitVec.z, -1, 1))
+                        {
+                            UnitVec = glm::normalize(UnitVec);
+                            sd.UnitVec = UnitVec;
+                            s->SetRot(sd);
+                        }
+                        ImGui::TreePop();
+                    }
                     ImGui::TreePop();
                 }
             }
