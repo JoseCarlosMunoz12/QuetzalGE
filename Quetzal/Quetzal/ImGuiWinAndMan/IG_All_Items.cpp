@@ -38,35 +38,36 @@ void IG_All_Items::Update()
                         ii->SetPos(pos);
                     }
                     S_P<Node> s =ii->GetNodes();
-                    if (ImGui::TreeNode("Node Ro"))
+                    if (ImGui::TreeNode("Node Rotation"))
                     {
-                        Quat sd = s->GetRot();
-                        float AxisAngle = sd.Angle;
-                        glm::vec3 UnitVec = sd.UnitVec;
+                        glm::quat sd = s->GetRot();
+                        Quat Temp(sd);
+                        float AxisAngle = Temp.Angle;
+                        glm::vec3 UnitVec = Temp.UnitVec;
                         //Orientation
-                        if (ImGui::SliderFloat("Axis Angle",&AxisAngle,0.f,360))
+                        if (ImGui::SliderFloat("Axis Angle",&AxisAngle,0.f,360.f))
                         {
-                            sd.Angle = AxisAngle;
-                            s->SetRot(sd);
+                            Temp.Angle = AxisAngle;
+                            s->SetRot(Temp.GetQuat());
                         }
                         //Unit vector
                         if (ImGui::SliderFloat("X Vector",&UnitVec.x,-1,1))
                         {
                             UnitVec= glm::normalize(UnitVec);
-                            sd.UnitVec = UnitVec;
-                            s->SetRot(sd);
+                            Temp.UnitVec = UnitVec;
+                            s->SetRot(Temp.GetQuat());
                         }
                         if (ImGui::SliderFloat("Y Vector", &UnitVec.y, -1, 1))
                         {
                             UnitVec = glm::normalize(UnitVec);
-                            sd.UnitVec = UnitVec;
-                            s->SetRot(sd);
+                            Temp.UnitVec = UnitVec;
+                            s->SetRot(Temp.GetQuat());
                         }
                         if (ImGui::SliderFloat("Z Vector", &UnitVec.z, -1, 1))
                         {
                             UnitVec = glm::normalize(UnitVec);
-                            sd.UnitVec = UnitVec;
-                            s->SetRot(sd);
+                            Temp.UnitVec = UnitVec;
+                            s->SetRot(Temp.GetQuat());
                         }
                         ImGui::TreePop();
                     }

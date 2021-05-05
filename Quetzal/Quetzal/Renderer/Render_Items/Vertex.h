@@ -6,21 +6,6 @@
 #include <string>
 #include <vector>
 //math items
-namespace Math
-{
-	void Decompose(glm::mat4 Transform, glm::vec3& Translation, Quat& Rotation, glm::vec3& Scale)
-	{
-		//Getting Translation
-		Translation = Transform[3];
-
-
-	}
-}
-//basic structures needed
-template <typename T>
-using S_P = std::shared_ptr<T>;
-template <typename T>
-using Vec_SH = std::vector<S_P<T>>;
 //Universal Data Structures
 struct Quat
 {
@@ -47,6 +32,8 @@ struct Quat
 	}
 	glm::quat GetQuat()
 	{
+		if (Angle == 360.f)
+			Angle = 0;
 		float RadAngle = Angle / 180.f * glm::pi<float>();
 		return glm::angleAxis(RadAngle, UnitVec);
 	}
@@ -65,7 +52,6 @@ struct Quat
 			this->UnitVec = glm::vec3(NewQuat.x / s,
 				NewQuat.y / s, NewQuat.z / s);
 		}
-
 	}
 	void Cout()
 	{
@@ -74,6 +60,60 @@ struct Quat
 
 	}
 };
+class Math
+{
+public:
+	void Decompose(glm::mat4 Transform, glm::vec3& Translation, glm::quat& Rotation, glm::vec3& Scale)
+		{
+			//Getting Translation
+			Translation = Transform[3];
+			//Getting Scale
+			glm::vec3 Row[3];
+			for (int ii = 0; ii < 3; ii++)
+				for (int jj = 0; jj < 3; jj++)
+					Row[ii][jj] = Transform[ii][jj];
+			Scale.x = glm::length(Row[0]);
+			Scale.y = glm::length(Row[1]);
+			Scale.z = glm::length(Row[2]);
+			//Get Rotation
+			int i = 0, j = 0, k = 0;
+			float root = 0;
+			float trace = Row[0].x + Row[1].y + Row[2].z;
+			glm::quat Orientation;
+			if (trace > 0)
+			{
+				root = glm::sqrt(trace + 1.f);
+				Orientation.w = .5f * root;
+				root = .5f * root;
+				Orientation.x = root * (Row[1].z - Row[2].y);
+				Orientation.y = root * (Row[2].x - Row[0].z);
+				Orientation.z = root * (Row[0].y - Row[1].x);
+			}
+			else
+			{
+				static int Next[3] = { 1,2,0 };
+				i = 0;
+				if (Row[1].y > Row[0].x) i = 1;
+				if (Row[2].z > Row[i][i]) i = 2;
+				j = Next[i];
+				k = Next[j];
+
+				root = glm::sqrt(Row[i][i] - Row[k][k]);
+
+				Orientation[i] = .5f * root;
+				root = .5f / root;
+				Orientation[j] = root * (Row[i][j] + Row[j][i]);
+				Orientation[k] = root * (Row[i][k] + Row[k][i]);
+				Orientation.w = root * (Row[j][k] + Row[k][j]);
+			}
+			Rotation = Orientation;
+		}
+};
+//basic structures needed
+template <typename T>
+using S_P = std::shared_ptr<T>;
+template <typename T>
+using Vec_SH = std::vector<S_P<T>>;
 //Data Structure for static models
 struct Vertex
 {
@@ -90,7 +130,7 @@ private:
 	glm::vec3 Position;
 	glm::vec3 Offset;
 	glm::vec3 Scale;
-	Quat Rot;
+	glm::quat Rot;
 	glm::mat4 Matrix;
 	glm::mat4 W_Mat = glm::mat4(1.f);
 	//ID for Meshes and Textures
@@ -100,13 +140,13 @@ private:
 public:
 	Node()
 		:Position(glm::vec3(0.f)),Offset(glm::vec3(0.f)), Scale(glm::vec3(1.f)),
-		Rot(Quat()),Matrix(glm::mat4(1.f))
+		Rot(glm::quat(0.f,0.f,1.f,0.f)),Matrix(glm::mat4(1.f))
 	{
 		this->MeshId = -1;
 		this->MatId = -1;
 	}
 	Node(glm::vec3 InitPos, glm::vec3 InitOffset,
-		glm::vec3 InitScale, Quat InitRot, int InitMeshId, int InitMatId)
+		glm::vec3 InitScale, glm::quat InitRot, int InitMeshId, int InitMatId)
 		:Position(InitPos), Offset(InitOffset),
 		Scale(InitScale),Rot(InitRot), Matrix(glm::mat4(1.f)),
 		MeshId(InitMeshId), MatId(InitMatId)
@@ -133,7 +173,7 @@ public:
 	{
 		this->Matrix = glm::mat4(1.f);
 		this->Matrix = glm::translate(this->Matrix, this->Position);
-		glm::mat4 Temps = glm::mat4_cast(this->Rot.GetQuat());
+		glm::mat4 Temps = glm::mat4_cast(this->Rot);
 		Matrix *= Temps;
 		this->Matrix = glm::translate(this->Matrix, this->Offset);
 		this->Matrix = glm::scale(this->Matrix, this->Scale);
@@ -146,7 +186,7 @@ public:
 	glm::vec3 GetPos()           { return this->W_Mat * glm::vec4(this->Position,1.f); }
 	glm::vec3 GetOffset()	     { return this->W_Mat * glm::vec4(this->Offset, 1.f); }
 	glm::vec3 GetScale()         { return this->Scale; }
-	Quat GetRot()
+	glm::quat GetRot()
 	{
 		return this->Rot;
 	}
@@ -157,7 +197,7 @@ public:
 	void SetPos(glm::vec3 NewPos)       { this->Position = glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);}
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = glm::inverse(this->W_Mat) * glm::vec4(NewOffset,1.f); }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
-	void SetRot(Quat NewRot)            { this->Rot = NewRot; }
+	void SetRot(glm::quat NewRot)            { this->Rot = NewRot; }
 	void SetW_Mat(glm::mat4 InitW)      { this->W_Mat = InitW; }
 	//Mesh and Texture relatd Function
 	void AddTextureId(std::vector<int> NewIds) { this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end()); }
