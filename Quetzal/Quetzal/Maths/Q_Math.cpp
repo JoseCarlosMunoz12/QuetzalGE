@@ -43,7 +43,7 @@ glm::quat Math::Decompose_Rt(glm::mat4 Transform)
 	{
 		root = glm::sqrt(trace + 1.f);
 		Orientation.w = .5f * root;
-		root = .5f * root;
+		root = .5f / root;
 		Orientation.x = root * (Row[1].z - Row[2].y);
 		Orientation.y = root * (Row[2].x - Row[0].z);
 		Orientation.z = root * (Row[0].y - Row[1].x);

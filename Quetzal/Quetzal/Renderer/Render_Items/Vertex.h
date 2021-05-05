@@ -81,7 +81,6 @@ private:
 	glm::vec3 Scale;
 	glm::quat Rot;
 	glm::mat4 Matrix;
-	glm::mat4 W_Mat = glm::mat4(1.f);
 	//ID for Meshes and Textures
 	std::vector<int> TextureID;
 	int MeshId;
@@ -89,8 +88,10 @@ private:
 public:
 	Node()
 		:Position(glm::vec3(0.f)),Offset(glm::vec3(0.f)), Scale(glm::vec3(1.f)),
-		Rot(glm::quat(0.f,0.f,1.f,0.f)),Matrix(glm::mat4(1.f))
+		Matrix(glm::mat4(1.f))
 	{
+		Quat Rs;
+		Rot = Rs.GetQuat();
 		this->MeshId = -1;
 		this->MatId = -1;
 	}
@@ -129,25 +130,26 @@ public:
 	}
 	glm::mat4 GetMatrix()
 	{
-		return this->W_Mat * this->Matrix;
+		return this->Matrix;
 	}
 	//Getters
-	glm::vec3 GetPos()           { return this->W_Mat * glm::vec4(this->Position,1.f); }
-	glm::vec3 GetOffset()	     { return this->W_Mat * glm::vec4(this->Offset, 1.f); }
+	glm::vec3 GetPos()           { return this->Position; }
+	glm::vec3 GetOffset()	     { return this->Offset; }
 	glm::vec3 GetScale()         { return this->Scale; }
-	glm::quat GetRot()
-	{
-		return this->Rot;
-	}
+	glm::quat GetRot()           { return this->Rot; }
 	std::vector<int> GetTextId() { return this->TextureID; }
 	int GetMeshId()              { return this->MeshId; }
 	int GetMatId()               { return this->MatId; }
 	//Setters
-	void SetPos(glm::vec3 NewPos)       { this->Position = glm::inverse(this->W_Mat) * glm::vec4(NewPos,1.f);}
-	void SetOffset(glm::vec3 NewOffset) { this->Offset = glm::inverse(this->W_Mat) * glm::vec4(NewOffset,1.f); }
+	void SetPos(glm::vec3 NewPos)       { this->Position = NewPos; }
+	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
-	void SetRot(glm::quat NewRot)            { this->Rot = NewRot; }
-	void SetW_Mat(glm::mat4 InitW)      { this->W_Mat = InitW; }
+	void SetRot(glm::quat NewRot)       { this->Rot = NewRot; }
+	//set orientation correct in opengl space
+	void SetW_Mat(glm::mat4 InitW)
+	{
+		this->Rot = Math::Decompose_Rt(InitW);
+	}
 	//Mesh and Texture relatd Function
 	void AddTextureId(std::vector<int> NewIds) { this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end()); }
 	void AddTextureId(int NewId)               { this->TextureID.push_back(NewId); }
