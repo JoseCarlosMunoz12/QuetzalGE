@@ -67,3 +67,43 @@ glm::quat Math::Decompose_Rt(glm::mat4 Transform)
 	}
 	return Orientation;
 }
+
+glm::vec3 Math::Quat_To_Eulor(glm::quat Quat)
+{
+	glm::vec3 angles;
+	// roll (z-axis rotation)
+	double sinr_cosp = 2 * (Quat.w * Quat.x + Quat.y * Quat.z);
+	double cosr_cosp = 1 - 2 * (Quat.x * Quat.x + Quat.y * Quat.y);
+	angles.z = std::atan2(sinr_cosp, cosr_cosp);
+
+	// pitch (x-axis rotation)
+	double sinp = 2 * (Quat.w * Quat.y - Quat.z * Quat.x);
+	if (std::abs(sinp) >= 1)
+		angles.x = std::copysign(glm::pi<float>() / 2, sinp); // use 90 degrees if out of range
+	else
+		angles.x = std::asin(sinp);
+
+	// yaw (y-axis rotation)
+	double siny_cosp = 2 * (Quat.w * Quat.z + Quat.x * Quat.y);
+	double cosy_cosp = 1 - 2 * (Quat.y * Quat.y + Quat.z * Quat.z);
+	angles.y = std::atan2(siny_cosp, cosy_cosp);
+	return (180 / glm::pi<float>()) * angles;
+}
+
+glm::quat Math::Eulor_To_Quat(glm::vec3 Eulor)
+{  // Abbreviations for the various angular functions
+	double cy = cos(Eulor.y * 0.5);
+	double sy = sin(Eulor.y * 0.5);
+	double cp = cos(Eulor.x * 0.5);
+	double sp = sin(Eulor.x * 0.5);
+	double cr = cos(Eulor.z * 0.5);
+	double sr = sin(Eulor.z * 0.5);
+
+	glm::quat q;
+	q.w = cr * cp * cy + sr * sp * sy;
+	q.x = sr * cp * cy - cr * sp * sy;
+	q.y = cr * sp * cy + sr * cp * sy;
+	q.z = cr * cp * sy - sr * sp * cy;
+
+	return q;;
+}

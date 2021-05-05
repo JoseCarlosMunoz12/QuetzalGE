@@ -41,6 +41,7 @@ void IG_All_Items::Update()
                     if (ImGui::TreeNode("Node Rotation"))
                     {
                         glm::quat sd = s->GetRot();
+                        glm::vec3 Angles = Math::Quat_To_Eulor(sd);
                         Quat Temp(sd);
                         float AxisAngle = Temp.Angle;
                         glm::vec3 UnitVec = Temp.UnitVec;
