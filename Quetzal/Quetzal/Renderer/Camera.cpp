@@ -15,7 +15,7 @@ Camera::Camera(glm::vec3 Pos, glm::vec3 WorldUp,
 	float InitMovement, float InitSensitivity)
 	:position(Pos), worldUp(WorldUp), up(WorldUp),
 	movementSpeed(InitMovement), sensitivity(InitSensitivity),
-	UpdateCamera(true)
+	UpdateCamera(false)
 {
 	this->ViewMatrix = glm::mat4(1.f);
 	this->right = glm::vec3(0.f);

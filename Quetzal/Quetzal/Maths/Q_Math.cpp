@@ -91,7 +91,9 @@ glm::vec3 Math::Quat_To_Eulor(glm::quat Quat)
 }
 
 glm::quat Math::Eulor_To_Quat(glm::vec3 Eulor)
-{  // Abbreviations for the various angular functions
+{
+	Eulor = (glm::pi<float>() / 180.f) * Eulor;
+	// Abbreviations for the various angular functions
 	double cy = cos(Eulor.y * 0.5);
 	double sy = sin(Eulor.y * 0.5);
 	double cp = cos(Eulor.x * 0.5);
