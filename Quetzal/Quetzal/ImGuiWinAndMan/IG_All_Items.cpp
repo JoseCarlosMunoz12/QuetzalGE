@@ -5,7 +5,6 @@ void IG_All_Items::DisplayChildren(Vec_SH<Node> Chld)
     for (auto& ii : Chld)
     {
         ii->GetPos();
-        this->DisplayChildren(ii->GetChildren());
     }
 
 }
@@ -37,6 +36,22 @@ void IG_All_Items::Update()
                 {
                     ImGui::Text("General information");
                     S_P<Node> Nd = ii->GetNodes();
+                    glm::vec3 angles = (180.f / glm::pi<float>()) * glm::eulerAngles(Nd->GetRot());
+                    if (ImGui::SliderFloat("X-axis",&angles.x,-180,180))
+                    {
+                        angles = (glm::pi<float>() / 180.f) * angles;
+                        Nd->SetRot(glm::quat(angles));
+                    }
+                    if (ImGui::SliderFloat("Y-axis", &angles.y, 0, 360))
+                    {
+                        angles = (glm::pi<float>() / 180.f) * angles;
+                        Nd->SetRot(glm::quat(angles));
+                    }
+                    if (ImGui::SliderFloat("Z-axis", &angles.z, -180, 180))
+                    {
+                        angles = (glm::pi<float>() / 180.f) * angles;
+                        Nd->SetRot(glm::quat(angles));
+                    }
                     this->DisplayChildren(Nd->GetChildren());
                     ImGui::TreePop();
                 }
