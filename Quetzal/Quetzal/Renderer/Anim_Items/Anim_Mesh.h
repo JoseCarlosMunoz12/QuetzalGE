@@ -24,7 +24,6 @@ private:
 	glm::mat4 Inv = glm::mat4(1.f);
 	void InitVAO()
 	{
-
 		//Create VAO
 		glCreateVertexArrays(1, &this->VAO);
 		glBindVertexArray(this->VAO);
@@ -33,7 +32,7 @@ private:
 
 		glGenBuffers(1, &this->VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-		glBufferData(GL_ARRAY_BUFFER, this->nrOfVertices * sizeof(Vertex), this->vertexArray, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, this->nrOfVertices * sizeof(AnimVertex), this->vertexArray, GL_STATIC_DRAW);
 
 		//GEN EBO and BIND And Send Data---------
 		if (this->nrOfIndices > 0)
@@ -45,14 +44,20 @@ private:
 
 		//Set VerttexAttribPointers and Enable (input assembly)
 		//Position
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, position));
 		glEnableVertexAttribArray(0);
 		//TexCoord
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, texcoord));
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, texcoord));
 		glEnableVertexAttribArray(1);
 		//Normal
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, normal));
 		glEnableVertexAttribArray(2);
+		//MatId
+		glVertexAttribPointer(3, 3, GL_INT  , GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, MatId));
+		glEnableVertexAttribArray(3);
+		//Weights
+		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, Weights));
+		glEnableVertexAttribArray(4);
 		//BIND VAO 0
 		glBindVertexArray(0);
 	}
