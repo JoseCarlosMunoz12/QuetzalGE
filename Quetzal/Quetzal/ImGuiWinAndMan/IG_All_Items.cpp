@@ -12,6 +12,8 @@ void IG_All_Items::DisplayChildren(Vec_SH<Node> Chld)
 IG_All_Items::IG_All_Items(std::string Name)
 	:WinName(Name)
 {
+    this->ERs = glm::vec3(0.f, 90.f, 0.f);
+    this->QRs = glm::quat((glm::pi<float>() / 180.f) * ERs);
 }
 
 IG_All_Items::~IG_All_Items()
@@ -34,25 +36,19 @@ void IG_All_Items::Update()
             {
                 if (ImGui::TreeNode(ii->GetName().c_str()))
                 {
+                    this->ERs = glm::eulerAngles(this->QRs);
+                    this->ERs = (180.f / glm::pi<float>()) * this->ERs;
                     ImGui::Text("General information");
-                    S_P<Node> Nd = ii->GetNodes();
-                    glm::vec3 angles = (180.f / glm::pi<float>()) * glm::eulerAngles(Nd->GetRot());
-                    if (ImGui::SliderFloat("X-axis",&angles.x,-180,180))
+                    if (ImGui::SliderFloat("X-Axis", &ERs.x, -180, 180))
+                        this->QRs = glm::quat((glm::pi<float>() / 180.f) * this->ERs);
+                    if (ImGui::SliderFloat("Y-Axis", &ERs.y, -180, 180))
                     {
-                        angles = (glm::pi<float>() / 180.f) * angles;
-                        Nd->SetRot(glm::quat(angles));
+                        this->ERs = (glm::pi<float>() / 180.f) * this->ERs;
+                        this->QRs = glm::quat(this->ERs);
                     }
-                    if (ImGui::SliderFloat("Y-axis", &angles.y, 0, 360))
-                    {
-                        angles = (glm::pi<float>() / 180.f) * angles;
-                        Nd->SetRot(glm::quat(angles));
-                    }
-                    if (ImGui::SliderFloat("Z-axis", &angles.z, -180, 180))
-                    {
-                        angles = (glm::pi<float>() / 180.f) * angles;
-                        Nd->SetRot(glm::quat(angles));
-                    }
-                    this->DisplayChildren(Nd->GetChildren());
+                    if (ImGui::SliderFloat("Z-Axis", &ERs.z, -180, 180))
+                        this->QRs = glm::quat((glm::pi<float>() / 180.f) * this->ERs);
+                    //this->DisplayChildren(Nd->GetChildren());
                     ImGui::TreePop();
                 }
             }
