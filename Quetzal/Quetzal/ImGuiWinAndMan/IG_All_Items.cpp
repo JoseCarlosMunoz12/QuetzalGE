@@ -8,10 +8,11 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd)
     float OS[3] = {Ofs.x, Ofs.y, Ofs.z};
     glm::quat Rot = Nd->GetRot();
     Quat rs; rs.SetQuat(Rot);
+    float Unit[3] = {rs.UnitVec.x, rs.UnitVec.y,rs.UnitVec.z};
     glm::vec3 Scl = Nd->GetScale();
     float Scle[3] = {Scl.x, Scl.y, Scl.z};
     Vec_SH<Node> Chlds = Nd->GetChildren();
-
+    //Information of the position relative to the item
     if (ImGui::DragFloat3("Position", Ps, 1, -20, 20))
     {
         Pos.x = Ps[0];
@@ -28,7 +29,22 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd)
     }
     if (ImGui::DragFloat("Angle",&rs.Angle,1,-180,180))
         Nd->SetRot(rs.GetQuat());
-
+    if (ImGui::DragFloat3("UnitVec", Unit, .01, 5, 5))
+    {
+        rs.UnitVec = glm::normalize(rs.UnitVec);
+        Nd->SetRot(rs.GetQuat());
+    }
+    if (ImGui::DragFloat3("Scale", Scle,1,0,5))
+    {
+        Scl.x = Scle[0];
+        Scl.y = Scle[1];
+        Scl.z = Scle[2];
+        Nd->SetScale(Scl);
+    }
+    //Information about the Textures and Materials used for this
+    std::vector<int> Tx_Id = Nd->GetTextId();
+    int Ms_Id = Nd->GetMeshId();
+    int Mt_Id = Nd->GetMatId();
     for (auto& ii : Chlds)
     {
         if (ImGui::TreeNode("ChildS"))
@@ -65,6 +81,9 @@ void IG_All_Items::Update()
             {
                 if (ImGui::TreeNode(ii->GetName().c_str()))
                 {
+                    ii->GetMeshes();
+                    ii->GetTextures();
+                    ii->GetMeshes();
                     this->DisplayChildren(ii->GetNodes());
                     ImGui::TreePop();
                 }
