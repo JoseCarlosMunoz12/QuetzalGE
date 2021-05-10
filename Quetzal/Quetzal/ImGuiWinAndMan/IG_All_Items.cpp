@@ -2,6 +2,7 @@
 
 void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Texture>VecTex, Vec_SH<Material> VecMat)
 {
+    //Standard position, rotation and scale data
     glm::vec3 Pos = Nd->GetPos();
     float Ps[3] = { Pos.x, Pos.y, Pos.z };
     glm::vec3 Ofs = Nd->GetOffset();
@@ -13,23 +14,23 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Te
     float Scle[3] = {Scl.x, Scl.y, Scl.z};
     Vec_SH<Node> Chlds = Nd->GetChildren();
     //Information of the position relative to the item
-    if (ImGui::DragFloat3("Position", Ps, 1.f, -20, 20))
+    if (ImGui::DragFloat3("Position", Ps, 1.f, -20.f, 20.f))
     {
         Pos.x = Ps[0];
         Pos.y = Ps[1];
         Pos.z = Ps[2];
         Nd->SetPos(Pos);        
     }
-    if (ImGui::DragFloat3("Offset", OS, 1.f, -20, 20))
+    if (ImGui::DragFloat3("Offset", OS, 1.f, -20.f, 20.f))
     {
         Ofs.x = OS[0];
         Ofs.y = OS[1];
         Ofs.z = OS[2];
         Nd->SetOffset(Ofs);
     }
-    if (ImGui::DragFloat("Angle",&rs.Angle,.1f,-180,180))
+    if (ImGui::DragFloat("Angle",&rs.Angle,.1f,-180.f,180.f))
         Nd->SetRot(rs.GetQuat());
-    if (ImGui::DragFloat3("UnitVec", Unit, .01, -1, 1))
+    if (ImGui::DragFloat3("UnitVec", Unit, .01f, -1.f, 1.f))
     {
         rs.UnitVec.x = Unit[0];
         rs.UnitVec.y = Unit[1];
@@ -37,7 +38,7 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Te
         rs.UnitVec = glm::normalize(rs.UnitVec);
         Nd->SetRot(rs.GetQuat());
     }
-    if (ImGui::DragFloat3("Scale", Scle,1,0,5))
+    if (ImGui::DragFloat3("Scale", Scle,1.f,0.f,5.f))
     {
         Scl.x = Scle[0];
         Scl.y = Scle[1];
@@ -77,7 +78,6 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Te
             }
         }
         ImGui::TreePop();
-
     }
 }
 
