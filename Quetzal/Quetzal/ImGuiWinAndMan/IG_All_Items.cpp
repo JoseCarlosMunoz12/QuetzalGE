@@ -29,8 +29,11 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Te
     }
     if (ImGui::DragFloat("Angle",&rs.Angle,1,-180,180))
         Nd->SetRot(rs.GetQuat());
-    if (ImGui::DragFloat3("UnitVec", Unit, .01, 5, 5))
+    if (ImGui::DragFloat3("UnitVec", Unit, .01, -1, 1))
     {
+        rs.UnitVec.x = Unit[0];
+        rs.UnitVec.y = Unit[1];
+        rs.UnitVec.z = Unit[2];
         rs.UnitVec = glm::normalize(rs.UnitVec);
         Nd->SetRot(rs.GetQuat());
     }
@@ -45,8 +48,11 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Te
     std::vector<int> Tx_Id = Nd->GetTextId();
     int Ms_Id = Nd->GetMeshId();
     int Mt_Id = Nd->GetMatId();
-    for (auto& ii : Tx_Id)
-        ImGui::Text(VecTex[ii]->GiveChar());
+    if (Tx_Id.size() > 0)
+        for (auto& ii : Tx_Id)
+            ImGui::Text(VecTex[ii]->GiveChar());
+    else
+        ImGui::Text("No Texture Assigned!");
     if (Ms_Id >= 0)
         ImGui::Text(VecMesh[Ms_Id]->GiveName());
     else
