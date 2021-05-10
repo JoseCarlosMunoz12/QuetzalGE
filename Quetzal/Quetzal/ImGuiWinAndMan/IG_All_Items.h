@@ -5,7 +5,6 @@ class IG_All_Items : public ImGuiWinPar
 {
 private:
 	std::string WinName;
-	void DisplayChildren(Vec_SH<Node> Chld);
 	void DisplayChildren(S_P<Node> Nd);
 public:
 	IG_All_Items(std::string Name = "All Items");
