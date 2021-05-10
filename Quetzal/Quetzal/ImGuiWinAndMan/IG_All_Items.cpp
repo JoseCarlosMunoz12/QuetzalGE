@@ -9,9 +9,27 @@ void IG_All_Items::DisplayChildren(Vec_SH<Node> Chld)
 
 }
 
+void IG_All_Items::DisplayChildren(S_P<Node> Nd)
+{
+    glm::vec3 Pos = Nd->GetPos();
+    glm::vec3 Ofs = Nd->GetOffset();
+    glm::quat Rot = Nd->GetRot();
+    glm::vec3 Scl = Nd->GetScale();
+    Vec_SH<Node> Chlds = Nd->GetChildren();
+    for (auto& ii : Chlds)
+    {
+        if (ImGui::TreeNode("ChildS"))
+        {
+            this->DisplayChildren(ii);
+            ImGui::TreePop();
+        }
+    }
+}
+
 IG_All_Items::IG_All_Items(std::string Name)
 	:WinName(Name)
 {
+
 }
 
 IG_All_Items::~IG_All_Items()
@@ -34,7 +52,7 @@ void IG_All_Items::Update()
             {
                 if (ImGui::TreeNode(ii->GetName().c_str()))
                 {
-                    //this->DisplayChildren(Nd->GetChildren());
+                    this->DisplayChildren(ii->GetNodes());
                     ImGui::TreePop();
                 }
             }
