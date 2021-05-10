@@ -1,6 +1,6 @@
 #include "IG_All_Items.h"
 
-void IG_All_Items::DisplayChildren(S_P<Node> Nd)
+void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Texture>VecTex, Vec_SH<Material> VecMat)
 {
     glm::vec3 Pos = Nd->GetPos();
     float Ps[3] = { Pos.x, Pos.y, Pos.z };
@@ -45,11 +45,12 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd)
     std::vector<int> Tx_Id = Nd->GetTextId();
     int Ms_Id = Nd->GetMeshId();
     int Mt_Id = Nd->GetMatId();
+    //Display Child Data
     for (auto& ii : Chlds)
     {
         if (ImGui::TreeNode("ChildS"))
         {
-            this->DisplayChildren(ii);
+            this->DisplayChildren(ii,VecMesh,VecTex,VecMat);
             ImGui::TreePop();
         }
     }
@@ -81,10 +82,10 @@ void IG_All_Items::Update()
             {
                 if (ImGui::TreeNode(ii->GetName().c_str()))
                 {
-                    ii->GetMeshes();
-                    ii->GetTextures();
-                    ii->GetMeshes();
-                    this->DisplayChildren(ii->GetNodes());
+                    Vec_SH<Mesh> Mshs = ii->GetMeshes();
+                    Vec_SH<Texture> Txt = ii->GetTextures();
+                    Vec_SH<Material> Mts = ii->GetMaterials();
+                    this->DisplayChildren(ii->GetNodes(),Mshs,Txt,Mts);
                     ImGui::TreePop();
                 }
             }
