@@ -47,11 +47,14 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Te
     int Mt_Id = Nd->GetMatId();
     for (auto& ii : Tx_Id)
         ImGui::Text(VecTex[ii]->GiveChar());
-    ImGui::Text(VecMesh[Ms_Id]->GiveName());
-    if (Mt_Id >= 0)
-        ImGui::Text("No Material Connected");
+    if (Ms_Id >= 0)
+        ImGui::Text(VecMesh[Ms_Id]->GiveName());
     else
+        ImGui::Text("No Mesh Assigned!!!");
+    if (Mt_Id >= 0)
         ImGui::Text(VecMat[Mt_Id]->GetName());
+    else
+        ImGui::Text("No Material Assigned");
     //Display Child Data
     for (auto& ii : Chlds)
     {
