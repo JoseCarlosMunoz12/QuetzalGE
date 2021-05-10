@@ -26,6 +26,8 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd)
         Ofs.z = OS[2];
         Nd->SetOffset(Ofs);
     }
+    if (ImGui::DragFloat("Angle",&rs.Angle,1,-180,180))
+        Nd->SetRot(rs.GetQuat());
 
     for (auto& ii : Chlds)
     {
