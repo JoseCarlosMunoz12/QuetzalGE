@@ -13,21 +13,21 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Te
     float Scle[3] = {Scl.x, Scl.y, Scl.z};
     Vec_SH<Node> Chlds = Nd->GetChildren();
     //Information of the position relative to the item
-    if (ImGui::DragFloat3("Position", Ps, 1, -20, 20))
+    if (ImGui::DragFloat3("Position", Ps, 1.f, -20, 20))
     {
         Pos.x = Ps[0];
         Pos.y = Ps[1];
         Pos.z = Ps[2];
         Nd->SetPos(Pos);        
     }
-    if (ImGui::DragFloat3("Offset", OS, 1, -20, 20))
+    if (ImGui::DragFloat3("Offset", OS, 1.f, -20, 20))
     {
         Ofs.x = OS[0];
         Ofs.y = OS[1];
         Ofs.z = OS[2];
         Nd->SetOffset(Ofs);
     }
-    if (ImGui::DragFloat("Angle",&rs.Angle,1,-180,180))
+    if (ImGui::DragFloat("Angle",&rs.Angle,.1f,-180,180))
         Nd->SetRot(rs.GetQuat());
     if (ImGui::DragFloat3("UnitVec", Unit, .01, -1, 1))
     {
@@ -45,30 +45,39 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Mesh> VecMesh, Vec_SH<Te
         Nd->SetScale(Scl);
     }
     //Information about the Textures and Materials used for this
-    std::vector<int> Tx_Id = Nd->GetTextId();
-    int Ms_Id = Nd->GetMeshId();
-    int Mt_Id = Nd->GetMatId();
-    if (Tx_Id.size() > 0)
-        for (auto& ii : Tx_Id)
-            ImGui::Text(VecTex[ii]->GiveChar());
-    else
-        ImGui::Text("No Texture Assigned!");
-    if (Ms_Id >= 0)
-        ImGui::Text(VecMesh[Ms_Id]->GiveName());
-    else
-        ImGui::Text("No Mesh Assigned!!!");
-    if (Mt_Id >= 0)
-        ImGui::Text(VecMat[Mt_Id]->GetName());
-    else
-        ImGui::Text("No Material Assigned");
-    //Display Child Data
-    for (auto& ii : Chlds)
+    if (ImGui::TreeNode("See Other Information"))
     {
-        if (ImGui::TreeNode("ChildS"))
+        std::vector<int> Tx_Id = Nd->GetTextId();
+        int Ms_Id = Nd->GetMeshId();
+        int Mt_Id = Nd->GetMatId();
+        if (Tx_Id.size() > 0)
+            for (auto& ii : Tx_Id)
+                ImGui::Text(VecTex[ii]->GiveChar());
+        else
+            ImGui::Text("No Texture Assigned!");
+        if (Ms_Id >= 0)
+            ImGui::Text(VecMesh[Ms_Id]->GiveName());
+        else
+            ImGui::Text("No Mesh Assigned!!!");
+        if (Mt_Id >= 0)
+            ImGui::Text(VecMat[Mt_Id]->GetName());
+        else
+            ImGui::Text("No Material Assigned");
+        ImGui::TreePop();
+    }
+    //Display Child Data
+    if (ImGui::TreeNode("Child Information"))
+    {
+        for (auto& ii : Chlds)
         {
-            this->DisplayChildren(ii,VecMesh,VecTex,VecMat);
-            ImGui::TreePop();
+            if (ImGui::TreeNode("ChildS"))
+            {
+                this->DisplayChildren(ii, VecMesh, VecTex, VecMat);
+                ImGui::TreePop();
+            }
         }
+        ImGui::TreePop();
+
     }
 }
 
