@@ -69,12 +69,37 @@ void Frames::SetType(InterType NewType)
 
 Vec_SH<Frames> Anim_Skels::GetFrames(float Time)
 {
-    return Vec_SH<Frames>();
+    int Count = 0;
+    for (auto& Frm : Skel_Frames)
+    {
+        if (Frm->GetTimeStamp() > Time)
+            break;
+        Count++;
+    }
+    if(Count == 0)
+        return { Skel_Frames[Count], Skel_Frames[Count + 1]};
+    if (Count == Skel_Frames.size())
+        return { Skel_Frames[Count - 1], Skel_Frames[Count - 1] };
+    return { Skel_Frames[Count-1], Skel_Frames[Count]};
+}
+
+float Anim_Skels::GetTimeRatio(float Time, Vec_SH<Frames> Frms)
+{
+    float TimeLeft = Time - Frms[0]->GetTimeStamp();
+    float FrameDiff = Frms[1]->GetTimeStamp() - Frms[0]->GetTimeStamp();
+    if (FrameDiff == 0)
+        return 0.f;
+    return TimeLeft / FrameDiff;
 }
 
 void Anim_Skels::GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::quat& NewCurR, float Time)
 {
+    //Get Frames and time ratio to calculate
     Vec_SH<Frames> Frms = this->GetFrames(Time);
+    float TimeRatio = this->GetTimeRatio(Time, Frms);
+    InterType Type = Frms[0]->GetType();
+    //Get New parts of the Matrix
+   
 }
 
 void Anim_Skels::UpdateMatrix(float Time)
