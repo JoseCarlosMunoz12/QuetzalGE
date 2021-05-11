@@ -1,6 +1,5 @@
 #pragma once
-class Anim_Model
+class Anim_Skels
 {
-
 };
 
