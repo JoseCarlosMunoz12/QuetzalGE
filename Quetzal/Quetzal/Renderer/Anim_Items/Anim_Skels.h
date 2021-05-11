@@ -40,6 +40,7 @@ public:
 	float GetTimeStamp();
 	void SetRot(glm::quat NewRot);
 	void SetOffset(glm::vec3 NewOffset);
+	void SetScale(glm::vec3 NewScale);
 	void SetBezier(Bezier_Bais NewBias);
 	void SetType(InterType NewType);
 };

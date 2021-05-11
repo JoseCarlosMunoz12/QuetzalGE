@@ -40,18 +40,27 @@ float Frames::GetTimeStamp()
 
 void Frames::SetRot(glm::quat NewRot)
 {
+    this->Jnt.Rotation = NewRot;
 }
 
 void Frames::SetOffset(glm::vec3 NewOffset)
 {
+    this->Jnt.Offset = NewOffset;
+}
+
+void Frames::SetScale(glm::vec3 NewScale)
+{
+    this->Jnt.Scale = NewScale;
 }
 
 void Frames::SetBezier(Bezier_Bais NewBias)
 {
+    this->Bias = NewBias;
 }
 
 void Frames::SetType(InterType NewType)
 {
+    this->Type = NewType;
 }
 
 Anim_Skels::Anim_Skels()
