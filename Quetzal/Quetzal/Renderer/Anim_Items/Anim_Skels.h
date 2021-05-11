@@ -84,6 +84,6 @@ public:
 	void SetCurScale(glm::vec3 NewScale);
 	void SetCurRot(glm::quat NewRot);
 	//frame edits
-	void DeleteFrame(int FarameId);
+	void DeleteFrame(int FrameId);
 	void AddFrame(float NewTime);
 };

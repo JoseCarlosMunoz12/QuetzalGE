@@ -155,22 +155,22 @@ glm::mat4 Anim_Skels::GetOffset()
 
 Vec_SH<Anim_Skels> Anim_Skels::GetChildren()
 {
-    return Vec_SH<Anim_Skels>();
+    return this->Chlds;
 }
 
 glm::vec3 Anim_Skels::GetCurOffset()
 {
-    return glm::vec3();
+    return this->CurOffset;
 }
 
 glm::vec3 Anim_Skels::GetCurScale()
 {
-    return glm::vec3();
+    return this->CurScale;
 }
 
 glm::quat Anim_Skels::GetCurRot()
 {
-    return glm::quat();
+    return this->CurRot;
 }
 
 Vec_SH<Frames> Anim_Skels::GetFrames()
@@ -180,20 +180,39 @@ Vec_SH<Frames> Anim_Skels::GetFrames()
 
 void Anim_Skels::SetCurOffset(glm::vec3 NewOffset)
 {
+    this->CurOffset = NewOffset;
 }
 
 void Anim_Skels::SetCurScale(glm::vec3 NewScale)
 {
+    this->CurScale = NewScale;
 }
 
 void Anim_Skels::SetCurRot(glm::quat NewRot)
 {
+    this->CurRot = NewRot;
 }
 
-void Anim_Skels::DeleteFrame(int FarameId)
+void Anim_Skels::DeleteFrame(int FrameId)
 {
+    this->Skel_Frames.erase(this->Skel_Frames.begin() + FrameId);
 }
 
 void Anim_Skels::AddFrame(float NewTime)
 {
+    int Count = 0;
+    for (auto& frm : this->Skel_Frames)
+    {
+        if (frm->GetTimeStamp() > NewTime)
+            break;
+        Count++;
+    }
+    std::shared_ptr<Joint> TempJoint = std::make_shared<Joint>();
+    TempJoint->Offset = this->CurOffset;
+    TempJoint->Rotation = this->CurRot;
+    TempJoint->Scale = this->CurScale;
+    if (this->Skel_Frames.size() == 0)
+        this->Skel_Frames.push_back(std::make_shared<Frames>(NewTime, TempJoint));
+    else
+        this->Skel_Frames.insert(this->Skel_Frames.begin() + Count, std::make_shared<Frames>(NewTime, TempJoint));
 }
