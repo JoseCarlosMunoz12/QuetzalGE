@@ -63,10 +63,55 @@ void Frames::SetType(InterType NewType)
     this->Type = NewType;
 }
 
-/// <summary>
+///------------------------------------------------------------------------------------------------------------
 /// Skeleton class
-/// </summary>
+///------------------------------------------------------------------------------------------------------------
 
 Anim_Skels::Anim_Skels()
+{
+}
+
+glm::mat4 Anim_Skels::GetMatrix(float CurTime)
+{
+    return glm::mat4();
+}
+
+Vec_SH<Anim_Skels> Anim_Skels::GetChildren()
+{
+    return Vec_SH<Anim_Skels>();
+}
+
+glm::vec3 Anim_Skels::GetCurOffset()
+{
+    return glm::vec3();
+}
+
+glm::vec3 Anim_Skels::GetCurScale()
+{
+    return glm::vec3();
+}
+
+glm::quat Anim_Skels::GetCurRot()
+{
+    return glm::quat();
+}
+
+void Anim_Skels::SetCurOffset(glm::vec3 NewOffset)
+{
+}
+
+void Anim_Skels::SetCurScale(glm::vec3 NewScale)
+{
+}
+
+void Anim_Skels::SetCurRot(glm::quat NewRot)
+{
+}
+
+void Anim_Skels::DeleteFrame(int FarameId)
+{
+}
+
+void Anim_Skels::AddFrame(float NewTime)
 {
 }

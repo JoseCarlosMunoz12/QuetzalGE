@@ -60,6 +60,21 @@ private:
 	glm::mat4 TransMat;
 	//Holds Current Matrix calculations
 	glm::mat4 Matrix;
+	//Bone Name
+	std::string Bone_Name;
 public:
 	Anim_Skels();
+	glm::mat4 GetMatrix(float CurTime);
+	Vec_SH<Anim_Skels> GetChildren();
+	//Getters
+	glm::vec3 GetCurOffset();
+	glm::vec3 GetCurScale();
+	glm::quat GetCurRot();
+	//Setters
+	void SetCurOffset(glm::vec3 NewOffset);
+	void SetCurScale(glm::vec3 NewScale);
+	void SetCurRot(glm::quat NewRot);
+	//frame edits
+	void DeleteFrame(int FarameId);
+	void AddFrame(float NewTime);
 };
