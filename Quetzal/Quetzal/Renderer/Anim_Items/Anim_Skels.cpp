@@ -63,6 +63,10 @@ void Frames::SetType(InterType NewType)
     this->Type = NewType;
 }
 
+/// <summary>
+/// Skeleton class
+/// </summary>
+
 Anim_Skels::Anim_Skels()
 {
 }

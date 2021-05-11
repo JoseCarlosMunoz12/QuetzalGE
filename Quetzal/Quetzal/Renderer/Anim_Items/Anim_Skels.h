@@ -48,8 +48,18 @@ public:
 class Anim_Skels
 {
 private:
-
+	//Holds children of skeletons
+	Vec_SH<Anim_Skels> Chlds;
+	//Holds Frames skeleton movement
+	Vec_SH<Frames> Skel_Frames;
+	//Current changes of the Skeleton
+	glm::vec3 CurOffset;
+	glm::vec3 CurScale;
+	glm::quat CurRot;
+	//Hold init position
+	glm::mat4 TransMat;
+	//Holds Current Matrix calculations
+	glm::mat4 Matrix;
 public:
 	Anim_Skels();
 };
-
