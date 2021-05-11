@@ -58,18 +58,26 @@ private:
 	glm::quat CurRot;
 	//Hold init position
 	glm::mat4 TransMat;
+	glm::mat4 Offset;
 	//Holds Current Matrix calculations
 	glm::mat4 Matrix;
 	//Bone Name
 	std::string Bone_Name;
+	Vec_SH<Frames> GetFrames(float Time);
+	void GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::quat& NewCurR, float Time);
+	void UpdateMatrix(float Time);
+
 public:
 	Anim_Skels();
+	//Matrix To get
 	glm::mat4 GetMatrix(float CurTime);
-	Vec_SH<Anim_Skels> GetChildren();
+	glm::mat4 GetOffset();
 	//Getters
+	Vec_SH<Anim_Skels> GetChildren();
 	glm::vec3 GetCurOffset();
 	glm::vec3 GetCurScale();
 	glm::quat GetCurRot();
+	Vec_SH<Frames> GetFrames();
 	//Setters
 	void SetCurOffset(glm::vec3 NewOffset);
 	void SetCurScale(glm::vec3 NewScale);

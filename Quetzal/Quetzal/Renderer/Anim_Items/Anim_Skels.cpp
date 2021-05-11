@@ -67,6 +67,27 @@ void Frames::SetType(InterType NewType)
 /// Skeleton class
 ///------------------------------------------------------------------------------------------------------------
 
+Vec_SH<Frames> Anim_Skels::GetFrames(float Time)
+{
+    return Vec_SH<Frames>();
+}
+
+void Anim_Skels::GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::quat& NewCurR, float Time)
+{
+    Vec_SH<Frames> Frms = this->GetFrames(Time);
+}
+
+void Anim_Skels::UpdateMatrix(float Time)
+{
+    //Gets local offsets, rotation and scale based on the time and frames
+    this->GetInterpolations(this->CurOffset, this->CurScale, this->CurRot,Time);
+    //Calculate the matrix
+    this->Matrix = glm::mat4(1.f);
+    this->Matrix = glm::translate(this->Matrix, this->CurOffset);
+    this->Matrix = this->Matrix * glm::mat4_cast(this->CurRot);
+    this->Matrix = glm::scale(this->Matrix, this->CurScale);
+}
+
 Anim_Skels::Anim_Skels()
 {
 }
@@ -74,6 +95,11 @@ Anim_Skels::Anim_Skels()
 glm::mat4 Anim_Skels::GetMatrix(float CurTime)
 {
     return glm::mat4();
+}
+
+glm::mat4 Anim_Skels::GetOffset()
+{
+    return this->Offset;
 }
 
 Vec_SH<Anim_Skels> Anim_Skels::GetChildren()
@@ -94,6 +120,11 @@ glm::vec3 Anim_Skels::GetCurScale()
 glm::quat Anim_Skels::GetCurRot()
 {
     return glm::quat();
+}
+
+Vec_SH<Frames> Anim_Skels::GetFrames()
+{
+    return this->Skel_Frames;
 }
 
 void Anim_Skels::SetCurOffset(glm::vec3 NewOffset)
