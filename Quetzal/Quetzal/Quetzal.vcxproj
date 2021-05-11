@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Anim_Skels.cpp" />
+    <ClCompile Include="Renderer\Anim_Items\Anim_Skels.cpp" />
     <ClCompile Include="Renderer\Anim_Model.cpp" />
     <ClCompile Include="ImGuiWinAndMan\IG_All_Items.cpp" />
     <ClCompile Include="Maths\Q_Math.cpp" />
@@ -172,7 +172,7 @@
     <ClCompile Include="Renderer\Render_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Anim_Skels.h" />
+    <ClInclude Include="Renderer\Anim_Items\Anim_Skels.h" />
     <ClInclude Include="Renderer\Anim_Model.h" />
     <ClInclude Include="ImGuiWinAndMan\IG_All_Items.h" />
     <ClInclude Include="Maths\Q_Math.h" />

@@ -84,7 +84,7 @@
     <ClCompile Include="Renderer\Anim_Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Anim_Skels.cpp">
+    <ClCompile Include="Renderer\Anim_Items\Anim_Skels.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -209,7 +209,7 @@
     <ClInclude Include="Renderer\Anim_Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Anim_Skels.h">
+    <ClInclude Include="Renderer\Anim_Items\Anim_Skels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
