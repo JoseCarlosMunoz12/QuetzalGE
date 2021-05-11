@@ -64,6 +64,7 @@ private:
 	//Bone Name
 	std::string Bone_Name;
 	Vec_SH<Frames> GetFrames(float Time);
+	glm::vec3 LinInter(glm::vec3 Init, glm::vec3 Final, float Ratio);
 	float GetTimeRatio(float Time, Vec_SH<Frames> Frms);
 	void GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::quat& NewCurR, float Time);
 	void UpdateMatrix(float Time);

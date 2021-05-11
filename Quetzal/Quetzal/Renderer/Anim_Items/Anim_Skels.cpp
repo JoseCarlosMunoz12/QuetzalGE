@@ -83,6 +83,12 @@ Vec_SH<Frames> Anim_Skels::GetFrames(float Time)
     return { Skel_Frames[Count-1], Skel_Frames[Count]};
 }
 
+glm::vec3 Anim_Skels::LinInter(glm::vec3 Init, glm::vec3 Final, float Ratio)
+{
+    glm::vec3 rt_Chng = Final - Init;    
+    return Init + rt_Chng * Ratio;
+}
+
 float Anim_Skels::GetTimeRatio(float Time, Vec_SH<Frames> Frms)
 {
     float TimeLeft = Time - Frms[0]->GetTimeStamp();
@@ -99,18 +105,38 @@ void Anim_Skels::GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::
     float TimeRatio = this->GetTimeRatio(Time, Frms);
     InterType Type = Frms[0]->GetType();
     //Get New parts of the Matrix
-   
+    switch (Type)
+    {
+    case InterType::HOLD:
+        NewCurR = Frms[0]->GetRot();
+        NewCurO = Frms[0]->GetOffset();
+        NewCurS = Frms[0]->GetScale();
+        break;
+    case InterType::LINEAR:
+        NewCurR = glm::slerp(Frms[0]->GetRot(), Frms[1]->GetRot(), TimeRatio);
+        NewCurO = this->LinInter(Frms[0]->GetOffset(), Frms[1]->GetOffset(), TimeRatio);
+        break;
+    case InterType::QUADBENZ:
+        break;
+    case InterType::CUBEBENZ:
+        break;
+    }
 }
 
 void Anim_Skels::UpdateMatrix(float Time)
 {
-    //Gets local offsets, rotation and scale based on the time and frames
-    this->GetInterpolations(this->CurOffset, this->CurScale, this->CurRot,Time);
-    //Calculate the matrix
-    this->Matrix = glm::mat4(1.f);
-    this->Matrix = glm::translate(this->Matrix, this->CurOffset);
-    this->Matrix = this->Matrix * glm::mat4_cast(this->CurRot);
-    this->Matrix = glm::scale(this->Matrix, this->CurScale);
+    if (this->Skel_Frames.size() != 0)
+    {
+        //Gets local offsets, rotation and scale based on the time and frames
+        this->GetInterpolations(this->CurOffset, this->CurScale, this->CurRot,Time);
+        //Calculate the matrix
+        this->Matrix = glm::mat4(1.f);
+        this->Matrix = glm::translate(this->Matrix, this->CurOffset);
+        this->Matrix = this->Matrix * glm::mat4_cast(this->CurRot);
+        this->Matrix = glm::scale(this->Matrix, this->CurScale);
+    }
+    else
+        this->Matrix = this->TransMat;
 }
 
 Anim_Skels::Anim_Skels()
