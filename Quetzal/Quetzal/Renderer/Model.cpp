@@ -10,24 +10,26 @@ void Model::UpdateMatrices(std::shared_ptr<Node> chld)
 
 void Model::RenderNodes(std::shared_ptr<Shader> Cur_Shader, glm::mat4 ParMatrix, std::shared_ptr<Node> chld)
 {
+	//Check that there is a mesh to render if not ignore it
+	int MeshId = chld->GetMeshId();
 	//Calc Current Matrix Level
 	glm::mat4 CurMatrix = ParMatrix * chld->GetMatrix();
-	//Get Current Level IDs
-	std::vector<int> TexId = chld->GetTextId();
-	int MeshId = chld->GetMeshId();
-	int MatId = chld->GetMatId();
-	//Binds and render
-	if(MatId != -1)
-		this->Materials_Inf[MatId]->SendToShader(Cur_Shader);
-	int Count = 0;
-	for (auto& ii : TexId)
+	if (MeshId != -1)
+	{
+		//Get Current Level IDs
+		std::vector<int> TexId = chld->GetTextId();
+		int MatId = chld->GetMatId();
+		//Binds and render
+		if(MatId != -1)
+			this->Materials_Inf[MatId]->SendToShader(Cur_Shader);
+		int Count = 0;
+		for (auto& ii : TexId)
 	{
 		this->Textures_Inf[ii]->Bind(Count);
 		Count++;
 	}
-	if (MeshId == -1)
-		return;
-	this->Meshes_Inf[MeshId]->Render(CurMatrix, Cur_Shader);
+		this->Meshes_Inf[MeshId]->Render(CurMatrix, Cur_Shader);
+	}
 	//Send to Child Nodes
 	std::vector<std::shared_ptr<Node>> Chlds = chld->GetChildren();
 	for (auto& ii : Chlds)

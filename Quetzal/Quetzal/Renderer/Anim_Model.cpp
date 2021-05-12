@@ -14,4 +14,5 @@ void Anim_Model::Update(float dt)
 
 void Anim_Model::Render()
 {
+
 }
