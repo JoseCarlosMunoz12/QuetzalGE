@@ -87,6 +87,9 @@
     <ClCompile Include="Renderer\Anim_Items\Anim_Skels.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Anim_Items\Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -210,6 +213,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Anim_Items\Anim_Skels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Anim_Items\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -83,6 +83,8 @@ public:
 	void SetCurOffset(glm::vec3 NewOffset);
 	void SetCurScale(glm::vec3 NewScale);
 	void SetCurRot(glm::quat NewRot);
+	void SetChild(S_P<Anim_Skels> NewChld);
+	void SetChilds(Vec_SH<Anim_Skels> NewChlds);
 	//frame edits
 	void DeleteFrame(int FrameId);
 	void AddFrame(float NewTime);

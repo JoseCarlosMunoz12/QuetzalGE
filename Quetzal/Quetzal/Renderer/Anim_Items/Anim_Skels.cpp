@@ -193,6 +193,17 @@ void Anim_Skels::SetCurRot(glm::quat NewRot)
     this->CurRot = NewRot;
 }
 
+void Anim_Skels::SetChild(S_P<Anim_Skels> NewChld)
+{
+    this->Chlds.push_back(NewChld);
+}
+
+void Anim_Skels::SetChilds(Vec_SH<Anim_Skels> NewChlds)
+{
+    for (auto& chld : NewChlds)
+        this->SetChild(chld);
+}
+
 void Anim_Skels::DeleteFrame(int FrameId)
 {
     this->Skel_Frames.erase(this->Skel_Frames.begin() + FrameId);
