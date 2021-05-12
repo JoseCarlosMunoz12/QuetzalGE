@@ -152,7 +152,6 @@ Anim_Skels::Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat
     this->Offset = IOffset;
 }
 
-
 glm::mat4 Anim_Skels::GetMatrix(float CurTime)
 {
     this->UpdateMatrix(CurTime);
