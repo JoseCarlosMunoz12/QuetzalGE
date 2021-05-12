@@ -28,6 +28,6 @@ public:
 	//Setters
 	void SetCurTime(float NewCur);
 	void SetTimeLength(float NewLength);
-	void SetLoopdId(int NewId);
+	void SetLoopId(int NewId);
 };
 

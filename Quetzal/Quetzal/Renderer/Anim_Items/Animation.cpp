@@ -81,7 +81,7 @@ void Animation::SetTimeLength(float NewLength)
 	this->TimeLength = NewLength;
 }
 
-void Animation::SetLoopdId(int NewId)
+void Animation::SetLoopId(int NewId)
 {
 	this->LoopId = NewId;
 }
