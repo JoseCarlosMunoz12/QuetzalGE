@@ -69,7 +69,8 @@ private:
 	void GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::quat& NewCurR, float Time);
 	void UpdateMatrix(float Time);
 public:
-	Anim_Skels();
+	Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat, glm::mat4 IOffset,
+		glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale = glm::vec3(1.f));
 	//Matrix To get
 	glm::mat4 GetMatrix(float CurTime);
 	glm::mat4 GetOffset();

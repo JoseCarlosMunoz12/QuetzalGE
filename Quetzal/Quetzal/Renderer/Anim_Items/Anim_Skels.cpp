@@ -136,16 +136,27 @@ void Anim_Skels::UpdateMatrix(float Time)
         this->Matrix = glm::scale(this->Matrix, this->CurScale);
     }
     else
+    {
         this->Matrix = this->TransMat;
+        Math::Decompose(this->Matrix, this->CurOffset, this->CurRot, this->CurScale);
+    }
 }
 
-Anim_Skels::Anim_Skels()
+Anim_Skels::Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat, glm::mat4 IOffset,
+    glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale)
+    :CurOffset(InitOffset), CurScale(InitScale), CurRot(InitQuat)
 {
+    this->Bone_Name = InitName;
+    this->Skel_Frames = InitFrames;
+    this->Matrix = InitMat;
+    this->Offset = IOffset;
 }
+
 
 glm::mat4 Anim_Skels::GetMatrix(float CurTime)
 {
-    return glm::mat4();
+    this->UpdateMatrix(CurTime);
+    return this->Matrix;
 }
 
 glm::mat4 Anim_Skels::GetOffset()
