@@ -1,7 +1,19 @@
 #include "Animation.h"
 
-Animation::Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv)
+void Animation::UpdateSkels(S_P<Anim_Skels> Bone)
 {
+	Bone->UpdateMatrix(this->CurTime);
+	Vec_SH<Anim_Skels> chlds = Bone->GetChildren();
+	for (auto& jj : chlds)
+		this->UpdateSkels(jj);
+}
+
+Animation::Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv)
+	:Name(InitName),TimeLength(InitFloat), Inv(InitInv)
+{
+	this->Skels = InitSkels;
+	this->CurTime = 0.f;
+	this->LoopId = 0;
 }
 
 Animation::~Animation()
@@ -22,8 +34,6 @@ void Animation::updateTime(float dt)
 		this->CurTime += dt;
 		if (this->CurTime > 0)
 			this->CurTime = 0;
-	default:		
-		break;
 	}
 	//update Skeletons with Time
 

@@ -10,10 +10,10 @@ private:
 	float TimeLength;
 	float CurTime;
 	glm::mat4 Inv;
-	//-1 loop to beginning
-	// 0 from start to end once
-	// 1 from start to end and back again
+	// 0 loop to beginning
+	// 1 from start to end once
 	int LoopId;
+	void UpdateSkels(S_P<Anim_Skels> Bone);
 public:
 	Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv);
 	~Animation();

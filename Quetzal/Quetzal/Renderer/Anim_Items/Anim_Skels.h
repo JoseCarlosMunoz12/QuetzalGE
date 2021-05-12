@@ -67,12 +67,12 @@ private:
 	glm::vec3 LinInter(glm::vec3 Init, glm::vec3 Final, float Ratio);
 	float GetTimeRatio(float Time, Vec_SH<Frames> Frms);
 	void GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::quat& NewCurR, float Time);
-	void UpdateMatrix(float Time);
 public:
 	Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat, glm::mat4 IOffset,
 		glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale = glm::vec3(1.f));
 	//Matrix To get
-	glm::mat4 GetMatrix(float CurTime);
+	void UpdateMatrix(float Time);
+	glm::mat4 GetMatrix();
 	glm::mat4 GetOffset();
 	//Getters
 	Vec_SH<Anim_Skels> GetChildren();
