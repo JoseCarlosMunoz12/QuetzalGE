@@ -20,8 +20,13 @@ public:
 	~Animation();
 	void updateTime(float dt);
 	std::vector<glm::mat4> GetAllMatrix();
+	//Getters
 	float GetCurTime();
 	float GetTimeLength();
-	int GetLoodId();
+	int GetLoopId();
+	//Setters
+	void SetCurTime(float NewCur);
+	void SetTimeLength(float NewLength);
+	void SetLoopdId(int NewId);
 };
 

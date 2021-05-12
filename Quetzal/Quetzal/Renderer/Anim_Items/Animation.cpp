@@ -66,7 +66,22 @@ float Animation::GetTimeLength()
 	return this->TimeLength;
 }
 
-int Animation::GetLoodId()
+int Animation::GetLoopId()
 {
 	return this->LoopId;
+}
+
+void Animation::SetCurTime(float NewCur)
+{
+	this->CurTime = NewCur;
+}
+
+void Animation::SetTimeLength(float NewLength)
+{
+	this->TimeLength = NewLength;
+}
+
+void Animation::SetLoopdId(int NewId)
+{
+	this->LoopId = NewId;
 }
