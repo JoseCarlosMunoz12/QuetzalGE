@@ -55,3 +55,18 @@ std::vector<glm::mat4> Animation::GetAllMatrix()
 	this->CalcMatrix(this->Inv, Collection, this->Skels);
     return Collection;
 }
+
+float Animation::GetCurTime()
+{
+	return CurTime;
+}
+
+float Animation::GetTimeLength()
+{
+	return this->TimeLength;
+}
+
+int Animation::GetLoodId()
+{
+	return this->LoopId;
+}

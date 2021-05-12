@@ -20,5 +20,8 @@ public:
 	~Animation();
 	void updateTime(float dt);
 	std::vector<glm::mat4> GetAllMatrix();
+	float GetCurTime();
+	float GetTimeLength();
+	int GetLoodId();
 };
 
