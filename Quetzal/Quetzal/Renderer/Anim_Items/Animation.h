@@ -24,6 +24,7 @@ public:
 	float GetCurTime();
 	float GetTimeLength();
 	int GetLoopId();
+	std::string GetName() { return this->Name; }
 	//Setters
 	void SetCurTime(float NewCur);
 	void SetTimeLength(float NewLength);
