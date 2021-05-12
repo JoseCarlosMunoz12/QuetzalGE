@@ -65,6 +65,27 @@ private:
 	{
 		shader->setMat4fv(FinalMatrix, "ModelMatrix");
 	}
+	void updateMats(std::shared_ptr<Shader> shader, std::vector<glm::mat4> AllMats)
+	{
+		if (AllMats.size() != 0)
+		{
+			shader->set1i(AllMats.size(), "TransCount");
+			for (int ii = 0; ii < AllMats.size(); ii++)
+			{
+				std::string MatName = "Bones[" + std::to_string(ii)+ "]";
+				shader->setMat4fv(AllMats[ii], MatName.c_str());
+			}
+		}
+		else
+		{
+			glm::mat4 rs = glm::mat4(1.f);
+			for (int ii = 0; ii < 100; ii++)
+			{
+				std::string MatName = "Bones[" + std::to_string(ii) + "]";
+				shader->setMat4fv(rs, MatName.c_str());
+			}
+		}
+	}
 public:
 	Anim_Mesh(std::unique_ptr<A_Primitive> primitive,
 		std::string Name)
@@ -140,9 +161,10 @@ public:
 		delete[] this->indexArray;
 	}
 	//Accessors
-	void Render(glm::mat4 FinalMatrix, std::shared_ptr<Shader> shader)
+	void Render(glm::mat4 FinalMatrix, std::shared_ptr<Shader> shader, std::vector<glm::mat4> AllMats)
 	{
 		//Update Uniforms
+		this->updateMats(shader, AllMats);
 		this->updateUniforms(FinalMatrix, shader);
 		shader->use();
 		//BInd VAO
