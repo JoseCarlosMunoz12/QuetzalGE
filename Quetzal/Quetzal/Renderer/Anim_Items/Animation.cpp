@@ -10,7 +10,23 @@ Animation::~Animation()
 
 void Animation::updateTime(float dt)
 {
-    this->CurTime += dt;
+	//updates the Time
+	switch (LoopId)
+	{
+	case 0:
+		this->CurTime += dt;
+		if (this->CurTime > 0)
+			this->CurTime = this->TimeLength;
+		break;
+	case 1:
+		this->CurTime += dt;
+		if (this->CurTime > 0)
+			this->CurTime = 0;
+	default:		
+		break;
+	}
+	//update Skeletons with Time
+
 }
 
 std::vector<glm::mat4> Animation::GetAllMatrix()
