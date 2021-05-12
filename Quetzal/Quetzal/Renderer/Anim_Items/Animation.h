@@ -14,6 +14,7 @@ private:
 	// 1 from start to end once
 	int LoopId;
 	void UpdateSkels(S_P<Anim_Skels> Bone);
+	void CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection,S_P<Anim_Skels> Bone);
 public:
 	Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv);
 	~Animation();

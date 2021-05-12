@@ -8,6 +8,16 @@ void Animation::UpdateSkels(S_P<Anim_Skels> Bone)
 		this->UpdateSkels(jj);
 }
 
+void Animation::CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection, S_P<Anim_Skels> Bone)
+{
+	glm::mat4 ParMatrix = Par * Bone->GetMatrix();
+	glm::mat4 TempMatrix = ParMatrix * Bone->GetOffset();
+	Collection.push_back(TempMatrix);
+	Vec_SH<Anim_Skels> Chlds = Bone->GetChildren();
+	for (auto& jj : Chlds)
+		this->CalcMatrix(ParMatrix, Collection, jj);
+}
+
 Animation::Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv)
 	:Name(InitName),TimeLength(InitFloat), Inv(InitInv)
 {
@@ -36,10 +46,12 @@ void Animation::updateTime(float dt)
 			this->CurTime = 0;
 	}
 	//update Skeletons with Time
-
+	this->UpdateSkels(this->Skels);
 }
 
 std::vector<glm::mat4> Animation::GetAllMatrix()
 {
-    return std::vector<glm::mat4>();
+	std::vector<glm::mat4> Collection;
+	this->CalcMatrix(this->Inv, Collection, this->Skels);
+    return Collection;
 }
