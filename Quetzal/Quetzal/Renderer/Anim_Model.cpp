@@ -84,3 +84,8 @@ void Anim_Model::AddShader(S_P<Shader> NewShader)
 {
 	this->Shaders_Inf.push_back(NewShader);
 }
+
+void Anim_Model::AddBaseNode(S_P<Node> InitRoot)
+{
+	this->Roots = InitRoot;
+}

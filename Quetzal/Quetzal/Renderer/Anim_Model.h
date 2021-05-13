@@ -42,11 +42,13 @@ public:
 	Vec_SH<Material> GetMaterials()   { return this->Materials_Inf; }
 	Vec_SH<Animation> GetAnimations() { return this->Anims; }
 	Vec_SH<Shader> GetShaders()       { return this->Shaders_Inf; }
+	S_P<Node> GetNodes()              { return this->Roots; }
 	//Setters
 	void AddMesh(S_P<Anim_Mesh> NewMesh);
 	void AddTexture(S_P<Texture> NewTexture);
 	void AddMaterial(S_P<Material> NewMaterial);
 	void AddAnimation(S_P<Animation> NewAnimation);
 	void AddShader(S_P<Shader> NewShader);
+	void AddBaseNode(S_P<Node> InitRoot);
 };
 
