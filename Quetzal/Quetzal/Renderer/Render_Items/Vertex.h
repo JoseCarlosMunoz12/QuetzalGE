@@ -141,6 +141,7 @@ public:
 	std::vector<int> GetTextId() { return this->TextureID; }
 	int GetMeshId()              { return this->MeshId; }
 	int GetMatId()               { return this->MatId; }
+	int GetShaderId()            { return this->ShaderId; }
 	//Setters
 	void SetPos(glm::vec3 NewPos)       { this->Position = NewPos; }
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
@@ -155,6 +156,7 @@ public:
 	void AddTextureId(std::vector<int> NewIds) { this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end()); }
 	void AddTextureId(int NewId)               { this->TextureID.push_back(NewId); }
 	void SetMeshId(int NewId)                  { this->MeshId = NewId; }
+	void AddShaderId(int NewId)                { this->ShaderId = NewId; }
 	void ChangeModel(int NewID)	               { this->MeshId = NewID;	}
 	void RemoveTextureId(int Id)               { this->TextureID.erase(this->TextureID.begin() + Id);	}
 	void RemoveMeshId()                        { this->MeshId = -1; }

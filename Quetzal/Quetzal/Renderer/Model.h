@@ -22,7 +22,7 @@ private:
 	 
 	//Render and Update Recursively
 	void UpdateMatrices(std::shared_ptr<Node> chld);
-	void RenderNodes(std::shared_ptr<Shader> Cur_Shader, glm::mat4 ParMatrix, std::shared_ptr<Node> chld);
+	void RenderNodes(glm::mat4 ParMatrix, std::shared_ptr<Node> chld);
 	//----------------------------------
 public:
 	Model(std::string NewName);
@@ -39,13 +39,15 @@ public:
 	Vec_SH<Texture> GetTextures()   { return this->Textures_Inf; }
 	Vec_SH<Material> GetMaterials() { return this->Materials_Inf; }
 	S_P<Node> GetNodes()            { return this->Nodes_Inf; }
+	Vec_SH<Shader> GetShaders()     { return this->Shader_Inf; }
 	//Add Items
 	void AddMeshes(S_P<Mesh> NewMesh);
 	void AddTextures(S_P<Texture> NewTexture);
 	void AddMaterials(S_P<Material> NewMaterial);
 	void AddBaseNode(S_P<Node> NewNode);
+	void AddShaders(S_P<Shader> NewShader);
 	//Render Model
-	void Render(std::shared_ptr<Shader> Shader_Run);
+	void Render();
 	//UpdateMatrices
 	void Update();
 	void UpdateUniforms();
