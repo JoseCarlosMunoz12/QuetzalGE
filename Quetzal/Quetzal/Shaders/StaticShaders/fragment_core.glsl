@@ -11,6 +11,5 @@ uniform sampler2D Texture0;
 
 void main()
 {
-	vec3 col = texture(Texture0,vs_texcoord).rgb;
-	fs_color = vec4(col,1.0);
+	fs_color =  texture(Texture0,vs_texcoord);
 }
