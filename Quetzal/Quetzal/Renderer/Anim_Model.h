@@ -7,13 +7,6 @@
 #include "Anim_Items/Anim_Mesh.h"
 #include "Anim_Items/Animation.h"
 
-struct Anim_Node
-{
-	int MeshId;
-	std::vector<int> TextIds;
-	int MatId;
-	int ShaderId;
-};
 class Anim_Model
 {
 private:
@@ -22,7 +15,7 @@ private:
 	Vec_SH<Anim_Mesh> Meshes_Inf;
 	Vec_SH<Material> Materials_Inf;
 	Vec_SH<Shader> Shaders_Inf;
-	std::vector<Anim_Node> AllNodes;
+	S_P<Node> AllNodes;
 	//Holds All Animations
 	Vec_SH<Animation> Anims;
 	//Determines if the animation is dependent on time or not
@@ -34,6 +27,7 @@ private:
 	//Holds Physics, Collision information of the Model
 
 	//Render and Update Recursively
+	void RenderNodes(glm::mat4 ParMatrix, S_P<Node> Chld, std::vector<glm::mat4> AllMats);
 public:
 	Anim_Model();
 	~Anim_Model();
