@@ -227,10 +227,10 @@ void Anim_Skels::AddFrame(float NewTime)
             break;
         Count++;
     }
-    std::shared_ptr<Joint> TempJoint = std::make_shared<Joint>();
-    TempJoint->Offset = this->CurOffset;
-    TempJoint->Rotation = this->CurRot;
-    TempJoint->Scale = this->CurScale;
+    Joint TempJoint{};
+    TempJoint.Offset = this->CurOffset;
+    TempJoint.Rotation = this->CurRot;
+    TempJoint.Scale = this->CurScale;
     if (this->Skel_Frames.size() == 0)
         this->Skel_Frames.push_back(std::make_shared<Frames>(NewTime, TempJoint));
     else
