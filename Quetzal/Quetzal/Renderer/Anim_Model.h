@@ -11,7 +11,7 @@ struct Anim_Node
 {
 	int MeshId;
 	std::vector<int> TextIds;
-	int Matid;
+	int MatId;
 	int ShaderId;
 };
 class Anim_Model
