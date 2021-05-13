@@ -161,6 +161,7 @@ public:
 	void RemoveTextureId(int Id)               { this->TextureID.erase(this->TextureID.begin() + Id);	}
 	void RemoveMeshId()                        { this->MeshId = -1; }
 	void RemovedMatId()                        { this->MatId = -1; }
+	void RemoveShaderId()                      { this->ShaderId = -1; }
 };
 //Data Structures for dynamic models
 struct AnimVertex

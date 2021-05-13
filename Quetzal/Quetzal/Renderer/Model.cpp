@@ -14,9 +14,9 @@ void Model::RenderNodes(glm::mat4 ParMatrix, std::shared_ptr<Node> chld)
 	int MeshId = chld->GetMeshId();
 	//Calc Current Matrix Level
 	glm::mat4 CurMatrix = ParMatrix * chld->GetMatrix();
-	if (MeshId != -1)
+	int ShaderID = chld->GetShaderId();
+	if (MeshId != -1 && ShaderID !=-1)
 	{
-		int ShaderID = chld->GetShaderId();
 		//Get Current Level IDs
 		std::vector<int> TexId = chld->GetTextId();
 		int MatId = chld->GetMatId();
@@ -25,10 +25,10 @@ void Model::RenderNodes(glm::mat4 ParMatrix, std::shared_ptr<Node> chld)
 			this->Materials_Inf[MatId]->SendToShader(this->Shader_Inf[ShaderID]);
 		int Count = 0;
 		for (auto& ii : TexId)
-	{
-		this->Textures_Inf[ii]->Bind(Count);
-		Count++;
-	}
+		{
+			this->Textures_Inf[ii]->Bind(Count);
+			Count++;
+		}
 		this->Meshes_Inf[MeshId]->Render(CurMatrix, this->Shader_Inf[ShaderID]);
 	}
 	//Send to Child Nodes
