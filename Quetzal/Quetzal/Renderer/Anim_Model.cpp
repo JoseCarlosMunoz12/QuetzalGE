@@ -1,8 +1,30 @@
 #include "Anim_Model.h"
 
-void Anim_Model::RenderNodes(glm::mat4 ParMatrix, S_P<Node> Chld, std::vector<glm::mat4> AllMats)
+void Anim_Model::RenderNodes(glm::mat4 ParMatrix, S_P<Node> par, std::vector<glm::mat4> AllMats)
 {
-
+	glm::mat4 CurMat = ParMatrix * par->GetMatrix();
+	int MeshId = par->GetMeshId();
+	int ShaderId = par->GetShaderId();
+	if (MeshId != -1 && ShaderId != -1)
+	{
+		//Get Current Level IDs
+		std::vector<int> TexId = par->GetTextId();
+		int MatId = par->GetMatId();
+		//Binds and render
+		if (MatId != -1)
+			this->Materials_Inf[MatId]->SendToShader(this->Shaders_Inf[ShaderId]);
+		int Count = 0;
+		for (auto& ii : TexId)
+		{
+			this->Textures_Inf[ii]->Bind(Count);
+			Count++;
+		}
+		this->Meshes_Inf[MeshId]->Render(CurMat, this->Shaders_Inf[ShaderId],AllMats);
+	}
+	//Send to Child Nodes
+	Vec_SH<Node> Chlds = par->GetChildren();
+	for (auto& chld : Chlds)
+		this->RenderNodes(CurMat, chld, AllMats);
 }
 
 Anim_Model::Anim_Model()
