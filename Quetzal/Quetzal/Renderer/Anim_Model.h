@@ -7,13 +7,22 @@
 #include "Anim_Items/Anim_Mesh.h"
 #include "Anim_Items/Animation.h"
 
+struct Anim_Node
+{
+	int MeshId;
+	std::vector<int> TextIds;
+	int Matid;
+	int ShaderId;
+};
 class Anim_Model
 {
 private:
 	//Holds pointer to Textures, Meshes, and Materials to use
-	std::vector<std::shared_ptr<Texture>> Textures_Inf;
-	std::vector<std::shared_ptr<Anim_Mesh>> Meshes_Inf;
-	std::vector<std::shared_ptr<Material>> Materials_Inf;
+	Vec_SH<Texture> Textures_Inf;
+	Vec_SH<Anim_Mesh> Meshes_Inf;
+	Vec_SH<Material> Materials_Inf;
+	Vec_SH<Shader> Shaders_Inf;
+	std::vector<Anim_Node> AllNodes;
 	//Holds All Animations
 	Vec_SH<Animation> Anims;
 	//Determines if the animation is dependent on time or not

@@ -9,9 +9,10 @@ class Model
 {
 private:
 	//Holds pointer to Textures, Meshes, and Materials to use
-	std::vector<std::shared_ptr<Texture>> Textures_Inf;
-	std::vector<std::shared_ptr<Mesh>> Meshes_Inf;
-	std::vector<std::shared_ptr<Material>> Materials_Inf;
+	Vec_SH<Texture> Textures_Inf;
+	Vec_SH<Mesh> Meshes_Inf;
+	Vec_SH<Material> Materials_Inf;
+	Vec_SH<Shader> Shader_Inf;
 	//Tree hierarchy of the Model
 	S_P<Node> Nodes_Inf;
 	//Location, orientation and scale of whole model

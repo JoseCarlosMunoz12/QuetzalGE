@@ -85,6 +85,7 @@ private:
 	std::vector<int> TextureID;
 	int MeshId;
 	int MatId;
+	int ShaderId;
 public:
 	Node()
 		:Position(glm::vec3(0.f)),Offset(glm::vec3(0.f)), Scale(glm::vec3(1.f)),
