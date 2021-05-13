@@ -34,11 +34,19 @@ public:
 	~Anim_Model();
 	void Update(float dt);
 	void Render();
-	glm::vec3 GetPos() { return this->Position; }
-	std::string GetName() { return this->Name; }
-	Vec_SH<Anim_Mesh> GetMeshes() { return this->Meshes_Inf; }
-	Vec_SH<Texture> GetTextures() { return this->Textures_Inf; }
-	Vec_SH<Material> GetMaterials() { return this->Materials_Inf; }
+	//Getters
+	glm::vec3 GetPos()                { return this->Position; }
+	std::string GetName()             { return this->Name; }
+	Vec_SH<Anim_Mesh> GetMeshes()     { return this->Meshes_Inf; }
+	Vec_SH<Texture> GetTextures()     { return this->Textures_Inf; }
+	Vec_SH<Material> GetMaterials()   { return this->Materials_Inf; }
 	Vec_SH<Animation> GetAnimations() { return this->Anims; }
+	Vec_SH<Shader> GetShaders()       { return this->Shaders_Inf; }
+	//Setters
+	void AddMesh(S_P<Anim_Mesh> NewMesh);
+	void AddTexture(S_P<Texture> NewTexture);
+	void AddMaterial(S_P<Material> NewMaterial);
+	void AddAnimation(S_P<Animation> NewAnimation);
+	void AddShader(S_P<Shader> NewShader);
 };
 

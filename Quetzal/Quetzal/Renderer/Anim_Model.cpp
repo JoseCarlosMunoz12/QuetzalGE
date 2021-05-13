@@ -59,3 +59,28 @@ void Anim_Model::Render()
 	glm::mat4 r = glm::mat4(1.f);
 	this->RenderNodes(r, this->Roots, AllMats);
 }
+
+void Anim_Model::AddMesh(S_P<Anim_Mesh> NewMesh)
+{
+	this->Meshes_Inf.push_back(NewMesh);
+}
+
+void Anim_Model::AddTexture(S_P<Texture> NewTexture)
+{
+	this->Textures_Inf.push_back(NewTexture);
+}
+
+void Anim_Model::AddMaterial(S_P<Material> NewMaterial)
+{
+	this->Materials_Inf.push_back(NewMaterial);
+}
+
+void Anim_Model::AddAnimation(S_P<Animation> NewAnimation)
+{
+	this->Anims.push_back(NewAnimation);
+}
+
+void Anim_Model::AddShader(S_P<Shader> NewShader)
+{
+	this->Shaders_Inf.push_back(NewShader);
+}
