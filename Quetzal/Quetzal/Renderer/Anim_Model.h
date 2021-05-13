@@ -15,7 +15,7 @@ private:
 	Vec_SH<Anim_Mesh> Meshes_Inf;
 	Vec_SH<Material> Materials_Inf;
 	Vec_SH<Shader> Shaders_Inf;
-	S_P<Node> AllNodes;
+	S_P<Node> Roots;
 	//Holds All Animations
 	Vec_SH<Animation> Anims;
 	//Determines if the animation is dependent on time or not
@@ -28,6 +28,7 @@ private:
 
 	//Render and Update Recursively
 	void RenderNodes(glm::mat4 ParMatrix, S_P<Node> Chld, std::vector<glm::mat4> AllMats);
+	void UpdateNodes(S_P<Node> Par);
 public:
 	Anim_Model();
 	~Anim_Model();

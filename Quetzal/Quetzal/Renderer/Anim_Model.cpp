@@ -27,6 +27,14 @@ void Anim_Model::RenderNodes(glm::mat4 ParMatrix, S_P<Node> par, std::vector<glm
 		this->RenderNodes(CurMat, chld, AllMats);
 }
 
+void Anim_Model::UpdateNodes(S_P<Node> Par)
+{
+	Par->UpdateMatrix();
+	Vec_SH<Node> Chlds = Par->GetChildren();
+	for (auto& Chld : Chlds)
+		this->UpdateNodes(Chld);
+}
+
 Anim_Model::Anim_Model()
 {
 }
@@ -38,15 +46,16 @@ Anim_Model::~Anim_Model()
 void Anim_Model::Update(float dt)
 {
 	this->Anims[this->CurAnim]->updateTime(dt);
+	this->UpdateNodes(this->Roots);
 }
 
 void Anim_Model::Render()
 {
-	if (!this->AllNodes)
+	if (!this->Roots)
 		return;
 	//Calcualtes all the matrices for the Model and its meshes
 	std::vector<glm::mat4> AllMats = this->Anims[CurAnim]->GetAllMatrix();
 	//Render all meshes with textues, materials and shaders
 	glm::mat4 r = glm::mat4(1.f);
-	this->RenderNodes(r, this->AllNodes, AllMats);
+	this->RenderNodes(r, this->Roots, AllMats);
 }
