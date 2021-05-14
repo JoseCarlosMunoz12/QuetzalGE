@@ -49,6 +49,8 @@ public:
 	Vec_SH<Animation> GetAnimations() { return this->Anims; }
 	Vec_SH<Shader> GetShaders()       { return this->Shaders_Inf; }
 	S_P<Node> GetNodes()              { return this->Roots; }
+	int GetCurAnim()                  { return this->CurAnim; }
+	bool GetAnimStatus()              { return this->RunTime; }
 	//Setters
 	void AddMesh(S_P<Anim_Mesh> NewMesh);
 	void AddTexture(S_P<Texture> NewTexture);
@@ -56,5 +58,7 @@ public:
 	void AddAnimation(S_P<Animation> NewAnimation);
 	void AddShader(S_P<Shader> NewShader);
 	void AddBaseNode(S_P<Node> InitRoot);
+	void SetName(std::string NewName);
+	void ChangeCurAnim(int NewAnim);
+	void ChangeAnimStatus() { this->RunTime == !this->RunTime; }
 };
-

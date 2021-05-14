@@ -117,3 +117,21 @@ void Anim_Model::AddBaseNode(S_P<Node> InitRoot)
 {
 	this->Roots = InitRoot;
 }
+
+void Anim_Model::SetName(std::string NewName)
+{
+	this->Name = NewName;
+}
+
+void Anim_Model::ChangeCurAnim(int NewAnim)
+{
+	if (NewAnim < 0)
+	{
+		this->CurAnim = NewAnim;
+		return;
+	}
+	if (NewAnim >= Anims.size())
+		CurAnim = Anims.size();
+	else
+		CurAnim = NewAnim;
+}
