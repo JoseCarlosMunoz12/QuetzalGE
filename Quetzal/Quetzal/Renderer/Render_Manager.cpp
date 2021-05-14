@@ -31,11 +31,11 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor, "Screen_Shader_Vs.glsl", "Screen_Shader_Fs.glsl");
 	//creating Default Model to render on screen
 	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("model_Running.dae");
-	std::shared_ptr<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
+	S_P<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	glm::mat4 Inv;
 	std::vector<std::unique_ptr<Primitive>> rss = rs->GetModels(Inv);
-	std::shared_ptr<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
+	S_P<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
 	for (auto &ii : rss)
 	{
 		this->All_Meshes.push_back(std::make_shared<Mesh>(std::move(ii), "MainMesh"));
@@ -103,29 +103,39 @@ void Render_Manager::RenderToWindow()
 		this->Main_Model->Render();
 }
 
-void Render_Manager::AddTextures(std::shared_ptr<Texture> NewTexture)
+void Render_Manager::AddTextures(S_P<Texture> NewTexture)
 {
 	this->All_Texture.push_back(NewTexture);
 }
 
-void Render_Manager::AddShader(std::shared_ptr<Shader> NewShader)
+void Render_Manager::AddShader(S_P<Shader> NewShader)
 {
 	this->All_Shader.push_back(NewShader);
 }
 
-void Render_Manager::AddMesh(std::shared_ptr<Mesh> NewMesh)
+void Render_Manager::AddMesh(S_P<Mesh> NewMesh)
 {
 	this->All_Meshes.push_back(NewMesh);
 }
 
-void Render_Manager::AddMaterials(std::shared_ptr<Material> NewMaterial)
+void Render_Manager::AddAnimMesh(S_P<Anim_Mesh> NewMesh)
+{
+	this->All_Anim_Meshes.push_back(NewMesh);
+}
+
+void Render_Manager::AddMaterials(S_P<Material> NewMaterial)
 {
 	this->All_Materials.push_back(NewMaterial);
 }
 
-void Render_Manager::AddModel(std::shared_ptr<Model> NewModel)
+void Render_Manager::AddModel(S_P<Model> NewModel)
 {
 	this->All_Models.push_back(NewModel);
+}
+
+void Render_Manager::AddAnimModel(S_P<Anim_Model> NewModel)
+{
+	this->All_Anim_Models.push_back(NewModel);
 }
 
 void Render_Manager::ChangeRenderTarget(bool ToWindow)
@@ -148,6 +158,11 @@ void Render_Manager::RemoveMesh(int Id)
 	this->All_Meshes.erase(this->All_Meshes.begin() + Id);
 }
 
+void Render_Manager::RemoveAnimMesh(int Id)
+{
+	this->All_Anim_Meshes.erase(this->All_Anim_Meshes.begin() + Id);
+}
+
 void Render_Manager::RemoveMaterial(int Id)
 {
 	this->All_Materials.erase(this->All_Materials.begin() + Id);
@@ -156,4 +171,9 @@ void Render_Manager::RemoveMaterial(int Id)
 void Render_Manager::RemoveModel(int Id)
 {
 	this->All_Models.erase(this->All_Models.begin() + Id);
+}
+
+void Render_Manager::RemoveAnimModel(int Id)
+{
+	this->All_Anim_Models.erase(this->All_Anim_Models.begin() + Id);
 }
