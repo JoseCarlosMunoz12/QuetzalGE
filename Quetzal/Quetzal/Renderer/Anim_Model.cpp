@@ -47,12 +47,24 @@ Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos)
 }
 
 Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
-	std::vector<std::shared_ptr<Anim_Mesh>> Meshes, std::vector<std::shared_ptr<Texture>> Textures, std::vector<std::shared_ptr<Material>> Materials)
+	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials)
 	:Name(InitName),Position(InitPos),CurAnim(0),RunTime(true)
 {
 	this->Meshes_Inf = Meshes;
 	this->Textures_Inf = Textures;
 	this->Materials_Inf = Materials;
+}
+
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, int InitCurAnim, bool Run,
+	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
+	S_P<Node> InitRoot, Vec_SH<Animation> InitAnims)
+	:Name(InitName),Position(InitPos), CurAnim(InitCurAnim), RunTime(Run)
+{
+	this->Meshes_Inf = Meshes;
+	this->Textures_Inf = Textures;
+	this->Materials_Inf = Materials;
+	this->Roots = InitRoot;
+	this->Anims = InitAnims;
 }
 
 Anim_Model::~Anim_Model()

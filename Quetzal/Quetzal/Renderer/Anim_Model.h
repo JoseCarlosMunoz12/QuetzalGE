@@ -33,7 +33,10 @@ public:
 	Anim_Model(std::string InitName);
 	Anim_Model(std::string InitName, glm::vec3 InitPos);
 	Anim_Model(std::string InitName, glm::vec3 InitPos,
-		std::vector<std::shared_ptr<Anim_Mesh>> Meshes, std::vector<std::shared_ptr<Texture>> Textures, std::vector<std::shared_ptr<Material>> Materials);
+		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials);
+	Anim_Model(std::string InitName, glm::vec3 InitPos, int InitCurAnim, bool Run,
+		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
+		S_P<Node> InitRoot,Vec_SH<Animation> InitAnims);
 	~Anim_Model();
 	void Update(float dt);
 	void Render();
