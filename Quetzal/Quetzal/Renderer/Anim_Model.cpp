@@ -77,6 +77,10 @@ void Anim_Model::Update(float dt)
 	this->UpdateNodes(this->Roots);
 }
 
+void Anim_Model::UpdateUniforms()
+{
+}
+
 void Anim_Model::Render()
 {
 	if (!this->Roots)

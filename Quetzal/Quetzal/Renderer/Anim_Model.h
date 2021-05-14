@@ -39,6 +39,7 @@ public:
 		S_P<Node> InitRoot,Vec_SH<Animation> InitAnims);
 	~Anim_Model();
 	void Update(float dt);
+	void UpdateUniforms();
 	void Render();
 	//Getters
 	glm::vec3 GetPos()                { return this->Position; }
