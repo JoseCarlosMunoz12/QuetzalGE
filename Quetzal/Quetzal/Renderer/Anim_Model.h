@@ -30,7 +30,10 @@ private:
 	void RenderNodes(glm::mat4 ParMatrix, S_P<Node> Chld, std::vector<glm::mat4> AllMats);
 	void UpdateNodes(S_P<Node> Par);
 public:
-	Anim_Model();
+	Anim_Model(std::string InitName);
+	Anim_Model(std::string InitName, glm::vec3 InitPos);
+	Anim_Model(std::string InitName, glm::vec3 InitPos,
+		std::vector<std::shared_ptr<Anim_Mesh>> Meshes, std::vector<std::shared_ptr<Texture>> Textures, std::vector<std::shared_ptr<Material>> Materials);
 	~Anim_Model();
 	void Update(float dt);
 	void Render();

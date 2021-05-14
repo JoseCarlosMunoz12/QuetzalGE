@@ -2,6 +2,7 @@
 
 void Anim_Model::RenderNodes(glm::mat4 ParMatrix, S_P<Node> par, std::vector<glm::mat4> AllMats)
 {
+	//Calculate the Current Matrix
 	glm::mat4 CurMat = ParMatrix * par->GetMatrix();
 	int MeshId = par->GetMeshId();
 	int ShaderId = par->GetShaderId();
@@ -35,8 +36,23 @@ void Anim_Model::UpdateNodes(S_P<Node> Par)
 		this->UpdateNodes(Chld);
 }
 
-Anim_Model::Anim_Model()
+Anim_Model::Anim_Model(std::string InitName)
+	:CurAnim(0),RunTime(true),Name(InitName),Position(glm::vec3(0.f))
 {
+}
+
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos)
+	:Name(Name), Position(InitPos), CurAnim(0), RunTime(true)
+{
+}
+
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
+	std::vector<std::shared_ptr<Anim_Mesh>> Meshes, std::vector<std::shared_ptr<Texture>> Textures, std::vector<std::shared_ptr<Material>> Materials)
+	:Name(InitName),Position(InitPos),CurAnim(0),RunTime(true)
+{
+	this->Meshes_Inf = Meshes;
+	this->Textures_Inf = Textures;
+	this->Materials_Inf = Materials;
 }
 
 Anim_Model::~Anim_Model()
