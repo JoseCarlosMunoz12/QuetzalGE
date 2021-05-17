@@ -122,7 +122,7 @@ private:
 	A_Primitive GetMesh(const aiMesh* mesh)
 	{
 		A_Primitive Msh;
-		Msh.set(this->FinalVertex(mesh),this->FinalGluint(mesh) );
+		Msh.set(this->FinalVertex(mesh),this->FinalGluint(mesh));
 	}
 	std::vector<AnimVertex> FinalVertex(const aiMesh* Meshes)
 	{
@@ -168,14 +168,45 @@ private:
 		}
 		return TempInd;
 	}
+	//functions to load Bone data from file
 	void GetChilds(const aiNode* Par)
 	{
 		int ChldCount = Par->mNumChildren;
 		for (int ii = 0; ii < ChldCount; ii++)
 			this->GetChilds(Par->mChildren[ii]);
 	}
-	void SetBonesId()
+	void SetBonesId(aiMesh* meshes, std::vector<AnimVertex>& Vertx)
 	{
-
+		for (int ii = 0; ii < meshes->mNumBones; ii++)
+		{
+			aiBone* TempBone = meshes->mBones[ii];
+			for (int jj = 0; jj < TempBone->mNumWeights; jj++)
+			{
+				int VertId = TempBone->mWeights[jj].mVertexId;
+			}
+		}
+	}
+	void SetIndex(AnimVertex& Vert, int BoneID, float BoneWieght)
+	{
+		if (Vert.MatId.x == -1)
+		{
+			Vert.MatId.x = BoneID;
+			Vert.Weights.x = BoneWieght;
+		}
+		else if (Vert.MatId.y == -1)
+		{
+			Vert.MatId.y = BoneID;
+			Vert.Weights.y = BoneWieght;
+		}
+		else if (Vert.MatId.z == -1)
+		{
+			Vert.MatId.z = BoneID;
+			Vert.Weights.z = BoneWieght;
+		}
+		else if (Vert.MatId.w == -1)
+		{
+			Vert.MatId.w = BoneID;
+			Vert.Weights.w = BoneWieght;
+		}
 	}
 };
