@@ -53,10 +53,10 @@ private:
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, normal));
 		glEnableVertexAttribArray(2);
 		//MatId
-		glVertexAttribPointer(3, 3, GL_INT  , GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, MatId));
+		glVertexAttribPointer(3, 4, GL_INT  , GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, MatId));
 		glEnableVertexAttribArray(3);
 		//Weights
-		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, Weights));
+		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, Weights));
 		glEnableVertexAttribArray(4);
 		//BIND VAO 0
 		glBindVertexArray(0);

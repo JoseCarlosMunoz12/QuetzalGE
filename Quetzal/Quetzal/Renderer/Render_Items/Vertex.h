@@ -169,6 +169,6 @@ struct AnimVertex
 	glm::vec3 position;
 	glm::vec2 texcoord;
 	glm::vec3 normal;
-	glm::ivec3 MatId;
-	glm::vec3 Weights;
+	glm::ivec4 MatId;
+	glm::vec4 Weights;
 };

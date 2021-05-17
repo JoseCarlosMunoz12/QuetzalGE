@@ -3,8 +3,8 @@
 layout (location = 0) in vec3 vertex_position;
 layout (location = 1) in vec2 vertex_texcoord;
 layout (location = 2) in vec3 vertex_normal;
-layout (location = 3) in ivec3 vertex_matid;
-layout (location = 4) in vec3 vertex_weights;
+layout (location = 3) in ivec4 vertex_matid;
+layout (location = 4) in vec4 vertex_weights;
 
 out vec3 vs_position;
 out vec2 vs_texcoord;
@@ -32,6 +32,7 @@ void main()
 	mat4 BoneTransform = VerifyVal(vertex_matid.x,vertex_weights.x);
 	BoneTransform += VerifyVal(vertex_matid.y,vertex_weights.y);
 	BoneTransform += VerifyVal(vertex_matid.z,vertex_weights.z);
+	BoneTransform += VerifyVal(vertex_matid.w,vertex_weights.w);
 
 	vec4 GLPos = BoneTransform * vec4(vertex_position,1.f);
 	vec4 positionRelativeToCam = ViewMatrix * ModelMatrix * GLPos;

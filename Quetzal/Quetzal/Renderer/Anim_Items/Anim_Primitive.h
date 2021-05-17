@@ -12,6 +12,7 @@
 #include <assimp/postprocess.h>
 
 #include "../Render_Items/Vertex.h"
+#include "Animation.h"
 
 class A_Primitive
 
@@ -67,6 +68,24 @@ public:
 	{
 		Assimp::Importer importer;
 		std::vector<A_Primitive> Mshs;
+		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
+		if (!scene)
+		{
+
+			std::cout << "Error";
+			return Mshs;
+		}
+		int msh_num = scene->mNumMeshes;
+		for (int ii = 0; ii < msh_num; ii++)
+		{
+			Mshs.push_back(this->GetMesh(scene->mMeshes[ii]));
+		}
+		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
+	}
+	std::vector<A_Primitive> GetPrimitives(glm::mat4& InitInv, Vec_SH<Animation>& Animations)
+	{
+		Assimp::Importer importer;
+		std::vector<A_Primitive> Mshs;
 		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 		if (!scene)
 		{
@@ -80,6 +99,11 @@ public:
 			scene->mMeshes[ii];
 		}
 		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
+		
+		int anims = scene->mNumAnimations;
+		for (int ii = 0; ii < anims; ii++)
+		{
+		}
 	}
 private:
 	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
@@ -105,7 +129,7 @@ private:
 		std::vector<AnimVertex> TempVerts;
 		for (int ii = 0; ii < Meshes->mNumVertices; ii++)
 		{
-			AnimVertex NewVertex;
+			AnimVertex NewVertex{};
 			//Position
 			NewVertex.position.x = Meshes->mVertices[ii].x;
 			NewVertex.position.y = Meshes->mVertices[ii].y;
@@ -117,6 +141,17 @@ private:
 			//Texture Coordinates
 			NewVertex.texcoord.x = Meshes->mTextureCoords[0][ii].x;
 			NewVertex.texcoord.y = Meshes->mTextureCoords[0][ii].y;
+			//MatIDs
+			NewVertex.MatId.x = -1;
+			NewVertex.MatId.y = -1;
+			NewVertex.MatId.z = -1;
+			NewVertex.MatId.w = -1;
+			//MatWieghts
+			NewVertex.Weights.x = 0.f;
+			NewVertex.Weights.y = 0.f;
+			NewVertex.Weights.z = 0.f;
+			NewVertex.Weights.w = 0.f;
+
 			TempVerts.push_back(NewVertex);
 		}
 		return TempVerts;
@@ -132,5 +167,15 @@ private:
 			TempInd.push_back(face.mIndices[2]);
 		}
 		return TempInd;
+	}
+	void GetChilds(const aiNode* Par)
+	{
+		int ChldCount = Par->mNumChildren;
+		for (int ii = 0; ii < ChldCount; ii++)
+			this->GetChilds(Par->mChildren[ii]);
+	}
+	void SetBonesId()
+	{
+
 	}
 };
