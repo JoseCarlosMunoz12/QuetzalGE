@@ -24,7 +24,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->Main_Texture = std::make_shared<Frame_Buffer>("Main");
 	this->Main_Texture->Init(this->Frame_Buffer_Width, this->Frame_Bufer_Height);
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/pusheen.png", GL_TEXTURE_2D, GL_RGBA));
-	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/container.png", GL_TEXTURE_2D, GL_RGBA));
+	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/diffuse.png", GL_TEXTURE_2D, GL_RGBA));
 	//loads defaults Shaders
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	this->All_Shader.push_back(this->Main_Shader);

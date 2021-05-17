@@ -867,7 +867,7 @@ private:
 		std::vector<Vertex> TempVerts;
 		for (int ii = 0; ii < Meshes->mNumVertices; ii++)
 		{
-			Vertex NewVertex;
+			Vertex NewVertex{};
 			//Position
 			NewVertex.position.x = Meshes->mVertices[ii].x;
 			NewVertex.position.y = Meshes->mVertices[ii].y;
@@ -906,7 +906,7 @@ public:
 	{
 		std::vector<std::unique_ptr<Primitive>> Mshs;
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
+		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
 		if (!scene)
 		{
 			std::cout << "Error";
