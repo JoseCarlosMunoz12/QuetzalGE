@@ -106,6 +106,9 @@ public:
 		}
 	}
 private:
+	std::string File;
+	std::map<std::string, int> BonesId;
+	int CurBoneId = 0;
 	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
 	{
 		glm::mat4 glmVal = glm::mat4(aiVal.a1, aiVal.b1, aiVal.c1, aiVal.d1,
@@ -118,7 +121,6 @@ private:
 	{
 		return glm::vec3(aiVal.x, aiVal.y, aiVal.z);
 	}
-	std::string File;
 	A_Primitive GetMesh(const aiMesh* mesh)
 	{
 		A_Primitive Msh;
@@ -171,9 +173,17 @@ private:
 	//functions to load Bone data from file
 	void GetChilds(const aiNode* Par)
 	{
+		std::string r =Par->mName.C_Str();
+		if (this->BonesId.find(r) == BonesId.end())
+		{
+			BonesId[r] = CurBoneId;
+			CurBoneId++;
+		}
 		int ChldCount = Par->mNumChildren;
 		for (int ii = 0; ii < ChldCount; ii++)
+		{
 			this->GetChilds(Par->mChildren[ii]);
+		}
 	}
 	void SetBonesId(aiMesh* meshes, std::vector<AnimVertex>& Vertx)
 	{
