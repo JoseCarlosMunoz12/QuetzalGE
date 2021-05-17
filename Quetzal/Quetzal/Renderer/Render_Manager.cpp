@@ -17,7 +17,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->NearPlane = 0.1f;
 	this->FarPlane = 100.f;
 	//Init camera Position
-	this->Main_Cam = std::make_shared<Camera>(glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
+	this->Main_Cam = std::make_shared<Camera>(glm::vec3(-1.f, 1.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	//Get screen information to use to render
 	glfwGetFramebufferSize(this->MainWindow,&this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
 	//Create Default Framebuffer Texture 
@@ -45,6 +45,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//--------------------------------------------------------------------------------------------------------------------------//
 	// 	                                                                                                                        //
 	//-----------------------------------------Load models to render to the Framebuffer-----------------------------------------//
+	// 	                                                                                                                        //
+	//--------------------------------------------------------------------------------------------------------------------------//
+	
 	//-load meshes to the item
 	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("model_Running.dae");
 	S_P<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
@@ -75,8 +78,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewNode1->SetW_Mat(Inv);//6).c - set Rotation to upright the model
 	NewNode1->AddShaderId(0);//6).d - sets Shader to use
 	NewModel1->AddBaseNode(NewNode1);//7) add node tree
-	this->All_Models.push_back(NewModel1);
-	//Load an Animated Model with Textures and Animations
+	this->All_Models.push_back(NewModel1);//8) add model to render
+	//------------------------Load Animated Model to Render------------------------
 
 }
 
