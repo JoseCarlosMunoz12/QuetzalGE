@@ -105,6 +105,13 @@ public:
 		{
 		}
 	}
+	void Test()
+	{
+		Assimp::Importer importer;
+		std::vector<A_Primitive> Mshs;
+		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
+
+	}
 private:
 	std::string File;
 	std::map<std::string, int> BonesId;

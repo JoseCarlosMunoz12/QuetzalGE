@@ -80,7 +80,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewModel1->AddBaseNode(NewNode1);//7) add node tree
 	this->All_Models.push_back(NewModel1);//8) add model to render
 	//------------------------Load Animated Model to Render------------------------
-
+	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");
+	rrs->Test();
 }
 
 void Render_Manager::Update(float dt)
