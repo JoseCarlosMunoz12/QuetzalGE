@@ -265,6 +265,10 @@ private:
 		int Count = -4;
 		int Par = -4;
 		this->FindChilds(scene->mRootNode,Par, Count, Bones);
+		while (Bones.size() != 1)
+		{
+			Bones.pop_back();
+		}
 		SetAnims->SetSkels(Bones[0]);
 	}
 	void FindChilds(aiNode* Node,int Par, int& Count,Vec_SH<Anim_Skels> Bones)
