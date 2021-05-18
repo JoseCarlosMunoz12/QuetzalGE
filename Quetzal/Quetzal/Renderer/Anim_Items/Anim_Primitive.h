@@ -120,7 +120,7 @@ public:
 		if (scene->HasAnimations())
 		{
 			Animations.push_back(M_SP<Animation>());
-			this->GetAnimations(scene->mAnimations[0], Animations[0]);
+			this->GetAnimations(scene->mAnimations[0], scene,Animations[0]);
 		}
 		std::cout << "arse\n";
 	}
@@ -231,19 +231,23 @@ private:
 		}
 	}
 	//Functions to load Animations
-	void GetAnimations(aiAnimation* Anim, S_P<Animation>& SetAnims)
+	void GetAnimations(aiAnimation* Anim,const aiScene* scene, S_P<Animation>& SetAnims)
 	{
 		//Init the animation and set the bast information
 		SetAnims->SetCurTime(0);
 		SetAnims->SetTimeLength(Anim->mDuration);
-		SetAnims->SetName(Anim->mName.C_Str());
+		SetAnims->SetName(Anim->mName.C_Str());		
 		int NumChannels = Anim->mNumChannels;
+		//set frames, transmat and OffsetMatrix
+		Vec_SH<Anim_Skels> Bones;
 		for (int ii = 0; ii < NumChannels; ii++)
 		{
 			aiNodeAnim* rs = Anim->mChannels[ii];
 			std::string Bone_Name = rs->mNodeName.C_Str();
 			int NumOfRot = rs->mNumRotationKeys;
 			Vec_SH<Frames> Frms;
+			glm::mat4 Offset = this->aiMatToglmMat(scene->mMeshes[0]->mBones[ii]->mOffsetMatrix);
+			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(Bone_Name.c_str())->mTransformation);
 			for (int jj = 0; jj < NumOfRot; jj++)
 			{
 				float F_Time = rs->mRotationKeys[jj].mTime;
@@ -253,8 +257,10 @@ private:
 				Joint T_Joint = {Offset, Rot, Scale};
 				Frms.push_back(M_SP<Frames>(F_Time, T_Joint));
 			}
-			S_P<Anim_Skels> rss = M_SP<Anim_Skels>(Frms, Bone_Name, glm::mat4(1.f), glm::mat4(1.f),
-				Frms[0]->GetOffset(), Frms[0]->GetRot());			
+			Bones.push_back(M_SP<Anim_Skels>(Frms, Bone_Name,TransMat, Offset,
+				Frms[0]->GetOffset(), Frms[0]->GetRot()));
 		}
+		//create the Skel Node Tree
+
 	}
 };
