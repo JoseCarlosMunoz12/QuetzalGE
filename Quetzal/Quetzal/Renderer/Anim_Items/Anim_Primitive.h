@@ -110,12 +110,16 @@ public:
 		Assimp::Importer importer;
 		std::vector<A_Primitive> Mshs;
 		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
-
+		//Get All Meshes
+		std::vector<AnimVertex> rs = this->FinalVertex(scene->mMeshes[0]);
+		std::vector<GLuint> Indices = this->FinalGluint(scene->mMeshes[0]);
+		//Set the Ides for all the Meshes
+		this->SetBonesId(scene->mMeshes[0], rs);
+		//Get the Animation skeleton frames
+		std::cout << "arse\n";
 	}
 private:
 	std::string File;
-	std::map<std::string, int> BonesId;
-	int CurBoneId = 0;
 	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
 	{
 		glm::mat4 glmVal = glm::mat4(aiVal.a1, aiVal.b1, aiVal.c1, aiVal.d1,
@@ -178,28 +182,17 @@ private:
 		return TempInd;
 	}
 	//functions to load Bone data from file
-	void GetChilds(const aiNode* Par)
-	{
-		std::string r =Par->mName.C_Str();
-		if (this->BonesId.find(r) == BonesId.end())
-		{
-			BonesId[r] = CurBoneId;
-			CurBoneId++;
-		}
-		int ChldCount = Par->mNumChildren;
-		for (int ii = 0; ii < ChldCount; ii++)
-		{
-			this->GetChilds(Par->mChildren[ii]);
-		}
-	}
 	void SetBonesId(aiMesh* meshes, std::vector<AnimVertex>& Vertx)
 	{
 		for (int ii = 0; ii < meshes->mNumBones; ii++)
 		{
+			std::string BoneName = meshes->mBones[ii]->mName.C_Str();
 			aiBone* TempBone = meshes->mBones[ii];
 			for (int jj = 0; jj < TempBone->mNumWeights; jj++)
 			{
 				int VertId = TempBone->mWeights[jj].mVertexId;
+				float Weight = TempBone->mWeights[jj].mWeight;
+				this->SetIndex(Vertx[VertId], ii, Weight);
 			}
 		}
 	}
