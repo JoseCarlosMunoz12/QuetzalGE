@@ -116,6 +116,7 @@ public:
 		//Set the Ides for all the Meshes
 		this->SetBonesId(scene->mMeshes[0], rs);
 		//Get the Animation skeleton frames
+
 		std::cout << "arse\n";
 	}
 private:
@@ -137,6 +138,7 @@ private:
 		A_Primitive Msh;
 		Msh.set(this->FinalVertex(mesh),this->FinalGluint(mesh));
 	}
+	//functions to load Ints and Vertecies
 	std::vector<AnimVertex> FinalVertex(const aiMesh* Meshes)
 	{
 		std::vector<AnimVertex> TempVerts;
@@ -219,4 +221,5 @@ private:
 			Vert.Weights.w = BoneWieght;
 		}
 	}
+	//Functions to load Animations
 };
