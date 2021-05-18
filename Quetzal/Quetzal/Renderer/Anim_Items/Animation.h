@@ -26,10 +26,12 @@ public:
 	float GetTimeLength();
 	int GetLoopId();
 	std::string GetName() { return this->Name; }
+	S_P<Anim_Skels> GetAnimSkels() { return this->Skels; }
 	//Setters
 	void SetCurTime(float NewCur);
 	void SetTimeLength(float NewLength);
 	void SetLoopId(int NewId);
 	void SetName(std::string NewName);
+	void SetSkels(S_P<Anim_Skels> InitSkels);
 };
 

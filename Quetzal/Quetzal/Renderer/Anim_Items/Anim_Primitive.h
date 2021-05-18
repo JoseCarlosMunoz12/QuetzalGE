@@ -120,9 +120,9 @@ public:
 		if (scene->HasAnimations())
 		{
 			Animations.push_back(std::make_shared<Animation>());
-			this->GetAnimations(scene->mAnimations[0], scene,Animations[0]);
+			this->GetAnimations(scene->mAnimations[0], scene, Animations[0]);
+			std::cout << "done!";
 		}
-		std::cout << "arse\n";
 	}
 private:
 	std::string File;
@@ -262,17 +262,20 @@ private:
 		}
 		//create the Skel Node
 		int Level = 0;
-		this->FindChilds(scene->mRootNode, Level);
+		int Count = 0;
+		int Par = 0;
+		this->FindChilds(scene->mRootNode,Par, Count);
 		for (auto& jj : Bones)
 			std::cout << jj->GetName() << "\n";
+		SetAnims->SetSkels(Bones[0]);
 	}
-	void FindChilds(aiNode* Node,int& Level)
+	void FindChilds(aiNode* Node,int Par, int& Count)
 	{
-		std::cout << Node->mName.C_Str() << " @ Level " << Level<< "\n";
+		Count++;
+		int ParID = Count;
+		std::cout << Node->mName.C_Str() << " @ Parent" << Par << " Count " << Count << "\n";
 		int NumChilds = Node->mNumChildren;
-		Level++;
 		for (int ii = 0; ii < NumChilds; ii++)
-			this->FindChilds(Node->mChildren[ii],Level);
-		Level--;
+			this->FindChilds(Node->mChildren[ii],ParID,Count);
 	}
 };

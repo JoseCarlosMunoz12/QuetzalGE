@@ -97,3 +97,8 @@ void Animation::SetName(std::string NewName)
 {
 	this->Name = NewName;
 }
+
+void Animation::SetSkels(S_P<Anim_Skels> InitSkels)
+{
+	this->Skels = InitSkels;
+}
