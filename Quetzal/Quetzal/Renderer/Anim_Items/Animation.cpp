@@ -26,6 +26,13 @@ Animation::Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float Init
 	this->LoopId = 0;
 }
 
+Animation::Animation()
+	:Name(""), TimeLength(0),Inv(glm::mat4(1.f))
+{
+	this->CurTime = 0;
+	this->LoopId = 0;
+}
+
 Animation::~Animation()
 {
 }
@@ -84,4 +91,9 @@ void Animation::SetTimeLength(float NewLength)
 void Animation::SetLoopId(int NewId)
 {
 	this->LoopId = NewId;
+}
+
+void Animation::SetName(std::string NewName)
+{
+	this->Name = NewName;
 }

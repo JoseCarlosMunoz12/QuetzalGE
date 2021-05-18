@@ -116,7 +116,12 @@ public:
 		//Set the Ides for all the Meshes
 		this->SetBonesId(scene->mMeshes[0], rs);
 		//Get the Animation skeleton frames
-
+		Vec_SH<Animation> Animations = {};
+		if (scene->HasAnimations())
+		{
+			Animations.push_back(std::make_shared<Animation>());
+			this->GetAnimations(scene->mAnimations[0], Animations[0]);
+		}
 		std::cout << "arse\n";
 	}
 private:
@@ -222,4 +227,10 @@ private:
 		}
 	}
 	//Functions to load Animations
+	void GetAnimations(aiAnimation* Anim, S_P<Animation>& SetAnims)
+	{
+		SetAnims->SetCurTime(0);
+		SetAnims->SetTimeLength(Anim->mDuration);
+		SetAnims->GetName()
+	}
 };
