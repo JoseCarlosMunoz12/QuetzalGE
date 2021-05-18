@@ -65,10 +65,6 @@ template <typename T>
 using S_P = std::shared_ptr<T>;
 template <typename T>
 using Vec_SH = std::vector<S_P<T>>;
-template <typename T>
-using M_SP = std::make_shared <T>;
-template <typename T>
-using M_UP = std::make_unique<T>;
 //Data Structure for static models
 struct Vertex
 {

@@ -80,6 +80,7 @@ public:
 	glm::vec3 GetCurScale();
 	glm::quat GetCurRot();
 	Vec_SH<Frames> GetFrames();
+	std::string GetName();
 	//Setters
 	void SetCurOffset(glm::vec3 NewOffset);
 	void SetCurScale(glm::vec3 NewScale);

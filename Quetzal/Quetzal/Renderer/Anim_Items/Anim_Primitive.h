@@ -119,7 +119,7 @@ public:
 		Vec_SH<Animation> Animations = {};
 		if (scene->HasAnimations())
 		{
-			Animations.push_back(M_SP<Animation>());
+			Animations.push_back(std::make_shared<Animation>());
 			this->GetAnimations(scene->mAnimations[0], scene,Animations[0]);
 		}
 		std::cout << "arse\n";
@@ -255,12 +255,13 @@ private:
 				glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
 				glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
 				Joint T_Joint = {Offset, Rot, Scale};
-				Frms.push_back(M_SP<Frames>(F_Time, T_Joint));
+				Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
 			}
-			Bones.push_back(M_SP<Anim_Skels>(Frms, Bone_Name,TransMat, Offset,
+			Bones.push_back(std::make_shared<Anim_Skels>(Frms, Bone_Name,TransMat, Offset,
 				Frms[0]->GetOffset(), Frms[0]->GetRot()));
 		}
-		//create the Skel Node Tree
-
+		//create the Skel Node
+		for (auto& jj : Bones)
+			std::cout << jj->GetName() << "\n";
 	}
 };

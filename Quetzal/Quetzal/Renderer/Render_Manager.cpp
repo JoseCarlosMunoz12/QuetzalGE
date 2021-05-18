@@ -17,23 +17,23 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->NearPlane = 0.1f;
 	this->FarPlane = 100.f;
 	//Init camera Position
-	this->Main_Cam = M_SP<Camera>(glm::vec3(-1.f, 1.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
+	this->Main_Cam = std::make_shared<Camera>(glm::vec3(-1.f, 1.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	//Get screen information to use to render
 	glfwGetFramebufferSize(this->MainWindow,&this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
 	//Create Default Framebuffer Texture 
-	this->Main_Texture = M_SP<Frame_Buffer>("Main");
+	this->Main_Texture = std::make_shared<Frame_Buffer>("Main");
 	this->Main_Texture->Init(this->Frame_Buffer_Width, this->Frame_Bufer_Height);
 	//load some Textures to use
-	this->All_Texture.push_back(M_SP<Stnd_Tex>("Images/pusheen.png", GL_TEXTURE_2D, GL_RGBA));
-	this->All_Texture.push_back(M_SP<Stnd_Tex>("Images/diffuse.png", GL_TEXTURE_2D, GL_RGBA));
+	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/pusheen.png", GL_TEXTURE_2D, GL_RGBA));
+	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/diffuse.png", GL_TEXTURE_2D, GL_RGBA));
 	//loads defaults Shaders
-	this->Main_Shader = M_SP<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
+	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	this->All_Shader.push_back(this->Main_Shader);
-	this->Main_Shader = M_SP<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor, "Screen_Shader_Vs.glsl", "Screen_Shader_Fs.glsl");
+	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor, "Screen_Shader_Vs.glsl", "Screen_Shader_Fs.glsl");
 	//------------------------------------------Creates a mesh to load Framebuffer to-------------------------------------------//
-	S_P<Mesh> MainMesh = M_SP<Mesh>(M_UP<Quad_M>(), "MainMesh");
-	S_P<Node> NewNode = M_SP<Node>();
-	this->Main_Model = M_SP<Model>("Main_Model");
+	S_P<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
+	S_P<Node> NewNode = std::make_shared<Node>();
+	this->Main_Model = std::make_shared<Model>("Main_Model");
 	NewNode->AddTextureId(0);
 	NewNode->SetMeshId(0);
 	NewNode->AddShaderId(0);
@@ -49,30 +49,30 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//--------------------------------------------------------------------------------------------------------------------------//
 	
 	//-load meshes to the item
-	std::unique_ptr<ASSIMPLOAD_M> rs = M_UP<ASSIMPLOAD_M>("model_Running.dae");
-	S_P<Mesh> InitMesh = M_SP<Mesh>(M_UP<PlaneTerrain_M>(),"Terrain");
+	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("model_Running.dae");
+	S_P<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	glm::mat4 Inv;
 	std::vector<std::unique_ptr<Primitive>> rss = rs->GetModels(Inv);
 	for (auto &ii : rss)
 	{
-		this->All_Meshes.push_back(M_SP<Mesh>(std::move(ii), "MainMesh"));
+		this->All_Meshes.push_back(std::make_shared<Mesh>(std::move(ii), "MainMesh"));
 		int cur_size = this->All_Meshes.size() - 1;
 		this->All_Meshes[cur_size]->SetInv(Inv);
 	}
 	//load data to textures
-	S_P<Model> NewModel = M_SP<Model>("RES", glm::vec3(0.f));//1) Create the Model
+	S_P<Model> NewModel = std::make_shared<Model>("RES", glm::vec3(0.f));//1) Create the Model
 	NewModel->AddMeshes(All_Meshes[0]);//2) Load meshes into the Model used
 	NewModel->AddTextures(this->All_Texture[0]);//3) Load Textures used
 	NewModel->AddShaders(this->All_Shader[0]);//4)Load shaders used
 	NewModel->AddBaseNode(NewNode);//5) Add nodes to load
 	this->All_Models.push_back(NewModel);//6)add to render system
 	//------------------------Another Model being Rendered------------------------
-	S_P<Model> NewModel1 = M_SP<Model>("REsS", glm::vec3(0.f));//1) Make Model
+	S_P<Model> NewModel1 = std::make_shared<Model>("REsS", glm::vec3(0.f));//1) Make Model
 	NewModel1->AddMeshes(All_Meshes[1]);//2) AddMeshes
 	NewModel1->AddTextures(this->All_Texture[1]);//3) Add Textures
 	NewModel1->AddShaders(this->All_Shader[0]);//4) add Shaders
-	S_P<Node> NewNode1 = M_SP<Node>();//5)Create Nodes to Item
+	S_P<Node> NewNode1 = std::make_shared<Node>();//5)Create Nodes to Item
 	NewNode1->AddTextureId(0);//6).a - Sets Textures used in the Node
 	NewNode1->SetMeshId(0);//6).b - Set Mesh Id for the Node
 	NewNode1->SetW_Mat(Inv);//6).c - set Rotation to upright the model
@@ -80,7 +80,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewModel1->AddBaseNode(NewNode1);//7) add node tree
 	this->All_Models.push_back(NewModel1);//8) add model to render
 	//------------------------Load Animated Model to Render------------------------
-	S_P<A_ASSIMP_LOAD> rrs = M_SP<A_ASSIMP_LOAD>("model_Running.dae");
+	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");
 	rrs->Test();
 }
 

@@ -187,6 +187,11 @@ Vec_SH<Frames> Anim_Skels::GetFrames()
     return this->Skel_Frames;
 }
 
+std::string Anim_Skels::GetName()
+{
+    return this->Bone_Name;
+}
+
 void Anim_Skels::SetCurOffset(glm::vec3 NewOffset)
 {
     this->CurOffset = NewOffset;
