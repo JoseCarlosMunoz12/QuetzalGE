@@ -138,6 +138,10 @@ private:
 	{
 		return glm::vec3(aiVal.x, aiVal.y, aiVal.z);
 	}
+	glm::quat aiQuatToglmQuat(aiQuaternion aiVal)
+	{
+		return {aiVal.x, aiVal.y, aiVal.z, aiVal.w};
+	}
 	A_Primitive GetMesh(const aiMesh* mesh)
 	{
 		A_Primitive Msh;
@@ -229,8 +233,27 @@ private:
 	//Functions to load Animations
 	void GetAnimations(aiAnimation* Anim, S_P<Animation>& SetAnims)
 	{
+		//Init the animation and set the bast information
 		SetAnims->SetCurTime(0);
 		SetAnims->SetTimeLength(Anim->mDuration);
-		SetAnims->GetName()
+		SetAnims->SetName(Anim->mName.C_Str());
+		int NumChannels = Anim->mNumChannels;
+		for (int ii = 0; ii < NumChannels; ii++)
+		{
+			aiNodeAnim* rs = Anim->mChannels[ii];
+			std::string Bone_Name = rs->mNodeName.C_Str();
+			int NumOfRot = rs->mNumRotationKeys;
+			Vec_SH<Frames> Frms;
+			for (int jj = 0; jj < NumOfRot; jj++)
+			{
+				float F_Time = rs->mRotationKeys[jj].mTime;
+				glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[jj].mValue);
+				glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
+				glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
+				Joint T_Joint = {Offset, Rot, Scale};
+				Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
+			}
+
+		}
 	}
 };
