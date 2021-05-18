@@ -262,20 +262,20 @@ private:
 		}
 		//create the Skel Node
 		int Level = 0;
-		int Count = 0;
-		int Par = 0;
-		this->FindChilds(scene->mRootNode,Par, Count);
-		for (auto& jj : Bones)
-			std::cout << jj->GetName() << "\n";
+		int Count = -4;
+		int Par = -4;
+		this->FindChilds(scene->mRootNode,Par, Count, Bones);
 		SetAnims->SetSkels(Bones[0]);
 	}
-	void FindChilds(aiNode* Node,int Par, int& Count)
+	void FindChilds(aiNode* Node,int Par, int& Count,Vec_SH<Anim_Skels> Bones)
 	{
 		Count++;
-		int ParID = Count;
+		if (Par >= 0)
+			Bones[Par]->SetChild(Bones[Count]);
+		int ParID = Count;		
 		std::cout << Node->mName.C_Str() << " @ Parent" << Par << " Count " << Count << "\n";
 		int NumChilds = Node->mNumChildren;
 		for (int ii = 0; ii < NumChilds; ii++)
-			this->FindChilds(Node->mChildren[ii],ParID,Count);
+			this->FindChilds(Node->mChildren[ii],ParID,Count, Bones);
 	}
 };
