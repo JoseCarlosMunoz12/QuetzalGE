@@ -261,7 +261,18 @@ private:
 				Frms[0]->GetOffset(), Frms[0]->GetRot()));
 		}
 		//create the Skel Node
+		int Level = 0;
+		this->FindChilds(scene->mRootNode, Level);
 		for (auto& jj : Bones)
 			std::cout << jj->GetName() << "\n";
+	}
+	void FindChilds(aiNode* Node,int& Level)
+	{
+		std::cout << Node->mName.C_Str() << " @ Level " << Level<< "\n";
+		int NumChilds = Node->mNumChildren;
+		Level++;
+		for (int ii = 0; ii < NumChilds; ii++)
+			this->FindChilds(Node->mChildren[ii],Level);
+		Level--;
 	}
 };
