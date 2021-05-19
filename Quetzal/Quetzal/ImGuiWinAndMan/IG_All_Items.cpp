@@ -162,6 +162,39 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Anim_Mesh> VecMesh, Vec_
     }
 }
 
+void IG_All_Items::DisplayData(S_P<Model> Mdl)
+{
+
+    if (ImGui::TreeNode(Mdl->GetName().c_str()))
+    {
+        Vec_SH<Mesh> Mshs = Mdl->GetMeshes();
+        Vec_SH<Texture> Txt = Mdl->GetTextures();
+        Vec_SH<Material> Mts = Mdl->GetMaterials();
+        this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
+        ImGui::TreePop();
+    }
+}
+
+void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
+{
+    if (ImGui::TreeNode(Mdl->GetName().c_str()))
+    {
+        Vec_SH<Anim_Mesh> Mshs = Mdl->GetMeshes();
+        Vec_SH<Texture> Txt = Mdl->GetTextures();
+        Vec_SH<Material> Mts = Mdl->GetMaterials();
+        Vec_SH<Animation> Anims = Mdl->GetAnimations();
+        int CurAnim = Mdl->GetCurAnim();
+        float dt = Anims[CurAnim]->GetCurTime();
+        float lngth = Anims[CurAnim]->GetTimeLength();
+        float min = 0;
+        ImGui::SliderFloat("dt", &dt,min, lngth);
+        //display Data about the nodes
+        this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
+        ImGui::TreePop();
+    }
+
+}
+
 IG_All_Items::IG_All_Items(std::string Name)
 	:WinName(Name)
 {
@@ -187,25 +220,11 @@ void IG_All_Items::Update()
             Vec_SH<Anim_Model> AMdls = this->Base_Render->GetAllAnimModel();
             for (auto& ii : Mdls)
             {
-                if (ImGui::TreeNode(ii->GetName().c_str()))
-                {
-                    Vec_SH<Mesh> Mshs = ii->GetMeshes();
-                    Vec_SH<Texture> Txt = ii->GetTextures();
-                    Vec_SH<Material> Mts = ii->GetMaterials();
-                    this->DisplayChildren(ii->GetNodes(),Mshs,Txt,Mts);
-                    ImGui::TreePop();
-                }
+                this->DisplayData(ii);
             }
             for (auto& ii : AMdls)
             {
-                if (ImGui::TreeNode(ii->GetName().c_str()))
-                {
-                    Vec_SH<Anim_Mesh> Mshs = ii->GetMeshes();
-                    Vec_SH<Texture> Txt = ii->GetTextures();
-                    Vec_SH<Material> Mts = ii->GetMaterials();
-                    this->DisplayChildren(ii->GetNodes(), Mshs, Txt, Mts);
-                    ImGui::TreePop();
-                }
+                this->DisplayData(ii);
             }
             end();
         }
