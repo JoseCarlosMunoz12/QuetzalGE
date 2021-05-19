@@ -126,6 +126,7 @@ void Anim_Model::AddShaders(S_P<Shader> NewShader)
 void Anim_Model::AddBaseNode(S_P<Node> InitRoot)
 {
 	this->Roots = InitRoot;
+	this->Roots->SetPos(this->Position);
 }
 
 void Anim_Model::SetName(std::string NewName)

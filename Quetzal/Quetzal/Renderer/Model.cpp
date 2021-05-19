@@ -83,7 +83,7 @@ void Model::AddMaterials(S_P<Material> NewMaterial)
 
 void Model::AddBaseNode(S_P<Node> NewNode)
 {
-	this->Nodes_Inf =NewNode;
+	this->Nodes_Inf = NewNode;
 	this->Nodes_Inf->SetPos(this->Position);
 }
 
