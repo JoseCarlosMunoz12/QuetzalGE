@@ -96,6 +96,7 @@ public:
 	}
 private:
 	std::string File;
+	std::map<std::string, glm::mat4> BoneOffsets;
 	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
 	{
 		glm::mat4 glmVal = glm::mat4(aiVal.a1, aiVal.b1, aiVal.c1, aiVal.d1,
@@ -163,6 +164,9 @@ private:
 		for (int ii = 0; ii < meshes->mNumBones; ii++)
 		{
 			aiBone* TempBone = meshes->mBones[ii];
+			std::string BoneName = TempBone->mName.C_Str();
+			if (BoneOffsets.find(BoneName) == BoneOffsets.end())
+				BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
 			for (int jj = 0; jj < TempBone->mNumWeights; jj++)
 			{
 				int VertId = TempBone->mWeights[jj].mVertexId;
@@ -210,7 +214,7 @@ private:
 			std::string Bone_Name = rs->mNodeName.C_Str();
 			int NumOfRot = rs->mNumRotationKeys;
 			Vec_SH<Frames> Frms;
-			glm::mat4 Offset = this->aiMatToglmMat(scene->mMeshes[0]->mBones[ii]->mOffsetMatrix);
+			glm::mat4 Offset = BoneOffsets[Bone_Name];
 			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(Bone_Name.c_str())->mTransformation);
 			for (int jj = 0; jj < NumOfRot; jj++)
 			{

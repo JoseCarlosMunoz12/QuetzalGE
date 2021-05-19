@@ -118,8 +118,8 @@ void Render_Manager::Update(float dt)
 	}
 	for (auto& ii : this->All_Models)
 	{
-		ii->Update();
-		ii->UpdateUniforms();
+	//	ii->Update();
+	//	ii->UpdateUniforms();
 	}
 	for (auto& ii : this->All_Anim_Models)
 	{
@@ -132,8 +132,8 @@ void Render_Manager::Render()
 {
 	//All of the rendering is saved on this Frame buffer Texture
 	this->Main_Texture->WriteToBuffer(this->Frame_Buffer_Width,this->Frame_Bufer_Height, this->Main_Shader,this->Main_Cam->GetViewMatrix());
-	for (auto& ii : this->All_Models)
-		ii->Render();
+	//for (auto& ii : this->All_Models)
+	//	ii->Render();
 	for (auto& ii : this->All_Anim_Models)
 		ii->Render();
 }

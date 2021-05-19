@@ -11,7 +11,7 @@ void Animation::UpdateSkels(S_P<Anim_Skels> Bone)
 void Animation::CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection, S_P<Anim_Skels> Bone)
 {
 	glm::mat4 ParMatrix = Par * Bone->GetMatrix();
-	glm::mat4 TempMatrix = this->Inv * ParMatrix;// *Bone->GetOffset();
+	glm::mat4 TempMatrix = this->Inv * ParMatrix * Bone->GetOffset();
 	Collection.push_back(TempMatrix);
 	Vec_SH<Anim_Skels> Chlds = Bone->GetChildren();
 	for (auto& jj : Chlds)
@@ -59,7 +59,7 @@ void Animation::updateTime(float dt)
 std::vector<glm::mat4> Animation::GetAllMatrix()
 {
 	std::vector<glm::mat4> Collection;
-	glm::mat4 wrld = glm::mat4(1.f);
+	glm::mat4 wrld = glm::inverse(this->Inv);
 	this->CalcMatrix(wrld, Collection, this->Skels);
     return Collection;
 }

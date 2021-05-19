@@ -19,13 +19,9 @@ uniform mat4 Bones[MAX_BONES];
 
 mat4 VerifyVal(int MatId,float Weight)
 {
-	mat4 Temps = mat4(1.0);
 	if ( MatId == -1)
-	{
-	return mat4(0.0);
-	}
-	Temps = Bones[MatId] * Weight;
-	return Temps;
+		return mat4(0.0);
+	return Bones[MatId] * Weight;
 }
 void main()
 {
