@@ -35,12 +35,12 @@ void main()
 	BoneTransform += VerifyVal(vertex_matid.w,vertex_weights.w);
 
 	vec4 GLPos = BoneTransform * vec4(vertex_position,1.f);
-	vec4 positionRelativeToCam = ViewMatrix * ModelMatrix * GLPos;
 	vs_position = vec4(ModelMatrix * GLPos).xyz;
 	vs_texcoord = vertex_texcoord;
 
 	vec4 NormalL = BoneTransform * vec4(vertex_normal,1.f);
 	vs_normal = vec4(ModelMatrix * NormalL).xyz;
 
-	gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * GLPos;
+	gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(vertex_position, 1.f);
+	// * GLPos;
 }

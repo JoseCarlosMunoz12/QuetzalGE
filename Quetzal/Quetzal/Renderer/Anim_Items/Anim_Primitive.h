@@ -71,7 +71,6 @@ public:
 		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
 		if (!scene)
 		{
-
 			std::cout << "Error";
 			return Mshs;
 		}
@@ -91,6 +90,7 @@ public:
 			int Size = Animations.size();
 			Animations.push_back(std::make_shared<Animation>());
 			this->GetAnimations(scene->mAnimations[ii], scene, Animations[Size]);
+			Animations[Size]->SetInvMatrix(InitInv);
 		}
 		return Mshs;
 	}

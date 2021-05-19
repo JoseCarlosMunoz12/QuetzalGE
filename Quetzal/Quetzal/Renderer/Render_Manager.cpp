@@ -32,6 +32,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor, "Screen_Shader_Vs.glsl", "Screen_Shader_Fs.glsl");
 	//AnimationShader 
 	S_P<Shader> AnimShader = std::make_shared<Shader>(ShaderType::ANIM, this->GLVerMajor, this->GLVerMinor, "BasicAnimVertex.glsl", "BasicAnimFrag.glsl");
+	this->All_Shader.push_back(AnimShader);
 	//------------------------------------------Creates a mesh to load Framebuffer to-------------------------------------------//
 	S_P<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
 	S_P<Node> NewNode = std::make_shared<Node>();
@@ -96,7 +97,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	S_P<Node> A_Node = std::make_shared<Node>();//5)Create Nodes to Item
 	A_Node->AddTextureId(0);//6).a - Sets Textures used in the Node
 	A_Node->SetMeshId(0);//6).b - Set Mesh Id for the Node
-	A_Node->SetW_Mat(inv);//6).c - set Rotation to upright the model
+	//A_Node->SetW_Mat(inv);//6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);//6).d - sets Shader to use
 	AModel->AddBaseNode(A_Node);//7) Add Node Tree
 	AModel->AddAnimations(Anims);//8)Add Animation skeleton
@@ -110,8 +111,11 @@ void Render_Manager::Update(float dt)
 	this->Main_Cam->Update(dt, 1);
 	this->Main_Cam->UpdateMouseInput(dt, this->MainWindow);
 	//updates uniforms of shaders being used
-	this->All_Shader[0]->setMat4fv(this->Main_Cam->GetViewMatrix(), "ViewMatrix");
-	this->All_Shader[0]->setMat4fv(this->Projection, "ProjectionMatrix");
+	for (auto& jj : this->All_Shader)
+	{
+		jj->setMat4fv(this->Main_Cam->GetViewMatrix(), "ViewMatrix");
+		jj->setMat4fv(this->Projection, "ProjectionMatrix");
+	}
 	for (auto& ii : this->All_Models)
 	{
 		ii->Update();

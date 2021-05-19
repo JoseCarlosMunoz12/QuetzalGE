@@ -27,11 +27,13 @@ public:
 	int GetLoopId();
 	std::string GetName() { return this->Name; }
 	S_P<Anim_Skels> GetAnimSkels() { return this->Skels; }
+	glm::mat4 GetInvMatrix() { return this->Inv; }
 	//Setters
 	void SetCurTime(float NewCur);
 	void SetTimeLength(float NewLength);
 	void SetLoopId(int NewId);
 	void SetName(std::string NewName);
 	void SetSkels(S_P<Anim_Skels> InitSkels);
+	void SetInvMatrix(glm::mat4 NewInv);
 };
 
