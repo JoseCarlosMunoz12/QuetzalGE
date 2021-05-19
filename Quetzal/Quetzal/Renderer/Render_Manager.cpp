@@ -79,7 +79,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewNode1->AddShaderId(0);//6).d - sets Shader to use
 	NewModel1->AddBaseNode(NewNode1);//7) add node tree
 	this->All_Models.push_back(NewModel1);//8) add model to render
+	//-----------------------------------------------------------------------------
 	//------------------------Load Animated Model to Render------------------------
+	//-----------------------------------------------------------------------------
 	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");
 	glm::mat4 inv;
 	Vec_SH<Animation> Anims;
@@ -96,7 +98,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	A_Node->AddShaderId(0);//6).d - sets Shader to use
 	AModel->AddBaseNode(A_Node);//7) Add Node Tree
 	AModel->AddAnimations(Anims);//8)Add Animation skeleton
-	this->All_Anim_Models.push_back(AModel);
+	this->All_Anim_Models.push_back(AModel);//9) add model to render
 
 }
 

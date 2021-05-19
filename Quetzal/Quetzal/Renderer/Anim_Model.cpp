@@ -42,7 +42,7 @@ Anim_Model::Anim_Model(std::string InitName)
 }
 
 Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos)
-	:Name(Name), Position(InitPos), CurAnim(0), RunTime(true)
+	:Name(InitName), Position(InitPos), CurAnim(0), RunTime(true)
 {
 }
 
