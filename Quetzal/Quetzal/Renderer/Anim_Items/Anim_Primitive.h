@@ -74,9 +74,18 @@ public:
 			std::cout << "Error";
 			return Mshs;
 		}
+		//Find all Bones in the animations along with offsets
 		int msh_num = scene->mNumMeshes;
 		for (int ii = 0; ii < msh_num; ii++)
+			this->FindAllBones(scene->mMeshes[ii]);
+		//Get relationships of Childs and parents along with offsets
+		int Count = 0;
+		int Par = 0;
+		this->FindChilds(scene->mRootNode, Par, Count);
+		//create correct id and Create the root nodes
+		for (int ii = 0; ii < msh_num; ii++)
 		{
+			this->FindAllBones(scene->mMeshes[ii]);
 			std::vector<AnimVertex> rs = this->FinalVertex(scene->mMeshes[ii]);
 			std::vector<GLuint> Indices = this->FinalGluint(scene->mMeshes[ii]);
 			this->SetBonesId(scene->mMeshes[ii], rs);
@@ -95,8 +104,14 @@ public:
 		return Mshs;
 	}
 private:
+	struct Par_Child_Rel
+	{
+		int Par;
+		int Id;
+	};
 	std::string File;
 	std::map<std::string, glm::mat4> BoneOffsets;
+	std::map<std::string, Par_Child_Rel> BoneId;
 	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
 	{
 		glm::mat4 glmVal = glm::mat4(aiVal.a1, aiVal.b1, aiVal.c1, aiVal.d1,
@@ -159,20 +174,27 @@ private:
 		return TempInd;
 	}
 	//functions to load Bone data from file
+	void FindAllBones(aiMesh* meshes)
+	{
+		for (int ii = 0; ii < meshes->mNumBones; ii++)
+		{
+			aiBone* TempBone = meshes->mBones[ii];
+			std::string BoneName = TempBone->mName.C_Str();
+			if (BoneOffsets.find(BoneName) == BoneOffsets.end())
+				BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
+		}
+	}
 	void SetBonesId(aiMesh* meshes, std::vector<AnimVertex>& Vertx)
 	{
 		for (int ii = 0; ii < meshes->mNumBones; ii++)
 		{
 			aiBone* TempBone = meshes->mBones[ii];
 			std::string BoneName = TempBone->mName.C_Str();
-			std::cout << BoneName << "\n";
-			if (BoneOffsets.find(BoneName) == BoneOffsets.end())
-				BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
 			for (int jj = 0; jj < TempBone->mNumWeights; jj++)
 			{
 				int VertId = TempBone->mWeights[jj].mVertexId;
 				float Weight = TempBone->mWeights[jj].mWeight;
-				this->SetIndex(Vertx[VertId], ii, Weight);
+				this->SetIndex(Vertx[VertId], BoneId[BoneName].Id, Weight);
 			}
 		}
 	}
@@ -230,27 +252,32 @@ private:
 				Frms[0]->GetOffset(), Frms[0]->GetRot()));
 		}
 		//create the Skel Node
-		int Level = 0;
-		int Count = 0;
-		int Par = 0;
-		this->FindChilds(scene->mRootNode,Par, Count, Bones);
+		this->SetTree(Bones);
 		while (Bones.size() != 1)
 			Bones.pop_back();
 		SetAnims->SetSkels(Bones[0]);
 	}
-	void FindChilds(aiNode* Node,int Par, int& Count,Vec_SH<Anim_Skels> Bones)
+	void FindChilds(aiNode* Node,int Par, int& Count)
 	{
-		Count++;
 		std::string name = Node->mName.C_Str();
-		Node->mTransformation;
-		std::cout << name << " Par " << Par << "Id " << Count <<"\n";
-		/*if (BoneOffsets.find(name) != BoneOffsets.end())
+		if (BoneOffsets.find(name) != BoneOffsets.end())
 		{
-			Bones[Par]->SetChild(Bones[Count]);
-		}*/
+			Count++;
+			BoneId[name] = {Par-1,Count-1};
+		}
 		int ParID = Count;		
 		int NumChilds = Node->mNumChildren;
 		for (int ii = 0; ii < NumChilds; ii++)
-			this->FindChilds(Node->mChildren[ii],ParID,Count, Bones);
+			this->FindChilds(Node->mChildren[ii],ParID,Count);
+	}
+	void SetTree(Vec_SH<Anim_Skels> Bones)
+	{
+		for (auto& jj : Bones)
+		{
+			std::string Bone_Name = jj->GetName();
+			int ParId = BoneId[Bone_Name].Par;
+			if (ParId >= 0)
+				Bones[ParId]->SetChild(jj);
+		}
 	}
 };
