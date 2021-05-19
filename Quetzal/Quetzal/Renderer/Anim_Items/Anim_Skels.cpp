@@ -155,7 +155,7 @@ Anim_Skels::Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat
 
 glm::mat4 Anim_Skels::GetMatrix()
 {
-    return this->TransMat;
+    return this->Matrix;
 }
 
 glm::mat4 Anim_Skels::GetOffset()
