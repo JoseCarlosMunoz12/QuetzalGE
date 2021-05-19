@@ -30,6 +30,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	this->All_Shader.push_back(this->Main_Shader);
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor, "Screen_Shader_Vs.glsl", "Screen_Shader_Fs.glsl");
+	//AnimationShader 
+	S_P<Shader> AnimShader = std::make_shared<Shader>(ShaderType::ANIM, this->GLVerMajor, this->GLVerMinor, "BasicAnimVertex.glsl", "BasicAnimFrag.glsl");
 	//------------------------------------------Creates a mesh to load Framebuffer to-------------------------------------------//
 	S_P<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
 	S_P<Node> NewNode = std::make_shared<Node>();
@@ -90,7 +92,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f));//1)Make Model
 	AModel->AddMeshes(this->All_Anim_Meshes[0]);//2)Add Meshes
 	AModel->AddTextures(this->All_Texture[1]);//3) Add Textures
-	AModel->AddShaders(this->All_Shader[0]);//4) add Shaders
+	AModel->AddShaders(this->All_Shader[1]);//4) add Shaders
 	S_P<Node> A_Node = std::make_shared<Node>();//5)Create Nodes to Item
 	A_Node->AddTextureId(0);//6).a - Sets Textures used in the Node
 	A_Node->SetMeshId(0);//6).b - Set Mesh Id for the Node

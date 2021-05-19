@@ -44,12 +44,12 @@ void Animation::updateTime(float dt)
 	{
 	case 0:
 		this->CurTime += dt;
-		if (this->CurTime > 0)
+		if (this->CurTime > this->TimeLength)
 			this->CurTime = this->TimeLength;
 		break;
 	case 1:
 		this->CurTime += dt;
-		if (this->CurTime > 0)
+		if (this->CurTime > this->TimeLength)
 			this->CurTime = 0;
 	}
 	//update Skeletons with Time
