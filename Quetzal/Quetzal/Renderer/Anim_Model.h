@@ -57,6 +57,7 @@ public:
 	void AddTexture(S_P<Texture> NewTexture);
 	void AddMaterial(S_P<Material> NewMaterial);
 	void AddAnimation(S_P<Animation> NewAnimation);
+	void AddAnimations(Vec_SH<Animation> NewAnimations);
 	void AddShader(S_P<Shader> NewShader);
 	void AddBaseNode(S_P<Node> InitRoot);
 	void SetName(std::string NewName);

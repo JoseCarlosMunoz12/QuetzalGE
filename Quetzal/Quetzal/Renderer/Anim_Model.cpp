@@ -112,6 +112,12 @@ void Anim_Model::AddAnimation(S_P<Animation> NewAnimation)
 	this->Anims.push_back(NewAnimation);
 }
 
+void Anim_Model::AddAnimations(Vec_SH<Animation> NewAnimations)
+{
+	for (auto& jj : NewAnimations)
+		this->AddAnimation(jj);
+}
+
 void Anim_Model::AddShader(S_P<Shader> NewShader)
 {
 	this->Shaders_Inf.push_back(NewShader);

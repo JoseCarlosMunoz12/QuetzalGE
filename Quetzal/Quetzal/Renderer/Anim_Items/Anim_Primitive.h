@@ -64,10 +64,10 @@ public:
 		File += FileLoc;
 		
 	}
-	std::vector<A_Primitive> GetPrimitives(glm::mat4& InitInv, Vec_SH<Animation>& Animations)
+	Vec_UP<A_Primitive> GetPrimitives(glm::mat4& InitInv, Vec_SH<Animation>& Animations)
 	{
 		Assimp::Importer importer;
-		std::vector<A_Primitive> Mshs;
+		Vec_UP<A_Primitive> Mshs;
 		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 		if (!scene)
 		{
@@ -81,9 +81,8 @@ public:
 			std::vector<AnimVertex> rs = this->FinalVertex(scene->mMeshes[ii]);
 			std::vector<GLuint> Indices = this->FinalGluint(scene->mMeshes[ii]);
 			this->SetBonesId(scene->mMeshes[ii], rs);
-			A_Primitive R;
-			R.set(rs, Indices);
-			Mshs.push_back(R);
+			Mshs.push_back(std::make_unique<A_Primitive>());
+			Mshs[ii]->set(rs, Indices);
 		}
 		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);		
 		int anims = scene->mNumAnimations;
@@ -93,6 +92,7 @@ public:
 			Animations.push_back(std::make_shared<Animation>());
 			this->GetAnimations(scene->mAnimations[ii], scene, Animations[Size]);
 		}
+		return Mshs;
 	}
 private:
 	std::string File;

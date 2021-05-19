@@ -81,7 +81,14 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->All_Models.push_back(NewModel1);//8) add model to render
 	//------------------------Load Animated Model to Render------------------------
 	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");
-	rrs->GetPrimitives();
+	glm::mat4 inv;
+	Vec_SH<Animation> Anims;
+	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv, Anims);
+	this->All_Anim_Meshes.push_back(std::make_shared<Anim_Mesh>(std::move(rt[0]), "Man_Walk"));
+	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f));
+	AModel->AddAnimations(Anims);
+	this->All_Anim_Models.push_back(AModel);
+
 }
 
 void Render_Manager::Update(float dt)
