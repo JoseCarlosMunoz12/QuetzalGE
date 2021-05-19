@@ -92,17 +92,17 @@ void Anim_Model::Render()
 	this->RenderNodes(r, this->Roots, AllMats);
 }
 
-void Anim_Model::AddMesh(S_P<Anim_Mesh> NewMesh)
+void Anim_Model::AddMeshes(S_P<Anim_Mesh> NewMesh)
 {
 	this->Meshes_Inf.push_back(NewMesh);
 }
 
-void Anim_Model::AddTexture(S_P<Texture> NewTexture)
+void Anim_Model::AddTextures(S_P<Texture> NewTexture)
 {
 	this->Textures_Inf.push_back(NewTexture);
 }
 
-void Anim_Model::AddMaterial(S_P<Material> NewMaterial)
+void Anim_Model::AddMaterials(S_P<Material> NewMaterial)
 {
 	this->Materials_Inf.push_back(NewMaterial);
 }
@@ -118,7 +118,7 @@ void Anim_Model::AddAnimations(Vec_SH<Animation> NewAnimations)
 		this->AddAnimation(jj);
 }
 
-void Anim_Model::AddShader(S_P<Shader> NewShader)
+void Anim_Model::AddShaders(S_P<Shader> NewShader)
 {
 	this->Shaders_Inf.push_back(NewShader);
 }

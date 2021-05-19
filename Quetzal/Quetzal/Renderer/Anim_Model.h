@@ -53,12 +53,12 @@ public:
 	int GetCurAnim()                  { return this->CurAnim; }
 	bool GetAnimStatus()              { return this->RunTime; }
 	//Setters
-	void AddMesh(S_P<Anim_Mesh> NewMesh);
-	void AddTexture(S_P<Texture> NewTexture);
-	void AddMaterial(S_P<Material> NewMaterial);
+	void AddMeshes(S_P<Anim_Mesh> NewMesh);
+	void AddTextures(S_P<Texture> NewTexture);
+	void AddMaterials(S_P<Material> NewMaterial);
 	void AddAnimation(S_P<Animation> NewAnimation);
 	void AddAnimations(Vec_SH<Animation> NewAnimations);
-	void AddShader(S_P<Shader> NewShader);
+	void AddShaders(S_P<Shader> NewShader);
 	void AddBaseNode(S_P<Node> InitRoot);
 	void SetName(std::string NewName);
 	void ChangeCurAnim(int NewAnim);
