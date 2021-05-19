@@ -110,7 +110,7 @@ private:
 	}
 	glm::quat aiQuatToglmQuat(aiQuaternion aiVal)
 	{
-		return {aiVal.x, aiVal.y, aiVal.z, aiVal.w};
+		return glm::quat(aiVal.w, aiVal.x, aiVal.y, aiVal.z);
 	}
 	//functions to load Ints and Vertecies
 	std::vector<AnimVertex> FinalVertex(const aiMesh* Meshes)
@@ -162,7 +162,6 @@ private:
 	{
 		for (int ii = 0; ii < meshes->mNumBones; ii++)
 		{
-			std::string BoneName = meshes->mBones[ii]->mName.C_Str();
 			aiBone* TempBone = meshes->mBones[ii];
 			for (int jj = 0; jj < TempBone->mNumWeights; jj++)
 			{

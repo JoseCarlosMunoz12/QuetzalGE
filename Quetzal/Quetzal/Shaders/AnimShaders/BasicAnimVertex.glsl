@@ -41,6 +41,5 @@ void main()
 	vec4 NormalL = BoneTransform * vec4(vertex_normal,1.f);
 	vs_normal = vec4(ModelMatrix * NormalL).xyz;
 
-	gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(vertex_position, 1.f);
-	// * GLPos;
+	gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * GLPos;
 }
