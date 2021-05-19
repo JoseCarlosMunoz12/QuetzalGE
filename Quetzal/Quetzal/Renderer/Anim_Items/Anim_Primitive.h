@@ -64,24 +64,6 @@ public:
 		File += FileLoc;
 		
 	}
-	std::vector<A_Primitive> GetPrimitives(glm::mat4& InitInv)
-	{
-		Assimp::Importer importer;
-		std::vector<A_Primitive> Mshs;
-		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
-		if (!scene)
-		{
-
-			std::cout << "Error";
-			return Mshs;
-		}
-		int msh_num = scene->mNumMeshes;
-		for (int ii = 0; ii < msh_num; ii++)
-		{
-			Mshs.push_back(this->GetMesh(scene->mMeshes[ii]));
-		}
-		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
-	}
 	std::vector<A_Primitive> GetPrimitives(glm::mat4& InitInv, Vec_SH<Animation>& Animations)
 	{
 		Assimp::Importer importer;
@@ -96,32 +78,20 @@ public:
 		int msh_num = scene->mNumMeshes;
 		for (int ii = 0; ii < msh_num; ii++)
 		{
-			scene->mMeshes[ii];
+			std::vector<AnimVertex> rs = this->FinalVertex(scene->mMeshes[ii]);
+			std::vector<GLuint> Indices = this->FinalGluint(scene->mMeshes[ii]);
+			this->SetBonesId(scene->mMeshes[ii], rs);
+			A_Primitive R;
+			R.set(rs, Indices);
+			Mshs.push_back(R);
 		}
-		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
-		
+		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);		
 		int anims = scene->mNumAnimations;
 		for (int ii = 0; ii < anims; ii++)
 		{
-		}
-	}
-	void Test()
-	{
-		Assimp::Importer importer;
-		std::vector<A_Primitive> Mshs;
-		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
-		//Get All Meshes
-		std::vector<AnimVertex> rs = this->FinalVertex(scene->mMeshes[0]);
-		std::vector<GLuint> Indices = this->FinalGluint(scene->mMeshes[0]);
-		//Set the Ides for all the Meshes
-		this->SetBonesId(scene->mMeshes[0], rs);
-		//Get the Animation skeleton frames
-		Vec_SH<Animation> Animations = {};
-		if (scene->HasAnimations())
-		{
+			int Size = Animations.size();
 			Animations.push_back(std::make_shared<Animation>());
-			this->GetAnimations(scene->mAnimations[0], scene, Animations[0]);
-			std::cout << "done!";
+			this->GetAnimations(scene->mAnimations[ii], scene, Animations[Size]);
 		}
 	}
 private:
@@ -141,11 +111,6 @@ private:
 	glm::quat aiQuatToglmQuat(aiQuaternion aiVal)
 	{
 		return {aiVal.x, aiVal.y, aiVal.z, aiVal.w};
-	}
-	A_Primitive GetMesh(const aiMesh* mesh)
-	{
-		A_Primitive Msh;
-		Msh.set(this->FinalVertex(mesh),this->FinalGluint(mesh));
 	}
 	//functions to load Ints and Vertecies
 	std::vector<AnimVertex> FinalVertex(const aiMesh* Meshes)
@@ -266,9 +231,7 @@ private:
 		int Par = -4;
 		this->FindChilds(scene->mRootNode,Par, Count, Bones);
 		while (Bones.size() != 1)
-		{
 			Bones.pop_back();
-		}
 		SetAnims->SetSkels(Bones[0]);
 	}
 	void FindChilds(aiNode* Node,int Par, int& Count,Vec_SH<Anim_Skels> Bones)

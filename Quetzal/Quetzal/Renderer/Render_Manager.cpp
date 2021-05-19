@@ -53,7 +53,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	S_P<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	glm::mat4 Inv;
-	std::vector<std::unique_ptr<Primitive>> rss = rs->GetModels(Inv);
+	Vec_UP<Primitive> rss = rs->GetModels(Inv);
 	for (auto &ii : rss)
 	{
 		this->All_Meshes.push_back(std::make_shared<Mesh>(std::move(ii), "MainMesh"));
@@ -81,7 +81,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->All_Models.push_back(NewModel1);//8) add model to render
 	//------------------------Load Animated Model to Render------------------------
 	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");
-	rrs->Test();
+	rrs->GetPrimitives();
 }
 
 void Render_Manager::Update(float dt)

@@ -902,9 +902,9 @@ public:
 		File = "Models/ModelCol/";
 		File += FileLoc;
 	}
-	std::vector<std::unique_ptr<Primitive>> GetModels(glm::mat4& inv)
+	Vec_UP<Primitive> GetModels(glm::mat4& inv)
 	{
-		std::vector<std::unique_ptr<Primitive>> Mshs;
+		Vec_UP<Primitive> Mshs;
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
 		if (!scene)
