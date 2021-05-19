@@ -165,6 +165,7 @@ private:
 		{
 			aiBone* TempBone = meshes->mBones[ii];
 			std::string BoneName = TempBone->mName.C_Str();
+			std::cout << BoneName << "\n";
 			if (BoneOffsets.find(BoneName) == BoneOffsets.end())
 				BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
 			for (int jj = 0; jj < TempBone->mNumWeights; jj++)
@@ -239,15 +240,14 @@ private:
 	}
 	void FindChilds(aiNode* Node,int Par, int& Count,Vec_SH<Anim_Skels> Bones)
 	{
+		Count++;
 		std::string name = Node->mName.C_Str();
-		std::string par = "NULL";
-		if (Node->mParent)
-			par = Node->mParent->mName.C_Str();
-		if (BoneOffsets.find(name) != BoneOffsets.end())
+		Node->mTransformation;
+		std::cout << name << " Par " << Par << "Id " << Count <<"\n";
+		/*if (BoneOffsets.find(name) != BoneOffsets.end())
 		{
-			Count++;
 			Bones[Par]->SetChild(Bones[Count]);
-		}
+		}*/
 		int ParID = Count;		
 		int NumChilds = Node->mNumChildren;
 		for (int ii = 0; ii < NumChilds; ii++)
