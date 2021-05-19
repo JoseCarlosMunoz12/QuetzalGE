@@ -23,14 +23,14 @@ Animation::Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float Init
 {
 	this->Skels = InitSkels;
 	this->CurTime = 0.f;
-	this->LoopId = 0;
+	this->LoopId = 1;
 }
 
 Animation::Animation()
 	:Name(""), TimeLength(0),Inv(glm::mat4(1.f))
 {
 	this->CurTime = 0;
-	this->LoopId = 0;
+	this->LoopId = 1;
 }
 
 Animation::~Animation()

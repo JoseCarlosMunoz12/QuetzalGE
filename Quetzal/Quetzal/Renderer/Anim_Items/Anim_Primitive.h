@@ -68,7 +68,7 @@ public:
 	{
 		Assimp::Importer importer;
 		Vec_UP<A_Primitive> Mshs;
-		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
+		const aiScene* scene = importer.ReadFile(File, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
 		if (!scene)
 		{
 
@@ -240,7 +240,6 @@ private:
 		if (Par >= 0)
 			Bones[Par]->SetChild(Bones[Count]);
 		int ParID = Count;		
-		std::cout << Node->mName.C_Str() << " @ Parent" << Par << " Count " << Count << "\n";
 		int NumChilds = Node->mNumChildren;
 		for (int ii = 0; ii < NumChilds; ii++)
 			this->FindChilds(Node->mChildren[ii],ParID,Count, Bones);
