@@ -26,6 +26,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//load some Textures to use
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/pusheen.png", GL_TEXTURE_2D, GL_RGBA));
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/diffuse.png", GL_TEXTURE_2D, GL_RGBA));
+	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/Vampire_diffuse.png", GL_TEXTURE_2D, GL_RGBA));
 	//loads defaults Shaders
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	this->All_Shader.push_back(this->Main_Shader);
@@ -85,19 +86,19 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//-----------------------------------------------------------------------------
 	//------------------------Load Animated Model to Render------------------------
 	//-----------------------------------------------------------------------------
-	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");
+	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("dancing_vampire.dae");
 	glm::mat4 inv;
 	Vec_SH<Animation> Anims;
 	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv, Anims);
 	this->All_Anim_Meshes.push_back(std::make_shared<Anim_Mesh>(std::move(rt[0]), "Man_Walk"));
 	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f));//1)Make Model
 	AModel->AddMeshes(this->All_Anim_Meshes[0]);//2)Add Meshes
-	AModel->AddTextures(this->All_Texture[1]);//3) Add Textures
+	AModel->AddTextures(this->All_Texture[2]);//3) Add Textures
 	AModel->AddShaders(this->All_Shader[1]);//4) add Shaders
 	S_P<Node> A_Node = std::make_shared<Node>();//5)Create Nodes to Item
 	A_Node->AddTextureId(0);//6).a - Sets Textures used in the Node
 	A_Node->SetMeshId(0);//6).b - Set Mesh Id for the Node
-	//A_Node->SetW_Mat(inv);//6).c - set Rotation to upright the model
+	A_Node->SetW_Mat(inv);//6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);//6).d - sets Shader to use
 	AModel->AddBaseNode(A_Node);//7) Add Node Tree
 	AModel->AddAnimations(Anims);//8)Add Animation skeleton
@@ -118,8 +119,8 @@ void Render_Manager::Update(float dt)
 	}
 	for (auto& ii : this->All_Models)
 	{
-	//	ii->Update();
-	//	ii->UpdateUniforms();
+		ii->Update();
+		ii->UpdateUniforms();
 	}
 	for (auto& ii : this->All_Anim_Models)
 	{
@@ -132,8 +133,8 @@ void Render_Manager::Render()
 {
 	//All of the rendering is saved on this Frame buffer Texture
 	this->Main_Texture->WriteToBuffer(this->Frame_Buffer_Width,this->Frame_Bufer_Height, this->Main_Shader,this->Main_Cam->GetViewMatrix());
-	//for (auto& ii : this->All_Models)
-	//	ii->Render();
+	for (auto& ii : this->All_Models)
+		ii->Render();
 	for (auto& ii : this->All_Anim_Models)
 		ii->Render();
 }

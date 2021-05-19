@@ -230,8 +230,8 @@ private:
 		}
 		//create the Skel Node
 		int Level = 0;
-		int Count = -4;
-		int Par = -4;
+		int Count = 0;
+		int Par = 0;
 		this->FindChilds(scene->mRootNode,Par, Count, Bones);
 		while (Bones.size() != 1)
 			Bones.pop_back();
@@ -239,9 +239,15 @@ private:
 	}
 	void FindChilds(aiNode* Node,int Par, int& Count,Vec_SH<Anim_Skels> Bones)
 	{
-		Count++;
-		if (Par >= 0)
+		std::string name = Node->mName.C_Str();
+		std::string par = "NULL";
+		if (Node->mParent)
+			par = Node->mParent->mName.C_Str();
+		if (BoneOffsets.find(name) != BoneOffsets.end())
+		{
+			Count++;
 			Bones[Par]->SetChild(Bones[Count]);
+		}
 		int ParID = Count;		
 		int NumChilds = Node->mNumChildren;
 		for (int ii = 0; ii < NumChilds; ii++)

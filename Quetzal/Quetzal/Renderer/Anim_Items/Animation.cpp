@@ -59,7 +59,7 @@ void Animation::updateTime(float dt)
 std::vector<glm::mat4> Animation::GetAllMatrix()
 {
 	std::vector<glm::mat4> Collection;
-	glm::mat4 wrld = glm::inverse(this->Inv);
+	glm::mat4 wrld = glm::mat4(1.f);
 	this->CalcMatrix(wrld, Collection, this->Skels);
     return Collection;
 }
