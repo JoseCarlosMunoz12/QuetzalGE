@@ -85,7 +85,6 @@ public:
 		//create correct id and Create the root nodes
 		for (int ii = 0; ii < msh_num; ii++)
 		{
-			this->FindAllBones(scene->mMeshes[ii]);
 			std::vector<AnimVertex> rs = this->FinalVertex(scene->mMeshes[ii]);
 			std::vector<GLuint> Indices = this->FinalGluint(scene->mMeshes[ii]);
 			this->SetBonesId(scene->mMeshes[ii], rs);
@@ -112,13 +111,15 @@ private:
 	std::string File;
 	std::map<std::string, glm::mat4> BoneOffsets;
 	std::map<std::string, Par_Child_Rel> BoneId;
-	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
+	glm::mat4 aiMatToglmMat(aiMatrix4x4 from)
 	{
-		glm::mat4 glmVal = glm::mat4(aiVal.a1, aiVal.b1, aiVal.c1, aiVal.d1,
-			aiVal.a2, aiVal.b2, aiVal.c2, aiVal.d2,
-			aiVal.a3, aiVal.b3, aiVal.c3, aiVal.d3,
-			aiVal.a4, aiVal.b4, aiVal.c4, aiVal.d4);
-		return glmVal;
+		glm::mat4 to{};
+		//the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
+		to[0][0] = from.a1; to[1][0] = from.a2; to[2][0] = from.a3; to[3][0] = from.a4;
+		to[0][1] = from.b1; to[1][1] = from.b2; to[2][1] = from.b3; to[3][1] = from.b4;
+		to[0][2] = from.c1; to[1][2] = from.c2; to[2][2] = from.c3; to[3][2] = from.c4;
+		to[0][3] = from.d1; to[1][3] = from.d2; to[2][3] = from.d3; to[3][3] = from.d4;
+		return to;
 	}
 	glm::vec3 aiVecToglmVec(aiVector3D aiVal)
 	{
