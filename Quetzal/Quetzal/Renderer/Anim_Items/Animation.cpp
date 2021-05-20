@@ -13,9 +13,9 @@ void Animation::CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection, S_
 {
 	glm::mat4 ParMatrix = Par * Bone->GetMatrix();
 	std::string nme = Bone->GetName();
-	glm::mat4 TempMatrix = ParMatrix * Bn[nme];
+	glm::mat4 TempMatrix =  ParMatrix * Bn[nme];
 	int Loc = MatLoc[nme];
-	Collection[Loc] =TempMatrix;
+	Collection[Loc] = TempMatrix;
 	Vec_SH<Anim_Skels> Chlds = Bone->GetChildren();
 	for (auto& jj : Chlds)
 		this->CalcMatrix(ParMatrix, Collection, jj,Bn,MatLoc);

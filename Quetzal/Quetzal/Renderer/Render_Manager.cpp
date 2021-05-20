@@ -102,7 +102,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	S_P<Node> A_Node = std::make_shared<Node>();//5)Create Nodes to Item
 	A_Node->AddTextureId(0);//6).a - Sets Textures used in the Node
 	A_Node->SetMeshId(0);//6).b - Set Mesh Id for the Node
-	//A_Node->SetW_Mat(inv);//6).c - set Rotation to upright the model
+	A_Node->SetW_Mat(inv);//6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);//6).d - sets Shader to use
 	AModel->AddBaseNode(A_Node);//7) Add Node Tree
 	AModel->AddAnimations(Anims);//8)Add Animation skeleton

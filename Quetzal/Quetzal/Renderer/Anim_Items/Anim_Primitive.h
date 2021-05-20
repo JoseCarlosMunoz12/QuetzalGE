@@ -81,6 +81,7 @@ public:
 		for (int ii = 0; ii < msh_num; ii++)
 			this->FindAllBones(scene,scene->mMeshes[ii],Bones);
 		BnInits = this->BoneOffsets;
+		matLocs = BoneLoc;
 		//Get relationships of Childs and parents along with offsets
 		int Count = 0;
 		int Par = 0;
@@ -205,31 +206,31 @@ private:
 			{
 				int VertId = TempBone->mWeights[jj].mVertexId;
 				float Weight = TempBone->mWeights[jj].mWeight;
-				this->SetIndex(Vertx[VertId], BoneId[BoneName].Id, Weight);
+				this->SetIndex(&Vertx[VertId], BoneLoc[BoneName], Weight);
 			}
 		}
 	}
-	void SetIndex(AnimVertex& Vert, int BoneID, float BoneWieght)
+	void SetIndex(AnimVertex* Vert, int BoneID, float BoneWieght)
 	{
-		if (Vert.MatId.x == -1)
+		if (Vert->MatId.x == -1)
 		{
-			Vert.MatId.x = BoneID;
-			Vert.Weights.x = BoneWieght;
+			Vert->MatId.x = BoneID;
+			Vert->Weights.x = BoneWieght;
 		}
-		else if (Vert.MatId.y == -1)
+		else if (Vert->MatId.y == -1)
 		{
-			Vert.MatId.y = BoneID;
-			Vert.Weights.y = BoneWieght;
+			Vert->MatId.y = BoneID;
+			Vert->Weights.y = BoneWieght;
 		}
-		else if (Vert.MatId.z == -1)
+		else if (Vert->MatId.z == -1)
 		{
-			Vert.MatId.z = BoneID;
-			Vert.Weights.z = BoneWieght;
+			Vert->MatId.z = BoneID;
+			Vert->Weights.z = BoneWieght;
 		}
-		else if (Vert.MatId.w == -1)
+		else if (Vert->MatId.w == -1)
 		{
-			Vert.MatId.w = BoneID;
-			Vert.Weights.w = BoneWieght;
+			Vert->MatId.w = BoneID;
+			Vert->Weights.w = BoneWieght;
 		}
 	}
 	//Functions to load Animations
