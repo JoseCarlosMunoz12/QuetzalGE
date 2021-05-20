@@ -91,9 +91,10 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("test.fbx");
 	glm::mat4 inv;
 	Vec_SH<Animation> Anims;
-	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv, Anims);
+	std::map<std::string, glm::mat4> BonesOffsets;
+	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv,BonesOffsets, Anims);
 	this->All_Anim_Meshes.push_back(std::make_shared<Anim_Mesh>(std::move(rt[0]), "Man_Walk"));
-	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f));//1)Make Model
+	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel",BonesOffsets, glm::vec3(1.f));//1)Make Model
 	AModel->AddMeshes(this->All_Anim_Meshes[0]);//2)Add Meshes
 	AModel->AddTextures(this->All_Texture[1]);//3) Add Textures
 	AModel->AddShaders(this->All_Shader[1]);//4) add Shaders

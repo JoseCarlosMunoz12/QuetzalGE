@@ -64,7 +64,7 @@ public:
 		File += FileLoc;
 		
 	}
-	Vec_UP<A_Primitive> GetPrimitives(glm::mat4& InitInv, Vec_SH<Animation>& Animations)
+	Vec_UP<A_Primitive> GetPrimitives(glm::mat4& InitInv, std::map<std::string, glm::mat4>& BnInits, Vec_SH<Animation>& Animations)
 	{
 		Assimp::Importer importer;
 		Vec_UP<A_Primitive> Mshs;
@@ -78,6 +78,7 @@ public:
 		int msh_num = scene->mNumMeshes;
 		for (int ii = 0; ii < msh_num; ii++)
 			this->FindAllBones(scene->mMeshes[ii]);
+		BnInits = this->BoneOffsets;
 		//Get relationships of Childs and parents along with offsets
 		int Count = 0;
 		int Par = 0;
@@ -242,7 +243,6 @@ private:
 				Vec_SH<Frames> Frms;
 				glm::mat4 Offset = BoneOffsets[Bone_Name];
 				glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(Bone_Name.c_str())->mTransformation);
-				WriteMatrix(Offset);
 				for (int jj = 0; jj < NumOfRot; jj++)
 				{
 					float F_Time = rs->mRotationKeys[jj].mTime;
@@ -285,13 +285,5 @@ private:
 			if (ParId >= 0)
 				Bones[ParId]->SetChild(jj);
 		}
-	}
-	void WriteMatrix(glm::mat4 mats)
-	{
-		std::cout << mats[0][0] << "-"; std::cout << mats[1][0] << "-"; std::cout << mats[2][0] << "-"; std::cout << mats[3][0] << "-\n";
-		std::cout << mats[0][1] << "-"; std::cout << mats[1][1] << "-"; std::cout << mats[2][1] << "-"; std::cout << mats[3][1] << "-\n";
-		std::cout << mats[0][2] << "-"; std::cout << mats[1][2] << "-"; std::cout << mats[2][2] << "-"; std::cout << mats[3][2] << "-\n";
-		std::cout << mats[0][3] << "-"; std::cout << mats[1][3] << "-"; std::cout << mats[2][3] << "-"; std::cout << mats[3][3] << "-\n";
-		std::cout << "----------------------------------------------------------------------------------------------------------------\n";
 	}
 };

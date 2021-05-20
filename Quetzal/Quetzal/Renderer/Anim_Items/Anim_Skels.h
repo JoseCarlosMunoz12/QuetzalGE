@@ -70,6 +70,7 @@ private:
 public:
 	Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat, glm::mat4 IOffset,
 		glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale = glm::vec3(1.f));
+	Anim_Skels();
 	//Matrix To get
 	void UpdateMatrix(float Time);
 	glm::mat4 GetMatrix();

@@ -115,6 +115,7 @@ void Anim_Skels::GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::
     case InterType::LINEAR:
         NewCurR = glm::slerp(Frms[0]->GetRot(), Frms[1]->GetRot(), TimeRatio);
         NewCurO = this->LinInter(Frms[0]->GetOffset(), Frms[1]->GetOffset(), TimeRatio);
+        NewCurS = this->LinInter(Frms[0]->GetScale(), Frms[1]->GetScale(), TimeRatio);
         break;
     case InterType::QUADBENZ:
         break;
