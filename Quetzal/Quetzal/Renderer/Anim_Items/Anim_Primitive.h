@@ -236,21 +236,26 @@ private:
 		{
 			aiNodeAnim* rs = Anim->mChannels[ii];
 			std::string Bone_Name = rs->mNodeName.C_Str();
-			int NumOfRot = rs->mNumRotationKeys;
-			Vec_SH<Frames> Frms;
-			glm::mat4 Offset = BoneOffsets[Bone_Name];
-			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(Bone_Name.c_str())->mTransformation);
-			for (int jj = 0; jj < NumOfRot; jj++)
+			if (BoneOffsets.find(Bone_Name) != BoneOffsets.end())
 			{
-				float F_Time = rs->mRotationKeys[jj].mTime;
-				glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[jj].mValue);
-				glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
-				glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
-				Joint T_Joint = {Offset, Rot, Scale};
-				Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
+				int NumOfRot = rs->mNumRotationKeys;
+				Vec_SH<Frames> Frms;
+				glm::mat4 Offset = BoneOffsets[Bone_Name];
+				glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(Bone_Name.c_str())->mTransformation);
+				WriteMatrix(Offset);
+				for (int jj = 0; jj < NumOfRot; jj++)
+				{
+					float F_Time = rs->mRotationKeys[jj].mTime;
+					glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[jj].mValue);
+					glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
+					glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
+					Joint T_Joint = {Offset, Rot, Scale};
+					Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
+				}
+				Bones.push_back(std::make_shared<Anim_Skels>(Frms, Bone_Name,TransMat, Offset,
+					Frms[0]->GetOffset(), Frms[0]->GetRot()));
+
 			}
-			Bones.push_back(std::make_shared<Anim_Skels>(Frms, Bone_Name,TransMat, Offset,
-				Frms[0]->GetOffset(), Frms[0]->GetRot()));
 		}
 		//create the Skel Node
 		this->SetTree(Bones);
@@ -280,5 +285,13 @@ private:
 			if (ParId >= 0)
 				Bones[ParId]->SetChild(jj);
 		}
+	}
+	void WriteMatrix(glm::mat4 mats)
+	{
+		std::cout << mats[0][0] << "-"; std::cout << mats[1][0] << "-"; std::cout << mats[2][0] << "-"; std::cout << mats[3][0] << "-\n";
+		std::cout << mats[0][1] << "-"; std::cout << mats[1][1] << "-"; std::cout << mats[2][1] << "-"; std::cout << mats[3][1] << "-\n";
+		std::cout << mats[0][2] << "-"; std::cout << mats[1][2] << "-"; std::cout << mats[2][2] << "-"; std::cout << mats[3][2] << "-\n";
+		std::cout << mats[0][3] << "-"; std::cout << mats[1][3] << "-"; std::cout << mats[2][3] << "-"; std::cout << mats[3][3] << "-\n";
+		std::cout << "----------------------------------------------------------------------------------------------------------------\n";
 	}
 };

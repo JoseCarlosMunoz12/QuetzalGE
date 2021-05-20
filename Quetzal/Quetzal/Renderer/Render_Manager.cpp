@@ -87,7 +87,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//------------------------Load Animated Model to Render------------------------
 	//-----------------------------------------------------------------------------
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("dancing_vampire.dae");
-	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("Snek_Side.dae");
+	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");
+	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("test.fbx");
 	glm::mat4 inv;
 	Vec_SH<Animation> Anims;
 	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv, Anims);
