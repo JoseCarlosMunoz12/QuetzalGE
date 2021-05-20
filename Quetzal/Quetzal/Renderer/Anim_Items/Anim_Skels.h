@@ -69,7 +69,6 @@ private:
 public:
 	Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat,
 		glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale = glm::vec3(1.f));
-	Anim_Skels(std::string Name);
 	Anim_Skels(std::string InitName, glm::mat4 InitMat,
 		glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale = glm::vec3(1.f));
 	Anim_Skels(std::string Name);

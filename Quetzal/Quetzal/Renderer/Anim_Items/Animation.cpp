@@ -12,7 +12,7 @@ void Animation::CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection, S_
 {
 	glm::mat4 ParMatrix = Par * Bone->GetMatrix();
 	std::string nme = Bone->GetName();
-	glm::mat4 TempMatrix = this->Inv * ParMatrix * Bn[nme];
+	glm::mat4 TempMatrix = ParMatrix * Bn[nme];
 	Collection.push_back(TempMatrix);
 	Vec_SH<Anim_Skels> Chlds = Bone->GetChildren();
 	for (auto& jj : Chlds)

@@ -85,8 +85,7 @@ void Anim_Model::Render()
 {
 	if (!this->Roots)
 		return;
-	//Calcualtes all the matrices for the Model and its meshes
-	
+	//Calcualtes all the matrices for the Model and its meshes	
 	std::vector<glm::mat4> AllMats = this->Anims[CurAnim]->GetAllMatrix(this->BonesOffsets);
 	//Render all meshes with textues, materials and shaders
 	glm::mat4 r = glm::mat4(1.f);

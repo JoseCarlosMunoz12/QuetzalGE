@@ -20,21 +20,21 @@ uniform mat4 Bones[MAX_BONES];
 mat4 VerifyVal(int MatId,float Weight)
 {
 	if ( MatId == -1)
-		return mat4(0.0);
+		return mat4(0);
 	return Bones[MatId] * Weight;
 }
 void main()
 {
-	mat4 BoneTransform = VerifyVal(vertex_matid.x,vertex_weights.x);
+	mat4 BoneTransform =  VerifyVal(vertex_matid.x,vertex_weights.x);
 	BoneTransform += VerifyVal(vertex_matid.y,vertex_weights.y);
 	BoneTransform += VerifyVal(vertex_matid.z,vertex_weights.z);
 	BoneTransform += VerifyVal(vertex_matid.w,vertex_weights.w);
 
-	vec4 GLPos = BoneTransform * vec4(vertex_position,1.f);
+	vec4 GLPos = BoneTransform * vec4(vertex_position,1);
 	vs_position = vec4(ModelMatrix * GLPos).xyz;
 	vs_texcoord = vertex_texcoord;
 
-	vec4 NormalL = BoneTransform * vec4(vertex_normal,1.f);
+	vec4 NormalL = BoneTransform * vec4(vertex_normal,1);
 	vs_normal = vec4(ModelMatrix * NormalL).xyz;
 
 	gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * GLPos;

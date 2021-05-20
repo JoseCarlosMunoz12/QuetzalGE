@@ -120,14 +120,14 @@ void Render_Manager::Update(float dt)
 		jj->setMat4fv(this->Main_Cam->GetViewMatrix(), "ViewMatrix");
 		jj->setMat4fv(this->Projection, "ProjectionMatrix");
 	}
-	for (auto& ii : this->All_Models)
-	{
-		ii->Update();
-		ii->UpdateUniforms();
-	}
 	for (auto& ii : this->All_Anim_Models)
 	{
 		ii->Update(dt);
+		ii->UpdateUniforms();
+	}
+	for (auto& ii : this->All_Models)
+	{
+		ii->Update();
 		ii->UpdateUniforms();
 	}
 }

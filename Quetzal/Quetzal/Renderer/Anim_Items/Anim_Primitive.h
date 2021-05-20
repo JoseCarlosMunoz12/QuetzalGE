@@ -64,7 +64,8 @@ public:
 		File += FileLoc;
 		
 	}
-	Vec_UP<A_Primitive> GetPrimitives(glm::mat4& InitInv, std::map<std::string, glm::mat4>& BnInits, Vec_SH<Animation>& Animations)
+	Vec_UP<A_Primitive> GetPrimitives(glm::mat4& InitInv, std::map<std::string,
+		glm::mat4>& BnInits, Vec_SH<Animation>& Animations)
 	{
 		Assimp::Importer importer;
 		Vec_UP<A_Primitive> Mshs;
@@ -76,7 +77,7 @@ public:
 		}
 		//Find all Bones in the animations along with offsets
 		int msh_num = scene->mNumMeshes;
-		std::vector<Anim_Skels> Bones;
+		Vec_SH<Anim_Skels> Bones;
 		for (int ii = 0; ii < msh_num; ii++)
 			this->FindAllBones(scene,scene->mMeshes[ii],Bones);
 		BnInits = this->BoneOffsets;
@@ -177,7 +178,7 @@ private:
 		return TempInd;
 	}
 	//functions to load Bone data from file
-	void FindAllBones(const aiScene* scene, aiMesh* meshes,std::vector<Anim_Skels>& Bones)
+	void FindAllBones(const aiScene* scene, aiMesh* meshes,Vec_SH<Anim_Skels>& Bones)
 	{
 		for (int ii = 0; ii < meshes->mNumBones; ii++)
 		{
@@ -188,8 +189,8 @@ private:
 			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
 			glm::vec3 Offsets;glm::vec3 Scale;glm::quat Rot;
 			Math::Decompose(TransMat,Offsets,Rot,Scale);
-			Anim_Skels rs(BoneName, TransMat, Offsets, Rot, Scale);
-			Bones.push_back(BoneName);
+			Bones.push_back(std::make_shared<Anim_Skels>(BoneName,TransMat,Offsets,Rot,Scale));
+			BoneId[BoneName].Id = ii;
 		}
 	}
 	void SetBonesId(aiMesh* meshes, std::vector<AnimVertex>& Vertx)
@@ -230,7 +231,7 @@ private:
 		}
 	}
 	//Functions to load Animations
-	void GetAnimations(aiAnimation* Anim,const aiScene* scene, S_P<Animation>& SetAnims,std::vector<Anim_Skels> Base_Bones)
+	void GetAnimations(aiAnimation* Anim,const aiScene* scene, S_P<Animation>& SetAnims,Vec_SH<Anim_Skels>& Base_Bones)
 	{
 		//Init the animation and set the bast information
 		SetAnims->SetCurTime(0);
@@ -257,14 +258,11 @@ private:
 					Joint T_Joint = {Offset, Rot, Scale};
 					Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
 				}
-				for (auto& kk : Base_Bones)
-				{
-					
-				}
 			}
 		}
 		//create the Skel Node
-		this->SetTree(Bones,Base_Bones);
+		this->SetTree(Base_Bones);
+		Bones = Base_Bones;
 		while (Bones.size() != 1)
 			Bones.pop_back();
 		SetAnims->SetSkels(Bones[0]);
@@ -282,10 +280,13 @@ private:
 		for (int ii = 0; ii < NumChilds; ii++)
 			this->FindChilds(Node->mChildren[ii],ParID,Count);
 	}
-	void SetTree(Vec_SH<Anim_Skels> Bones, std::vector<Anim_Skels> BaseBones)
+	void SetTree(Vec_SH<Anim_Skels>& BaseBones)
 	{
 		for (auto& jj : BaseBones)
 		{
+			int Id = BoneId[jj->GetName()].Par;
+			if (Id > -1)
+				BaseBones[Id]->SetChild(jj);
 		}
 	}
 };
