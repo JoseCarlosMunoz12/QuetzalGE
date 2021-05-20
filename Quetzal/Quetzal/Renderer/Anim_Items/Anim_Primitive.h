@@ -76,8 +76,9 @@ public:
 		}
 		//Find all Bones in the animations along with offsets
 		int msh_num = scene->mNumMeshes;
+		std::vector<Anim_Skels> Bones;
 		for (int ii = 0; ii < msh_num; ii++)
-			this->FindAllBones(scene->mMeshes[ii]);
+			this->FindAllBones(scene,scene->mMeshes[ii],Bones);
 		BnInits = this->BoneOffsets;
 		//Get relationships of Childs and parents along with offsets
 		int Count = 0;
@@ -98,7 +99,7 @@ public:
 		{
 			int Size = Animations.size();
 			Animations.push_back(std::make_shared<Animation>());
-			this->GetAnimations(scene->mAnimations[ii], scene, Animations[Size]);
+			this->GetAnimations(scene->mAnimations[ii], scene, Animations[Size],Bones);
 			Animations[Size]->SetInvMatrix(InitInv);
 		}
 		return Mshs;
@@ -176,7 +177,7 @@ private:
 		return TempInd;
 	}
 	//functions to load Bone data from file
-	void FindAllBones(aiMesh* meshes)
+	void FindAllBones(const aiScene* scene, aiMesh* meshes,std::vector<Anim_Skels>& Bones)
 	{
 		for (int ii = 0; ii < meshes->mNumBones; ii++)
 		{
@@ -184,7 +185,11 @@ private:
 			std::string BoneName = TempBone->mName.C_Str();
 			if (BoneOffsets.find(BoneName) == BoneOffsets.end())
 				BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
-
+			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
+			glm::vec3 Offsets;glm::vec3 Scale;glm::quat Rot;
+			Math::Decompose(TransMat,Offsets,Rot,Scale);
+			Anim_Skels rs(BoneName, TransMat, Offsets, Rot, Scale);
+			Bones.push_back(BoneName);
 		}
 	}
 	void SetBonesId(aiMesh* meshes, std::vector<AnimVertex>& Vertx)
@@ -225,15 +230,15 @@ private:
 		}
 	}
 	//Functions to load Animations
-	void GetAnimations(aiAnimation* Anim,const aiScene* scene, S_P<Animation>& SetAnims)
+	void GetAnimations(aiAnimation* Anim,const aiScene* scene, S_P<Animation>& SetAnims,std::vector<Anim_Skels> Base_Bones)
 	{
 		//Init the animation and set the bast information
 		SetAnims->SetCurTime(0);
 		SetAnims->SetTimeLength(Anim->mDuration);
 		SetAnims->SetName(Anim->mName.C_Str());		
 		int NumChannels = Anim->mNumChannels;
-		//set frames, transmat and OffsetMatrix
 		Vec_SH<Anim_Skels> Bones;
+		//set frames, transmat and OffsetMatrix
 		for (int ii = 0; ii < NumChannels; ii++)
 		{
 			aiNodeAnim* rs = Anim->mChannels[ii];
@@ -242,8 +247,7 @@ private:
 			{
 				int NumOfRot = rs->mNumRotationKeys;
 				Vec_SH<Frames> Frms;
-				glm::mat4 Offset = BoneOffsets[Bone_Name];
-				glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(Bone_Name.c_str())->mTransformation);
+				glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(Bone_Name.c_str())->mTransformation);				
 				for (int jj = 0; jj < NumOfRot; jj++)
 				{
 					float F_Time = rs->mRotationKeys[jj].mTime;
@@ -253,12 +257,14 @@ private:
 					Joint T_Joint = {Offset, Rot, Scale};
 					Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
 				}
-				Bones.push_back(std::make_shared<Anim_Skels>(Frms, Bone_Name,TransMat, Offset,
-					Frms[0]->GetOffset(), Frms[0]->GetRot()));
+				for (auto& kk : Base_Bones)
+				{
+					
+				}
 			}
 		}
 		//create the Skel Node
-		this->SetTree(Bones);
+		this->SetTree(Bones,Base_Bones);
 		while (Bones.size() != 1)
 			Bones.pop_back();
 		SetAnims->SetSkels(Bones[0]);
@@ -276,14 +282,10 @@ private:
 		for (int ii = 0; ii < NumChilds; ii++)
 			this->FindChilds(Node->mChildren[ii],ParID,Count);
 	}
-	void SetTree(Vec_SH<Anim_Skels> Bones)
+	void SetTree(Vec_SH<Anim_Skels> Bones, std::vector<Anim_Skels> BaseBones)
 	{
-		for (auto& jj : Bones)
+		for (auto& jj : BaseBones)
 		{
-			std::string Bone_Name = jj->GetName();
-			int ParId = BoneId[Bone_Name].Par;
-			if (ParId >= 0)
-				Bones[ParId]->SetChild(jj);
 		}
 	}
 };

@@ -158,6 +158,14 @@ Anim_Skels::Anim_Skels(std::string Name)
     this->Bone_Name = Name;
 }
 
+Anim_Skels::Anim_Skels(std::string InitName, glm::mat4 InitMat, glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale)
+    :CurOffset(InitOffset), CurScale(InitScale), CurRot(InitQuat)
+{
+    this->TransMat = InitMat;
+    this->Bone_Name = InitName;
+    this->Matrix = InitMat;
+}
+
 glm::mat4 Anim_Skels::GetMatrix()
 {
     return this->Matrix;
