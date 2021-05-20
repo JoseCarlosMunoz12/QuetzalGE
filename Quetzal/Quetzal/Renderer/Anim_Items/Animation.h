@@ -14,13 +14,13 @@ private:
 	// 1 from start to end once
 	int LoopId;
 	void UpdateSkels(S_P<Anim_Skels> Bone);
-	void CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection,S_P<Anim_Skels> Bone);
+	void CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection,S_P<Anim_Skels> Bone,std::map<std::string, glm::mat4> BnsOff);
 public:
 	Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv);
 	Animation();
 	~Animation();
 	void updateTime(float dt);
-	std::vector<glm::mat4> GetAllMatrix();
+	std::vector<glm::mat4> GetAllMatrix(std::map<std::string, glm::mat4> BnsOff);
 	//Getters
 	float GetCurTime();
 	float GetTimeLength();

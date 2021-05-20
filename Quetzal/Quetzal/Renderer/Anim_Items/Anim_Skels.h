@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-
+#include <map>
 #include "../Render_Items/Vertex.h"
 enum class InterType
 {
@@ -58,7 +58,6 @@ private:
 	glm::quat CurRot;
 	//Hold init position
 	glm::mat4 TransMat;
-	glm::mat4 Offset;
 	//Holds Current Matrix calculations
 	glm::mat4 Matrix;
 	//Bone Name
@@ -68,13 +67,12 @@ private:
 	float GetTimeRatio(float Time, Vec_SH<Frames> Frms);
 	void GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::quat& NewCurR, float Time);
 public:
-	Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat, glm::mat4 IOffset,
+	Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat,
 		glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale = glm::vec3(1.f));
-	Anim_Skels();
+	Anim_Skels(std::string Name);
 	//Matrix To get
 	void UpdateMatrix(float Time);
 	glm::mat4 GetMatrix();
-	glm::mat4 GetOffset();
 	//Getters
 	Vec_SH<Anim_Skels> GetChildren();
 	glm::vec3 GetCurOffset();

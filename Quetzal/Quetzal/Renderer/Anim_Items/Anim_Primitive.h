@@ -184,6 +184,7 @@ private:
 			std::string BoneName = TempBone->mName.C_Str();
 			if (BoneOffsets.find(BoneName) == BoneOffsets.end())
 				BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
+
 		}
 	}
 	void SetBonesId(aiMesh* meshes, std::vector<AnimVertex>& Vertx)
@@ -254,7 +255,6 @@ private:
 				}
 				Bones.push_back(std::make_shared<Anim_Skels>(Frms, Bone_Name,TransMat, Offset,
 					Frms[0]->GetOffset(), Frms[0]->GetRot()));
-
 			}
 		}
 		//create the Skel Node

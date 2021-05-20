@@ -143,7 +143,7 @@ void Anim_Skels::UpdateMatrix(float Time)
     }
 }
 
-Anim_Skels::Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat, glm::mat4 IOffset,
+Anim_Skels::Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat,
     glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale)
     :CurOffset(InitOffset), CurScale(InitScale), CurRot(InitQuat)
 {
@@ -151,7 +151,11 @@ Anim_Skels::Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat
     this->Bone_Name = InitName;
     this->Skel_Frames = InitFrames;
     this->Matrix = InitMat;
-    this->Offset = IOffset;
+}
+
+Anim_Skels::Anim_Skels(std::string Name)
+{
+    this->Bone_Name = Name;
 }
 
 glm::mat4 Anim_Skels::GetMatrix()
@@ -159,10 +163,6 @@ glm::mat4 Anim_Skels::GetMatrix()
     return this->Matrix;
 }
 
-glm::mat4 Anim_Skels::GetOffset()
-{
-    return this->Offset;
-}
 
 Vec_SH<Anim_Skels> Anim_Skels::GetChildren()
 {
