@@ -36,29 +36,29 @@ void Anim_Model::UpdateNodes(S_P<Node> Par)
 		this->UpdateNodes(Chld);
 }
 
-Anim_Model::Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O)
-	:CurAnim(0),RunTime(true),Name(InitName),Position(glm::vec3(0.f)), BonesOffsets(I_B_O)
+Anim_Model::Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc)
+	:CurAnim(0),RunTime(true),Name(InitName),Position(glm::vec3(0.f)), BonesOffsets(I_B_O),BoneLoc(BoneLoc)
 {
 }
 
-Anim_Model::Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O, glm::vec3 InitPos)
-	:Name(InitName), Position(InitPos), CurAnim(0), RunTime(true), BonesOffsets(I_B_O)
+Anim_Model::Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O,std::map<std::string, int> BoneLoc, glm::vec3 InitPos)
+	:Name(InitName), Position(InitPos), CurAnim(0), RunTime(true), BonesOffsets(I_B_O), BoneLoc(BoneLoc)
 {
 }
 
-Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O,
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials)
-	:Name(InitName),Position(InitPos),CurAnim(0),RunTime(true), BonesOffsets(I_B_O)
+	:Name(InitName),Position(InitPos),CurAnim(0),RunTime(true), BonesOffsets(I_B_O), BoneLoc(BoneLoc)
 {
 	this->Meshes_Inf = Meshes;
 	this->Textures_Inf = Textures;
 	this->Materials_Inf = Materials;
 }
 
-Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O, int InitCurAnim, bool Run,
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc, int InitCurAnim, bool Run,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
 	S_P<Node> InitRoot, Vec_SH<Animation> InitAnims)
-	:Name(InitName),Position(InitPos), CurAnim(InitCurAnim), RunTime(Run), BonesOffsets(I_B_O)
+	:Name(InitName),Position(InitPos), CurAnim(InitCurAnim), RunTime(Run), BonesOffsets(I_B_O), BoneLoc(BoneLoc)
 {
 	this->Meshes_Inf = Meshes;
 	this->Textures_Inf = Textures;
@@ -86,7 +86,7 @@ void Anim_Model::Render()
 	if (!this->Roots)
 		return;
 	//Calcualtes all the matrices for the Model and its meshes	
-	std::vector<glm::mat4> AllMats = this->Anims[CurAnim]->GetAllMatrix(this->BonesOffsets);
+	std::vector<glm::mat4> AllMats = this->Anims[CurAnim]->GetAllMatrix(this->BonesOffsets,this->BoneLoc);
 	//Render all meshes with textues, materials and shaders
 	glm::mat4 r = glm::mat4(1.f);
 	this->RenderNodes(r, this->Roots, AllMats);

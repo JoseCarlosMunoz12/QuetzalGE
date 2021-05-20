@@ -19,6 +19,7 @@ private:
 	//Holds All Animations and animation data
 	Vec_SH<Animation> Anims;
 	std::map<std::string, glm::mat4> BonesOffsets;
+	std::map<std::string, int> BoneLoc;
 	//Determines if the animation is dependent on time or not
 	bool RunTime;
 	int CurAnim;
@@ -31,11 +32,11 @@ private:
 	void RenderNodes(glm::mat4 ParMatrix, S_P<Node> Chld, std::vector<glm::mat4> AllMats);
 	void UpdateNodes(S_P<Node> Par);
 public:
-	Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O);
-	Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O, glm::vec3 InitPos);
-	Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O,
+	Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc);
+	Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc, glm::vec3 InitPos);
+	Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc,
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials);
-	Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O, int InitCurAnim, bool Run,
+	Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc, int InitCurAnim, bool Run,
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
 		S_P<Node> InitRoot,Vec_SH<Animation> InitAnims);
 	~Anim_Model();
