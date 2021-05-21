@@ -53,7 +53,7 @@ private:
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, normal));
 		glEnableVertexAttribArray(2);
 		//MatId
-		glVertexAttribPointer(3, 4, GL_INT  , GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, MatId));
+		glVertexAttribIPointer(3, 4, GL_INT, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, MatId));
 		glEnableVertexAttribArray(3);
 		//Weights
 		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(AnimVertex), (GLvoid*)offsetof(AnimVertex, Weights));
@@ -67,11 +67,12 @@ private:
 	}
 	void updateMats(std::shared_ptr<Shader> shader, std::vector<glm::mat4> AllMats)
 	{
-		if (AllMats.size() != 0)
+		if (false)
 		{
 			int Count = 0;
 			for (int ii = 0; ii < AllMats.size(); ii++)
 			{
+
 				std::string MatName = "Bones[" + std::to_string(Count)+ "]";
 				shader->setMat4fv(AllMats[ii], MatName.c_str());
 				Count++;

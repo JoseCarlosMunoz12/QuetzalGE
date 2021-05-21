@@ -186,8 +186,7 @@ private:
 		{
 			aiBone* TempBone = meshes->mBones[ii];
 			std::string BoneName = TempBone->mName.C_Str();
-			if (BoneOffsets.find(BoneName) == BoneOffsets.end())
-				BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
+			BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
 			BoneLoc[BoneName] = ii;
 			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
 			glm::vec3 Offsets;glm::vec3 Scale;glm::quat Rot;
@@ -242,6 +241,9 @@ private:
 		SetAnims->SetName(Anim->mName.C_Str());		
 		int NumChannels = Anim->mNumChannels;
 		Vec_SH<Anim_Skels> Bones;
+		//create the Skel Node
+		this->SetTree(Base_Bones);
+		Bones = Base_Bones;
 		//set frames, transmat and OffsetMatrix
 		for (int ii = 0; ii < NumChannels; ii++)
 		{
@@ -250,8 +252,7 @@ private:
 			if (BoneOffsets.find(Bone_Name) != BoneOffsets.end())
 			{
 				int NumOfRot = rs->mNumRotationKeys;
-				Vec_SH<Frames> Frms;
-				glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(Bone_Name.c_str())->mTransformation);				
+				Vec_SH<Frames> Frms;			
 				for (int jj = 0; jj < NumOfRot; jj++)
 				{
 					float F_Time = rs->mRotationKeys[jj].mTime;
@@ -261,11 +262,15 @@ private:
 					Joint T_Joint = {Offset, Rot, Scale};
 					Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
 				}
+				for (auto& kk : Bones)
+				{
+					if (kk->GetName() == Bone_Name)
+					{
+						break;
+					}
+				}
 			}
 		}
-		//create the Skel Node
-		this->SetTree(Base_Bones);
-		Bones = Base_Bones;
 		while (Bones.size() != 1)
 			Bones.pop_back();
 		SetAnims->SetSkels(Bones[0]);
@@ -276,7 +281,7 @@ private:
 		if (BoneOffsets.find(name) != BoneOffsets.end())
 		{
 			Count++;
-			BoneId[name] = {Par-1,Count-1};
+			BoneId[name].Par = Par-1;
 		}
 		int ParID = Count;		
 		int NumChilds = Node->mNumChildren;

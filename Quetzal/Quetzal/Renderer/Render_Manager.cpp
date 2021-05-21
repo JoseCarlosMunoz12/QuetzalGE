@@ -116,9 +116,10 @@ void Render_Manager::Update(float dt)
 	this->Main_Cam->Update(dt, 1);
 	this->Main_Cam->UpdateMouseInput(dt, this->MainWindow);
 	//updates uniforms of shaders being used
+	glm::mat4 CamView = this->Main_Cam->GetViewMatrix();
 	for (auto& jj : this->All_Shader)
 	{
-		jj->setMat4fv(this->Main_Cam->GetViewMatrix(), "ViewMatrix");
+		jj->setMat4fv(CamView, "ViewMatrix");
 		jj->setMat4fv(this->Projection, "ProjectionMatrix");
 	}
 	for (auto& ii : this->All_Anim_Models)
