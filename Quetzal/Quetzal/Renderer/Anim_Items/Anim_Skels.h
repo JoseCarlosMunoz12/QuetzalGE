@@ -88,6 +88,7 @@ public:
 	void SetCurRot(glm::quat NewRot);
 	void SetChild(S_P<Anim_Skels> NewChld);
 	void SetChilds(Vec_SH<Anim_Skels> NewChlds);
+	void SetFrames(Vec_SH<Frames> NewFrames);
 	//frame edits
 	void DeleteFrame(int FrameId);
 	void AddFrame(float NewTime);

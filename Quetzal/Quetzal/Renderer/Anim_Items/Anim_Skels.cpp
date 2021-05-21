@@ -228,6 +228,11 @@ void Anim_Skels::SetChilds(Vec_SH<Anim_Skels> NewChlds)
         this->SetChild(chld);
 }
 
+void Anim_Skels::SetFrames(Vec_SH<Frames> NewFrames)
+{
+    this->Skel_Frames = NewFrames;
+}
+
 void Anim_Skels::DeleteFrame(int FrameId)
 {
     this->Skel_Frames.erase(this->Skel_Frames.begin() + FrameId);

@@ -67,7 +67,7 @@ private:
 	}
 	void updateMats(std::shared_ptr<Shader> shader, std::vector<glm::mat4> AllMats)
 	{
-		if (false)
+		if (AllMats.size() > 0)
 		{
 			int Count = 0;
 			for (int ii = 0; ii < AllMats.size(); ii++)

@@ -262,10 +262,12 @@ private:
 					Joint T_Joint = {Offset, Rot, Scale};
 					Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
 				}
+				//add animation frames to the bones
 				for (auto& kk : Bones)
 				{
 					if (kk->GetName() == Bone_Name)
 					{
+						kk->SetFrames(Frms);
 						break;
 					}
 				}
