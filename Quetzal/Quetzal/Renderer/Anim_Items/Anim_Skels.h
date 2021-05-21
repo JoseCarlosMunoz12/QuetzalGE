@@ -10,6 +10,7 @@ enum class InterType
 	QUADBENZ,
 	CUBEBENZ
 };
+
 struct Bezier_Bais {
 	float Point0;
 	float Point1;

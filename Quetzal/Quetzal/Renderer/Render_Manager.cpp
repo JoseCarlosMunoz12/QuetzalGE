@@ -34,7 +34,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//AnimationShader 
 	S_P<Shader> AnimShader = std::make_shared<Shader>(ShaderType::ANIM, this->GLVerMajor, this->GLVerMinor, "BasicAnimVertex.glsl", "BasicAnimFrag.glsl");
 	this->All_Shader.push_back(AnimShader);
+	//--------------------------------------------------------------------------------------------------------------------------//
 	//------------------------------------------Creates a mesh to load Framebuffer to-------------------------------------------//
+	//--------------------------------------------------------------------------------------------------------------------------//
 	S_P<Mesh> MainMesh = std::make_shared<Mesh>(std::make_unique<Quad_M>(), "MainMesh");
 	S_P<Node> NewNode = std::make_shared<Node>();
 	this->Main_Model = std::make_shared<Model>("Main_Model");
@@ -71,7 +73,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewModel->AddShaders(this->All_Shader[0]);//4)Load shaders used
 	NewModel->AddBaseNode(NewNode);//5) Add nodes to load
 	this->All_Models.push_back(NewModel);//6)add to render system
-	//------------------------Another Model being Rendered------------------------
+	//------------------------------------------------------------------------------
+	//-------------------------Another Model being Rendered-------------------------
+	//------------------------------------------------------------------------------
 	S_P<Model> NewModel1 = std::make_shared<Model>("REsS", glm::vec3(0.f));//1) Make Model
 	NewModel1->AddMeshes(All_Meshes[1]);//2) AddMeshes
 	NewModel1->AddTextures(this->All_Texture[1]);//3) Add Textures
@@ -86,8 +90,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//-----------------------------------------------------------------------------
 	//------------------------Load Animated Model to Render------------------------
 	//-----------------------------------------------------------------------------
+	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");	 
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("dancing_vampire.dae");
-	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("Snek_Up.dae");
+	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("Snek_Up.dae");
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("test.fbx");
 	glm::mat4 inv;
 	Vec_SH<Animation> Anims;
