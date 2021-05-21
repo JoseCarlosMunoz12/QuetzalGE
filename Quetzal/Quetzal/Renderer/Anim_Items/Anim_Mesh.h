@@ -69,11 +69,12 @@ private:
 	{
 		if (AllMats.size() != 0)
 		{
-			shader->set1i(AllMats.size(), "TransCount");
+			int Count = 0;
 			for (int ii = 0; ii < AllMats.size(); ii++)
 			{
-				std::string MatName = "Bones[" + std::to_string(ii)+ "]";
+				std::string MatName = "Bones[" + std::to_string(Count)+ "]";
 				shader->setMat4fv(AllMats[ii], MatName.c_str());
+				Count++;
 			}
 		}
 		else
