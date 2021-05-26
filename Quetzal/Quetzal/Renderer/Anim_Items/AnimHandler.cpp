@@ -1,43 +1,60 @@
 #include "AnimHandler.h"
 
 AnimHandler::AnimHandler()
+	:AnimID(-1)
 {
 }
 
-AnimHandler::AnimHandler(std::map<std::string, glm::mat4> InitOffsets, std::map<std::string, glm::mat4> TransMats, std::map<std::string, int> InitBoneId)
+AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M TransMats, std::map<std::string, int> InitBoneId)
+	:AnimID(-1)
 {
+	this->InitOffsets(InitOffsets);
+	this->InitTransMat(TransMats);
+	this->InitBoneId(InitBoneId);
 }
 
-AnimHandler::AnimHandler(std::map<std::string, glm::mat4> InitOffsets, std::map<std::string, glm::mat4> InitTransmats, std::map<std::string, int> InitBoneId, Vec_SH<Animation> InitAnims)
+AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M InitTransmats, std::map<std::string, int> InitBoneId, Vec_SH<Animation> InitAnims)
+	:AnimID(-1)
 {
+	this->InitOffsets(InitOffsets);
+	this->InitTransMat(TransMats);
+	this->InitBoneId(InitBoneId);
+	this->Anims = InitAnims;
 }
 
 AnimHandler::~AnimHandler()
 {
 }
 
-void AnimHandler::InitOffsets(std::map<std::string, glm::mat4> InitOffsets)
+void AnimHandler::InitOffsets(M_S_M InitOffsets)
 {
+	this->Offsets = InitOffsets;
 }
 
-void AnimHandler::InitTransMat(std::map<std::string, glm::mat4> InitTransMat)
+void AnimHandler::InitTransMat(M_S_M InitTransMat)
 {
+	this->TransMats = InitTransMat;
 }
 
 void AnimHandler::InitBoneId(std::map<std::string, int> InitBoneId)
 {
+	this->BoneId = InitBoneId;
 }
 
 void AnimHandler::AddAnimation(S_P<Animation> NewAnim)
 {
+	this->Anims.push_back(NewAnim);
 }
 
 void AnimHandler::AddAnimations(Vec_SH<Animation> NewAnims)
 {
+	for (auto& jj : NewAnims)
+		this->AddAnimation(jj);
 }
 
 void AnimHandler::ChangeAnim(int AnimId)
 {
+	this->AnimID = AnimId;
 }
 
 std::vector<glm::mat4> AnimHandler::GetMatrices()
