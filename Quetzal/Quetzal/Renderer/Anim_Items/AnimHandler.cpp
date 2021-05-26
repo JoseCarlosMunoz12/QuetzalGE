@@ -5,7 +5,7 @@ AnimHandler::AnimHandler()
 {
 }
 
-AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M TransMats, std::map<std::string, int> InitBoneId)
+AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId)
 	:AnimID(-1)
 {
 	this->InitOffsets(InitOffsets);
@@ -13,7 +13,7 @@ AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M TransMats, std::map<std::strin
 	this->InitBoneId(InitBoneId);
 }
 
-AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M InitTransmats, std::map<std::string, int> InitBoneId, Vec_SH<Animation> InitAnims)
+AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId, Vec_SH<Animation> InitAnims)
 	:AnimID(-1)
 {
 	this->InitOffsets(InitOffsets);
@@ -36,7 +36,7 @@ void AnimHandler::InitTransMat(M_S_M InitTransMat)
 	this->TransMats = InitTransMat;
 }
 
-void AnimHandler::InitBoneId(std::map<std::string, int> InitBoneId)
+void AnimHandler::InitBoneId(M_S_I InitBoneId)
 {
 	this->BoneId = InitBoneId;
 }
