@@ -8,6 +8,10 @@ AnimHandler::AnimHandler(std::map<std::string, glm::mat4> InitOffsets, std::map<
 {
 }
 
+AnimHandler::AnimHandler(std::map<std::string, glm::mat4> InitOffsets, std::map<std::string, glm::mat4> InitTransmats, std::map<std::string, int> InitBoneId, Vec_SH<Animation> InitAnims)
+{
+}
+
 AnimHandler::~AnimHandler()
 {
 }
@@ -24,7 +28,11 @@ void AnimHandler::InitBoneId(std::map<std::string, int> InitBoneId)
 {
 }
 
-void AnimHandler::AddAnimation()
+void AnimHandler::AddAnimation(S_P<Animation> NewAnim)
+{
+}
+
+void AnimHandler::AddAnimations(Vec_SH<Animation> NewAnims)
 {
 }
 
