@@ -90,6 +90,9 @@
     <ClCompile Include="Renderer\Anim_Items\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Anim_Items\AnimHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -216,6 +219,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Anim_Items\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Anim_Items\AnimHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
