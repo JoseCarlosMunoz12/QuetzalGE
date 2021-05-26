@@ -15,10 +15,9 @@ private:
 	int AnimID;
 public:
 	AnimHandler();
-	AnimHandler(M_S_M InitOffsets, M_S_M TransMats,
-		M_S_I InitBoneId);
-	AnimHandler(M_S_M InitOffsets, M_S_M InitTransmats,
-		M_S_I InitBoneId, Vec_SH<Animation> InitAnims);
+	AnimHandler(M_S_M InitOffsets, M_S_M TransMats,	M_S_I InitBoneId);
+	AnimHandler(M_S_M InitOffsets, M_S_M InitTransmats,	M_S_I InitBoneId,
+		Vec_SH<Animation> InitAnims);
 	~AnimHandler();
 	void InitOffsets(M_S_M InitOffsets);
 	void InitTransMat(M_S_M InitTransMat);
@@ -28,4 +27,3 @@ public:
 	void ChangeAnim(int AnimId);
 	std::vector<glm::mat4> GetMatrices();
 };
-

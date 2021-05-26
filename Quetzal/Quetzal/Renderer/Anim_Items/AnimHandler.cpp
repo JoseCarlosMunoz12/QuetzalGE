@@ -29,6 +29,7 @@ AnimHandler::~AnimHandler()
 void AnimHandler::InitOffsets(M_S_M InitOffsets)
 {
 	this->Offsets = InitOffsets;
+	this->AnimMats = std::vector<glm::mat4>(this->Offsets.size());
 }
 
 void AnimHandler::InitTransMat(M_S_M InitTransMat)
@@ -59,5 +60,5 @@ void AnimHandler::ChangeAnim(int AnimId)
 
 std::vector<glm::mat4> AnimHandler::GetMatrices()
 {
-	return std::vector<glm::mat4>();
+	return this->AnimMats;
 }
