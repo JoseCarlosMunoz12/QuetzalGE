@@ -25,5 +25,6 @@ public:
 	void AddAnimation(S_P<Animation> NewAnim);
 	void AddAnimations(Vec_SH<Animation> NewAnims);
 	void ChangeAnim(int AnimId);
+	void Update(float dt);
 	std::vector<glm::mat4> GetMatrices();
 };

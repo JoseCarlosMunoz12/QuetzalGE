@@ -58,7 +58,14 @@ void AnimHandler::ChangeAnim(int AnimId)
 	this->AnimID = AnimId;
 }
 
+void AnimHandler::Update(float dt)
+{
+	this->Anims[this->AnimID]->updateTime(dt);
+}
+
 std::vector<glm::mat4> AnimHandler::GetMatrices()
 {
+	//this->Anims[AnimId]->GetAllMatrix(this->AnimMats, this->TransMats,this->Offsets, this->BoneId);
+	this->Anims[AnimID]->GetAllMatrix(this->Offsets, this->BoneId);
 	return this->AnimMats;
 }
