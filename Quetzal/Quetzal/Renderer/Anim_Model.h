@@ -18,9 +18,7 @@ private:
 	Vec_SH<Shader> Shaders_Inf;
 	S_P<Node> Roots;
 	//Holds All Animations and animation data
-	Vec_SH<Animation> Anims;
-	M_S_M BonesOffsets;
-	M_S_I BoneLoc;
+	S_P<AnimHandler> AnimData;
 	//Determines if the animation is dependent on time or not
 	bool RunTime;
 	int CurAnim;
@@ -50,7 +48,7 @@ public:
 	Vec_SH<Anim_Mesh> GetMeshes()     { return this->Meshes_Inf; }
 	Vec_SH<Texture> GetTextures()     { return this->Textures_Inf; }
 	Vec_SH<Material> GetMaterials()   { return this->Materials_Inf; }
-	Vec_SH<Animation> GetAnimations() { return this->Anims; }
+	S_P<AnimHandler> GetAnimsInf()    { return this->AnimData; };
 	Vec_SH<Shader> GetShaders()       { return this->Shaders_Inf; }
 	S_P<Node> GetNodes()              { return this->Roots; }
 	int GetCurAnim()                  { return this->CurAnim; }
@@ -59,8 +57,6 @@ public:
 	void AddMeshes(S_P<Anim_Mesh> NewMesh);
 	void AddTextures(S_P<Texture> NewTexture);
 	void AddMaterials(S_P<Material> NewMaterial);
-	void AddAnimation(S_P<Animation> NewAnimation);
-	void AddAnimations(Vec_SH<Animation> NewAnimations);
 	void AddShaders(S_P<Shader> NewShader);
 	void AddBaseNode(S_P<Node> InitRoot);
 	void SetName(std::string NewName);
