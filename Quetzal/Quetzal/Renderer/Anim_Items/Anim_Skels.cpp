@@ -171,7 +171,6 @@ glm::mat4 Anim_Skels::GetMatrix()
     return this->Matrix;
 }
 
-
 Vec_SH<Anim_Skels> Anim_Skels::GetChildren()
 {
     return this->Chlds;

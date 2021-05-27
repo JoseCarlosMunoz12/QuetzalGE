@@ -8,23 +8,21 @@ void Animation::UpdateSkels(S_P<Anim_Skels> Bone)
 		this->UpdateSkels(jj);
 }
 
-void Animation::CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection, S_P<Anim_Skels> Bone,
-	std::map<std::string, glm::mat4> Bn, std::map<std::string, int> MatLoc)
-{
-	glm::mat4 ParMatrix = Par * Bone->GetMatrix();
-	std::string nme = Bone->GetName();
-	glm::mat4 TempMatrix =  ParMatrix * Bn[nme];
-	Collection[MatLoc[nme]] = TempMatrix;
-	Vec_SH<Anim_Skels> Chlds = Bone->GetChildren();
-	for (auto& jj : Chlds)
-		this->CalcMatrix(ParMatrix, Collection, jj,Bn,MatLoc);
-}
-
 void Animation::CalcMatrix(glm::mat4 Par,
 	std::vector<glm::mat4>& Collection,
 	S_P<Anim_Skels> Bone, std::map<std::string, glm::mat4> BnsOff, std::map<std::string, glm::mat4> TransMat, std::map<std::string, int> MatLoc)
 {
-
+	glm::mat4 ParMatrix = Par;
+	std::string BoneName = Bone->GetName();
+	glm::mat4 CurMat;
+	if (false)
+		ParMatrix = ParMatrix * CurMat;
+	else
+		ParMatrix = ParMatrix * TransMat[BoneName];
+	Collection[MatLoc[BoneName]] = ParMatrix * BnsOff[BoneName];
+	Vec_SH<Anim_Skels> Chlds = Bone->GetChildren();
+	for (auto& jj : Chlds)
+		this->CalcMatrix(ParMatrix, Collection, Bone,TransMat, BnsOff, MatLoc);
 }
 
 Animation::Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv)
@@ -70,7 +68,7 @@ void Animation::GetAllMatrix(std::vector<glm::mat4> AllMats,
 	std::map<std::string, int> MatLoc)
 {
 	glm::mat4 wrld = glm::mat4(1.f);
-	this->CalcMatrix(wrld, AllMats, this->Skels, BnOff, MatLoc);
+	this->CalcMatrix(wrld, AllMats, this->Skels, BnOff,TrnsMat, MatLoc);
 }
 
 float Animation::GetCurTime()
