@@ -6,6 +6,7 @@
 
 #include "Anim_Items/Anim_Mesh.h"
 #include "Anim_Items/Animation.h"
+#include "Anim_Items/AnimHandler.h"
 
 class Anim_Model
 {

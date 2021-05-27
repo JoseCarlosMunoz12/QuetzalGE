@@ -66,6 +66,14 @@ std::vector<glm::mat4> Animation::GetAllMatrix(std::map<std::string, glm::mat4> 
     return Collection;
 }
 
+void Animation::GetAllMatrix(std::vector<glm::mat4> AllMats,
+	std::map<std::string, glm::mat4> BnOff, std::map<std::string, glm::mat4> TrnsMat,
+	std::map<std::string, int> MatLoc)
+{
+	glm::mat4 wrld = glm::mat4(1.f);
+	this->CalcMatrix(wrld, AllMats, this->Skels, BnOff, MatLoc);
+}
+
 float Animation::GetCurTime()
 {
 	return CurTime;
