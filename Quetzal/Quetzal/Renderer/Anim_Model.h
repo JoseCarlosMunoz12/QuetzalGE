@@ -19,6 +19,7 @@ private:
 	S_P<Node> Roots;
 	//Holds All Animations and animation data
 	S_P<AnimHandler> AnimData;
+	std::vector<glm::mat4> AllMats;
 	//Determines if the animation is dependent on time or not
 	bool RunTime;
 	int CurAnim;

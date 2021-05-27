@@ -85,11 +85,10 @@ void Anim_Model::Render()
 	if (!this->Roots)
 		return;
 	//Calcualtes all the matrices for the Model and its meshes	
-	std::vector<glm::mat4> AllMats;// = this->Anims[CurAnim]->GetAllMatrix(this->BonesOffsets, this->BoneLoc);
-	//
+	this->AllMats = this->AnimData->GetMatrices();
 	//Render all meshes with textues, materials and shaders
 	glm::mat4 r = glm::mat4(1.f);
-	this->RenderNodes(r, this->Roots, AllMats);
+	this->RenderNodes(r, this->Roots, this->AllMats);
 }
 
 void Anim_Model::AddMeshes(S_P<Anim_Mesh> NewMesh)
