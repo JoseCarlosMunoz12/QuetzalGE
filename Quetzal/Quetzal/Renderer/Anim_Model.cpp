@@ -36,17 +36,17 @@ void Anim_Model::UpdateNodes(S_P<Node> Par)
 		this->UpdateNodes(Chld);
 }
 
-Anim_Model::Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc)
+Anim_Model::Anim_Model(std::string InitName, M_S_M I_B_O, M_S_I BoneLoc)
 	:CurAnim(0),RunTime(true),Name(InitName),Position(glm::vec3(0.f)), BonesOffsets(I_B_O),BoneLoc(BoneLoc)
 {
 }
 
-Anim_Model::Anim_Model(std::string InitName, std::map<std::string, glm::mat4> I_B_O,std::map<std::string, int> BoneLoc, glm::vec3 InitPos)
+Anim_Model::Anim_Model(std::string InitName, M_S_M I_B_O,M_S_I BoneLoc, glm::vec3 InitPos)
 	:Name(InitName), Position(InitPos), CurAnim(0), RunTime(true), BonesOffsets(I_B_O), BoneLoc(BoneLoc)
 {
 }
 
-Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc,
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, M_S_M I_B_O, M_S_I BoneLoc,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials)
 	:Name(InitName),Position(InitPos),CurAnim(0),RunTime(true), BonesOffsets(I_B_O), BoneLoc(BoneLoc)
 {
@@ -55,7 +55,7 @@ Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::st
 	this->Materials_Inf = Materials;
 }
 
-Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, std::map<std::string, glm::mat4> I_B_O, std::map<std::string, int> BoneLoc, int InitCurAnim, bool Run,
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, M_S_M I_B_O, M_S_I BoneLoc, int InitCurAnim, bool Run,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
 	S_P<Node> InitRoot, Vec_SH<Animation> InitAnims)
 	:Name(InitName),Position(InitPos), CurAnim(InitCurAnim), RunTime(Run), BonesOffsets(I_B_O), BoneLoc(BoneLoc)
