@@ -15,7 +15,7 @@ void Animation::CalcMatrix(glm::mat4 Par,
 	glm::mat4 ParMatrix = Par;
 	std::string BoneName = Bone->GetName();
 	glm::mat4 CurMat;
-	if (false)
+	if(Bone->GetMatrix(CurMat))
 		ParMatrix = ParMatrix * CurMat;
 	else
 		ParMatrix = ParMatrix * TransMat[BoneName];

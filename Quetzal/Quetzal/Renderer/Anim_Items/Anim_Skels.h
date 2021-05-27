@@ -75,7 +75,7 @@ public:
 	Anim_Skels(std::string Name);
 	//Matrix To get
 	void UpdateMatrix(float Time);
-	glm::mat4 GetMatrix();
+	bool GetMatrix(glm::mat4& CurMat);
 	//Getters
 	Vec_SH<Anim_Skels> GetChildren();
 	glm::vec3 GetCurOffset();

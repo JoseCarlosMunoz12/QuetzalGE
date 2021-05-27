@@ -65,7 +65,6 @@ void AnimHandler::Update(float dt)
 
 std::vector<glm::mat4> AnimHandler::GetMatrices()
 {
-	//this->Anims[AnimId]->GetAllMatrix(this->AnimMats, this->TransMats,this->Offsets, this->BoneId);
-	this->Anims[AnimID]->GetAllMatrix(this->Offsets, this->BoneId);
+	this->Anims[this->AnimID]->GetAllMatrix(this->AnimMats, this->TransMats,this->Offsets, this->BoneId);	
 	return this->AnimMats;
 }

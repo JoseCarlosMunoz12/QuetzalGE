@@ -136,11 +136,6 @@ void Anim_Skels::UpdateMatrix(float Time)
         this->Matrix = this->Matrix * glm::mat4_cast(this->CurRot);
         this->Matrix = glm::scale(this->Matrix, this->CurScale);
     }
-    else
-    {
-        this->Matrix = this->TransMat;
-        Math::Decompose(this->Matrix, this->CurOffset, this->CurRot, this->CurScale);
-    }
 }
 
 Anim_Skels::Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat,
@@ -166,9 +161,10 @@ Anim_Skels::Anim_Skels(std::string InitName, glm::mat4 InitMat, glm::vec3 InitOf
     this->Matrix = InitMat;
 }
 
-glm::mat4 Anim_Skels::GetMatrix()
+bool Anim_Skels::GetMatrix(glm::mat4& CurMat)
 {
-    return this->Matrix;
+    CurMat = this->Matrix;
+    return this->Skel_Frames.size() != 0;
 }
 
 Vec_SH<Anim_Skels> Anim_Skels::GetChildren()
