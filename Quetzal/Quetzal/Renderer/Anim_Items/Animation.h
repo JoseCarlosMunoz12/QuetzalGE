@@ -16,12 +16,13 @@ private:
 	void UpdateSkels(S_P<Anim_Skels> Bone);
 	void CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection,S_P<Anim_Skels> Bone,
 		std::map<std::string, glm::mat4> BnsOff, std::map<std::string, int> MatLoc);
+	void CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection, S_P<Anim_Skels> Bone,
+		std::map<std::string, glm::mat4> BnsOff, std::map<std::string, glm::mat4> TransMat, std::map<std::string, int> MatLoc);
 public:
 	Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv);
 	Animation();
 	~Animation();
 	void updateTime(float dt);
-	std::vector<glm::mat4> GetAllMatrix(std::map<std::string, glm::mat4> BnsOff, std::map<std::string, int> MatLoc);
 	void GetAllMatrix(std::vector<glm::mat4> AllMats,
 		std::map<std::string, glm::mat4> BnOff, std::map < std::string,glm::mat4> TrnsMat, std::map<std::string, int> MatLoc);
 	//Getters
