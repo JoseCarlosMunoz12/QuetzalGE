@@ -142,7 +142,6 @@ Anim_Skels::Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat
     glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale)
     :CurOffset(InitOffset), CurScale(InitScale), CurRot(InitQuat)
 {
-    this->TransMat = InitMat;
     this->Bone_Name = InitName;
     this->Skel_Frames = InitFrames;
     this->Matrix = InitMat;
@@ -156,7 +155,6 @@ Anim_Skels::Anim_Skels(std::string Name)
 Anim_Skels::Anim_Skels(std::string InitName, glm::mat4 InitMat, glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale)
     :CurOffset(InitOffset), CurScale(InitScale), CurRot(InitQuat)
 {
-    this->TransMat = InitMat;
     this->Bone_Name = InitName;
     this->Matrix = InitMat;
 }

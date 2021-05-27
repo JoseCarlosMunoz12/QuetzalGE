@@ -65,7 +65,7 @@ public:
 		
 	}
 	Vec_UP<A_Primitive> GetPrimitives(glm::mat4& InitInv,
-		std::map<std::string, glm::mat4>& BnInits, std::map<std::string,int>& matLocs, Vec_SH<Animation>& Animations)
+		std::map<std::string, glm::mat4>& BnInits, std::map<std::string,glm::mat4> InitTransMat, std::map<std::string,int>& matLocs, Vec_SH<Animation>& Animations)
 	{
 		Assimp::Importer importer;
 		Vec_UP<A_Primitive> Mshs;
@@ -104,6 +104,7 @@ public:
 			this->GetAnimations(scene->mAnimations[ii], scene, Animations[Size],Bones);
 			Animations[Size]->SetInvMatrix(InitInv);
 		}
+		InitTransMat = TransMats;
 		return Mshs;
 	}
 private:
@@ -114,6 +115,7 @@ private:
 	};
 	std::string File;
 	std::map<std::string, glm::mat4> BoneOffsets;
+	std::map<std::string, glm::mat4> TransMats;
 	std::map <std::string, int> BoneLoc;
 	std::map<std::string, Par_Child_Rel> BoneId;
 	glm::mat4 aiMatToglmMat(aiMatrix4x4 from)
@@ -189,6 +191,7 @@ private:
 			BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
 			BoneLoc[BoneName] = ii;
 			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
+			TransMats[BoneName] = TransMat;
 			glm::vec3 Offsets;glm::vec3 Scale;glm::quat Rot;
 			Math::Decompose(TransMat,Offsets,Rot,Scale);
 			Bones.push_back(std::make_shared<Anim_Skels>(BoneName,TransMat,Offsets,Rot,Scale));

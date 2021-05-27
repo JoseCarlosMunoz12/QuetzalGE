@@ -57,8 +57,6 @@ private:
 	glm::vec3 CurOffset;
 	glm::vec3 CurScale;
 	glm::quat CurRot;
-	//Hold init position
-	glm::mat4 TransMat;
 	//Holds Current Matrix calculations
 	glm::mat4 Matrix;
 	//Bone Name
