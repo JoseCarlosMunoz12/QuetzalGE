@@ -20,9 +20,6 @@ private:
 	//Holds All Animations and animation data
 	S_P<AnimHandler> AnimData;
 	std::vector<glm::mat4> AllMats;
-	//Determines if the animation is dependent on time or not
-	bool RunTime;
-	int CurAnim;
 	//General information of Model
 	glm::vec3 Position;
 	std::string Name;
@@ -37,7 +34,6 @@ public:
 	Anim_Model(std::string InitName, glm::vec3 InitPos,
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials);
 	Anim_Model(std::string InitName, glm::vec3 InitPos,
-		int InitCurAnim, bool Run,
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
 		S_P<Node> InitRoot,Vec_SH<Animation> InitAnims);
 	~Anim_Model();
@@ -53,8 +49,6 @@ public:
 	S_P<AnimHandler> GetAnimsInf()    { return this->AnimData; };
 	Vec_SH<Shader> GetShaders()       { return this->Shaders_Inf; }
 	S_P<Node> GetNodes()              { return this->Roots; }
-	int GetCurAnim()                  { return this->CurAnim; }
-	bool GetAnimStatus()              { return this->RunTime; }
 	//Setters
 	void AddMeshes(S_P<Anim_Mesh> NewMesh);
 	void AddTextures(S_P<Texture> NewTexture);
@@ -63,6 +57,4 @@ public:
 	void AddBaseNode(S_P<Node> InitRoot);
 	void SetAnimHandler(S_P<AnimHandler> InitHandler);
 	void SetName(std::string NewName);
-	void ChangeCurAnim(int NewAnim);
-	void ChangeAnimStatus() { this->RunTime == !this->RunTime; }
 };
