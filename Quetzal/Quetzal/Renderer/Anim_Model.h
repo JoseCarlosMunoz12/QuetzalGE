@@ -35,7 +35,7 @@ public:
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials);
 	Anim_Model(std::string InitName, glm::vec3 InitPos,
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
-		S_P<Node> InitRoot,Vec_SH<Animation> InitAnims);
+		S_P<Node> InitRoot);
 	~Anim_Model();
 	void Update(float dt);
 	void UpdateUniforms();

@@ -57,7 +57,7 @@ Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
 
 Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
-	S_P<Node> InitRoot, Vec_SH<Animation> InitAnims)
+	S_P<Node> InitRoot)
 	:Name(InitName),Position(InitPos)
 {
 	this->Meshes_Inf = Meshes;
