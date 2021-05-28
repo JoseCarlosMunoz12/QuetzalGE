@@ -182,12 +182,7 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         Vec_SH<Anim_Mesh> Mshs = Mdl->GetMeshes();
         Vec_SH<Texture> Txt = Mdl->GetTextures();
         Vec_SH<Material> Mts = Mdl->GetMaterials();
-        Vec_SH<Animation> Anims = Mdl->GetAnimations();
-        int CurAnim = Mdl->GetCurAnim();
-        float dt = Anims[CurAnim]->GetCurTime();
-        float lngth = Anims[CurAnim]->GetTimeLength();
-        float min = 0;
-        ImGui::SliderFloat("dt", &dt,min, lngth);
+        S_P<AnimHandler> Anims = Mdl->GetAnimsInf();
         //display Data about the nodes
         this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
         ImGui::TreePop();

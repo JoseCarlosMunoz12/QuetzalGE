@@ -33,6 +33,7 @@ private:
 	void UpdateNodes(S_P<Node> Par);
 public:
 	Anim_Model(std::string InitName);
+	Anim_Model(std::string InitName, glm::vec3 InitPos);
 	Anim_Model(std::string InitName, glm::vec3 InitPos,
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials);
 	Anim_Model(std::string InitName, glm::vec3 InitPos,
@@ -60,6 +61,7 @@ public:
 	void AddMaterials(S_P<Material> NewMaterial);
 	void AddShaders(S_P<Shader> NewShader);
 	void AddBaseNode(S_P<Node> InitRoot);
+	void SetAnimHandler(S_P<AnimHandler> InitHandler);
 	void SetName(std::string NewName);
 	void ChangeCurAnim(int NewAnim);
 	void ChangeAnimStatus() { this->RunTime == !this->RunTime; }

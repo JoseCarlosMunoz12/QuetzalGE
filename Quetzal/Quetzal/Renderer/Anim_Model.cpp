@@ -41,6 +41,10 @@ Anim_Model::Anim_Model(std::string InitName)
 {
 }
 
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos)
+	:CurAnim(0), RunTime(true), Name(InitName), Position(InitPos)
+{
+}
 
 Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials)
@@ -112,6 +116,11 @@ void Anim_Model::AddBaseNode(S_P<Node> InitRoot)
 {
 	this->Roots = InitRoot;
 	this->Roots->SetPos(this->Position);
+}
+
+void Anim_Model::SetAnimHandler(S_P<AnimHandler> InitHandler)
+{
+	this->AnimData = InitHandler;
 }
 
 void Anim_Model::SetName(std::string NewName)

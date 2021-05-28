@@ -88,6 +88,10 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewModel1->AddBaseNode(NewNode1);//7) add node tree
 	this->All_Models.push_back(NewModel1);//8) add model to render
 	//-----------------------------------------------------------------------------
+	//------------------------Load Animated Model to Render------------------------ 	   
+	//----------------------------------------------------------------------------- 
+
+	//-----------------------------------------------------------------------------
 	//------------------------Load Animated Model to Render------------------------
 	//-----------------------------------------------------------------------------
 	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");	 
@@ -101,7 +105,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	std::map<std::string, int> BoneLoc;
 	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv, BonesOffsets, BonesTransMats, BoneLoc, Anims);
 	this->All_Anim_Meshes.push_back(std::make_shared<Anim_Mesh>(std::move(rt[0]), "Man_Walk"));
-	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel",BonesOffsets,BoneLoc, glm::vec3(1.f,0.f,5.f));//1)Make Model
+	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f,0.f,5.f));//1)Make Model
 	AModel->AddMeshes(this->All_Anim_Meshes[0]);//2)Add Meshes
 	AModel->AddTextures(this->All_Texture[1]);  //3) Add Textures
 	AModel->AddShaders(this->All_Shader[1]);    //4) add Shaders
@@ -111,7 +115,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	A_Node->SetW_Mat(inv);                      //6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);                     //6).d - sets Shader to use
 	AModel->AddBaseNode(A_Node);                //7) Add Node Tree
-	//AModel->AddAnimations(Anims);               //8)Add Animation skeleton
+	//AModel->SetAnimHandler();               //8)Add Animation From the Anim Handler
 	this->All_Anim_Models.push_back(AModel);    //9) add model to render
 }
 
