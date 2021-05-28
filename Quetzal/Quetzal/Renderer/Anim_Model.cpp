@@ -36,17 +36,13 @@ void Anim_Model::UpdateNodes(S_P<Node> Par)
 		this->UpdateNodes(Chld);
 }
 
-Anim_Model::Anim_Model(std::string InitName, M_S_M I_B_O, M_S_I BoneLoc)
+Anim_Model::Anim_Model(std::string InitName)
 	:CurAnim(0),RunTime(true),Name(InitName),Position(glm::vec3(0.f))
 {
 }
 
-Anim_Model::Anim_Model(std::string InitName, M_S_M I_B_O, M_S_I BoneLoc, glm::vec3 InitPos)
-	:Name(InitName), Position(InitPos), CurAnim(0), RunTime(true)
-{
-}
 
-Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, M_S_M I_B_O, M_S_I BoneLoc,
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials)
 	:Name(InitName),Position(InitPos),CurAnim(0),RunTime(true)
 {
@@ -55,7 +51,8 @@ Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, M_S_M I_B_O, M_S
 	this->Materials_Inf = Materials;
 }
 
-Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos, M_S_M I_B_O, M_S_I BoneLoc, int InitCurAnim, bool Run,
+Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
+	int InitCurAnim, bool Run,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
 	S_P<Node> InitRoot, Vec_SH<Animation> InitAnims)
 	:Name(InitName),Position(InitPos), CurAnim(InitCurAnim), RunTime(Run)

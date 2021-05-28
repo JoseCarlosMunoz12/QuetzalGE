@@ -32,11 +32,11 @@ private:
 	void RenderNodes(glm::mat4 ParMatrix, S_P<Node> Chld, std::vector<glm::mat4> AllMats);
 	void UpdateNodes(S_P<Node> Par);
 public:
-	Anim_Model(std::string InitName, M_S_M I_B_O, M_S_I BoneLoc);
-	Anim_Model(std::string InitName, M_S_M I_B_O, M_S_I BoneLoc, glm::vec3 InitPos);
-	Anim_Model(std::string InitName, glm::vec3 InitPos, M_S_M I_B_O, M_S_I BoneLoc,
+	Anim_Model(std::string InitName);
+	Anim_Model(std::string InitName, glm::vec3 InitPos,
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials);
-	Anim_Model(std::string InitName, glm::vec3 InitPos, M_S_M I_B_O, M_S_I BoneLoc, int InitCurAnim, bool Run,
+	Anim_Model(std::string InitName, glm::vec3 InitPos,
+		int InitCurAnim, bool Run,
 		Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
 		S_P<Node> InitRoot,Vec_SH<Animation> InitAnims);
 	~Anim_Model();
