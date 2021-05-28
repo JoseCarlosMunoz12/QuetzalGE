@@ -1,5 +1,21 @@
 #include "AnimHandler.h"
 
+void AnimHandler::InitOffsets(M_S_M InitOffsets)
+{
+	this->Offsets = InitOffsets;
+	this->AnimMats = std::vector<glm::mat4>(this->Offsets.size());
+}
+
+void AnimHandler::InitTransMat(M_S_M InitTransMat)
+{
+	this->TransMats = InitTransMat;
+}
+
+void AnimHandler::InitBoneId(M_S_I InitBoneId)
+{
+	this->BoneId = InitBoneId;
+}
+
 AnimHandler::AnimHandler()
 	:AnimID(-1)
 {
@@ -26,20 +42,11 @@ AnimHandler::~AnimHandler()
 {
 }
 
-void AnimHandler::InitOffsets(M_S_M InitOffsets)
+void AnimHandler::InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId)
 {
-	this->Offsets = InitOffsets;
-	this->AnimMats = std::vector<glm::mat4>(this->Offsets.size());
-}
-
-void AnimHandler::InitTransMat(M_S_M InitTransMat)
-{
-	this->TransMats = InitTransMat;
-}
-
-void AnimHandler::InitBoneId(M_S_I InitBoneId)
-{
-	this->BoneId = InitBoneId;
+	this->InitOffsets(InitOffsets);
+	this->InitTransMat(InitTransmats);
+	this->InitBoneId(InitBoneId);
 }
 
 void AnimHandler::AddAnimation(S_P<Animation> NewAnim)

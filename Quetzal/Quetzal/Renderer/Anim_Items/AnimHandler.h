@@ -13,15 +13,16 @@ private:
 	//Animation data and how it blends with each other
 	Vec_SH<Animation> Anims;
 	int AnimID;
+	void InitOffsets(M_S_M InitOffsets);
+	void InitTransMat(M_S_M InitTransMat);
+	void InitBoneId(M_S_I InitBoneId);
 public:
 	AnimHandler();
 	AnimHandler(M_S_M InitOffsets, M_S_M TransMats,	M_S_I InitBoneId);
 	AnimHandler(M_S_M InitOffsets, M_S_M InitTransmats,	M_S_I InitBoneId,
 		Vec_SH<Animation> InitAnims);
 	~AnimHandler();
-	void InitOffsets(M_S_M InitOffsets);
-	void InitTransMat(M_S_M InitTransMat);
-	void InitBoneId(M_S_I InitBoneId);
+	void InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId);
 	void AddAnimation(S_P<Animation> NewAnim);
 	void AddAnimations(Vec_SH<Animation> NewAnims);
 	void ChangeAnim(int AnimId);
