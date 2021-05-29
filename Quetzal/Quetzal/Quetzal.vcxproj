@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Renderer\Anim_Items\AnimHandler.cpp" />
+    <ClCompile Include="Renderer\Anim_Items\AnimationData.cpp" />
     <ClCompile Include="Renderer\Anim_Items\Animation.cpp" />
     <ClCompile Include="Renderer\Anim_Items\Anim_Skels.cpp" />
     <ClCompile Include="Renderer\Anim_Model.cpp" />
@@ -174,7 +174,7 @@
     <ClCompile Include="Renderer\Render_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Renderer\Anim_Items\AnimHandler.h" />
+    <ClInclude Include="Renderer\Anim_Items\AnimationData.h" />
     <ClInclude Include="Renderer\Anim_Items\Animation.h" />
     <ClInclude Include="Renderer\Anim_Items\Anim_Skels.h" />
     <ClInclude Include="Renderer\Anim_Model.h" />

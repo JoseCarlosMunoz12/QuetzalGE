@@ -72,7 +72,8 @@ Anim_Model::~Anim_Model()
 
 void Anim_Model::Update(float dt)
 {
-	this->AnimData->Update(dt);
+	if(this->AnimData)
+		this->AnimData->Update(dt);
 	this->UpdateNodes(this->Roots);
 }
 
@@ -84,8 +85,9 @@ void Anim_Model::Render()
 {
 	if (!this->Roots)
 		return;
-	//Calcualtes all the matrices for the Model and its meshes	
-	this->AllMats = this->AnimData->GetMatrices();
+	//Calcualtes all the matrices for the Model and its meshes
+	if( this->AnimData)
+		this->AllMats = this->AnimData->GetMatrices();
 	//Render all meshes with textues, materials and shaders
 	glm::mat4 r = glm::mat4(1.f);
 	this->RenderNodes(r, this->Roots, this->AllMats);
@@ -117,7 +119,7 @@ void Anim_Model::AddBaseNode(S_P<Node> InitRoot)
 	this->Roots->SetPos(this->Position);
 }
 
-void Anim_Model::SetAnimHandler(S_P<AnimHandler> InitHandler)
+void Anim_Model::SetAnimationData(S_P<AnimationData> InitHandler)
 {
 	this->AnimData = InitHandler;
 }

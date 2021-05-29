@@ -182,7 +182,7 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         Vec_SH<Anim_Mesh> Mshs = Mdl->GetMeshes();
         Vec_SH<Texture> Txt = Mdl->GetTextures();
         Vec_SH<Material> Mts = Mdl->GetMaterials();
-        S_P<AnimHandler> Anims = Mdl->GetAnimsInf();
+        S_P<AnimationData> Anims = Mdl->GetAnimsInf();
         //display Data about the nodes
         this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
         ImGui::TreePop();

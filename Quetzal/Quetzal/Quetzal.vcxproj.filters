@@ -90,7 +90,7 @@
     <ClCompile Include="Renderer\Anim_Items\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Anim_Items\AnimHandler.cpp">
+    <ClCompile Include="Renderer\Anim_Items\AnimationData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,7 +221,7 @@
     <ClInclude Include="Renderer\Anim_Items\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Anim_Items\AnimHandler.h">
+    <ClInclude Include="Renderer\Anim_Items\AnimationData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

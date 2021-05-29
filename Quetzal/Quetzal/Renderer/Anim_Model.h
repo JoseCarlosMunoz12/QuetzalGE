@@ -6,7 +6,7 @@
 
 #include "Anim_Items/Anim_Mesh.h"
 #include "Anim_Items/Animation.h"
-#include "Anim_Items/AnimHandler.h"
+#include "Anim_Items/AnimationData.h"
 
 class Anim_Model
 {
@@ -18,7 +18,7 @@ private:
 	Vec_SH<Shader> Shaders_Inf;
 	S_P<Node> Roots;
 	//Holds All Animations and animation data
-	S_P<AnimHandler> AnimData;
+	S_P<AnimationData> AnimData;
 	std::vector<glm::mat4> AllMats;
 	//General information of Model
 	glm::vec3 Position;
@@ -46,7 +46,7 @@ public:
 	Vec_SH<Anim_Mesh> GetMeshes()     { return this->Meshes_Inf; }
 	Vec_SH<Texture> GetTextures()     { return this->Textures_Inf; }
 	Vec_SH<Material> GetMaterials()   { return this->Materials_Inf; }
-	S_P<AnimHandler> GetAnimsInf()    { return this->AnimData; };
+	S_P<AnimationData> GetAnimsInf()  { return this->AnimData; }
 	Vec_SH<Shader> GetShaders()       { return this->Shaders_Inf; }
 	S_P<Node> GetNodes()              { return this->Roots; }
 	//Setters
@@ -55,6 +55,6 @@ public:
 	void AddMaterials(S_P<Material> NewMaterial);
 	void AddShaders(S_P<Shader> NewShader);
 	void AddBaseNode(S_P<Node> InitRoot);
-	void SetAnimHandler(S_P<AnimHandler> InitHandler);
+	void SetAnimationData(S_P<AnimationData> InitHandler);
 	void SetName(std::string NewName);
 };

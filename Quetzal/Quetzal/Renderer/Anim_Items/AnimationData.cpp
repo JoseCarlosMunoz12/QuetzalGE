@@ -1,27 +1,27 @@
-#include "AnimHandler.h"
+#include "AnimationData.h"
 
-void AnimHandler::InitOffsets(M_S_M InitOffsets)
+void AnimationData::InitOffsets(M_S_M InitOffsets)
 {
 	this->Offsets = InitOffsets;
 	this->AnimMats = std::vector<glm::mat4>(this->Offsets.size());
 }
 
-void AnimHandler::InitTransMat(M_S_M InitTransMat)
+void AnimationData::InitTransMat(M_S_M InitTransMat)
 {
 	this->TransMats = InitTransMat;
 }
 
-void AnimHandler::InitBoneId(M_S_I InitBoneId)
+void AnimationData::InitBoneId(M_S_I InitBoneId)
 {
 	this->BoneId = InitBoneId;
 }
 
-AnimHandler::AnimHandler()
+AnimationData::AnimationData()
 	:AnimID(-1)
 {
 }
 
-AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId)
+AnimationData::AnimationData(M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId)
 	:AnimID(-1)
 {
 	this->InitOffsets(InitOffsets);
@@ -29,7 +29,7 @@ AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId)
 	this->InitBoneId(InitBoneId);
 }
 
-AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId, Vec_SH<Animation> InitAnims)
+AnimationData::AnimationData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId, Vec_SH<Animation> InitAnims)
 	:AnimID(-1)
 {
 	this->InitOffsets(InitOffsets);
@@ -38,39 +38,39 @@ AnimHandler::AnimHandler(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneI
 	this->Anims = InitAnims;
 }
 
-AnimHandler::~AnimHandler()
+AnimationData::~AnimationData()
 {
 }
 
-void AnimHandler::InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId)
+void AnimationData::InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId)
 {
 	this->InitOffsets(InitOffsets);
 	this->InitTransMat(InitTransmats);
 	this->InitBoneId(InitBoneId);
 }
 
-void AnimHandler::AddAnimation(S_P<Animation> NewAnim)
+void AnimationData::AddAnimation(S_P<Animation> NewAnim)
 {
 	this->Anims.push_back(NewAnim);
 }
 
-void AnimHandler::AddAnimations(Vec_SH<Animation> NewAnims)
+void AnimationData::AddAnimations(Vec_SH<Animation> NewAnims)
 {
 	for (auto& jj : NewAnims)
 		this->AddAnimation(jj);
 }
 
-void AnimHandler::ChangeAnim(int AnimId)
+void AnimationData::ChangeAnim(int AnimId)
 {
 	this->AnimID = AnimId;
 }
 
-void AnimHandler::Update(float dt)
+void AnimationData::Update(float dt)
 {
 	this->Anims[this->AnimID]->updateTime(dt);
 }
 
-std::vector<glm::mat4> AnimHandler::GetMatrices()
+std::vector<glm::mat4> AnimationData::GetMatrices()
 {
 	this->Anims[this->AnimID]->GetAllMatrix(this->AnimMats, this->TransMats,this->Offsets, this->BoneId);	
 	return this->AnimMats;
