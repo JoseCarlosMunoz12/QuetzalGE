@@ -1,10 +1,13 @@
 #pragma once
 #include "Model.h"
 #include "Anim_Model.h"
+#include "AnimHandler.h"
 #include "Camera.h"
 class Render_Manager
 {
 private:
+	//Animaiton Manager
+	U_P<AnimHandler> A_Manager;
 	//All Items in Render Manager
 	Vec_SH<Texture> All_Texture;
 	Vec_SH<Shader> All_Shader;

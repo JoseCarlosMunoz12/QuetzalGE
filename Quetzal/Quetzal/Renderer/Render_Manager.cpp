@@ -18,6 +18,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->FarPlane = 100.f;
 	//Init camera Position
 	this->Main_Cam = std::make_shared<Camera>(glm::vec3(-1.f, 1.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
+	//Init Animation Manager
+	this->A_Manager = std::make_unique<AnimHandler>();
 	//Get screen information to use to render
 	glfwGetFramebufferSize(this->MainWindow,&this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
 	//Create Default Framebuffer Texture 
@@ -88,10 +90,6 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	NewModel1->AddBaseNode(NewNode1);//7) add node tree
 	this->All_Models.push_back(NewModel1);//8) add model to render
 	//-----------------------------------------------------------------------------
-	//------------------------Load Animated Model to Render------------------------ 	   
-	//----------------------------------------------------------------------------- 
-
-	//-----------------------------------------------------------------------------
 	//------------------------Load Animated Model to Render------------------------
 	//-----------------------------------------------------------------------------
 	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");	 
@@ -104,6 +102,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	std::map<std::string, glm::mat4> BonesTransMats;
 	std::map<std::string, int> BoneLoc;
 	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv, BonesOffsets, BonesTransMats, BoneLoc, Anims);
+	this->A_Manager->AddAnims(BonesOffsets, BonesTransMats, BoneLoc);
 	this->All_Anim_Meshes.push_back(std::make_shared<Anim_Mesh>(std::move(rt[0]), "Man_Walk"));
 	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f,0.f,5.f));//1)Make Model
 	AModel->AddMeshes(this->All_Anim_Meshes[0]);//2)Add Meshes
