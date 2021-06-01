@@ -3,44 +3,6 @@
 #include "libs.h"
 #include <random>
 
-//Enumerations
-enum shader_enums
-{
-	SHADER_DEBUGS,
-	SHADER_CORE_PROGRAM,
-	SHADER_TERRAIN,
-	SHADERS_TERRAIN,
-	SHADER_SHADOWS
-};
-enum texture_enum 
-{
-	TEX_PUSHEEM,TEX_PUSHEEN_SPECULAR,
-	TEX_CONTAINER,TEX_CONTAINER_SPECULAR,
-	TEX_FLOWER,TEX_FLOWER_SPECULAR
-};
-enum material_ennum
-{
-	MAT_0,
-	MAT_1 ,
-	MAT_2
-};
-enum mesh_enum
-{
-	MESH_QUAD = 0,
-	MESH_PLANE_TERRAIN,
-	MESH_CUSTOM_TERRAIN,
-	MESH_TRIANGLE,
-	MESH_PYRAMID,
-	MESH_CUBE,
-	MESH_SPHERE,
-	MESH_CYLINDER,
-	MESH_CONE
-};
-enum heighMaps_enum
-{
-	HEIGHTMAP_1
-};
-
 class Game
 {
 private:
@@ -52,7 +14,7 @@ private:
 	//Mouse Input
 	float Amount = 0;
 	float AmountZ = 0;
-	
+
 	int MapWidth;
 	int MapHeigth;
 
@@ -83,6 +45,7 @@ private:
 	/// </summary>
 	std::unique_ptr<ImGuiWindowManager> ImManager;
 	std::shared_ptr<Render_Manager> R_Manager;
+	std::shared_ptr<AnimHandler> A_Manager;
 	//Private Functions
 	//--Inits
 	void initGLFW();
@@ -120,4 +83,3 @@ public:
 	static void framebuffer_resize_callback(GLFWwindow* window, int fbW, int fbH);
 	//ImGui Manager
 };
-
