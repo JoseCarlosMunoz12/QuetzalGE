@@ -63,7 +63,7 @@ void Animation::updateTime(float dt)
 	this->UpdateSkels(this->Skels);
 }
 
-void Animation::GetAllMatrix(std::vector<glm::mat4> AllMats,
+void Animation::GetAllMatrix(std::vector<glm::mat4>& AllMats,
 	std::map<std::string, glm::mat4> BnOff, std::map<std::string, glm::mat4> TrnsMat,
 	std::map<std::string, int> MatLoc)
 {

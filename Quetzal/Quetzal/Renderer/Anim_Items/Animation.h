@@ -21,7 +21,7 @@ public:
 	Animation();
 	~Animation();
 	void updateTime(float dt);
-	void GetAllMatrix(std::vector<glm::mat4> AllMats,
+	void GetAllMatrix(std::vector<glm::mat4>& AllMats,
 		std::map<std::string, glm::mat4> BnOff, std::map < std::string,glm::mat4> TrnsMat, std::map<std::string, int> MatLoc);
 	//Getters
 	float GetCurTime();
