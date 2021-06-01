@@ -30,10 +30,10 @@ AnimationData::AnimationData(M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneI
 }
 
 AnimationData::AnimationData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId, Vec_SH<Animation> InitAnims)
-	:AnimID(-1)
+	:AnimID(0)
 {
 	this->InitOffsets(InitOffsets);
-	this->InitTransMat(TransMats);
+	this->InitTransMat(InitTransmats);
 	this->InitBoneId(InitBoneId);
 	this->Anims = InitAnims;
 }
@@ -72,6 +72,6 @@ void AnimationData::Update(float dt)
 
 std::vector<glm::mat4> AnimationData::GetMatrices()
 {
-	this->Anims[this->AnimID]->GetAllMatrix(this->AnimMats, this->TransMats,this->Offsets, this->BoneId);	
+	this->Anims[this->AnimID]->GetAllMatrix(this->AnimMats,this->Offsets, this->TransMats, this->BoneId);	
 	return this->AnimMats;
 }

@@ -19,7 +19,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//Init camera Position
 	this->Main_Cam = std::make_shared<Camera>(glm::vec3(-1.f, 1.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	//Init Animation Manager
-	this->A_Manager = std::make_unique<AnimHandler>();
+	this->A_Manager = std::make_shared<AnimHandler>();
 	//Get screen information to use to render
 	glfwGetFramebufferSize(this->MainWindow,&this->Frame_Buffer_Width, &this->Frame_Bufer_Height);
 	//Create Default Framebuffer Texture 
@@ -102,20 +102,20 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	std::map<std::string, glm::mat4> BonesTransMats;
 	std::map<std::string, int> BoneLoc;
 	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv, BonesOffsets, BonesTransMats, BoneLoc, Anims);
-	this->A_Manager->AddAnims(BonesOffsets, BonesTransMats, BoneLoc);
+	this->A_Manager->AddAnims(BonesOffsets, BonesTransMats, BoneLoc,Anims);
 	this->All_Anim_Meshes.push_back(std::make_shared<Anim_Mesh>(std::move(rt[0]), "Man_Walk"));
 	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f,0.f,5.f));//1)Make Model
-	AModel->AddMeshes(this->All_Anim_Meshes[0]);//2)Add Meshes
-	AModel->AddTextures(this->All_Texture[1]);  //3) Add Textures
-	AModel->AddShaders(this->All_Shader[1]);    //4) add Shaders
-	S_P<Node> A_Node = std::make_shared<Node>();//5)Create Nodes to Item
-	A_Node->AddTextureId(0);                    //6).a - Sets Textures used in the Node
-	A_Node->SetMeshId(0);                       //6).b - Set Mesh Id for the Node
-	A_Node->SetW_Mat(inv);                      //6).c - set Rotation to upright the model
-	A_Node->AddShaderId(0);                     //6).d - sets Shader to use
-	AModel->AddBaseNode(A_Node);                //7) Add Node Tree
-	//AModel->SetAnimHandler();               //8)Add Animation From the Anim Handler
-	this->All_Anim_Models.push_back(AModel);    //9) add model to render
+	AModel->AddMeshes(this->All_Anim_Meshes[0]);          //2)Add Meshes
+	AModel->AddTextures(this->All_Texture[1]);            //3) Add Textures
+	AModel->AddShaders(this->All_Shader[1]);              //4) add Shaders
+	S_P<Node> A_Node = std::make_shared<Node>();          //5)Create Nodes to Item
+	A_Node->AddTextureId(0);                              //6).a - Sets Textures used in the Node
+	A_Node->SetMeshId(0);                                 //6).b - Set Mesh Id for the Node
+	A_Node->SetW_Mat(inv);                                //6).c - set Rotation to upright the model
+	A_Node->AddShaderId(0);                               //6).d - sets Shader to use
+	AModel->AddBaseNode(A_Node);                          //7) Add Node Tree
+	AModel->SetAnimationData(this->A_Manager->GetAnim(0));//8)Add Animation From the Anim Handler
+	this->All_Anim_Models.push_back(AModel);              //9) add model to render
 }
 
 void Render_Manager::Update(float dt)
@@ -124,6 +124,7 @@ void Render_Manager::Update(float dt)
 	this->UpdateMatrices();
 	this->Main_Cam->Update(dt, 1);
 	this->Main_Cam->UpdateMouseInput(dt, this->MainWindow);
+	this->A_Manager->Update(dt);
 	//updates uniforms of shaders being used
 	glm::mat4 CamView = this->Main_Cam->GetViewMatrix();
 	for (auto& jj : this->All_Shader)

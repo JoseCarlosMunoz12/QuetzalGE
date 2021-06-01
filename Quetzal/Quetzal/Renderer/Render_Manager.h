@@ -7,7 +7,7 @@ class Render_Manager
 {
 private:
 	//Animaiton Manager
-	U_P<AnimHandler> A_Manager;
+	S_P<AnimHandler> A_Manager;
 	//All Items in Render Manager
 	Vec_SH<Texture> All_Texture;
 	Vec_SH<Shader> All_Shader;
@@ -43,15 +43,16 @@ public:
 	void Render();
 	void RenderToWindow();
 	//Getters
-	Vec_SH<Texture> GetAllTextures()	 { return this->All_Texture; }
-	Vec_SH<Shader> GetAllShaders()		 { return this->All_Shader; }
-	Vec_SH<Material> GetAllMaterials()	 { return this->All_Materials; }
-	Vec_SH<Mesh> GetAllMeshes()			 { return this->All_Meshes; }
-	Vec_SH<Anim_Mesh> GetAllAnimMeshs()  { return this->All_Anim_Meshes; }
-	Vec_SH<Model> GetAllModels()         { return this->All_Models; }
-	Vec_SH<Anim_Model> GetAllAnimModel() { return this->All_Anim_Models; }
-	bool ToWindow()                      { return this->R_Window; }
-	S_P<Frame_Buffer> GetMainTexture()   { return this->Main_Texture; }
+	Vec_SH<Texture> GetAllTextures()	   { return this->All_Texture; }
+	Vec_SH<Shader> GetAllShaders()		   { return this->All_Shader; }
+	Vec_SH<Material> GetAllMaterials()	   { return this->All_Materials; }
+	Vec_SH<Mesh> GetAllMeshes()			   { return this->All_Meshes; }
+	Vec_SH<Anim_Mesh> GetAllAnimMeshs()    { return this->All_Anim_Meshes; }
+	Vec_SH<Model> GetAllModels()           { return this->All_Models; }
+	Vec_SH<Anim_Model> GetAllAnimModel()   { return this->All_Anim_Models; }
+	bool ToWindow()                        { return this->R_Window; }
+	S_P<Frame_Buffer> GetMainTexture()     { return this->Main_Texture; }
+	S_P<AnimHandler> GetAnimationHandler() { return this->A_Manager; }
 	//Get Some Matrices
 	glm::mat4 GetProjMatrix() { return Projection; }
 	glm::mat4 GetCamMatrix()  { return this->Main_Cam->GetViewMatrix(); }

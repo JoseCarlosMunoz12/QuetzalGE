@@ -65,7 +65,7 @@ public:
 		
 	}
 	Vec_UP<A_Primitive> GetPrimitives(glm::mat4& InitInv,
-		std::map<std::string, glm::mat4>& BnInits, std::map<std::string,glm::mat4> InitTransMat, std::map<std::string,int>& matLocs, Vec_SH<Animation>& Animations)
+		std::map<std::string, glm::mat4>& BnInits, std::map<std::string,glm::mat4>& InitTransMat, std::map<std::string,int>& matLocs, Vec_SH<Animation>& Animations)
 	{
 		Assimp::Importer importer;
 		Vec_UP<A_Primitive> Mshs;
