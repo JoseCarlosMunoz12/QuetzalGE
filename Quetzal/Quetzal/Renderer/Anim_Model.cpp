@@ -84,7 +84,7 @@ void Anim_Model::Render()
 	if (!this->Roots)
 		return;
 	//Calcualtes all the matrices for the Model and its meshes
-	if( this->AnimData)
+	if(this->AnimData)
 		this->AllMats = this->AnimData->GetMatrices();
 	//Render all meshes with textues, materials and shaders
 	glm::mat4 r = glm::mat4(1.f);

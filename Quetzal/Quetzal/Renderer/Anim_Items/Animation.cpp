@@ -22,7 +22,7 @@ void Animation::CalcMatrix(glm::mat4 Par,
 	Collection[MatLoc[BoneName]] = ParMatrix * BnsOff[BoneName];
 	Vec_SH<Anim_Skels> Chlds = Bone->GetChildren();
 	for (auto& jj : Chlds)
-		this->CalcMatrix(ParMatrix, Collection, jj,TransMat, BnsOff, MatLoc);
+		this->CalcMatrix(ParMatrix, Collection, jj, BnsOff,TransMat, MatLoc);
 }
 
 Animation::Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv)

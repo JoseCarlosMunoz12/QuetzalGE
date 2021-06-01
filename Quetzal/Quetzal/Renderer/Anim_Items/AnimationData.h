@@ -18,8 +18,8 @@ private:
 	void InitBoneId(M_S_I InitBoneId);
 public:
 	AnimationData();
-	AnimationData(M_S_M InitOffsets, M_S_M TransMats,	M_S_I InitBoneId);
-	AnimationData(M_S_M InitOffsets, M_S_M InitTransmats,	M_S_I InitBoneId,
+	AnimationData(M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId);
+	AnimationData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
 		Vec_SH<Animation> InitAnims);
 	~AnimationData();
 	void InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId);
