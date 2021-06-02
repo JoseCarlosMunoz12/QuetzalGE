@@ -1,7 +1,5 @@
 #pragma once
 #include "Animation.h"
-using M_S_M = std::map<std::string, glm::mat4>;
-using M_S_I = std::map<std::string, int>;
 class AnimationData
 {
 private:

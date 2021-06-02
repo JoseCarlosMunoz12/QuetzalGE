@@ -3,6 +3,10 @@
 #include <vector>
 #include <map>
 #include "../Render_Items/Vertex.h"
+
+using M_S_M = std::map<std::string, glm::mat4>;
+using M_S_I = std::map<std::string, int>;
+
 enum class InterType
 {
 	HOLD,

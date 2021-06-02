@@ -10,7 +10,7 @@ void Animation::UpdateSkels(S_P<Anim_Skels> Bone)
 
 void Animation::CalcMatrix(glm::mat4 Par,
 	std::vector<glm::mat4>& Collection,
-	S_P<Anim_Skels> Bone, std::map<std::string, glm::mat4> BnsOff, std::map<std::string, glm::mat4> TransMat, std::map<std::string, int> MatLoc)
+	S_P<Anim_Skels> Bone, M_S_M BnsOff, M_S_M TransMat, M_S_I MatLoc)
 {
 	glm::mat4 ParMatrix = Par;
 	std::string BoneName = Bone->GetName();
@@ -64,8 +64,8 @@ void Animation::updateTime(float dt)
 }
 
 void Animation::GetAllMatrix(std::vector<glm::mat4>& AllMats,
-	std::map<std::string, glm::mat4> BnOff, std::map<std::string, glm::mat4> TrnsMat,
-	std::map<std::string, int> MatLoc)
+	M_S_M BnOff, M_S_M TrnsMat,
+	M_S_I MatLoc)
 {
 	glm::mat4 wrld = glm::mat4(1.f);
 	this->CalcMatrix(wrld, AllMats, this->Skels, BnOff,TrnsMat, MatLoc);
