@@ -103,7 +103,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	M_S_M BonesTransMats;
 	M_S_I BoneLoc;
 	Vec_UP<A_Primitive> rt = rrs->GetPrimitives(inv, BonesOffsets, BonesTransMats, BoneLoc, Anims);
-	this->A_Manager->AddAnims(BonesOffsets, BonesTransMats, BoneLoc,Anims);//add an animation data set into the animation handler
+	this->A_Manager->AddAnims("Model_Running",BonesOffsets, BonesTransMats, BoneLoc, Anims);//add an animation data set into the animation handler
 	this->All_Anim_Meshes.push_back(std::make_shared<Anim_Mesh>(std::move(rt[0]), "Man_Walk"));
 	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f,0.f,5.f));//1)Make Model
 	AModel->AddMeshes(this->All_Anim_Meshes[0]);          //2)Add Meshes

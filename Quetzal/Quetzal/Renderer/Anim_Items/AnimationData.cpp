@@ -16,22 +16,25 @@ void AnimationData::InitBoneId(M_S_I InitBoneId)
 	this->BoneId = InitBoneId;
 }
 
-AnimationData::AnimationData()
+AnimationData::AnimationData(std::string InitName)
 	:AnimID(-1)
 {
+	this->SetName(InitName);
 }
 
-AnimationData::AnimationData(M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId)
+AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId)
 	:AnimID(-1)
 {
+	this->SetName(InitName);
 	this->InitOffsets(InitOffsets);
 	this->InitTransMat(TransMats);
 	this->InitBoneId(InitBoneId);
 }
 
-AnimationData::AnimationData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId, Vec_SH<Animation> InitAnims)
+AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId, Vec_SH<Animation> InitAnims)
 	:AnimID(0)
 {
+	this->SetName(InitName);
 	this->InitOffsets(InitOffsets);
 	this->InitTransMat(InitTransmats);
 	this->InitBoneId(InitBoneId);
@@ -68,6 +71,11 @@ void AnimationData::ChangeAnim(int AnimId)
 void AnimationData::Update(float dt)
 {
 	this->Anims[this->AnimID]->updateTime(dt);
+}
+
+void AnimationData::SetName(std::string NewName)
+{
+	this->Name = NewName;
 }
 
 std::vector<glm::mat4> AnimationData::GetMatrices()
