@@ -83,3 +83,11 @@ std::vector<glm::mat4> AnimationData::GetMatrices()
 	this->Anims[this->AnimID]->GetAllMatrix(this->AnimMats,this->Offsets, this->TransMats, this->BoneId);	
 	return this->AnimMats;
 }
+
+std::vector<std::string> AnimationData::GetAllAnims()
+{
+	std::vector<std::string> AllNames;
+	for (auto& jj : Anims)
+		AllNames.push_back(jj->GetName());
+	return AllNames;
+}

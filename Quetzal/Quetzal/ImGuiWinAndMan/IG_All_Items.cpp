@@ -183,6 +183,17 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         Vec_SH<Texture> Txt = Mdl->GetTextures();
         Vec_SH<Material> Mts = Mdl->GetMaterials();
         S_P<AnimationData> Anims = Mdl->GetAnimsInf();
+        S_P<Animation> CurAnim =Anims->GetCurrentAnim();
+        bool rt  = CurAnim->GetLoopId() == -1;
+        float A_Dt = CurAnim->GetCurTime();
+        if (ImGui::Checkbox("Manual",&rt))
+        {
+            if (rt)
+                CurAnim->SetLoopId(-1);
+            else
+                CurAnim->SetLoopId(0);
+        }
+        
         //display Data about the nodes
         this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
         ImGui::TreePop();

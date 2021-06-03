@@ -29,5 +29,7 @@ public:
 	void Update(float dt);
 	void SetName(std::string NewName);
 	std::vector<glm::mat4> GetMatrices();
-	std::string GetName() { return this->Name; }
+	std::vector<std::string> GetAllAnims();
+	S_P<Animation> GetCurrentAnim() { return this->Anims[AnimID]; }
+	std::string GetName()           { return this->Name; }
 };
