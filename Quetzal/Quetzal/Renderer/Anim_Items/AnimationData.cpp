@@ -78,6 +78,11 @@ void AnimationData::SetName(std::string NewName)
 	this->Name = NewName;
 }
 
+void AnimationData::SetAnimId(int NewID)
+{
+	this->AnimID = NewID;
+}
+
 std::vector<glm::mat4> AnimationData::GetMatrices()
 {
 	this->Anims[this->AnimID]->GetAllMatrix(this->AnimMats,this->Offsets, this->TransMats, this->BoneId);	

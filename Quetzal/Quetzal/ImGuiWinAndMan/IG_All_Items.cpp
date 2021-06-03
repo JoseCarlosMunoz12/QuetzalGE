@@ -198,10 +198,17 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
                 CurAnim->SetLoopId(0);
         }
         //display Animation data
+        //
         if (ImGui::TreeNode("All Animations Assign to the Model"))
         {
+            int count = 0;
+            int CurAnimId = Anims->GetAnimId();
             for (auto& jj : A_Names)
-                ImGui::Text(jj.c_str());
+            {
+                if (ImGui::Selectable(jj.c_str(), count == CurAnimId))
+                    Anims->SetAnimId(count);
+                count++;
+            }
             ImGui::TreePop();
         }
         //display Data about the nodes

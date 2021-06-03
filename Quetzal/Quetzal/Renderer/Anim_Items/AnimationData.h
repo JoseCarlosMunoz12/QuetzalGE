@@ -28,8 +28,10 @@ public:
 	void ChangeAnim(int AnimId);
 	void Update(float dt);
 	void SetName(std::string NewName);
+	void SetAnimId(int NewID);
 	std::vector<glm::mat4> GetMatrices();
 	std::vector<std::string> GetAllAnims();
 	S_P<Animation> GetCurrentAnim() { return this->Anims[AnimID]; }
 	std::string GetName()           { return this->Name; }
+	int GetAnimId()                 { return this->AnimID; }
 };
