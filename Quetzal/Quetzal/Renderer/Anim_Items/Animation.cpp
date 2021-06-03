@@ -49,15 +49,18 @@ void Animation::updateTime(float dt)
 	//updates the Time
 	switch (LoopId)
 	{
-	case 0:
+	case LoopID::LOOP:
 		this->CurTime += dt;
 		if (this->CurTime > this->TimeLength)
 			this->CurTime = this->TimeLength;
 		break;
-	case 1:
+	case LoopID::ONCE:
 		this->CurTime += dt;
 		if (this->CurTime > this->TimeLength)
 			this->CurTime = 0;
+		break;
+	case LoopID::MANUAL:
+
 	}
 	//update Skeletons with Time
 	this->UpdateSkels(this->Skels);

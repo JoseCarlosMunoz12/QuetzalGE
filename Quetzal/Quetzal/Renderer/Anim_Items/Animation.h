@@ -2,6 +2,12 @@
 
 #include "Anim_Skels.h"
 
+enum LoopID
+{
+	MANUAL = -1,
+	LOOP,
+	ONCE
+};
 class Animation
 {
 private:
@@ -10,6 +16,7 @@ private:
 	float TimeLength;
 	float CurTime;
 	glm::mat4 Inv;
+	//-1 Control Current Time from function instead of dt
 	// 0 loop to beginning
 	// 1 from start to end once
 	int LoopId;
@@ -22,7 +29,7 @@ public:
 	~Animation();
 	void updateTime(float dt);
 	void GetAllMatrix(std::vector<glm::mat4>& AllMats,
-		M_S_M BnOff, std::map < std::string,glm::mat4> TrnsMat, M_S_I MatLoc);
+		M_S_M BnOff, M_S_M TrnsMat, M_S_I MatLoc);
 	//Getters
 	float GetCurTime();
 	float GetTimeLength();
