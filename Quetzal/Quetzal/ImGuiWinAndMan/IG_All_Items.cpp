@@ -190,6 +190,7 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         bool rt = CurAnim->GetLoopId() == -1;
         //track the current time for current animation
         float A_Dt = CurAnim->GetCurTime();
+        float A_Lngth = CurAnim->GetTimeLength();
         if (ImGui::Checkbox("Manual", &rt))
         {
             if (rt)
@@ -198,7 +199,6 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
                 CurAnim->SetLoopId(0);
         }
         //display Animation data
-        //
         if (ImGui::TreeNode("All Animations Assign to the Model"))
         {
             int count = 0;
@@ -209,6 +209,12 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
                     Anims->SetAnimId(count);
                 count++;
             }
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("Animation Current Time Cycle"))
+        {
+            if (ImGui::SliderFloat("Time in Animation", &A_Dt, 0.f, A_Lngth) && rt)
+                CurAnim->SetCurTime(A_Dt);
             ImGui::TreePop();
         }
         //display Data about the nodes
