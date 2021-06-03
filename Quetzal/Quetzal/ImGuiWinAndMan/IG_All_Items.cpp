@@ -179,26 +179,35 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
 {
     if (ImGui::TreeNode(Mdl->GetName().c_str()))
     {
+        //Get basic Data From Anim Modle
         Vec_SH<Anim_Mesh> Mshs = Mdl->GetMeshes();
         Vec_SH<Texture> Txt = Mdl->GetTextures();
         Vec_SH<Material> Mts = Mdl->GetMaterials();
         S_P<AnimationData> Anims = Mdl->GetAnimsInf();
-        S_P<Animation> CurAnim =Anims->GetCurrentAnim();
-        bool rt  = CurAnim->GetLoopId() == -1;
+        S_P<Animation> CurAnim = Anims->GetCurrentAnim();
+        std::vector<std::string> A_Names = Anims->GetAllAnims();
+        //See if it is running or not
+        bool rt = CurAnim->GetLoopId() == -1;
+        //track the current time for current animation
         float A_Dt = CurAnim->GetCurTime();
-        if (ImGui::Checkbox("Manual",&rt))
+        if (ImGui::Checkbox("Manual", &rt))
         {
             if (rt)
                 CurAnim->SetLoopId(-1);
             else
                 CurAnim->SetLoopId(0);
         }
-        
+        //display Animation data
+        if (ImGui::TreeNode("All Animations Assign to the Model"))
+        {
+            for (auto& jj : A_Names)
+                ImGui::Text(jj.c_str());
+            ImGui::TreePop();
+        }
         //display Data about the nodes
         this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
         ImGui::TreePop();
     }
-
 }
 
 IG_All_Items::IG_All_Items(std::string Name)
@@ -216,9 +225,7 @@ void IG_All_Items::Update()
     if (show)
     {
         if (!Begin(this->WinName.c_str()))
-        {
             end();
-        }
         else
         {           
             ImGui::Text("All Items avaliable in the world");
