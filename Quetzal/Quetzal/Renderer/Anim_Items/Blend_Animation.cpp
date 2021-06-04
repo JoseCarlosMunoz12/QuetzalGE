@@ -36,3 +36,10 @@ void Blend_Animation::SetBlendRatios(float Ratio)
 	for (auto& jj : this->BlendRatios)
 		jj.second = Ratio;
 }
+
+glm::mat4 Blend_Animation::GetBlend(std::string BoneName, glm::mat4 AnimMat0, glm::mat4 Animmat1)
+{
+	float ratio = this->BlendRatios[BoneName];
+	glm::mat4 Mix = ratio * AnimMat0 + (1.f - ratio) * Animmat1;
+	return Mix;
+}

@@ -12,7 +12,9 @@ public:
 	Blend_Animation(std::string InitName, M_S_M BonesName, std::vector<std::string> InitAnimNames);
 	Blend_Animation(std::string InitName, M_S_F InitRatios, std::vector<std::string> InitAnimNames);
 	void SetAnimsToUse(std::vector<std::string> InitAnimNames);
-	M_S_F GetBlendRatios() { return this->BlendRatios; }
+	M_S_F GetBlendRatios()                    { return this->BlendRatios; }
+	std::vector<std::string> GetAnimsBlends() { return this->AnimNames; }
+	glm::mat4 GetBlend(std::string BoneName, glm::mat4 AnimMat0, glm::mat4 Animmat1);
 	void SetBlendRatio(std::string BoneName, float Ratios);
 	void SetBlendRatios(float Ratio);
 };
