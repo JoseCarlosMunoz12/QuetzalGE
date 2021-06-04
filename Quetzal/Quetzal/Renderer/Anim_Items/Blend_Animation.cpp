@@ -25,3 +25,14 @@ void Blend_Animation::SetAnimsToUse(std::vector<std::string> InitAnimNames)
 {
 	this->AnimNames = InitAnimNames;
 }
+
+void Blend_Animation::SetBlendRatio(std::string BoneName, float Ratios)
+{
+	this->BlendRatios[BoneName] = Ratios;
+}
+
+void Blend_Animation::SetBlendRatios(float Ratio)
+{
+	for (auto& jj : this->BlendRatios)
+		jj.second = Ratio;
+}
