@@ -1,5 +1,6 @@
 #pragma once
 #include "Animation.h"
+#include "Blend_Animation.h"
 class AnimationData
 {
 private:

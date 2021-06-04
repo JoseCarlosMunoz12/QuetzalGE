@@ -96,6 +96,9 @@
     <ClCompile Include="Renderer\AnimHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Anim_Items\Blend_Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -228,6 +231,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\AnimHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Anim_Items\Blend_Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
