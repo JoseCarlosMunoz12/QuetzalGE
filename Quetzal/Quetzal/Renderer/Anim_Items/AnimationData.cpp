@@ -17,13 +17,11 @@ void AnimationData::InitBoneId(M_S_I InitBoneId)
 }
 
 AnimationData::AnimationData(std::string InitName)
-	:AnimID(-1)
 {
 	this->SetName(InitName);
 }
 
 AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId)
-	:AnimID(-1)
 {
 	this->SetName(InitName);
 	this->InitOffsets(InitOffsets);
@@ -32,13 +30,13 @@ AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M Tran
 }
 
 AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId, Vec_SH<Animation> InitAnims)
-	:AnimID(0)
 {
 	this->SetName(InitName);
 	this->InitOffsets(InitOffsets);
 	this->InitTransMat(InitTransmats);
 	this->InitBoneId(InitBoneId);
-	this->Anims = InitAnims;
+	for (auto& jj : InitAnims)
+		this->Anims[jj->GetName()] = jj;
 }
 
 AnimationData::~AnimationData()
@@ -54,7 +52,7 @@ void AnimationData::InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I I
 
 void AnimationData::AddAnimation(S_P<Animation> NewAnim)
 {
-	this->Anims.push_back(NewAnim);
+	this->Anims[NewAnim->GetName()] = NewAnim;
 }
 
 void AnimationData::AddAnimations(Vec_SH<Animation> NewAnims)
@@ -63,14 +61,15 @@ void AnimationData::AddAnimations(Vec_SH<Animation> NewAnims)
 		this->AddAnimation(jj);
 }
 
-void AnimationData::ChangeAnim(int AnimId)
+void AnimationData::ChangeAnim(std::string NewAnimChoosen)
 {
-	this->AnimID = AnimId;
+	this->CurAnim = NewAnimChoosen;
 }
 
 void AnimationData::Update(float dt)
 {
-	this->Anims[this->AnimID]->updateTime(dt);
+	if (this->Anims.find(this->CurAnim) != this->Anims.end())
+		this->Anims[this->CurAnim]->updateTime(dt);
 }
 
 void AnimationData::SetName(std::string NewName)
@@ -78,14 +77,11 @@ void AnimationData::SetName(std::string NewName)
 	this->Name = NewName;
 }
 
-void AnimationData::SetAnimId(int NewID)
-{
-	this->AnimID = NewID;
-}
-
 std::vector<glm::mat4> AnimationData::GetMatrices()
 {
-	this->Anims[this->AnimID]->GetAllMatrix(this->AnimMats,this->Offsets, this->TransMats, this->BoneId);	
+	if(this->Anims.find(this->CurAnim) != this->Anims.end())
+		this->Anims[this->CurAnim]->GetAllMatrix(this->AnimMats,this->Offsets, this->TransMats, this->BoneId);
+
 	return this->AnimMats;
 }
 
@@ -93,6 +89,6 @@ std::vector<std::string> AnimationData::GetAllAnims()
 {
 	std::vector<std::string> AllNames;
 	for (auto& jj : Anims)
-		AllNames.push_back(jj->GetName());
+		AllNames.push_back(jj.first);
 	return AllNames;
 }
