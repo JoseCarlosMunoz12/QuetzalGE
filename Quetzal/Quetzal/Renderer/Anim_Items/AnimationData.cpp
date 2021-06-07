@@ -81,7 +81,7 @@ std::vector<glm::mat4> AnimationData::GetMatrices()
 {
 	if(this->Anims.find(this->CurAnim) != this->Anims.end())
 		this->Anims[this->CurAnim]->GetAllMatrix(this->AnimMats,this->Offsets, this->TransMats, this->BoneId);
-
+	
 	return this->AnimMats;
 }
 

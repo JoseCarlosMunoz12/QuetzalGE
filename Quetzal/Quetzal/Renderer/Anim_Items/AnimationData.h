@@ -12,10 +12,11 @@ private:
 	M_S_M TransMats;
 	M_S_I BoneId;
 	std::vector<glm::mat4> AnimMats;
-	std::vector<Blend_Animation> Blends;
+	std::vector<S_P<Blend_Animation>> Blends;
 	//Animation data and how it blends with each other
 	M_S_A Anims;
 	std::string CurAnim;
+	float dt;//adds how much time has passed, to be used in the Blend system
 	void InitOffsets(M_S_M InitOffsets);
 	void InitTransMat(M_S_M InitTransMat);
 	void InitBoneId(M_S_I InitBoneId);
@@ -36,5 +37,5 @@ public:
 	S_P<Animation> GetCurrentAnim() { return this->Anims[this->CurAnim]; }
 	std::string GetName()           { return this->Name; }
 	std::string GetAnimId()                 { return this->CurAnim; }
-	std::vector<Blend_Animation> GetBlends() { return this->Blends; }
+	std::vector<S_P<Blend_Animation>> GetBlends() { return this->Blends; }
 };

@@ -37,6 +37,10 @@ void Blend_Animation::SetBlendRatios(float Ratio)
 		jj.second = Ratio;
 }
 
+void Blend_Animation::UpdateAnimations(std::vector<glm::mat4> Mats, M_S_A Anims, float dt)
+{
+}
+
 glm::mat4 Blend_Animation::GetBlend(std::string BoneName, glm::mat4 AnimMat0, glm::mat4 Animmat1)
 {
 	float ratio = this->BlendRatios[BoneName];
