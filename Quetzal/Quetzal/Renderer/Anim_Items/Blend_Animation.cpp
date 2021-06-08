@@ -43,9 +43,18 @@ void Blend_Animation::SetBlendRatios(float Ratio)
 		jj.second = Ratio;
 }
 
-void Blend_Animation::UpdateAnimations(std::vector<glm::mat4> Mats, M_S_A Anims, float dt)
+void Blend_Animation::UpdateAnimations(std::vector<glm::mat4> Mats, M_S_A Anims,
+	M_S_M Offsett, M_S_M TransMats, M_S_I BoneId, float dt)
 {
-	
+	//Update time for animations
+	for (auto& jj : this->AnimNames)
+		Anims[jj]->updateTime(dt);
+	//Get the Updated Matrices
+	Anims[this->AnimNames[0]]->GetAllMatrix(this->MatsOfAnim0, Offsett, TransMats, BoneId);
+	Anims[this->AnimNames[0]]->GetAllMatrix(this->MatsOfAnim1, Offsett, TransMats, BoneId);
+	//Blend Matrices with corresponding Ratios
+	for (auto& jj : BoneId)
+		Mats[jj.second] = GetBlend(jj.first, this->MatsOfAnim0[jj.second], this->MatsOfAnim1[jj.second]);
 }
 
 glm::mat4 Blend_Animation::GetBlend(std::string BoneName, glm::mat4 AnimMat0, glm::mat4 Animmat1)
