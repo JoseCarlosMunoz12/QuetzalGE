@@ -8,6 +8,8 @@ private:
 	M_S_F BlendRatios;
 	std::string BlendName;
 	std::vector<std::string> AnimNames;
+	std::vector<glm::mat4> MatsOfAnim0;
+	std::vector<glm::mat4> MatsOfAnim1;
 	glm::mat4 GetBlend(std::string BoneName, glm::mat4 AnimMat0, glm::mat4 Animmat1);
 public:
 	Blend_Animation(std::string InitName, std::vector<std::string> InitAnimNames);

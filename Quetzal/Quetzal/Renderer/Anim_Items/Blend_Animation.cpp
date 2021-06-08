@@ -13,11 +13,17 @@ Blend_Animation::Blend_Animation(std::string InitName, M_S_M BonesName, std::vec
 	//Creates Base ratios to be edited
 	for (auto& jj : BonesName)
 		BlendRatios[jj.first] = 1.f;
+	//Init Size of the Mats to Adjust
+	this->MatsOfAnim0 = std::vector<glm::mat4>(BlendRatios.size());
+	this->MatsOfAnim1 = std::vector<glm::mat4>(BlendRatios.size());
 }
 
 Blend_Animation::Blend_Animation(std::string InitName, M_S_F InitRatios, std::vector<std::string> InitAnimNames)
 	:BlendName(InitName), BlendRatios(InitRatios)
 {
+	//Init Size of the Mats to Adjust
+	this->MatsOfAnim0 = std::vector<glm::mat4>(BlendRatios.size());
+	this->MatsOfAnim1 = std::vector<glm::mat4>(BlendRatios.size());
 	this->SetAnimsToUse(InitAnimNames);
 }
 
@@ -39,6 +45,7 @@ void Blend_Animation::SetBlendRatios(float Ratio)
 
 void Blend_Animation::UpdateAnimations(std::vector<glm::mat4> Mats, M_S_A Anims, float dt)
 {
+	
 }
 
 glm::mat4 Blend_Animation::GetBlend(std::string BoneName, glm::mat4 AnimMat0, glm::mat4 Animmat1)
