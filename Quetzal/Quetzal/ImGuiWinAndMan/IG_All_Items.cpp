@@ -184,31 +184,27 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         Vec_SH<Texture> Txt = Mdl->GetTextures();
         Vec_SH<Material> Mts = Mdl->GetMaterials();
         S_P<AnimationData> Anims = Mdl->GetAnimsInf();
+        M_S_B Blnds =  Anims->GetBlends();
         S_P<Animation> CurAnim = Anims->GetCurrentAnim();
         std::vector<std::string> A_Names = Anims->GetAllAnims();
+        std::vector<std::string> B_Names = Anims->GetAllBlends();
         //See if it is running or not
         bool rt = CurAnim->GetLoopId() == -1;
         //track the current time for current animation
         float A_Dt = CurAnim->GetCurTime();
         float A_Lngth = CurAnim->GetTimeLength();
         if (ImGui::Checkbox("Manual", &rt))
-        {
             if (rt)
                 CurAnim->SetLoopId(-1);
             else
                 CurAnim->SetLoopId(0);
-        }
         //display Animation data
         if (ImGui::TreeNode("All Animations Assign to the Model"))
         {
-            int count = 0;
-            int CurAnimId = Anims->GetAnimId();
+            std::string CurAnimId = Anims->GetAnimId();
             for (auto& jj : A_Names)
-            {
-                if (ImGui::Selectable(jj.c_str(), count == CurAnimId))
-                    Anims->SetAnimId(count);
-                count++;
-            }
+                if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
+                    Anims->ChangeAnim(jj);
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("Animation Current Time Cycle"))
@@ -216,6 +212,32 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
             if (ImGui::SliderFloat("Time in Animation", &A_Dt, 0.f, A_Lngth) && rt)
                 CurAnim->SetCurTime(A_Dt);
             ImGui::TreePop();
+        }
+        //Display Bledning Data and if it exist, display all ratios
+        ImGui::NewLine();ImGui::NewLine();
+        bool HasBlends = false;
+        if (ImGui::TreeNode("All Blending"))
+        {
+            std::string CurAnimId = Anims->GetAnimId();
+            for (auto& jj : B_Names)
+            {
+                if (jj == CurAnimId)
+                    HasBlends = true;
+                if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
+                    Anims->ChangeAnim(jj);
+            }
+            ImGui::TreePop();
+        }
+        if (HasBlends)
+        {
+            std::string CurAnimID = Anims->GetAnimId();
+            M_S_F Rts = Blnds[CurAnimID]->GetBlendRatios();
+            for (auto& jj : Rts)
+            {
+                float Rt = jj.second;
+                if (ImGui::SliderFloat(jj.first.c_str(), &Rt, 0, 1))
+                    Rts[jj.first] = Rt;
+            }
         }
         //display Data about the nodes
         this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
