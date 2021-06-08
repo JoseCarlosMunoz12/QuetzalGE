@@ -22,6 +22,6 @@ public:
 	std::vector<std::string> GetAnimsBlends() { return this->AnimNames; }
 	void SetBlendRatio(std::string BoneName, float Ratios);
 	void SetBlendRatios(float Ratio);
-	void UpdateAnimations(std::vector<glm::mat4> Mats, M_S_A Anims,
+	void UpdateAnimations(std::vector<glm::mat4>& Mats, M_S_A Anims,
 		M_S_M Offsett, M_S_M TransMats,	M_S_I BoneId, float dt);
 };

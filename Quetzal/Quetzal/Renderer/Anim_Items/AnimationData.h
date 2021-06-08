@@ -2,6 +2,7 @@
 #include "Animation.h"
 #include "Blend_Animation.h"
 using M_S_A = std::map<std::string, S_P<Animation>>;
+using M_S_B = std::map<std::string, S_P<Blend_Animation>>;
 class AnimationData
 {
 private:
@@ -12,7 +13,7 @@ private:
 	M_S_M TransMats;
 	M_S_I BoneId;
 	std::vector<glm::mat4> AnimMats;
-	std::vector<S_P<Blend_Animation>> Blends;
+	M_S_B Blends;
 	//Animation data and how it blends with each other
 	M_S_A Anims;
 	std::string CurAnim;
@@ -34,8 +35,9 @@ public:
 	void SetName(std::string NewName);
 	std::vector<glm::mat4> GetMatrices();
 	std::vector<std::string> GetAllAnims();
+	std::vector<std::string> GetAllBlends();
 	S_P<Animation> GetCurrentAnim() { return this->Anims[this->CurAnim]; }
 	std::string GetName()           { return this->Name; }
 	std::string GetAnimId()                 { return this->CurAnim; }
-	std::vector<S_P<Blend_Animation>> GetBlends() { return this->Blends; }
+	M_S_B GetBlends() { return this->Blends; }
 };

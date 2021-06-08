@@ -70,6 +70,7 @@ void AnimationData::Update(float dt)
 {
 	if (this->Anims.find(this->CurAnim) != this->Anims.end())
 		this->Anims[this->CurAnim]->updateTime(dt);
+	this->dt = dt;
 }
 
 void AnimationData::SetName(std::string NewName)
@@ -79,16 +80,26 @@ void AnimationData::SetName(std::string NewName)
 
 std::vector<glm::mat4> AnimationData::GetMatrices()
 {
-	if(this->Anims.find(this->CurAnim) != this->Anims.end())
-		this->Anims[this->CurAnim]->GetAllMatrix(this->AnimMats,this->Offsets, this->TransMats, this->BoneId);
-	
+	if (this->Anims.find(this->CurAnim) != this->Anims.end())
+		this->Anims[this->CurAnim]->GetAllMatrix(this->AnimMats, this->Offsets, this->TransMats, this->BoneId);
+	else if (this->Blends.find(this->CurAnim) != this->Blends.end())
+		this->Blends[this->CurAnim]->UpdateAnimations(this->AnimMats,this->Anims,
+			this->Offsets, this->TransMats, this->BoneId, this->dt);	
 	return this->AnimMats;
 }
 
 std::vector<std::string> AnimationData::GetAllAnims()
 {
 	std::vector<std::string> AllNames;
-	for (auto& jj : Anims)
+	for (auto& jj : this->Anims)
+		AllNames.push_back(jj.first);
+	return AllNames;
+}
+
+std::vector<std::string> AnimationData::GetAllBlends()
+{
+	std::vector<std::string> AllNames;
+	for (auto& jj : this->Blends)
 		AllNames.push_back(jj.first);
 	return AllNames;
 }

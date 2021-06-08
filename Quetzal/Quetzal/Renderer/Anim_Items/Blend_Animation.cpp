@@ -43,7 +43,7 @@ void Blend_Animation::SetBlendRatios(float Ratio)
 		jj.second = Ratio;
 }
 
-void Blend_Animation::UpdateAnimations(std::vector<glm::mat4> Mats, M_S_A Anims,
+void Blend_Animation::UpdateAnimations(std::vector<glm::mat4>& Mats, M_S_A Anims,
 	M_S_M Offsett, M_S_M TransMats, M_S_I BoneId, float dt)
 {
 	//Update time for animations
