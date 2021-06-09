@@ -4,6 +4,8 @@ Blend_Animation::Blend_Animation(std::string InitName, std::vector<std::string> 
 	:BlendName(InitName)
 {
 	this->SetAnimsToUse(InitAnimNames);
+	this->SetAnimStart0(0.f);
+	this->SetAnimStart1(0.f);
 }
 
 Blend_Animation::Blend_Animation(std::string InitName, M_S_M BonesName, std::vector<std::string> InitAnimNames)
@@ -16,6 +18,8 @@ Blend_Animation::Blend_Animation(std::string InitName, M_S_M BonesName, std::vec
 	//Init Size of the Mats to Adjust
 	this->MatsOfAnim0 = std::vector<glm::mat4>(BlendRatios.size());
 	this->MatsOfAnim1 = std::vector<glm::mat4>(BlendRatios.size());
+	this->SetAnimStart0(0.f);
+	this->SetAnimStart1(0.f);
 }
 
 Blend_Animation::Blend_Animation(std::string InitName, M_S_F InitRatios, std::vector<std::string> InitAnimNames)
@@ -25,6 +29,8 @@ Blend_Animation::Blend_Animation(std::string InitName, M_S_F InitRatios, std::ve
 	this->MatsOfAnim0 = std::vector<glm::mat4>(BlendRatios.size());
 	this->MatsOfAnim1 = std::vector<glm::mat4>(BlendRatios.size());
 	this->SetAnimsToUse(InitAnimNames);
+	this->SetAnimStart0(0.f);
+	this->SetAnimStart1(0.f);
 }
 
 void Blend_Animation::SetAnimsToUse(std::vector<std::string> InitAnimNames)
@@ -41,6 +47,16 @@ void Blend_Animation::SetBlendRatios(float Ratio)
 {
 	for (auto& jj : this->BlendRatios)
 		jj.second = Ratio;
+}
+
+void Blend_Animation::SetAnimStart0(float Start)
+{
+	this->Anim_Start0 = Start;
+}
+
+void Blend_Animation::SetAnimStart1(float Start)
+{
+	this->Anim_Start1 = Start;
 }
 
 void Blend_Animation::UpdateAnimations(std::vector<glm::mat4>& Mats, M_S_A Anims,

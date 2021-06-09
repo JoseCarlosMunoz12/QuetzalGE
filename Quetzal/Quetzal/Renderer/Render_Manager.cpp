@@ -79,16 +79,17 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//-------------------------Another Model being Rendered-------------------------
 	//------------------------------------------------------------------------------
 	S_P<Model> NewModel1 = std::make_shared<Model>("REsS", glm::vec3(0.f));//1) Make Model
-	NewModel1->AddMeshes(All_Meshes[1]);//2) AddMeshes
-	NewModel1->AddTextures(this->All_Texture[1]);//3) Add Textures
-	NewModel1->AddShaders(this->All_Shader[0]);//4) add Shaders
+	NewModel1->AddMeshes(All_Meshes[1]);          //2) AddMeshes
+	NewModel1->AddTextures(this->All_Texture[1]); //3) Add Textures
+	NewModel1->AddShaders(this->All_Shader[0]);   //4) add Shaders
 	S_P<Node> NewNode1 = std::make_shared<Node>();//5)Create Nodes to Item
-	NewNode1->AddTextureId(0);//6).a - Sets Textures used in the Node
-	NewNode1->SetMeshId(0);//6).b - Set Mesh Id for the Node
-	NewNode1->SetW_Mat(Inv);//6).c - set Rotation to upright the model
-	NewNode1->AddShaderId(0);//6).d - sets Shader to use
-	NewModel1->AddBaseNode(NewNode1);//7) add node tree
-	this->All_Models.push_back(NewModel1);//8) add model to render
+	NewNode1->AddTextureId(0);                    //6).a - Sets Textures used in the Node
+	NewNode1->SetMeshId(0);                       //6).b - Set Mesh Id for the Node
+	NewNode1->SetW_Mat(Inv);                      //6).c - set Rotation to upright the model
+	NewNode1->AddShaderId(0);                     //6).d - sets Shader to use
+	//NewNode1->AddChild(NewNode1);               //6).e - set child node, if it has any
+	NewModel1->AddBaseNode(NewNode1);             //7) add node tree
+	this->All_Models.push_back(NewModel1);        //8) add model to render
 	//-----------------------------------------------------------------------------
 	//------------------------Load Animated Model to Render------------------------
 	//-----------------------------------------------------------------------------
@@ -97,7 +98,6 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("Snek_Up.dae");
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("test.fbx");
 	glm::mat4 inv;
-
 	Vec_SH<Animation> Anims;
 	M_S_M BonesOffsets;
 	M_S_M BonesTransMats;
@@ -114,6 +114,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	A_Node->SetMeshId(0);                                 //6).b - Set Mesh Id for the Node
 	A_Node->SetW_Mat(inv);                                //6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);                               //6).d - sets Shader to use
+	//A_Node->AddChild(A_Node);                           //6)/e - set Child node, if there is any
 	AModel->AddBaseNode(A_Node);                          //7) Add Node Tree
 	AModel->SetAnimationData(this->A_Manager->GetAnim(0));//8)Add Animation From the Anim Handler
 	this->All_Anim_Models.push_back(AModel);              //9) add model to render
