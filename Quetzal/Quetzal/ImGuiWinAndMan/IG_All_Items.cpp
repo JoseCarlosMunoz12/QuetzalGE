@@ -179,10 +179,7 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
 {
     if (ImGui::TreeNode(Mdl->GetName().c_str()))
     {
-        //Get basic Data From Anim Modle
-        Vec_SH<Anim_Mesh> Mshs = Mdl->GetMeshes();
-        Vec_SH<Texture> Txt = Mdl->GetTextures();
-        Vec_SH<Material> Mts = Mdl->GetMaterials();
+        //Get basic Data From Anim Model
         S_P<AnimationData> Anims = Mdl->GetAnimsInf();
         M_S_B Blnds =  Anims->GetBlends();
         S_P<Animation> CurAnim = Anims->GetCurrentAnim();
@@ -194,24 +191,32 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         {
             if (A_Names.size() != 0)
             {   
+                bool AnimInUse = false;
                 for (auto& jj : A_Names)
-                    if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
-                        Anims->ChangeAnim(jj);   
-                //See if it is running or not
-                bool rt = CurAnim->GetLoopId() == -1;
-                //track the current time for current animation
-                float A_Dt = CurAnim->GetCurTime();
-                float A_Lngth = CurAnim->GetTimeLength();
-                if (ImGui::Checkbox("Manual", &rt))
-                    if (rt)
-                        CurAnim->SetLoopId(-1);
-                    else
-                        CurAnim->SetLoopId(0);
-                if (ImGui::TreeNode("Animation Current Time Cycle"))
                 {
-                    if (ImGui::SliderFloat("Time in Animation", &A_Dt, 0.f, A_Lngth) && rt)
-                        CurAnim->SetCurTime(A_Dt);
-                    ImGui::TreePop();
+                    if (!AnimInUse)
+                        AnimInUse = jj == CurAnimId;
+                    if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
+                        Anims->ChangeAnim(jj);
+                }
+                if (AnimInUse)
+                {
+                    //See if it is running or not
+                    bool rt = CurAnim->GetLoopId() == -1;
+                    //track the current time for current animation
+                    float A_Dt = CurAnim->GetCurTime();
+                    float A_Lngth = CurAnim->GetTimeLength();
+                    if (ImGui::Checkbox("Manual", &rt))
+                        if (rt)
+                            CurAnim->SetLoopId(-1);
+                        else
+                            CurAnim->SetLoopId(0);
+                    if (ImGui::TreeNode("Animation Current Time Cycle"))
+                    {
+                        if (ImGui::SliderFloat("Time in Animation", &A_Dt, 0.f, A_Lngth) && rt)
+                            CurAnim->SetCurTime(A_Dt);
+                        ImGui::TreePop();
+                    }
                 }
             }
             else
@@ -224,16 +229,24 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         {
             if (B_Names.size() != 0)
             {
+                bool BlendInUse = false;
                 for (auto& jj : B_Names)
+                {
+                    if (!BlendInUse)
+                        BlendInUse = jj == CurAnimId;
                     if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
                         Anims->ChangeAnim(jj);
-                std::string CurAnimID = Anims->GetAnimId();
-                M_S_F Rts = Blnds[CurAnimID]->GetBlendRatios();
-                for (auto& jj : Rts)
+                }
+                if (BlendInUse)
                 {
-                    float Rt = jj.second;
-                    if (ImGui::SliderFloat(jj.first.c_str(), &Rt, 0, 1))
-                        Rts[jj.first] = Rt;
+                    std::string CurAnimID = Anims->GetAnimId();
+                    M_S_F Rts = Blnds[CurAnimID]->GetBlendRatios();
+                    for (auto& jj : Rts)
+                    {
+                        float Rt = jj.second;
+                        if (ImGui::SliderFloat(jj.first.c_str(), &Rt, 0, 1))
+                            Rts[jj.first] = Rt;
+                    }
                 }
             }
             else
@@ -241,6 +254,9 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
             ImGui::TreePop();
         }
         //display Data about the nodes
+        Vec_SH<Anim_Mesh> Mshs = Mdl->GetMeshes();
+        Vec_SH<Texture> Txt = Mdl->GetTextures();
+        Vec_SH<Material> Mts = Mdl->GetMaterials();
         this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
         ImGui::TreePop();
     }
