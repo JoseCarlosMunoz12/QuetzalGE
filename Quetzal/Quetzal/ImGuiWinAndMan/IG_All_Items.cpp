@@ -201,6 +201,7 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         //display Animation data
         if (ImGui::TreeNode("All Animations Assign to the Model"))
         {
+
             std::string CurAnimId = Anims->GetAnimId();
             for (auto& jj : A_Names)
                 if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
@@ -215,29 +216,26 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         }
         //Display Bledning Data and if it exist, display all ratios
         ImGui::NewLine();ImGui::NewLine();
-        bool HasBlends = false;
         if (ImGui::TreeNode("All Blending"))
         {
-            std::string CurAnimId = Anims->GetAnimId();
-            for (auto& jj : B_Names)
+            if (B_Names.size() != 0)
             {
-                if (jj == CurAnimId)
-                    HasBlends = true;
-                if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
-                    Anims->ChangeAnim(jj);
+                std::string CurAnimId = Anims->GetAnimId();
+                for (auto& jj : B_Names)
+                    if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
+                        Anims->ChangeAnim(jj);
+                std::string CurAnimID = Anims->GetAnimId();
+                M_S_F Rts = Blnds[CurAnimID]->GetBlendRatios();
+                for (auto& jj : Rts)
+                {
+                    float Rt = jj.second;
+                    if (ImGui::SliderFloat(jj.first.c_str(), &Rt, 0, 1))
+                        Rts[jj.first] = Rt;
+                }
             }
+            else
+                ImGui::Text("Animation Model has no blending Animation");
             ImGui::TreePop();
-        }
-        if (HasBlends)
-        {
-            std::string CurAnimID = Anims->GetAnimId();
-            M_S_F Rts = Blnds[CurAnimID]->GetBlendRatios();
-            for (auto& jj : Rts)
-            {
-                float Rt = jj.second;
-                if (ImGui::SliderFloat(jj.first.c_str(), &Rt, 0, 1))
-                    Rts[jj.first] = Rt;
-            }
         }
         //display Data about the nodes
         this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
