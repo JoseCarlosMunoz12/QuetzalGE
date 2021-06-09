@@ -186,32 +186,36 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         S_P<AnimationData> Anims = Mdl->GetAnimsInf();
         M_S_B Blnds =  Anims->GetBlends();
         S_P<Animation> CurAnim = Anims->GetCurrentAnim();
-        std::vector<std::string> A_Names = Anims->GetAllAnims();
-        std::vector<std::string> B_Names = Anims->GetAllBlends();
-        //See if it is running or not
-        bool rt = CurAnim->GetLoopId() == -1;
-        //track the current time for current animation
-        float A_Dt = CurAnim->GetCurTime();
-        float A_Lngth = CurAnim->GetTimeLength();
-        if (ImGui::Checkbox("Manual", &rt))
-            if (rt)
-                CurAnim->SetLoopId(-1);
-            else
-                CurAnim->SetLoopId(0);
+        std::vector<std::string> A_Names = Anims->GetAllAnims();// all Animations
+        std::vector<std::string> B_Names = Anims->GetAllBlends();// all Blending creation
+        std::string CurAnimId = Anims->GetAnimId();// current animation or blending system
         //display Animation data
         if (ImGui::TreeNode("All Animations Assign to the Model"))
         {
-
-            std::string CurAnimId = Anims->GetAnimId();
-            for (auto& jj : A_Names)
-                if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
-                    Anims->ChangeAnim(jj);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("Animation Current Time Cycle"))
-        {
-            if (ImGui::SliderFloat("Time in Animation", &A_Dt, 0.f, A_Lngth) && rt)
-                CurAnim->SetCurTime(A_Dt);
+            if (A_Names.size() != 0)
+            {   
+                for (auto& jj : A_Names)
+                    if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
+                        Anims->ChangeAnim(jj);   
+                //See if it is running or not
+                bool rt = CurAnim->GetLoopId() == -1;
+                //track the current time for current animation
+                float A_Dt = CurAnim->GetCurTime();
+                float A_Lngth = CurAnim->GetTimeLength();
+                if (ImGui::Checkbox("Manual", &rt))
+                    if (rt)
+                        CurAnim->SetLoopId(-1);
+                    else
+                        CurAnim->SetLoopId(0);
+                if (ImGui::TreeNode("Animation Current Time Cycle"))
+                {
+                    if (ImGui::SliderFloat("Time in Animation", &A_Dt, 0.f, A_Lngth) && rt)
+                        CurAnim->SetCurTime(A_Dt);
+                    ImGui::TreePop();
+                }
+            }
+            else
+                ImGui::Text("Animation Model has no Animation");
             ImGui::TreePop();
         }
         //Display Bledning Data and if it exist, display all ratios
@@ -220,7 +224,6 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         {
             if (B_Names.size() != 0)
             {
-                std::string CurAnimId = Anims->GetAnimId();
                 for (auto& jj : B_Names)
                     if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
                         Anims->ChangeAnim(jj);
