@@ -70,11 +70,11 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	}
 	//load data to textures
 	S_P<Model> NewModel = std::make_shared<Model>("RES", glm::vec3(0.f));//1) Create the Model
-	NewModel->AddMeshes(All_Meshes[0]);//2) Load meshes into the Model used
+	NewModel->AddMeshes(All_Meshes[0]);         //2) Load meshes into the Model used
 	NewModel->AddTextures(this->All_Texture[0]);//3) Load Textures used
-	NewModel->AddShaders(this->All_Shader[0]);//4)Load shaders used
-	NewModel->AddBaseNode(NewNode);//5) Add nodes to load
-	this->All_Models.push_back(NewModel);//6)add to render system
+	NewModel->AddShaders(this->All_Shader[0]);  //4)Load shaders used
+	NewModel->AddBaseNode(NewNode);             //5) Add nodes to load
+	this->All_Models.push_back(NewModel);       //6)add to render system
 	//------------------------------------------------------------------------------
 	//-------------------------Another Model being Rendered-------------------------
 	//------------------------------------------------------------------------------
@@ -93,7 +93,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//-----------------------------------------------------------------------------
 	//------------------------Load Animated Model to Render------------------------
 	//-----------------------------------------------------------------------------
-	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");	 
+	S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("Man_Anims.dae");
+	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("model_Running.dae");	 
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("dancing_vampire.dae");
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("Snek_Up.dae");
 	//S_P<A_ASSIMP_LOAD> rrs = std::make_shared<A_ASSIMP_LOAD>("test.fbx");
