@@ -60,7 +60,7 @@ void Animation::updateTime(float dt)
 			this->CurTime = 0;
 		break;
 	case LoopID::MANUAL:
-
+		break;
 	}
 	//update Skeletons with Time
 	this->UpdateSkels(this->Skels);

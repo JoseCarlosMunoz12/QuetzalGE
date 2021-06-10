@@ -17,8 +17,10 @@ private:
 	glm::mat4 GetBlend(std::string BoneName, glm::mat4 AnimMat0, glm::mat4 Animmat1);
 public:
 	Blend_Animation(std::string InitName, std::vector<std::string> InitAnimNames);
-	Blend_Animation(std::string InitName, M_S_M BonesName, std::vector<std::string> InitAnimNames);
-	Blend_Animation(std::string InitName, M_S_F InitRatios, std::vector<std::string> InitAnimNames);
+	Blend_Animation(std::string InitName, M_S_M BonesName, std::vector<std::string> InitAnimNames,
+		float AnimStart0 = 0.f, float AnimStart1 = 0.f);
+	Blend_Animation(std::string InitName, M_S_F InitRatios, std::vector<std::string> InitAnimNames,
+		float AnimStart0 = 0.f, float AnimStart1 = 0.f);
 	void SetAnimsToUse(std::vector<std::string> InitAnimNames);
 	M_S_F GetBlendRatios()                    { return this->BlendRatios; }
 	std::vector<std::string> GetAnimsBlends() { return this->AnimNames; }
