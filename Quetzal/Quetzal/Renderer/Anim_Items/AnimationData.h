@@ -26,6 +26,8 @@ public:
 	AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId);
 	AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
 		Vec_SH<Animation> InitAnims);
+	AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
+		Vec_SH<Animation> InitAnims, std::string InitAnim);
 	~AnimationData();
 	void InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId);
 	void AddAnimation(S_P<Animation> NewAnim);

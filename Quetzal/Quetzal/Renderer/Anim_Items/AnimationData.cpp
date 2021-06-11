@@ -29,7 +29,8 @@ AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M Tran
 	this->InitBoneId(InitBoneId);
 }
 
-AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId, Vec_SH<Animation> InitAnims)
+AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
+	Vec_SH<Animation> InitAnims)
 {
 	this->SetName(InitName);
 	this->InitOffsets(InitOffsets);
@@ -37,6 +38,21 @@ AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M Init
 	this->InitBoneId(InitBoneId);
 	for (auto& jj : InitAnims)
 		this->Anims[jj->GetName()] = jj;
+	auto it = this->Anims.begin();
+	std::advance(it, rand() % this->AnimMats.size());
+	this->CurAnim = it->first;
+}
+
+AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
+	Vec_SH<Animation> InitAnims, std::string InitAnim)
+{
+	this->SetName(InitName);
+	this->InitOffsets(InitOffsets);
+	this->InitTransMat(InitTransmats);
+	this->InitBoneId(InitBoneId);
+	for (auto& jj : InitAnims)
+		this->Anims[jj->GetName()] = jj;
+	this->CurAnim = InitAnim;
 }
 
 AnimationData::~AnimationData()
