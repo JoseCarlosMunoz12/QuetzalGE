@@ -242,7 +242,10 @@ private:
 	{
 		//Init the animation and set the bast information
 		SetAnims->SetCurTime(0);
-		SetAnims->SetTimeLength(Anim->mDuration);
+		float TcksPerSec = Anim->mTicksPerSecond;
+		float NumTick = Anim->mDuration;
+		float TotalTime = NumTick / TcksPerSec;
+		SetAnims->SetTimeLength(TotalTime);
 		SetAnims->SetName(Anim->mName.C_Str());		
 		int NumChannels = Anim->mNumChannels;
 		Vec_SH<Anim_Skels> Bones;
@@ -259,6 +262,7 @@ private:
 				for (int jj = 0; jj < NumOfRot; jj++)
 				{
 					float F_Time = rs->mRotationKeys[jj].mTime;
+					F_Time = F_Time / NumTick * TotalTime;
 					glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[jj].mValue);
 					glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
 					glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
