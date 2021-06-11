@@ -95,7 +95,9 @@ public:
 			Mshs.push_back(std::make_unique<A_Primitive>());
 			Mshs[ii]->set(rs, Indices);
 		}
-		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);		
+		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
+		//create the Skel Node
+		this->SetTree(Bones);
 		int anims = scene->mNumAnimations;
 		for (int ii = 0; ii < anims; ii++)
 		{
@@ -244,8 +246,6 @@ private:
 		SetAnims->SetName(Anim->mName.C_Str());		
 		int NumChannels = Anim->mNumChannels;
 		Vec_SH<Anim_Skels> Bones;
-		//create the Skel Node
-		this->SetTree(Base_Bones);
 		Bones = Base_Bones;
 		//set frames, transmat and OffsetMatrix
 		for (int ii = 0; ii < NumChannels; ii++)
