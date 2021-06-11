@@ -103,7 +103,7 @@ public:
 		{
 			int Size = Animations.size();
 			Animations.push_back(std::make_shared<Animation>());
-			this->GetAnimations(scene->mAnimations[ii], scene, Animations[Size],Bones);
+			this->GetAnimations(scene->mAnimations[ii], Animations[Size],Bones);
 			Animations[Size]->SetInvMatrix(InitInv);
 		}
 		InitTransMat = TransMats;
@@ -238,7 +238,7 @@ private:
 		}
 	}
 	//Functions to load Animations
-	void GetAnimations(aiAnimation* Anim,const aiScene* scene, S_P<Animation>& SetAnims,Vec_SH<Anim_Skels>& Base_Bones)
+	void GetAnimations(aiAnimation* Anim, S_P<Animation>& SetAnims, Vec_SH<Anim_Skels> Base_Bones)
 	{
 		//Init the animation and set the bast information
 		SetAnims->SetCurTime(0);
@@ -249,7 +249,8 @@ private:
 		SetAnims->SetName(Anim->mName.C_Str());		
 		int NumChannels = Anim->mNumChannels;
 		Vec_SH<Anim_Skels> Bones;
-		Bones = Base_Bones;
+		//creates base Bones to add animation data
+		this->CopyValues(Bones, Base_Bones);
 		//set frames, transmat and OffsetMatrix
 		for (int ii = 0; ii < NumChannels; ii++)
 		{
@@ -271,13 +272,11 @@ private:
 				}
 				//add animation frames to the bones
 				for (auto& kk : Bones)
-				{
 					if (kk->GetName() == Bone_Name)
 					{
 						kk->SetFrames(Frms);
 						break;
 					}
-				}
 			}
 		}
 		while (Bones.size() != 1)
@@ -305,5 +304,30 @@ private:
 			if (Id > -1)
 				BaseBones[Id]->SetChild(jj);
 		}
+	}
+	void CopyValues(Vec_SH<Anim_Skels>& NewSkels, Vec_SH<Anim_Skels> BaseSkels)
+	{
+		glm::vec3 Offsets;
+		glm::quat Rot;
+		glm::vec3 Scale;
+		std::string BoneName;
+		glm::mat4 TransMat = glm::mat4(1.f);
+		for (auto& jj : BaseSkels)
+		{
+			//Copy basic Data
+			Offsets = jj->GetCurOffset();
+			Rot = jj->GetCurRot();
+			Scale = jj->GetCurScale();
+			BoneName = jj->GetName();
+			//Get Transmat
+			TransMat = glm::mat4(1.f);
+			TransMat = glm::translate(TransMat,Offsets);
+			TransMat = TransMat * glm::mat4_cast(Rot);
+			TransMat = glm::scale(TransMat, Scale);
+			//Create AnimSkel to use
+			NewSkels.push_back(std::make_shared<Anim_Skels>(BoneName, TransMat, Offsets, Rot, Scale));
+		}
+		//set Childrens
+		this->SetTree(NewSkels);
 	}
 };
