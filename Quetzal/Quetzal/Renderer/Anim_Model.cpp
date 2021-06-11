@@ -72,8 +72,6 @@ Anim_Model::~Anim_Model()
 
 void Anim_Model::Update(float dt)
 {
-	if (this->AnimData)
-		this->AnimData->Update(dt);
 	this->UpdateNodes(this->Roots);
 }
 

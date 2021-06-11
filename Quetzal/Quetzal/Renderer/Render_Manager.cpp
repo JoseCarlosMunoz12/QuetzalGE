@@ -15,7 +15,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 {
 	this->Fov = 90.f;
 	this->NearPlane = 0.1f;
-	this->FarPlane = 100.f;
+	this->FarPlane = 250.f;
 	//Init camera Position
 	this->Main_Cam = std::make_shared<Camera>(glm::vec3(-1.f, 1.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	//Init Animation Manager
@@ -115,6 +115,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	A_Node->SetMeshId(0);                                 //6).b - Set Mesh Id for the Node
 	A_Node->SetW_Mat(inv);                                //6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);                               //6).d - sets Shader to use
+	//glm::vec3 SCL = glm::vec3(0.01f);
+	//A_Node->SetScale(SCL);
 	//A_Node->AddChild(A_Node);                           //6)/e - set Child node, if there is any
 	AModel->AddBaseNode(A_Node);                          //7) Add Node Tree
 	AModel->SetAnimationData(this->A_Manager->GetAnim(0));//8)Add Animation From the Anim Handler
