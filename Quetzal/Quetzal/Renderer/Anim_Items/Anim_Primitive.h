@@ -97,7 +97,7 @@ public:
 		}
 		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);		
 		int anims = scene->mNumAnimations;
-		for (int ii = 0; ii < anims; ii++)
+		for (int ii = 0; ii < 1; ii++)
 		{
 			int Size = Animations.size();
 			Animations.push_back(std::make_shared<Animation>());

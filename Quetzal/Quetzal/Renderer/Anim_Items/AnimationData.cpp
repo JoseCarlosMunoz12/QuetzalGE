@@ -36,11 +36,16 @@ AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M Init
 	this->InitOffsets(InitOffsets);
 	this->InitTransMat(InitTransmats);
 	this->InitBoneId(InitBoneId);
+	int Count = 0;
 	for (auto& jj : InitAnims)
+	{
+		if (Count == 0)
+		{
+			this->CurAnim = jj->GetName();
+			Count++;
+		}
 		this->Anims[jj->GetName()] = jj;
-	auto it = this->Anims.begin();
-	std::advance(it, rand() % this->AnimMats.size());
-	this->CurAnim = it->first;
+	}
 }
 
 AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
