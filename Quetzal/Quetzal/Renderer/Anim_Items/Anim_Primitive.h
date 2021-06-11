@@ -96,6 +96,10 @@ public:
 			Mshs[ii]->set(rs, Indices);
 		}
 		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
+		glm::vec3 Scl;
+		glm::vec3 Offset;
+		glm::quat Rot;
+		Math::Decompose(InitInv, Offset, Rot, Scl);
 		//create the Skel Node
 		this->SetTree(Bones);
 		int anims = scene->mNumAnimations;
