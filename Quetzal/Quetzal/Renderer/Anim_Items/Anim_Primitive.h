@@ -96,10 +96,6 @@ public:
 			Mshs[ii]->set(rs, Indices);
 		}
 		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
-		glm::vec3 Scl;
-		glm::vec3 Offset;
-		glm::quat Rot;
-		Math::Decompose(InitInv, Offset, Rot, Scl);
 		//create the Skel Node
 		this->SetTree(Bones);
 		int anims = scene->mNumAnimations;
@@ -110,6 +106,12 @@ public:
 			this->GetAnimations(scene->mAnimations[ii], Animations[Size],Bones);
 			Animations[Size]->SetInvMatrix(InitInv);
 		}
+		
+		glm::mat4 tr = this->GetLocalMatrix(scene->mRootNode, Bones[0]->GetName());
+		glm::vec3 Scl;
+		glm::vec3 Offset;
+		glm::quat Rot;
+		Math::Decompose(tr, Offset, Rot, Scl);
 		InitTransMat = TransMats;
 		return Mshs;
 	}
@@ -333,5 +335,24 @@ private:
 		}
 		//set Childrens
 		this->SetTree(NewSkels);
+	}
+	glm::mat4 GetLocalMatrix(aiNode* AnimNode, std::string BoneName)
+	{
+		aiNode* Root = AnimNode->FindNode(BoneName.c_str());
+		aiNode* Par = Root->mParent;
+		glm::mat4 R = glm::mat4(1.f);
+		if (!Par)
+			return R;
+		R = this->aiMatToglmMat(Par->mTransformation);
+		return this->GetParMatrix(Par) * R;
+	}
+	glm::mat4 GetParMatrix(aiNode* CurNode)
+	{
+		aiNode* Par = CurNode->mParent;
+		glm::mat4 r = glm::mat4(1.f);
+		if (!Par)
+			return r;
+		r = this->aiMatToglmMat(Par->mTransformation);
+		return this->GetParMatrix(Par) * r;
 	}
 };
