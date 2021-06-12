@@ -30,6 +30,19 @@ glm::vec3 Math::Decompose_Scl(glm::mat4 Transform)
 
 glm::quat Math::Decompose_Rt(glm::mat4 Transform)
 {
+	glm::vec3 r = Decompose_Scl(Transform);
+	//Transform Column 1
+	Transform[0][0] = Transform[0][0] / r.x;
+	Transform[0][1] = Transform[0][1] / r.x;
+	Transform[0][2] = Transform[0][2] / r.x;
+	//Transform Column 2
+	Transform[1][0] = Transform[1][0] / r.y;
+	Transform[1][1] = Transform[1][1] / r.y;
+	Transform[1][2] = Transform[1][2] / r.y;
+	//Transform Column 3
+	Transform[2][0] = Transform[2][0] / r.z;
+	Transform[2][1] = Transform[2][1] / r.z;
+	Transform[2][2] = Transform[2][2] / r.z;
 	glm::vec3 Row[3];
 	for (int ii = 0; ii < 3; ii++)
 		for (int jj = 0; jj < 3; jj++)

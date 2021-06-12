@@ -95,7 +95,6 @@ public:
 			Mshs.push_back(std::make_unique<A_Primitive>());
 			Mshs[ii]->set(rs, Indices);
 		}
-		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
 		//create the Skel Node
 		this->SetTree(Bones);
 		int anims = scene->mNumAnimations;
@@ -112,6 +111,7 @@ public:
 		glm::vec3 Offset;
 		glm::quat Rot;
 		Math::Decompose(tr, Offset, Rot, Scl);
+		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
 		InitTransMat = TransMats;
 		return Mshs;
 	}
