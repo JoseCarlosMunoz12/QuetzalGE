@@ -913,7 +913,6 @@ public:
 			return Mshs;
 		}
 		int Amount_Mshs = scene->mNumMeshes;
-		this->GetChlds(scene->mRootNode,0);
 		std::vector<std::string> BonesOrder;
 		for (int ii = 0; ii < Amount_Mshs; ii++)
 		{
@@ -921,22 +920,35 @@ public:
 			Mshs[ii]->set(this->FinalVertex(scene->mMeshes[ii]), this->FinalGluint(scene->mMeshes[ii]));
 			this->GetBones(scene->mMeshes[ii],BonesOrder);
 		}
+		this->GetChlds(scene->mRootNode, 0, BonesOrder);
 		inv =  this->aiMatToglmMat(scene->mRootNode->mTransformation);
 		return Mshs;
 	}
 private:
-	void GetChlds(aiNode* Curnd, int Lvl)
+	void GetChlds(aiNode* Curnd, int Lvl, std::vector<std::string> bns)
 	{
-		std::cout << Lvl <<"-------\n";
-		std::cout << Curnd->mName.C_Str() << "\n";
-		for (int ii = 0; ii < Curnd->mNumChildren; ii++)
-			this->GetChlds(Curnd->mChildren[ii], Lvl +1);
+		std::string nm = Curnd->mName.C_Str();
+		if (std::find(bns.begin(), bns.end(), nm) == bns.end())
+		{
+			this->StdOutMatix(Curnd->mTransformation);
+			for (int ii = 0; ii < Curnd->mNumChildren; ii++)
+				this->GetChlds(Curnd->mChildren[ii], Lvl + 1, bns);
+		}
 	}
 	void GetBones(aiMesh* CurMsh, std::vector<std::string>& CurBns)
 	{
 		if (CurMsh->HasBones())
 			for (int ii = 0; ii < CurMsh->mNumBones; ii++)
 				CurBns.push_back(CurMsh->mBones[ii]->mName.C_Str());
+	}
+	void StdOutMatix(aiMatrix4x4 mt)
+	{
+		std::cout << "--\n";
+		std::cout << mt.a1 << " " << mt.a2 << " " << mt.a3 << " " << mt.a4 << " \n";
+		std::cout << mt.b1 << " " << mt.b2 << " " << mt.b3 << " " << mt.b4 << " \n";
+		std::cout << mt.c1 << " " << mt.c2 << " " << mt.c3 << " " << mt.c4 << " \n";
+		std::cout << mt.d1 << " " << mt.d2 << " " << mt.d3 << " " << mt.d4 << " \n";
+		std::cout << "--\n";
 	}
 };
 
