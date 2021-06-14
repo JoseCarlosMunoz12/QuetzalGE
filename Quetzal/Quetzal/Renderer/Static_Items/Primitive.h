@@ -913,16 +913,28 @@ public:
 			return Mshs;
 		}
 		int Amount_Mshs = scene->mNumMeshes;
+		this->GetChlds(scene->mRootNode);
+		std::vector<std::string> BonesOrder;
 		for (int ii = 0; ii < Amount_Mshs; ii++)
 		{
 			Mshs.push_back(std::make_unique<Primitive>());
 			Mshs[ii]->set(this->FinalVertex(scene->mMeshes[ii]), this->FinalGluint(scene->mMeshes[ii]));
-			int bnCount = scene->mMeshes[ii]->mNumBones;
-			std::cout << bnCount;
-			std::cout << "\n";
+			this->GetBones(scene->mMeshes[ii],BonesOrder);
 		}
 		inv =  this->aiMatToglmMat(scene->mRootNode->mTransformation);
 		return Mshs;
+	}
+private:
+	void GetChlds(aiNode* Curnd)
+	{
+		for (int ii = 0; ii < Curnd->mNumChildren; ii++)
+			this->GetChlds(Curnd->mChildren[ii]);
+	}
+	void GetBones(aiMesh* CurMsh, std::vector<std::string>& CurBns)
+	{
+		if (CurMsh->HasBones())
+			for (int ii = 0; ii < CurMsh->mNumBones; ii++)
+				CurBns.push_back(CurMsh->mBones[ii]->mName.C_Str());
 	}
 };
 
