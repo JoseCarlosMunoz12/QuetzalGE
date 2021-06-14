@@ -154,7 +154,7 @@ public:
 	//set orientation correct in opengl space
 	void SetW_Mat(glm::mat4 InitW)
 	{
-		this->Rot = Math::Decompose_Rt(InitW);
+		Math::Decompose(InitW, this->Offset, this->Rot, this->Scale);
 	}
 	//Mesh and Texture relatd Function
 	void AddTextureId(std::vector<int> NewIds) { this->TextureID.insert(this->TextureID.end(), NewIds.begin(), NewIds.end()); }

@@ -22,25 +22,15 @@ private:
 	std::vector<GLuint> indices;
 
 public:
-	A_Primitive()
-	{
-
-	}
-	virtual ~A_Primitive()
-	{
-
-	}
+	A_Primitive() {}
+	virtual ~A_Primitive() {}
 	void set(const AnimVertex* vertices, const unsigned nrofVertices,
 		const GLuint* indices, const unsigned nrOfIndices)
 	{
 		for (int i = 0; i < nrofVertices; i++)
-		{
 			this->vertices.push_back(vertices[i]);
-		}
 		for (int i = 0; i < nrOfIndices; i++)
-		{
 			this->indices.push_back(indices[i]);
-		}
 	}
 	void set(std::vector<AnimVertex> vertexFound, std::vector<GLuint> indicesFound)
 	{
@@ -49,10 +39,8 @@ public:
 	}
 	inline AnimVertex* getVertices() { return this->vertices.data(); }
 	inline GLuint* getIndices() { return this->indices.data(); }
-
 	inline const unsigned getNrOfVertices() { return this->vertices.size(); }
 	inline const unsigned getNrOfIndices() { return this->indices.size(); }
-
 };
 
 class A_ASSIMP_LOAD
@@ -61,8 +49,7 @@ public:
 	A_ASSIMP_LOAD(const char* FileLoc)
 	{
 		File = "Models/ModelCol/";
-		File += FileLoc;
-		
+		File += FileLoc;		
 	}
 	Vec_UP<A_Primitive> GetPrimitives(glm::mat4& InitInv,
 		std::map<std::string, glm::mat4>& BnInits, std::map<std::string,glm::mat4>& InitTransMat, std::map<std::string,int>& matLocs, Vec_SH<Animation>& Animations)
@@ -87,6 +74,7 @@ public:
 		int Par = 0;
 		this->FindChilds(scene->mRootNode, Par, Count);
 		//create correct id and Create the root nodes
+		//And load meshes into the primitives
 		for (int ii = 0; ii < msh_num; ii++)
 		{
 			std::vector<AnimVertex> rs = this->FinalVertex(scene->mMeshes[ii]);
@@ -104,14 +92,8 @@ public:
 			Animations.push_back(std::make_shared<Animation>());
 			this->GetAnimations(scene->mAnimations[ii], Animations[Size],Bones);
 			Animations[Size]->SetInvMatrix(InitInv);
-		}
-		
-		glm::mat4 tr = this->GetLocalMatrix(scene->mRootNode, Bones[0]->GetName());
-		glm::vec3 Scl;
-		glm::vec3 Offset;
-		glm::quat Rot;
-		Math::Decompose(tr, Offset, Rot, Scl);
-		InitInv = this->aiMatToglmMat(scene->mRootNode->mTransformation);
+		}		
+		InitInv = this->GetLocalMatrix(scene->mRootNode, Bones[0]->GetName());
 		InitTransMat = TransMats;
 		return Mshs;
 	}
