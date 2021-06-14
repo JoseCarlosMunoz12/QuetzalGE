@@ -913,7 +913,7 @@ public:
 			return Mshs;
 		}
 		int Amount_Mshs = scene->mNumMeshes;
-		this->GetChlds(scene->mRootNode);
+		this->GetChlds(scene->mRootNode,0);
 		std::vector<std::string> BonesOrder;
 		for (int ii = 0; ii < Amount_Mshs; ii++)
 		{
@@ -925,10 +925,12 @@ public:
 		return Mshs;
 	}
 private:
-	void GetChlds(aiNode* Curnd)
+	void GetChlds(aiNode* Curnd, int Lvl)
 	{
+		std::cout << Lvl <<"-------\n";
+		std::cout << Curnd->mName.C_Str() << "\n";
 		for (int ii = 0; ii < Curnd->mNumChildren; ii++)
-			this->GetChlds(Curnd->mChildren[ii]);
+			this->GetChlds(Curnd->mChildren[ii], Lvl +1);
 	}
 	void GetBones(aiMesh* CurMsh, std::vector<std::string>& CurBns)
 	{
