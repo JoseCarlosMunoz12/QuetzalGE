@@ -28,7 +28,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//load some Textures to use
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/pusheen.png", GL_TEXTURE_2D, GL_RGBA));
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/diffuse.png", GL_TEXTURE_2D, GL_RGBA));
-	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/Vampire_diffuse.png", GL_TEXTURE_2D, GL_RGBA));
+	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/Linux_Txt.png", GL_TEXTURE_2D, GL_RGBA));
 	//loads defaults Shaders
 	this->Main_Shader = std::make_shared<Shader>(ShaderType::STATIC, this->GLVerMajor, this->GLVerMinor,"vertex_core.glsl", "fragment_core.glsl");
 	this->All_Shader.push_back(this->Main_Shader);
@@ -57,7 +57,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//--------------------------------------------------------------------------------------------------------------------------//
 	
 	//-load meshes to the item
-	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("model_Running.dae");
+   std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("Model_Running.dae");
+	//std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("Linux Penguin.dae");
 	S_P<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	glm::mat4 Inv;
@@ -71,7 +72,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//load data to textures
 	S_P<Model> NewModel = std::make_shared<Model>("RES", glm::vec3(0.f));//1) Create the Model
 	NewModel->AddMeshes(All_Meshes[0]);         //2) Load meshes into the Model used
-	NewModel->AddTextures(this->All_Texture[0]);//3) Load Textures used
+	NewModel->AddTextures(this->All_Texture[2]);//3) Load Textures used
 	NewModel->AddShaders(this->All_Shader[0]);  //4)Load shaders used
 	NewModel->AddBaseNode(NewNode);             //5) Add nodes to load
 	this->All_Models.push_back(NewModel);       //6)add to render system
@@ -116,9 +117,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	A_Node->SetMeshId(0);                                 //6).b - Set Mesh Id for the Node
 	A_Node->SetW_Mat(inv);                                //6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);                               //6).d - sets Shader to use
-	//glm::vec3 SCL = glm::vec3(0.01f);
-	//A_Node->SetScale(SCL);
-	//A_Node->AddChild(A_Node);                           //6)/e - set Child node, if there is any
+	//A_Node->AddChild(A_Node);                           //6).e - set Child node, if there is any
+	//                                                    //6).f - repeat a to e if there is more nodes to do
 	AModel->AddBaseNode(A_Node);                          //7) Add Node Tree
 	AModel->SetAnimationData(this->A_Manager->GetAnim(0));//8)Add Animation From the Anim Handler
 	this->All_Anim_Models.push_back(AModel);              //9) add model to render

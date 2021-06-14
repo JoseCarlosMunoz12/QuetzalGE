@@ -93,7 +93,7 @@ private:
 public:
 	Node()
 		:Position(glm::vec3(0.f)),Offset(glm::vec3(0.f)), Scale(glm::vec3(1.f)),
-		Matrix(glm::mat4(1.f))
+		Matrix(glm::mat4(1.f)),ShaderId(-1)
 	{
 		Quat Rs;
 		Rot = Rs.GetQuat();
@@ -104,7 +104,7 @@ public:
 		glm::vec3 InitScale, glm::quat InitRot, int InitMeshId, int InitMatId)
 		:Position(InitPos), Offset(InitOffset),
 		Scale(InitScale),Rot(InitRot), Matrix(glm::mat4(1.f)),
-		MeshId(InitMeshId), MatId(InitMatId)
+		MeshId(InitMeshId), MatId(InitMatId), ShaderId(-1)
 	{
 		this->TextureID = {};
 
@@ -151,7 +151,7 @@ public:
 	void SetOffset(glm::vec3 NewOffset) { this->Offset = NewOffset; }
 	void SetScale(glm::vec3 NewScale)   { this->Scale = NewScale; }
 	void SetRot(glm::quat NewRot)       { this->Rot = NewRot; }
-	//set orientation correct in opengl space
+	//set Matrices in correct in opengl space
 	void SetW_Mat(glm::mat4 InitW)
 	{
 		Math::Decompose(InitW, this->Offset, this->Rot, this->Scale);

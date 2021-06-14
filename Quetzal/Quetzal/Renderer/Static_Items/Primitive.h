@@ -917,6 +917,9 @@ public:
 		{
 			Mshs.push_back(std::make_unique<Primitive>());
 			Mshs[ii]->set(this->FinalVertex(scene->mMeshes[ii]), this->FinalGluint(scene->mMeshes[ii]));
+			int bnCount = scene->mMeshes[ii]->mNumBones;
+			std::cout << bnCount;
+			std::cout << "\n";
 		}
 		inv =  this->aiMatToglmMat(scene->mRootNode->mTransformation);
 		return Mshs;
