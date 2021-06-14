@@ -10,6 +10,7 @@ namespace Math
 	glm::vec3 Decompose_Trns(glm::mat4 Transform);
 	glm::vec3 Decompose_Scl(glm::mat4 Transform);
 	glm::quat Decompose_Rt(glm::mat4 Transform);
+	glm::quat Decompose_Rt(glm::mat4 Transform, glm::vec3 InitScale);
 	//Eulor to Quaternions and Vice versa
 	glm::vec3 Quat_To_Eulor(glm::quat Quat);
 	glm::quat Eulor_To_Quat(glm::vec3 Eulor);

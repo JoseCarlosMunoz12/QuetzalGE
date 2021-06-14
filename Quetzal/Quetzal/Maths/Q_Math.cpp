@@ -7,7 +7,7 @@ void Math::Decompose(glm::mat4 Transform, glm::vec3& Translation, glm::quat& Rot
 	//Getting Scale
 	Scale = Decompose_Scl(Transform);
 	//Get Rotation
-	Rotation = Decompose_Rt(Transform);
+	Rotation = Decompose_Rt(Transform, Scale);
 }
 
 glm::vec3 Math::Decompose_Trns(glm::mat4 Transform)
@@ -43,6 +43,58 @@ glm::quat Math::Decompose_Rt(glm::mat4 Transform)
 	Transform[2][0] = Transform[2][0] / r.z;
 	Transform[2][1] = Transform[2][1] / r.z;
 	Transform[2][2] = Transform[2][2] / r.z;
+	glm::vec3 Row[3];
+	for (int ii = 0; ii < 3; ii++)
+		for (int jj = 0; jj < 3; jj++)
+			Row[ii][jj] = Transform[ii][jj];
+	//Get Rotation
+	int i = 0, j = 0, k = 0;
+	float root = 0;
+	float trace = Row[0].x + Row[1].y + Row[2].z;
+	glm::quat Orientation;
+	if (trace > 0)
+	{
+		root = glm::sqrt(trace + 1.f);
+		Orientation.w = .5f * root;
+		root = .5f / root;
+		Orientation.x = root * (Row[1].z - Row[2].y);
+		Orientation.y = root * (Row[2].x - Row[0].z);
+		Orientation.z = root * (Row[0].y - Row[1].x);
+	}
+	else
+	{
+		static int Next[3] = { 1,2,0 };
+		i = 0;
+		if (Row[1].y > Row[0].x) i = 1;
+		if (Row[2].z > Row[i][i]) i = 2;
+		j = Next[i];
+		k = Next[j];
+
+		root = glm::sqrt(Row[i][i] - Row[k][k]);
+
+		Orientation[i] = .5f * root;
+		root = .5f / root;
+		Orientation[j] = root * (Row[i][j] + Row[j][i]);
+		Orientation[k] = root * (Row[i][k] + Row[k][i]);
+		Orientation.w = root * (Row[j][k] + Row[k][j]);
+	}
+	return Orientation;
+}
+
+glm::quat Math::Decompose_Rt(glm::mat4 Transform, glm::vec3 InitScale)
+{
+	//Transform Column 1
+	Transform[0][0] = Transform[0][0] / InitScale.x;
+	Transform[0][1] = Transform[0][1] / InitScale.x;
+	Transform[0][2] = Transform[0][2] / InitScale.x;
+	//Transform Column 2				
+	Transform[1][0] = Transform[1][0] / InitScale.y;
+	Transform[1][1] = Transform[1][1] / InitScale.y;
+	Transform[1][2] = Transform[1][2] / InitScale.y;
+	//Transform Column 3				
+	Transform[2][0] = Transform[2][0] / InitScale.z;
+	Transform[2][1] = Transform[2][1] / InitScale.z;
+	Transform[2][2] = Transform[2][2] / InitScale.z;
 	glm::vec3 Row[3];
 	for (int ii = 0; ii < 3; ii++)
 		for (int jj = 0; jj < 3; jj++)
