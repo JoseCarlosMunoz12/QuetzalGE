@@ -12,6 +12,7 @@ Vec_UP<Primitive> Mdl_Ldr::CreateStatic(const aiScene* Scene)
 		Mshs.push_back(std::make_unique<Primitive>());
 		Mshs[ii]->set(this->FinalVertex(Scene->mMeshes[ii]), this->FinalGluint(Scene->mMeshes[ii]));
 	}
+
 	return Mshs;
 }
 
@@ -45,6 +46,7 @@ void Mdl_Ldr::LoadFile(std::string FileName)
 			IsDynamic = true;
 			break;
 		}
+	//Creates anim or static model to be used
 	if (!IsDynamic)
 		this->CreateStatic(scene);
 	else
