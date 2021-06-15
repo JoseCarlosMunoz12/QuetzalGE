@@ -15,7 +15,7 @@ Vec_UP<Primitive> Mdl_Ldr::CreateStatic(const aiScene* Scene)
 	return Mshs;
 }
 
-Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic()
+Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene)
 {
 	return Vec_UP<A_Primitive>();
 }
@@ -48,5 +48,5 @@ void Mdl_Ldr::LoadFile(std::string FileName)
 	if (!IsDynamic)
 		this->CreateStatic(scene);
 	else
-		this->CreateDynamic();
+		this->CreateDynamic(scene);
 }
