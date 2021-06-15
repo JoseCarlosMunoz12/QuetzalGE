@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Renderer\Mdl_Ldr\Mdl_Ldr.cpp" />
     <ClCompile Include="Renderer\Anim_Items\Blend_Animation.cpp" />
     <ClCompile Include="Renderer\AnimHandler.cpp" />
     <ClCompile Include="Renderer\Anim_Items\AnimationData.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Renderer\Render_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Renderer\Mdl_Ldr\Mdl_Ldr.h" />
     <ClInclude Include="Renderer\Anim_Items\Blend_Animation.h" />
     <ClInclude Include="Renderer\AnimHandler.h" />
     <ClInclude Include="Renderer\Anim_Items\AnimationData.h" />

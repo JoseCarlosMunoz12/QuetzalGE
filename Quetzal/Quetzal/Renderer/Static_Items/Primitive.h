@@ -914,13 +914,15 @@ public:
 		}
 		int Amount_Mshs = scene->mNumMeshes;
 		std::vector<std::string> BonesOrder;
+		std::vector<std::string> MshNames;
 		for (int ii = 0; ii < Amount_Mshs; ii++)
 		{
+			MshNames.push_back(scene->mMeshes[ii]->mName.C_Str());
 			Mshs.push_back(std::make_unique<Primitive>());
 			Mshs[ii]->set(this->FinalVertex(scene->mMeshes[ii]), this->FinalGluint(scene->mMeshes[ii]));
 			this->GetBones(scene->mMeshes[ii],BonesOrder);
 		}
-		this->GetChlds(scene->mRootNode, 0, BonesOrder);
+		this->GetChlds(scene->mRootNode, 0,MshNames);
 		inv =  this->aiMatToglmMat(scene->mRootNode->mTransformation);
 		return Mshs;
 	}
@@ -928,8 +930,18 @@ private:
 	void GetChlds(aiNode* Curnd, int Lvl, std::vector<std::string> bns)
 	{
 		std::string nm = Curnd->mName.C_Str();
-		std::cout << nm << " -- "<< Lvl << "\n";
-		this->StdOutMatix(Curnd->mTransformation);
+		int rd = Curnd->mNumMeshes;
+		if (rd != 0)
+		{
+			std::cout << nm << " -- " << Lvl << " num mshs " << rd << "\n";
+			std::cout << "Meshes are\n";
+			for (int jj = 0; jj < rd; jj++)
+			{
+				int sd = Curnd->mMeshes[jj];
+				std::cout << bns[sd] << "\n";
+			}
+			this->StdOutMatix(Curnd->mTransformation);
+		}
 		for (int ii = 0; ii < Curnd->mNumChildren; ii++)
 			this->GetChlds(Curnd->mChildren[ii], Lvl + 1, bns);
 	}
