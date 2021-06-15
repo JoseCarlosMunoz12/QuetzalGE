@@ -20,7 +20,6 @@ private:
 	GLuint VBO;
 	GLuint EBO;
 	std::string NameOfMesh;
-	glm::mat4 Inv = glm::mat4(1.f);
 	void InitVAO()
 	{
 
@@ -160,12 +159,5 @@ public:
 	{
 		return this->NameOfMesh.c_str();
 	}
-	void SetInv(glm::mat4 InitInv)
-	{
-		Inv = InitInv;
-	}
-	glm::mat4 GetInv()
-	{
-		return this->Inv;
-	}
+
 };

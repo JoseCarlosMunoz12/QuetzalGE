@@ -1,5 +1,14 @@
 #include "Model.h"
 
+void Model::UpdateMatrix()
+{
+	this->ModMatrix = glm::mat4(1.f);
+	this->ModMatrix = glm::translate(this->ModMatrix, this->Position);
+	glm::mat4 Temps = glm::mat4_cast(this->Rot);
+	this->ModMatrix *= Temps;
+	this->ModMatrix = glm::scale(this->ModMatrix, this->Scale);
+}
+
 void Model::UpdateMatrices(std::shared_ptr<Node> chld)
 {
 	Vec_SH<Node> Chlds = chld->GetChildren();
@@ -42,30 +51,37 @@ Model::Model(std::string NewName)
 {
 	Quat rs;
 	this->Rot = rs.GetQuat();
+	this->UpdateMatrix();
 	this->Name = NewName;
 }
 
-Model::Model(std::string NewName,glm::vec3 InitPos)
+Model::Model(std::string NewName, glm::vec3 InitPos)
+	:Scale(glm::vec3(1.f))
 {
 	this->Name = NewName;
 	this->Position = InitPos;
+	Quat rs;
+	this->Rot = rs.GetQuat();
+	this->UpdateMatrix();
 }
 
 Model::Model(std::string NewName,glm::vec3 InitPos,
 	std::vector<std::shared_ptr<Mesh>> Meshes, std::vector<std::shared_ptr<Texture>> Textures, std::vector<std::shared_ptr<Material>> Materials)
+	:Scale(glm::vec3(1.f))
 {
 	this->Name = NewName;
 	this->Position = InitPos;
 	this->Meshes_Inf = Meshes;
 	this->Textures_Inf = Textures;
 	this->Materials_Inf = Materials;
+	Quat rs;
+	this->Rot = rs.GetQuat();
+	this->UpdateMatrix();
 }
 
-void Model::SetPos(glm::vec3 NewPos)
+void Model::SetWMat(glm::mat4 Inv)
 {
-	this->Position = NewPos;
-	if (Nodes_Inf)
-		Nodes_Inf->SetPos(NewPos);
+	Math::Decompose(Inv, this->Position, this->Rot, this->Scale);
 }
 
 void Model::AddMeshes(S_P<Mesh> NewMesh)
@@ -83,10 +99,9 @@ void Model::AddMaterials(S_P<Material> NewMaterial)
 	this->Materials_Inf.push_back(NewMaterial);
 }
 
-void Model::AddBaseNode(S_P<Node> NewNode)
+void Model::AddNode(S_P<Node> NewNode)
 {
-	this->Nodes_Inf = NewNode;
-	this->Nodes_Inf->SetPos(this->Position);
+	this->LclNodes.push_back(NewNode);
 }
 
 void Model::AddShaders(S_P<Shader> NewShader)
@@ -96,14 +111,15 @@ void Model::AddShaders(S_P<Shader> NewShader)
 
 void Model::Render()
 {
-	glm::mat4 Par = glm::mat4(1.f);
-	if (this->Nodes_Inf)
-		this->RenderNodes( Par, this->Nodes_Inf);
+	for (auto& jj : this->LclNodes)
+		this->RenderNodes(this->ModMatrix, jj);
 }
 
 void Model::Update()
 {
-	this->UpdateMatrices(this->Nodes_Inf);
+	this->UpdateMatrix();
+	for (auto& jj : this->LclNodes)
+		this->UpdateMatrices(jj);
 }
 
 void Model::UpdateUniforms()

@@ -3,7 +3,7 @@
 #include "Anim_Model.h"
 #include "AnimHandler.h"
 #include "Camera.h"
-enum class TEXTUREBASE
+enum TEXTUREBASE
 {
 	//Position 0 and 1 are used to hold error Texture if there is some missing
 	ZEDLOC = 2

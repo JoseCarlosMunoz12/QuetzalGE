@@ -20,11 +20,13 @@ private:
 	glm::vec3 Position;
 	glm::quat Rot;
 	glm::vec3 Scale;
+	glm::mat4 ModMatrix;
 	//Model Name
 	std::string Name;
 	//Holds Physics, Collision information of the Model
 	 
 	//Render and Update Recursively
+	void UpdateMatrix();
 	void UpdateMatrices(std::shared_ptr<Node> chld);
 	void RenderNodes(glm::mat4 ParMatrix, std::shared_ptr<Node> chld);
 	//----------------------------------
@@ -35,20 +37,25 @@ public:
 		std::vector<std::shared_ptr<Mesh>> Meshes, std::vector<std::shared_ptr<Texture>> Textures, std::vector<std::shared_ptr<Material>> Materials);
 	~Model() {}
 	//Setters
-	void SetPos(glm::vec3 NewPos);
+	void SetPos(glm::vec3 NewPos)     { this->Position = NewPos; };
+	void SetRot(glm::quat NewRot)     { this->Rot = NewRot; }
+	void SetScale(glm::vec3 NewScale) { this->Scale = NewScale; }
+	void SetWMat(glm::mat4 Inv);
 	//Getters
 	glm::vec3 GetPos()              { return this->Position; }
+	glm::quat GetRot()              { return this->Rot; }
+	glm::vec3 GetScale()            { return this->Scale; }
 	std::string GetName()           { return this->Name; }
 	Vec_SH<Mesh> GetMeshes()        { return this->Meshes_Inf; }
 	Vec_SH<Texture> GetTextures()   { return this->Textures_Inf; }
 	Vec_SH<Material> GetMaterials() { return this->Materials_Inf; }
-	S_P<Node> GetNodes()            { return this->Nodes_Inf; }
+	Vec_SH<Node> GetNodes()         { return this->LclNodes; }
 	Vec_SH<Shader> GetShaders()     { return this->Shader_Inf; }
 	//Add Items
 	void AddMeshes(S_P<Mesh> NewMesh);
 	void AddTextures(S_P<Texture> NewTexture);
 	void AddMaterials(S_P<Material> NewMaterial);
-	void AddBaseNode(S_P<Node> NewNode);
+	void AddNode(S_P<Node> NewNode);
 	void AddShaders(S_P<Shader> NewShader);
 	//Render Model
 	void Render();
