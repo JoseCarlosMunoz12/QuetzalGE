@@ -928,12 +928,10 @@ private:
 	void GetChlds(aiNode* Curnd, int Lvl, std::vector<std::string> bns)
 	{
 		std::string nm = Curnd->mName.C_Str();
-		if (std::find(bns.begin(), bns.end(), nm) == bns.end())
-		{
-			this->StdOutMatix(Curnd->mTransformation);
-			for (int ii = 0; ii < Curnd->mNumChildren; ii++)
-				this->GetChlds(Curnd->mChildren[ii], Lvl + 1, bns);
-		}
+		std::cout << nm << " -- "<< Lvl << "\n";
+		this->StdOutMatix(Curnd->mTransformation);
+		for (int ii = 0; ii < Curnd->mNumChildren; ii++)
+			this->GetChlds(Curnd->mChildren[ii], Lvl + 1, bns);
 	}
 	void GetBones(aiMesh* CurMsh, std::vector<std::string>& CurBns)
 	{
