@@ -756,6 +756,8 @@ public:
 class ASSIMPLOAD_M
 {
 private:
+	std::string File;
+protected:
 	glm::mat4 aiMatToglmMat(aiMatrix4x4 aiVal)
 	{
 		glm::mat4 glmVal = glm::mat4(aiVal.a1, aiVal.b1, aiVal.c1, aiVal.d1,
@@ -801,7 +803,6 @@ private:
 		}
 		return TempInd;
 	}
-	std::string File;
 public:
 	ASSIMPLOAD_M(const char* FileLoc)
 	{

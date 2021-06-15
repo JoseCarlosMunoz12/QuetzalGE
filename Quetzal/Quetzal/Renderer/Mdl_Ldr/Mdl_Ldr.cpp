@@ -1,5 +1,30 @@
 #include "Mdl_Ldr.h"
 
+
+Vec_UP<Primitive> Mdl_Ldr::CreateStatic(const aiScene* Scene)
+{
+	int Amount_Mshs = Scene->mNumMeshes;
+	std::vector<std::string> MshNames;
+	Vec_UP<Primitive> Mshs;
+	for (int ii = 0; ii < Amount_Mshs; ii++)
+	{
+		MshNames.push_back(Scene->mMeshes[ii]->mName.C_Str());
+		Mshs.push_back(std::make_unique<Primitive>());
+		Mshs[ii]->set(this->FinalVertex(Scene->mMeshes[ii]), this->FinalGluint(Scene->mMeshes[ii]));
+	}
+	return Mshs;
+}
+
+Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic()
+{
+	return Vec_UP<A_Primitive>();
+}
+
+Mdl_Ldr::Mdl_Ldr()
+	:ASSIMPLOAD_M("")
+{
+}
+
 void Mdl_Ldr::LoadFile(std::string FileName)
 {
 	File;
@@ -21,7 +46,7 @@ void Mdl_Ldr::LoadFile(std::string FileName)
 			break;
 		}
 	if (!IsDynamic)
-		this->CreateStatic();
+		this->CreateStatic(scene);
 	else
 		this->CreateDynamic();
 }
