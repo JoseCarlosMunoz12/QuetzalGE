@@ -15,8 +15,12 @@ private:
 	Vec_SH<Shader> Shader_Inf;
 	//Tree hierarchy of the Model
 	S_P<Node> Nodes_Inf;
+	Vec_SH<Node> LclNodes;
 	//Location, orientation and scale of whole model
 	glm::vec3 Position;
+	glm::quat Rot;
+	glm::vec3 Scale;
+	//Model Name
 	std::string Name;
 	//Holds Physics, Collision information of the Model
 	 

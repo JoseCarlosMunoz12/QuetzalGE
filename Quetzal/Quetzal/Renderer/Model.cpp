@@ -38,8 +38,10 @@ void Model::RenderNodes(glm::mat4 ParMatrix, std::shared_ptr<Node> chld)
 }
 
 Model::Model(std::string NewName)
-	:Position(glm::vec3(0.f))
+	:Position(glm::vec3(0.f)), Scale(glm::vec3(1.f))
 {
+	Quat rs;
+	this->Rot = rs.GetQuat();
 	this->Name = NewName;
 }
 

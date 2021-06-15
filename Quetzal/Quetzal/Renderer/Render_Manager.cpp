@@ -28,7 +28,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//load some Textures to use
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/No_Texture.png", GL_TEXTURE_2D, GL_RGBA));//Default for Static Texture when there is none added to it
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/No_Texture.jpg", GL_TEXTURE_2D, GL_RGBA));//Default for Animas Texture when there is none added to it
-	//
+	///Adding new Textures
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/diffuse.png", GL_TEXTURE_2D, GL_RGBA));
 	this->All_Texture.push_back(std::make_shared<Stnd_Tex>("Images/Linux_Txt.png", GL_TEXTURE_2D, GL_RGBA));
 	//loads defaults Shaders
