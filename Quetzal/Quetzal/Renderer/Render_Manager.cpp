@@ -58,7 +58,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	
 	//-load meshes to the item
     //std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("Model_Running.dae");
-	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("Scelidosaurus.dae");
+	//std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("Scelidosaurus.dae");
+	std::unique_ptr<ASSIMPLOAD_M> rs = std::make_unique<ASSIMPLOAD_M>("ls.dae");
 	S_P<Mesh> InitMesh = std::make_shared<Mesh>(std::make_unique<PlaneTerrain_M>(),"Terrain");
 	this->All_Meshes.push_back(InitMesh);
 	glm::mat4 Inv;
