@@ -154,7 +154,7 @@ public:
 	//set Matrices in correct in opengl space
 	void SetW_Mat(glm::mat4 InitW)
 	{
-		Math::Decompose(InitW, this->Offset, this->Rot, this->Scale);
+		Math::Decompose(InitW, this->Position, this->Rot, this->Scale);
 		this->UpdateMatrix();
 	}
 	//Mesh and Texture relatd Function
