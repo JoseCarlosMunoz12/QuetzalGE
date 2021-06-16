@@ -8,7 +8,7 @@ private:
 	//After Check, create the either dynamic or static Primitives to be used in the New Model
 	Vec_UP<Primitive> CreateStatic(const aiScene* Scene);
 	Vec_UP<A_Primitive> CreateDynamic(const aiScene* Scene);
-	void GetChlds(aiNode* Curnd, int Lvl, std::vector<std::string> bns);
+	void GetChlds(aiNode* Curnd, int Lvl, std::vector<std::string> bns, S_P<Node> MdlNodes);
 public:
 	Mdl_Ldr();
 	void LoadFile(std::string FileName);

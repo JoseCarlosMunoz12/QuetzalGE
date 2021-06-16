@@ -841,14 +841,14 @@ private:
 		int rd = Curnd->mNumMeshes;
 		if (rd != 0)
 		{
-			std::cout << nm << " -- " << Lvl << " num mshs " << rd << "\n";
-			std::cout << "Meshes are\n";
+			//std::cout << nm << " -- " << Lvl << " num mshs " << rd << "\n";
+			//std::cout << "Meshes are\n";
 			for (int jj = 0; jj < rd; jj++)
 			{
 				int sd = Curnd->mMeshes[jj];
-				std::cout << bns[sd] << "\n";
+				//std::cout << bns[sd] << "\n";
 			}
-			this->StdOutMatix(Curnd->mTransformation);
+			//this->StdOutMatix(Curnd->mTransformation);
 		}
 		for (int ii = 0; ii < Curnd->mNumChildren; ii++)
 			this->GetChlds(Curnd->mChildren[ii], Lvl + 1, bns);
