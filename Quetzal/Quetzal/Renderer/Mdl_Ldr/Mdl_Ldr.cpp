@@ -21,17 +21,26 @@ S_P<Model> Mdl_Ldr::CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_
 	int NumChld = Scene->mRootNode->mNumChildren;
 	for (int ii = 0; ii < NumChld; ii++)
 		this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);
-	//create the models and meshes
+	//create the meshes to add to main render and to reuse
 	Vec_SH<Mesh> Rs;
 	int Count = 0;
-	for (auto& ii : Mshs)
+	for (auto& ii : Prm)
 	{
 		Rs.push_back(std::make_shared<Mesh>(std::move(ii), MshNames[Count]));
 		Mshs.push_back(Rs[Count]);
 		Count++;
 	}
-	
-	return S_P<Model>();
+	//Create model and send out
+	S_P<Model> Mdl = std::make_shared<Model>("FileName");
+	for (auto& ii : Rs)
+		Mdl->AddMeshes(ii);
+	Mdl->AddShaders(Shdrs);
+	Mdl->AddTextures(Txts);
+	Mdl->SetWMat(MdlNodes->GetMatrix());
+	for (auto& jj : MdlNodes->GetChildren())
+		Mdl->AddNode(jj);
+	Mdls.push_back(Mdl);
+	return Mdl;
 }
 
 Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene)
@@ -49,6 +58,7 @@ void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
 	//Sets the ID mesh for the Node
 	for (int jj = 0; jj < Curnd->mNumMeshes; jj++)
 		Rs->SetMeshId(Curnd->mMeshes[jj]);
+	Rs->AddShaderId(0);
 	//Sets Node Location
 	glm::mat4 Transform = this->aiMatToglmMat(Curnd->mTransformation);
 	Rs->SetW_Mat(Transform);
@@ -64,8 +74,8 @@ Mdl_Ldr::Mdl_Ldr()
 }
 
 void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs,
-	Vec_SH<Model> Mdls, Vec_SH<Mesh> Mshs,
-	 Vec_SH<Anim_Model> A_Mdls,Vec_SH<Anim_Mesh> A_Mshs)
+	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
+	 Vec_SH<Anim_Model>& A_Mdls,Vec_SH<Anim_Mesh>& A_Mshs)
 {
 	File;
 	Assimp::Importer importer;

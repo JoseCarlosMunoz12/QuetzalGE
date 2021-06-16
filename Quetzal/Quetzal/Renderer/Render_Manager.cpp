@@ -91,7 +91,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	for (int ii = jj; ii < this->All_Meshes.size(); ii++)
 		NewNode1->SetMeshId(ii - jj);             //6).b - Set Mesh Id for the Node
 	//NewNode1->SetW_Mat(Inv);                    //6).c - set Rotation to upright the model
-	NewNode1->AddShaderId(1);                     //6).d - sets Shader to use
+	NewNode1->AddShaderId(0);                     //6).d - sets Shader to use
 	//NewNode1->AddChild(NewNode1);               //6).e - set child node, if it has any
 	NewModel1->AddNode(NewNode1);                 //7) add node tree
 	NewModel1->SetWMat(Inv);                      //8) set world Orientation of the Model
@@ -131,7 +131,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//Load Meshes and Models from the Model Loader
 	//
 	S_P<Mdl_Ldr> ld = std::make_shared<Mdl_Ldr>();
-	ld->LoadFile("ls.fbx", this->All_Texture, this->All_Shader,
+	ld->LoadFile("ls.dae", this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,
 		this->All_Anim_Models, this->All_Anim_Meshes);
 }

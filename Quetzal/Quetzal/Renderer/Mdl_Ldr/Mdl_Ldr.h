@@ -13,8 +13,8 @@ private:
 public:
 	Mdl_Ldr();
 	void LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs,
-		Vec_SH<Model> Mdls, Vec_SH<Mesh> Mshs,
-		Vec_SH<Anim_Model> A_Mshs, Vec_SH<Anim_Mesh> A_Mdls);
+		Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
+		Vec_SH<Anim_Model>& A_Mshs, Vec_SH<Anim_Mesh>& A_Mdls);
 
 };
 
