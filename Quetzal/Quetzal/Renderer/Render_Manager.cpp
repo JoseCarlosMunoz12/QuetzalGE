@@ -126,6 +126,11 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	AModel->AddBaseNode(A_Node);                          //7) Add Node Tree
 	AModel->SetAnimationData(this->A_Manager->GetAnim(0));//8)Add Animation From the Anim Handler
 	this->All_Anim_Models.push_back(AModel);              //9) add model to render
+	//
+	//Load Meshes and Models from the Model Loader
+	//
+	S_P<Mdl_Ldr> ld = std::make_shared<Mdl_Ldr>();
+	ld->LoadFile("ls.dae");
 }
 
 void Render_Manager::Update(float dt)

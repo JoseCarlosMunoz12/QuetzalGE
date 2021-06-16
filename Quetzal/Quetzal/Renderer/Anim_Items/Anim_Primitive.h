@@ -95,6 +95,7 @@ public:
 		}		
 		InitInv = this->GetLocalMatrix(scene->mRootNode, Bones[0]->GetName());
 		InitTransMat = TransMats;
+		importer.FreeScene();
 		return Mshs;
 	}
 private:

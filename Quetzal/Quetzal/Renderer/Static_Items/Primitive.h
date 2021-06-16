@@ -831,6 +831,7 @@ public:
 		}
 		this->GetChlds(scene->mRootNode, 0,MshNames);
 		inv =  this->aiMatToglmMat(scene->mRootNode->mTransformation);
+		importer.FreeScene();
 		return Mshs;
 	}
 private:

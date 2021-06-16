@@ -3,6 +3,7 @@
 #include "Anim_Model.h"
 #include "AnimHandler.h"
 #include "Camera.h"
+#include "Mdl_Ldr/Mdl_Ldr.h"
 enum TEXTUREBASE
 {
 	//Position 0 and 1 are used to hold error Texture if there is some missing
