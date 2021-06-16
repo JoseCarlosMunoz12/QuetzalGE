@@ -21,6 +21,8 @@ Vec_UP<Primitive> Mdl_Ldr::CreateStatic(const aiScene* Scene)
 	int NumChld = Scene->mRootNode->mNumChildren;
 	for(int ii = 0; ii < NumChld; ii++)
 		this->GetChlds(Scene->mRootNode->mChildren[ii], 1, MshNames, MdlNodes);
+	//create the models and meshes
+
 	return Mshs;
 }
 
@@ -31,21 +33,21 @@ Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene)
 
 void Mdl_Ldr::GetChlds(aiNode* Curnd, int Lvl, std::vector<std::string> bns, S_P<Node> MdlNodes)
 {
+	//Checks if node is an actual
+	if (Curnd->mNumMeshes == 0)
+		return;
 	std::string nm = Curnd->mName.C_Str();
 	S_P<Node> Rs = std::make_shared<Node>();
-	int rd = Curnd->mNumMeshes;
-	if (rd != 0)
-	{
-		for (int jj = 0; jj < rd; jj++)
-		{
-			int sd = Curnd->mMeshes[jj];
-		}
-	}
-	glm::mat4 Transform =this->aiMatToglmMat(Curnd->mTransformation);
+	//Sets the ID mesh for the Node
+	for (int jj = 0; jj < Curnd->mNumMeshes; jj++)
+		Rs->SetMeshId(Curnd->mMeshes[jj]);
+	//Sets Node Location
+	glm::mat4 Transform = this->aiMatToglmMat(Curnd->mTransformation);
 	Rs->SetW_Mat(Transform);
+	//Checks for children if there is any
 	for (int ii = 0; ii < Curnd->mNumChildren; ii++)
 		this->GetChlds(Curnd->mChildren[ii], Lvl + 1, bns, Rs);
-	MdlNodes->AddChild(Rs);
+		MdlNodes->AddChild(Rs);
 }
 
 Mdl_Ldr::Mdl_Ldr()
