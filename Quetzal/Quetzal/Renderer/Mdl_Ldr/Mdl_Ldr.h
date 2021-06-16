@@ -6,7 +6,7 @@ class Mdl_Ldr :public ASSIMPLOAD_M
 private:
 	std::string File = "Models/ModelCol/";
 	//After Check, create the either dynamic or static Primitives to be used in the New Model
-	S_P<Model> CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
+	void CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 		S_P<Texture> Txts, S_P<Shader> Shdrs);
 	Vec_UP<A_Primitive> CreateDynamic(const aiScene* Scene);
 	void GetChlds(aiNode* Curnd, S_P<Node> MdlNodes);

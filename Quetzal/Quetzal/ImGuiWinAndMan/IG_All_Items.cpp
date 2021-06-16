@@ -95,14 +95,14 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Anim_Mesh> VecMesh, Vec_
     float Scle[3] = { Scl.x, Scl.y, Scl.z };
     Vec_SH<Node> Chlds = Nd->GetChildren();
     //Information of the position relative to the item
-    if (ImGui::DragFloat3("Position", Ps, 1.f, -20.f, 20.f))
+    if (ImGui::DragFloat3("Position", Ps, 0.1f, -20.f, 20.f))
     {
         Pos.x = Ps[0];
         Pos.y = Ps[1];
         Pos.z = Ps[2];
         Nd->SetPos(Pos);
     }
-    if (ImGui::DragFloat3("Offset", OS, 1.f, -20.f, 20.f))
+    if (ImGui::DragFloat3("Offset", OS, 0.1f, -20.f, 20.f))
     {
         Ofs.x = OS[0];
         Ofs.y = OS[1];
@@ -119,7 +119,7 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Anim_Mesh> VecMesh, Vec_
         rs.UnitVec = glm::normalize(rs.UnitVec);
         Nd->SetRot(rs.GetQuat());
     }
-    if (ImGui::DragFloat3("Scale", Scle, 1.f, 0.f, 5.f))
+    if (ImGui::DragFloat3("Scale", Scle, 0.1f, 0.f, 5.f))
     {
         Scl.x = Scle[0];
         Scl.y = Scle[1];
@@ -170,8 +170,26 @@ void IG_All_Items::DisplayData(S_P<Model> Mdl)
         Vec_SH<Mesh> Mshs = Mdl->GetMeshes();
         Vec_SH<Texture> Txt = Mdl->GetTextures();
         Vec_SH<Material> Mts = Mdl->GetMaterials();
-        for(auto& jj: Mdl->GetNodes())
-            this->DisplayChildren(jj, Mshs, Txt, Mts);
+        glm::vec3 Pos = Mdl->GetPos();
+        glm::vec3 Scale = Mdl->GetScale();
+        glm::quat Rot = Mdl->GetRot();
+        //
+        float mPs[3] = { Pos.x, Pos.y, Pos.z };
+        float Scl[3] = { Scale.x, Scale.y, Scale.z };
+        Quat rs; 
+        rs.SetQuat(Rot);
+        float Unit[3] = { rs.UnitVec.x, rs.UnitVec.y,rs.UnitVec.z };
+        if (ImGui::SliderFloat3("Model Position", mPs, -20.f, 20.f))
+        {
+            Pos.x = mPs[0]; Pos.y = mPs[1]; Pos.z = mPs[2];
+            Mdl->SetPos(Pos);
+        }
+        if (ImGui::TreeNode("Model Nodes Information"))
+        {
+            for (auto& jj : Mdl->GetNodes())
+                this->DisplayChildren(jj, Mshs, Txt, Mts);
+            ImGui::TreePop();
+        }
         ImGui::TreePop();
     }
 }

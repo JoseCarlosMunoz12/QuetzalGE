@@ -1,6 +1,6 @@
 #include "Mdl_Ldr.h"
 
-S_P<Model> Mdl_Ldr::CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
+void Mdl_Ldr::CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
 {
 	int Amount_Mshs = Scene->mNumMeshes;
 	glm::mat4 SceneMat;
@@ -40,7 +40,6 @@ S_P<Model> Mdl_Ldr::CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_
 	for (auto& jj : MdlNodes->GetChildren())
 		Mdl->AddNode(jj);
 	Mdls.push_back(Mdl);
-	return Mdl;
 }
 
 Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene)
@@ -77,7 +76,6 @@ void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader
 	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 	 Vec_SH<Anim_Model>& A_Mdls,Vec_SH<Anim_Mesh>& A_Mshs)
 {
-	File;
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(File + FileName, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
 	//Checks if file is valid or exists
