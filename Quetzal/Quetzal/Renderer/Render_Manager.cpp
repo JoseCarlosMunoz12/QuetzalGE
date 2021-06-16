@@ -131,7 +131,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//Load Meshes and Models from the Model Loader
 	//
 	S_P<Mdl_Ldr> ld = std::make_shared<Mdl_Ldr>();
-	ld->LoadFile("ls.fbx");
+	ld->LoadFile("ls.fbx", this->All_Texture, this->All_Shader,
+		this->All_Models, this->All_Meshes,
+		this->All_Anim_Models, this->All_Anim_Meshes);
 }
 
 void Render_Manager::Update(float dt)
