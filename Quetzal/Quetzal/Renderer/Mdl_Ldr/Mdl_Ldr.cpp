@@ -1,6 +1,7 @@
 #include "Mdl_Ldr.h"
 
-void Mdl_Ldr::CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
+void Mdl_Ldr::CreateStatic(const aiScene* Scene,
+	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
 {
 	int Amount_Mshs = Scene->mNumMeshes;
 	glm::mat4 SceneMat;
@@ -42,7 +43,8 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mes
 	Mdls.push_back(Mdl);
 }
 
-Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene, Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
+Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene, 
+	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
 {
 
 	return Vec_UP<A_Primitive>();
@@ -69,7 +71,7 @@ void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
 }
 
 Mdl_Ldr::Mdl_Ldr()
-	:ASSIMPLOAD_M("")
+	:ASSIMPLOAD_M(""),A_ASSIMP_LOAD("")
 {
 }
 

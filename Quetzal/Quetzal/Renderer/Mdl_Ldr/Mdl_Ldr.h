@@ -1,7 +1,7 @@
 #pragma once
 #include "../Model.h"
 #include "../Anim_Model.h"
-class Mdl_Ldr :public ASSIMPLOAD_M
+class Mdl_Ldr :public ASSIMPLOAD_M, A_ASSIMP_LOAD
 {
 private:
 	std::string File = "Models/ModelCol/";

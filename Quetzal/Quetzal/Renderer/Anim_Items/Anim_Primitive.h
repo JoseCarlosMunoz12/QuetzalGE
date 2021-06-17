@@ -77,8 +77,8 @@ public:
 		//And load meshes into the primitives
 		for (int ii = 0; ii < msh_num; ii++)
 		{
-			std::vector<AnimVertex> rs = this->FinalVertex(scene->mMeshes[ii]);
-			std::vector<GLuint> Indices = this->FinalGluint(scene->mMeshes[ii]);
+			std::vector<AnimVertex> rs = this->A_FinalVertex(scene->mMeshes[ii]);
+			std::vector<GLuint> Indices = this->A_FinalGluint(scene->mMeshes[ii]);
 			this->SetBonesId(scene->mMeshes[ii], rs);
 			Mshs.push_back(std::make_unique<A_Primitive>());
 			Mshs[ii]->set(rs, Indices);
@@ -109,7 +109,7 @@ private:
 	std::map<std::string, glm::mat4> TransMats;
 	std::map <std::string, int> BoneLoc;
 	std::map<std::string, Par_Child_Rel> BoneId;
-	glm::mat4 aiMatToglmMat(aiMatrix4x4 from)
+	glm::mat4 A_aiMatToglmMat(aiMatrix4x4 from)
 	{
 		glm::mat4 to{};
 		//the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
@@ -119,16 +119,17 @@ private:
 		to[0][3] = from.d1; to[1][3] = from.d2; to[2][3] = from.d3; to[3][3] = from.d4;
 		return to;
 	}
-	glm::vec3 aiVecToglmVec(aiVector3D aiVal)
+	glm::vec3 A_aiVecToglmVec(aiVector3D aiVal)
 	{
 		return glm::vec3(aiVal.x, aiVal.y, aiVal.z);
 	}
-	glm::quat aiQuatToglmQuat(aiQuaternion aiVal)
+	glm::quat A_aiQuatToglmQuat(aiQuaternion aiVal)
 	{
 		return glm::quat(aiVal.w, aiVal.x, aiVal.y, aiVal.z);
 	}
+protected:
 	//functions to load Ints and Vertecies
-	std::vector<AnimVertex> FinalVertex(const aiMesh* Meshes)
+	std::vector<AnimVertex> A_FinalVertex(const aiMesh* Meshes)
 	{
 		std::vector<AnimVertex> TempVerts;
 		for (int ii = 0; ii < Meshes->mNumVertices; ii++)
@@ -160,7 +161,7 @@ private:
 		}
 		return TempVerts;
 	}
-	std::vector<GLuint> FinalGluint(const aiMesh* Meshes)
+	std::vector<GLuint> A_FinalGluint(const aiMesh* Meshes)
 	{
 		std::vector<GLuint> TempInd;
 		for (int ii = 0; ii < Meshes->mNumFaces; ii++)
@@ -172,6 +173,7 @@ private:
 		}
 		return TempInd;
 	}
+private:
 	//functions to load Bone data from file
 	void FindAllBones(const aiScene* scene, aiMesh* meshes,Vec_SH<Anim_Skels>& Bones)
 	{
@@ -179,9 +181,9 @@ private:
 		{
 			aiBone* TempBone = meshes->mBones[ii];
 			std::string BoneName = TempBone->mName.C_Str();
-			BoneOffsets[BoneName] = aiMatToglmMat(TempBone->mOffsetMatrix);
+			BoneOffsets[BoneName] = A_aiMatToglmMat(TempBone->mOffsetMatrix);
 			BoneLoc[BoneName] = ii;
-			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
+			glm::mat4 TransMat = this->A_aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
 			TransMats[BoneName] = TransMat;
 			glm::vec3 Offsets;glm::vec3 Scale;glm::quat Rot;
 			Math::Decompose(TransMat,Offsets,Rot,Scale);
@@ -253,9 +255,9 @@ private:
 				{
 					float F_Time = rs->mRotationKeys[jj].mTime;
 					F_Time = F_Time / NumTick * TotalTime;
-					glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[jj].mValue);
-					glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
-					glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
+					glm::quat Rot = this->A_aiQuatToglmQuat(rs->mRotationKeys[jj].mValue);
+					glm::vec3 Scale = this->A_aiVecToglmVec(rs->mScalingKeys[jj].mValue);
+					glm::vec3 Offset = this->A_aiVecToglmVec(rs->mPositionKeys[jj].mValue);
 					Joint T_Joint = {Offset, Rot, Scale};
 					Frms.push_back(std::make_shared<Frames>(F_Time, T_Joint));
 				}
@@ -326,7 +328,7 @@ private:
 		glm::mat4 R = glm::mat4(1.f);
 		if (!Par)
 			return R;
-		R = this->aiMatToglmMat(Par->mTransformation);
+		R = this->A_aiMatToglmMat(Par->mTransformation);
 		return this->GetParMatrix(Par) * R;
 	}
 	glm::mat4 GetParMatrix(aiNode* CurNode)
@@ -335,7 +337,7 @@ private:
 		glm::mat4 r = glm::mat4(1.f);
 		if (!Par)
 			return r;
-		r = this->aiMatToglmMat(Par->mTransformation);
+		r = this->A_aiMatToglmMat(Par->mTransformation);
 		return this->GetParMatrix(Par) * r;
 	}
 };
