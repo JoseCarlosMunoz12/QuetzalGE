@@ -164,7 +164,6 @@ void IG_All_Items::DisplayChildren(S_P<Node> Nd, Vec_SH<Anim_Mesh> VecMesh, Vec_
 
 void IG_All_Items::DisplayData(S_P<Model> Mdl)
 {
-
     if (ImGui::TreeNode(Mdl->GetName().c_str()))
     {
         Vec_SH<Mesh> Mshs = Mdl->GetMeshes();
@@ -173,10 +172,11 @@ void IG_All_Items::DisplayData(S_P<Model> Mdl)
         glm::vec3 Pos = Mdl->GetPos();
         glm::vec3 Scale = Mdl->GetScale();
         glm::quat Rot = Mdl->GetRot();
-        //
+        //display general position, rotation and scale of the Model
         float mPs[3] = { Pos.x, Pos.y, Pos.z };
         float Scl[3] = { Scale.x, Scale.y, Scale.z };
         Quat rs; 
+        float Vecs[3] = { rs.UnitVec.x,rs.UnitVec.y, rs.UnitVec.z };
         rs.SetQuat(Rot);
         float Unit[3] = { rs.UnitVec.x, rs.UnitVec.y,rs.UnitVec.z };
         if (ImGui::SliderFloat3("Model Position", mPs, -20.f, 20.f))
@@ -184,6 +184,20 @@ void IG_All_Items::DisplayData(S_P<Model> Mdl)
             Pos.x = mPs[0]; Pos.y = mPs[1]; Pos.z = mPs[2];
             Mdl->SetPos(Pos);
         }
+        if (ImGui::SliderFloat3("Model Scale", Scl, 0.f, 20.f))
+        {
+            Scale.x = Scl[0]; Scale.y = Scl[1]; Scale.z = Scl[2];
+            Mdl->SetScale(Scale);
+        }
+        if (ImGui::SliderFloat("Model Unit Angle", &rs.Angle, -180.f, 180.f))
+            Mdl->SetRot(rs.GetQuat());
+        if (ImGui::SliderFloat3("Model Unit Vector",Vecs, 0.f, 1.f))
+        {
+            rs.UnitVec.x = Vecs[0]; rs.UnitVec.y = Vecs[2]; rs.UnitVec.z = Vecs[2];
+            rs.UnitVec = glm::normalize(rs.UnitVec);
+            Mdl->SetRot(rs.GetQuat());
+        }
+        //Internal Node Data
         if (ImGui::TreeNode("Model Nodes Information"))
         {
             for (auto& jj : Mdl->GetNodes())
@@ -243,8 +257,7 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
             ImGui::TreePop();
         }
         //Display Bledning Data and if it exist, display all ratios
-        ImGui::NewLine();ImGui::NewLine();
-        if (ImGui::TreeNode("All Blending"))
+        if (ImGui::TreeNode("All Blending Assign to the Model"))
         {
             if (B_Names.size() != 0)
             {

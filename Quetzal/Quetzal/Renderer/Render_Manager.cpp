@@ -114,24 +114,28 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	this->A_Manager->AddAnims("Model_Running",BonesOffsets, BonesTransMats, BoneLoc, Anims);//add an animation data set into the animation handler
 	this->All_Anim_Meshes.push_back(std::make_shared<Anim_Mesh>(std::move(rt[0]), "Man_Walk"));
 	S_P<Anim_Model> AModel = std::make_shared<Anim_Model>("NewModel", glm::vec3(1.f,0.f,5.f));//1)Make Model
-	AModel->AddMeshes(this->All_Anim_Meshes[0]);          //2)Add Meshes
-	AModel->AddTextures(this->All_Texture[1]);            //3) Add Textures
-	AModel->AddShaders(this->All_Shader[1]);              //4) add Shaders
-	S_P<Node> A_Node = std::make_shared<Node>();          //5)Create Nodes to Item
+	AModel->AddMeshes(this->All_Anim_Meshes[0]);          //2)     Add Meshes
+	AModel->AddTextures(this->All_Texture[1]);            //3)     Add Textures
+	AModel->AddShaders(this->All_Shader[1]);              //4)     add Shaders
+	S_P<Node> A_Node = std::make_shared<Node>();          //5)     Create Nodes to Item
 	A_Node->AddTextureId(0);                              //6).a - Sets Textures used in the Node
 	A_Node->SetMeshId(0);                                 //6).b - Set Mesh Id for the Node
 	A_Node->SetW_Mat(inv);                                //6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);                               //6).d - sets Shader to use
 	//A_Node->AddChild(A_Node);                           //6).e - set Child node, if there is any
 	//                                                    //6).f - repeat a to e if there is more nodes to do
-	AModel->AddBaseNode(A_Node);                          //7) Add Node Tree
-	AModel->SetAnimationData(this->A_Manager->GetAnim(0));//8)Add Animation From the Anim Handler
-	this->All_Anim_Models.push_back(AModel);              //9) add model to render
+	AModel->AddBaseNode(A_Node);                          //7)     Add Node Tree
+	AModel->SetAnimationData(this->A_Manager->GetAnim(0));//8)     Add Animation From the Anim Handler
+	this->All_Anim_Models.push_back(AModel);              //9)     add model to render
 	//
 	//Load Meshes and Models from the Model Loader
+	//Determines if the file loaded is an Anim or a static model
 	//
 	S_P<Mdl_Ldr> ld = std::make_shared<Mdl_Ldr>();
 	ld->LoadFile("ls.dae", this->All_Texture, this->All_Shader,
+		this->All_Models, this->All_Meshes,
+		this->All_Anim_Models, this->All_Anim_Meshes);
+	ld->LoadFile("Scelidosaurus.dae", this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,
 		this->All_Anim_Models, this->All_Anim_Meshes);
 }

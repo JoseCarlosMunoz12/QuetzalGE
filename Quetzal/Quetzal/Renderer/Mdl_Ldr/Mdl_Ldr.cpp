@@ -42,8 +42,9 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mes
 	Mdls.push_back(Mdl);
 }
 
-Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene)
+Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene, Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
 {
+
 	return Vec_UP<A_Primitive>();
 }
 
@@ -97,5 +98,5 @@ void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader
 	if (!IsDynamic)
 		this->CreateStatic(scene,Mdls,Mshs,Txts[0],Shdrs[0]);
 	else
-		this->CreateDynamic(scene);
+		this->CreateDynamic(scene,A_Mdls,A_Mshs,Txts[1],Shdrs[1]);
 }

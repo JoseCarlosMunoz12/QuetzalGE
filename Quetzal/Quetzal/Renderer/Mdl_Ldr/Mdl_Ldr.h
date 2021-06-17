@@ -8,7 +8,8 @@ private:
 	//After Check, create the either dynamic or static Primitives to be used in the New Model
 	void CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 		S_P<Texture> Txts, S_P<Shader> Shdrs);
-	Vec_UP<A_Primitive> CreateDynamic(const aiScene* Scene);
+	Vec_UP<A_Primitive> CreateDynamic(const aiScene* Scene, Vec_SH<Anim_Model>& Mdls,Vec_SH<Anim_Mesh>& Mshs,
+		S_P<Texture> Txts, S_P<Shader> Shdrs);
 	void GetChlds(aiNode* Curnd, S_P<Node> MdlNodes);
 public:
 	Mdl_Ldr();
