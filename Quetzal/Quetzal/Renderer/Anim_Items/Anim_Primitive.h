@@ -105,9 +105,6 @@ private:
 		int Id;
 	};
 	std::string File;
-	std::map<std::string, glm::mat4> BoneOffsets;
-	std::map<std::string, glm::mat4> TransMats;
-	std::map <std::string, int> BoneLoc;
 	std::map<std::string, Par_Child_Rel> BoneId;
 	glm::mat4 A_aiMatToglmMat(aiMatrix4x4 from)
 	{
@@ -128,6 +125,9 @@ private:
 		return glm::quat(aiVal.w, aiVal.x, aiVal.y, aiVal.z);
 	}
 protected:
+	std::map<std::string, glm::mat4> BoneOffsets;
+	std::map<std::string, glm::mat4> TransMats;
+	std::map <std::string, int> BoneLoc;
 	void ClearMaps()
 	{
 		this->BoneOffsets.clear();

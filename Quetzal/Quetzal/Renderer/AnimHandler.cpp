@@ -18,6 +18,11 @@ void AnimHandler::AddAnims(std::string Name, M_S_M Offsets, M_S_M TransMats, M_S
 	this->AllAnims.push_back(std::make_shared<AnimationData>(Name,Offsets, TransMats, BoneLocs, Anims));
 }
 
+void AnimHandler::AddAnims(S_P<AnimationData> NewAnim)
+{
+	this->AllAnims.push_back(NewAnim);
+}
+
 void AnimHandler::Update(float dt)
 {
 	for (auto& jj : AllAnims)

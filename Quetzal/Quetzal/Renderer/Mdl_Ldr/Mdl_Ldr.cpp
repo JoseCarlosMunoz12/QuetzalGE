@@ -95,12 +95,16 @@ Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 		Mshs.push_back(Rs[Count]);
 		Count++;
 	}
+	//create AnimationData
+	S_P<AnimationData> AnimData = std::make_shared<AnimationData>("NewAnim",this->BoneOffsets,this->TransMats,this->BoneLoc,Animations);
+	//create Animation Model to Render
 	S_P<Anim_Model> Mdl = std::make_shared<Anim_Model>("AnimFileName");
 	for (auto& ii : Rs)
 		Mdl->AddMeshes(ii);
 	Mdl->AddShaders(Shdrs);
 	Mdl->AddTextures(Txts);
 	Mdl->SetWMat(MdlNodes->GetMatrix());
+	Mdl->SetAnimationData(AnimData);
 	for (auto& jj : MdlNodes->GetChildren())
 		Mdl->AddNode(jj);
 	Mdls.push_back(Mdl);
