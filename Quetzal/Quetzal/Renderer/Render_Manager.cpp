@@ -117,14 +117,15 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	AModel->AddMeshes(this->All_Anim_Meshes[0]);          //2)     Add Meshes
 	AModel->AddTextures(this->All_Texture[1]);            //3)     Add Textures
 	AModel->AddShaders(this->All_Shader[1]);              //4)     add Shaders
+	AModel->SetWMat(inv);
 	S_P<Node> A_Node = std::make_shared<Node>();          //5)     Create Nodes to Item
 	A_Node->AddTextureId(0);                              //6).a - Sets Textures used in the Node
 	A_Node->SetMeshId(0);                                 //6).b - Set Mesh Id for the Node
-	A_Node->SetW_Mat(inv);                                //6).c - set Rotation to upright the model
+	//A_Node->SetW_Mat(inv);                                //6).c - set Rotation to upright the model
 	A_Node->AddShaderId(0);                               //6).d - sets Shader to use
 	//A_Node->AddChild(A_Node);                           //6).e - set Child node, if there is any
 	//                                                    //6).f - repeat a to e if there is more nodes to do
-	AModel->AddBaseNode(A_Node);                          //7)     Add Node Tree
+	AModel->AddNode(A_Node);                          //7)     Add Node Tree
 	AModel->SetAnimationData(this->A_Manager->GetAnim(0));//8)     Add Animation From the Anim Handler
 	this->All_Anim_Models.push_back(AModel);              //9)     add model to render
 	//

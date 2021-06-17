@@ -36,34 +36,56 @@ void Anim_Model::UpdateNodes(S_P<Node> Par)
 		this->UpdateNodes(Chld);
 }
 
-Anim_Model::Anim_Model(std::string InitName)
-	:Name(InitName),Position(glm::vec3(0.f))
+void Anim_Model::UpdateMatrix()
 {
+	this->ModMatrix = glm::mat4(1.f);
+	this->ModMatrix = glm::translate(this->ModMatrix, this->Position);
+	glm::mat4 Temps = glm::mat4_cast(this->Rot);
+	this->ModMatrix *= Temps;
+	this->ModMatrix = glm::scale(this->ModMatrix, this->Scale);
+}
+
+Anim_Model::Anim_Model(std::string InitName)
+	:Name(InitName),Position(glm::vec3(0.f)), Scale(glm::vec3(1.f))
+{
+	Quat rs;
+	this->Rot = rs.GetQuat();
+	this->UpdateMatrix();
 }
 
 Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos)
-	:Name(InitName), Position(InitPos)
+	:Name(InitName), Position(InitPos), Scale(glm::vec3(1.f))
 {
+	Quat rs;
+	this->Rot = rs.GetQuat();
+	this->UpdateMatrix();
 }
 
 Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials)
-	:Name(InitName),Position(InitPos)
+	:Name(InitName),Position(InitPos), Scale(glm::vec3(1.f))
 {
 	this->Meshes_Inf = Meshes;
 	this->Textures_Inf = Textures;
 	this->Materials_Inf = Materials;
+	Quat rs;
+	this->Rot = rs.GetQuat();
+	this->UpdateMatrix();
 }
 
 Anim_Model::Anim_Model(std::string InitName, glm::vec3 InitPos,
 	Vec_SH<Anim_Mesh> Meshes, Vec_SH<Texture> Textures, Vec_SH<Material> Materials,
 	S_P<Node> InitRoot)
-	:Name(InitName),Position(InitPos)
+	:Name(InitName),Position(InitPos),Scale(glm::vec3(1.f))
 {
+
 	this->Meshes_Inf = Meshes;
 	this->Textures_Inf = Textures;
 	this->Materials_Inf = Materials;
-	this->Roots = InitRoot;
+	this->Nodes.push_back(InitRoot);
+	Quat rs;
+	this->Rot = rs.GetQuat();
+	this->UpdateMatrix();
 }
 
 Anim_Model::~Anim_Model()
@@ -72,7 +94,9 @@ Anim_Model::~Anim_Model()
 
 void Anim_Model::Update(float dt)
 {
-	this->UpdateNodes(this->Roots);
+	this->UpdateMatrix();
+	for(auto& jj : this->Nodes)
+		this->UpdateNodes(jj);
 }
 
 void Anim_Model::UpdateUniforms()
@@ -81,14 +105,12 @@ void Anim_Model::UpdateUniforms()
 
 void Anim_Model::Render()
 {
-	if (!this->Roots)
-		return;
 	//Calcualtes all the matrices for the Model and its meshes
 	if(this->AnimData)
 		this->AllMats = this->AnimData->GetMatrices();
 	//Render all meshes with textues, materials and shaders
-	glm::mat4 r = glm::mat4(1.f);
-	this->RenderNodes(r, this->Roots, this->AllMats);
+	for(auto& jj : this->Nodes)
+		this->RenderNodes(this->ModMatrix, jj, this->AllMats);
 }
 
 void Anim_Model::AddMeshes(S_P<Anim_Mesh> NewMesh)
@@ -111,10 +133,9 @@ void Anim_Model::AddShaders(S_P<Shader> NewShader)
 	this->Shaders_Inf.push_back(NewShader);
 }
 
-void Anim_Model::AddBaseNode(S_P<Node> InitRoot)
+void Anim_Model::AddNode(S_P<Node> InitRoot)
 {
-	this->Roots = InitRoot;
-	this->Roots->SetPos(this->Position);
+	this->Nodes.push_back(InitRoot);
 }
 
 void Anim_Model::SetAnimationData(S_P<AnimationData> InitHandler)
@@ -125,4 +146,9 @@ void Anim_Model::SetAnimationData(S_P<AnimationData> InitHandler)
 void Anim_Model::SetName(std::string NewName)
 {
 	this->Name = NewName;
+}
+
+void Anim_Model::SetWMat(glm::mat4 WrldMat)
+{
+	Math::Decompose(WrldMat, this->Position, this->Rot, this->Scale);
 }

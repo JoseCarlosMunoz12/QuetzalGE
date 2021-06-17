@@ -16,18 +16,23 @@ private:
 	Vec_SH<Anim_Mesh> Meshes_Inf;
 	Vec_SH<Material> Materials_Inf;
 	Vec_SH<Shader> Shaders_Inf;
-	S_P<Node> Roots;
+	Vec_SH<Node> Nodes;
 	//Holds All Animations and animation data
 	S_P<AnimationData> AnimData;
 	std::vector<glm::mat4> AllMats;
 	//General information of Model
 	glm::vec3 Position;
+	glm::quat Rot;
+	glm::vec3 Scale;
+	glm::mat4 ModMatrix;
+	//Name
 	std::string Name;
 	//Holds Physics, Collision information of the Model
 
 	//Render and Update Recursively
 	void RenderNodes(glm::mat4 ParMatrix, S_P<Node> Chld, std::vector<glm::mat4> AllMats);
 	void UpdateNodes(S_P<Node> Par);
+	void UpdateMatrix();
 public:
 	Anim_Model(std::string InitName);
 	Anim_Model(std::string InitName, glm::vec3 InitPos);
@@ -48,13 +53,14 @@ public:
 	Vec_SH<Material> GetMaterials()   { return this->Materials_Inf; }
 	S_P<AnimationData> GetAnimsInf()  { return this->AnimData; }
 	Vec_SH<Shader> GetShaders()       { return this->Shaders_Inf; }
-	S_P<Node> GetNodes()              { return this->Roots; }
+	Vec_SH<Node> GetNodes()           { return this->Nodes; }
 	//Setters
 	void AddMeshes(S_P<Anim_Mesh> NewMesh);
 	void AddTextures(S_P<Texture> NewTexture);
 	void AddMaterials(S_P<Material> NewMaterial);
 	void AddShaders(S_P<Shader> NewShader);
-	void AddBaseNode(S_P<Node> InitRoot);
+	void AddNode(S_P<Node> InitRoot);
 	void SetAnimationData(S_P<AnimationData> InitHandler);
 	void SetName(std::string NewName);
+	void SetWMat(glm::mat4 WrldMat);
 };

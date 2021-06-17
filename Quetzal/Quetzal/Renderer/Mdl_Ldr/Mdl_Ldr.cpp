@@ -49,6 +49,8 @@ Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	this->ClearMaps();
 	Vec_UP<A_Primitive> A_Mshs;
 	Vec_SH<Animation> Animations;
+	std::vector<std::string> MshNames;
+	S_P<Node> MdlNodes = std::make_shared<Node>();
 	int msh_num = Scene->mNumMeshes;
 	//Gets all Skeleton data to be
 	Vec_SH<Anim_Skels> Bones;
@@ -66,6 +68,7 @@ Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 		this->SetBonesId(Scene->mMeshes[ii], rs);
 		A_Mshs.push_back(std::make_unique<A_Primitive>());
 		A_Mshs[ii]->set(rs, Indices);
+		MshNames.push_back(Scene->mMeshes[ii]->mName.C_Str());
 	}
 	//create the Skel Node
 	this->SetTree(Bones);
@@ -76,8 +79,31 @@ Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 		Animations.push_back(std::make_shared<Animation>());
 		this->GetAnimations(Scene->mAnimations[ii], Animations[Size], Bones);
 	}
-
-
+	//Get the Meshes relative Transform to the Scene
+	glm::mat4 SceneMat = this->aiMatToglmMat(Scene->mRootNode->mTransformation);
+	MdlNodes->SetW_Mat(SceneMat);
+	//find all relative Transform to the scene for nodes
+	int NumChld = Scene->mRootNode->mNumChildren;
+	for (int ii = 0; ii < NumChld; ii++)
+		this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);	 
+	//create the AnimModel with all Meshes
+	Vec_SH<Anim_Mesh> Rs;
+	Count = 0;
+	for (auto& ii : A_Mshs)
+	{
+		Rs.push_back(std::make_shared<Anim_Mesh>(std::move(ii), MshNames[Count]));
+		Mshs.push_back(Rs[Count]);
+		Count++;
+	}
+	S_P<Anim_Model> Mdl = std::make_shared<Anim_Model>("AnimFileName");
+	for (auto& ii : Rs)
+		Mdl->AddMeshes(ii);
+	Mdl->AddShaders(Shdrs);
+	Mdl->AddTextures(Txts);
+	Mdl->SetWMat(MdlNodes->GetMatrix());
+	for (auto& jj : MdlNodes->GetChildren())
+		Mdl->AddNode(jj);
+	Mdls.push_back(Mdl);
 	return Vec_UP<A_Primitive>();
 }
 
