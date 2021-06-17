@@ -128,6 +128,13 @@ private:
 		return glm::quat(aiVal.w, aiVal.x, aiVal.y, aiVal.z);
 	}
 protected:
+	void ClearMaps()
+	{
+		this->BoneOffsets.clear();
+		this->TransMats.clear();
+		this->BoneLoc.clear();
+		this->BoneId.clear();
+	}
 	//functions to load Ints and Vertecies
 	std::vector<AnimVertex> A_FinalVertex(const aiMesh* Meshes)
 	{
@@ -173,7 +180,6 @@ protected:
 		}
 		return TempInd;
 	}
-private:
 	//functions to load Bone data from file
 	void FindAllBones(const aiScene* scene, aiMesh* meshes,Vec_SH<Anim_Skels>& Bones)
 	{
@@ -181,14 +187,18 @@ private:
 		{
 			aiBone* TempBone = meshes->mBones[ii];
 			std::string BoneName = TempBone->mName.C_Str();
-			BoneOffsets[BoneName] = A_aiMatToglmMat(TempBone->mOffsetMatrix);
-			BoneLoc[BoneName] = ii;
-			glm::mat4 TransMat = this->A_aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
-			TransMats[BoneName] = TransMat;
-			glm::vec3 Offsets;glm::vec3 Scale;glm::quat Rot;
-			Math::Decompose(TransMat,Offsets,Rot,Scale);
-			Bones.push_back(std::make_shared<Anim_Skels>(BoneName,TransMat,Offsets,Rot,Scale));
-			BoneId[BoneName].Id = ii;
+			if (BoneOffsets.find(BoneName) == BoneOffsets.end())
+			{
+				int Skels = BoneOffsets.size();
+				BoneOffsets[BoneName] = A_aiMatToglmMat(TempBone->mOffsetMatrix);
+				BoneLoc[BoneName] = Skels;
+				glm::mat4 TransMat = this->A_aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
+				TransMats[BoneName] = TransMat;
+				glm::vec3 Offsets; glm::vec3 Scale; glm::quat Rot;
+				Math::Decompose(TransMat, Offsets, Rot, Scale);
+				Bones.push_back(std::make_shared<Anim_Skels>(BoneName, TransMat, Offsets, Rot, Scale));
+				BoneId[BoneName].Id = Skels;
+			}
 		}
 	}
 	void SetBonesId(aiMesh* meshes, std::vector<AnimVertex>& Vertx)
@@ -331,6 +341,7 @@ private:
 		R = this->A_aiMatToglmMat(Par->mTransformation);
 		return this->GetParMatrix(Par) * R;
 	}
+private:
 	glm::mat4 GetParMatrix(aiNode* CurNode)
 	{
 		aiNode* Par = CurNode->mParent;

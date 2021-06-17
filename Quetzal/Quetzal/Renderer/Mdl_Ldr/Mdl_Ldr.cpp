@@ -46,6 +46,37 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene, 
 	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
 {
+	this->ClearMaps();
+	Vec_UP<A_Primitive> A_Mshs;
+	Vec_SH<Animation> Animations;
+	int msh_num = Scene->mNumMeshes;
+	//Gets all Skeleton data to be
+	Vec_SH<Anim_Skels> Bones;
+	for (int ii = 0; ii < msh_num; ii++)
+		this->FindAllBones(Scene, Scene->mMeshes[ii], Bones);
+	int Count = 0;
+	int Par = 0;
+	this->FindChilds(Scene->mRootNode, Par, Count);
+	//create correct id and Create the root nodes
+	//And load meshes into the primitives
+	for (int ii = 0; ii < msh_num; ii++)
+	{
+		std::vector<AnimVertex> rs = this->A_FinalVertex(Scene->mMeshes[ii]);
+		std::vector<GLuint> Indices = this->A_FinalGluint(Scene->mMeshes[ii]);
+		this->SetBonesId(Scene->mMeshes[ii], rs);
+		A_Mshs.push_back(std::make_unique<A_Primitive>());
+		A_Mshs[ii]->set(rs, Indices);
+	}
+	//create the Skel Node
+	this->SetTree(Bones);
+	int anims = Scene->mNumAnimations;
+	for (int ii = 0; ii < anims; ii++)
+	{
+		int Size = Animations.size();
+		Animations.push_back(std::make_shared<Animation>());
+		this->GetAnimations(Scene->mAnimations[ii], Animations[Size], Bones);
+	}
+
 
 	return Vec_UP<A_Primitive>();
 }
