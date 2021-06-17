@@ -289,7 +289,8 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
         Vec_SH<Anim_Mesh> Mshs = Mdl->GetMeshes();
         Vec_SH<Texture> Txt = Mdl->GetTextures();
         Vec_SH<Material> Mts = Mdl->GetMaterials();
-        this->DisplayChildren(Mdl->GetNodes(), Mshs, Txt, Mts);
+        for(auto& jj : Mdl->GetNodes())
+        this->DisplayChildren(jj, Mshs, Txt, Mts);
         ImGui::TreePop();
     }
 }

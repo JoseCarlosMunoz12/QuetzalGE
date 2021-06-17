@@ -43,7 +43,7 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 	Mdls.push_back(Mdl);
 }
 
-Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene, 
+void Mdl_Ldr::CreateDynamic(const aiScene* Scene, 
 	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
 {
 	this->ClearMaps();
@@ -108,7 +108,6 @@ Vec_UP<A_Primitive> Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	for (auto& jj : MdlNodes->GetChildren())
 		Mdl->AddNode(jj);
 	Mdls.push_back(Mdl);
-	return Vec_UP<A_Primitive>();
 }
 
 void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
