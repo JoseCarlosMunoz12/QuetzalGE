@@ -84,8 +84,11 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	MdlNodes->SetW_Mat(SceneMat);
 	//find all relative Transform to the scene for nodes
 	int NumChld = Scene->mRootNode->mNumChildren;
+	std::string BnName = Scene->mRootNode->mName.C_Str();
+	Count = 0;
 	for (int ii = 0; ii < NumChld; ii++)
-		this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);	 
+		this->AnimChkChlds(Scene->mRootNode->mChildren[ii],BnName, Count);
+	//this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);	 
 	//create the AnimModel with all Meshes
 	Vec_SH<Anim_Mesh> Rs;
 	Count = 0;
@@ -112,22 +115,36 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 
 void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
 {
+	S_P<Node> Rs = MdlNodes;
 	//Checks if node is an actual
-	if (Curnd->mNumMeshes == 0)
-		return;
-	std::string nm = Curnd->mName.C_Str();
-	S_P<Node> Rs = std::make_shared<Node>();
-	//Sets the ID mesh for the Node
-	for (int jj = 0; jj < Curnd->mNumMeshes; jj++)
-		Rs->SetMeshId(Curnd->mMeshes[jj]);
-	Rs->AddShaderId(0);
-	//Sets Node Location
-	glm::mat4 Transform = this->aiMatToglmMat(Curnd->mTransformation);
-	Rs->SetW_Mat(Transform);
+	if (Curnd->mNumMeshes != 0)
+	{
+		Rs = std::make_shared<Node>();
+		std::string nm = Curnd->mName.C_Str();
+		//Sets the ID mesh for the Node
+		for (int jj = 0; jj < Curnd->mNumMeshes; jj++)
+			Rs->SetMeshId(Curnd->mMeshes[jj]);
+		Rs->AddShaderId(0);
+		//Sets Node Location
+		glm::mat4 Transform = this->aiMatToglmMat(Curnd->mTransformation);
+		Rs->SetW_Mat(Transform);
+	}
 	//Checks for children if there is any
 	for (int ii = 0; ii < Curnd->mNumChildren; ii++)
 		this->GetChlds(Curnd->mChildren[ii], Rs);
-		MdlNodes->AddChild(Rs);
+	MdlNodes->AddChild(Rs);
+}
+
+void Mdl_Ldr::AnimChkChlds(aiNode* CurNd,std::string BnName, int Lvl)
+{
+	std::string Rs = CurNd->mName.C_Str();
+	int NumMsh = CurNd->mNumMeshes;
+	//if (NumMsh > 0)
+		std::cout <<BnName << "-----" << Rs << "----" << NumMsh <<"\n";
+	glm::mat4 Mats = this->aiMatToglmMat(CurNd->mTransformation);
+	int ChldCount = CurNd->mNumChildren;
+	for (int ii = 0; ii < ChldCount; ii++)
+		this->AnimChkChlds(CurNd->mChildren[ii],Rs, Lvl + 1);
 }
 
 Mdl_Ldr::Mdl_Ldr()

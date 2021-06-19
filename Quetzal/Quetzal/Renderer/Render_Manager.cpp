@@ -136,7 +136,7 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	ld->LoadFile("ls.dae", this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,
 		this->All_Anim_Models, this->All_Anim_Meshes);
-	ld->LoadFile("Scelidosaurus.dae", this->All_Texture, this->All_Shader,
+	ld->LoadFile("Arm_Test.dae", this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,
 		this->All_Anim_Models, this->All_Anim_Meshes);
 }

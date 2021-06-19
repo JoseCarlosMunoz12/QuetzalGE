@@ -15,7 +15,7 @@ void AnimationData::InitBoneId(M_S_I InitBoneId)
 {
 	this->BoneId = InitBoneId;
 	for(auto& jj : this->TransMats)
-		this->AnimMats[this->BoneID[jj.first]] = jj.second;
+		this->AnimMats[this->BoneId[jj.first]] = jj.second;
 }
 
 AnimationData::AnimationData(std::string InitName)
