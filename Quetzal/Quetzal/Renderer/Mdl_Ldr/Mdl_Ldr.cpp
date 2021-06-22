@@ -7,7 +7,7 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 	glm::mat4 SceneMat;
 	std::vector<std::string> MshNames;
 	Vec_UP<Primitive> Prm;
-	S_P<Node> MdlNodes = std::make_shared<Node>();
+	S_P<Node> MdlNodes = std::make_shared<Node>();	
 	//load meshes and get Meshes names
 	for (int ii = 0; ii < Amount_Mshs; ii++)
 	{
@@ -128,11 +128,11 @@ void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
 		//Sets Node Location
 		glm::mat4 Transform = this->aiMatToglmMat(Curnd->mTransformation);
 		Rs->SetW_Mat(Transform);
+		//Checks for children if there is any
+		for (int ii = 0; ii < Curnd->mNumChildren; ii++)
+			this->GetChlds(Curnd->mChildren[ii], Rs);
+		MdlNodes->AddChild(Rs);
 	}
-	//Checks for children if there is any
-	for (int ii = 0; ii < Curnd->mNumChildren; ii++)
-		this->GetChlds(Curnd->mChildren[ii], Rs);
-	MdlNodes->AddChild(Rs);
 }
 
 void Mdl_Ldr::AnimChkChlds(aiNode* CurNd,std::string BnName, int Lvl)

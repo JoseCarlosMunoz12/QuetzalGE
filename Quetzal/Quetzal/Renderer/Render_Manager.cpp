@@ -80,22 +80,23 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//------------------------------------------------------------------------------
 	//-------------------------Another Model being Rendered-------------------------
 	//------------------------------------------------------------------------------
-	S_P<Model> NewModel1 = std::make_shared<Model>("Scelidosaurus", glm::vec3(0.f));//1) Make Model
-	for(int ii = jj; ii < this->All_Meshes.size(); ii++)
-		NewModel1->AddMeshes(All_Meshes[ii]);          //2) AddMeshes
-	NewModel1->AddTextures(this->All_Texture[0]); //3) Add Textures - Error Texture if it fails it fails to dispay correctly
-	NewModel1->AddTextures(this->All_Texture[2]); //3) Add Textures
-	NewModel1->AddShaders(this->All_Shader[0]);   //4) add Shaders
-	S_P<Node> NewNode1 = std::make_shared<Node>();//5)Create Nodes to Item
-	NewNode1->AddTextureId(0);                    //6).a - Sets Textures used in the Node
-	for (int ii = jj; ii < this->All_Meshes.size(); ii++)
-		NewNode1->SetMeshId(ii - jj);             //6).b - Set Mesh Id for the Node
-	//NewNode1->SetW_Mat(Inv);                    //6).c - set Rotation to upright the model
-	NewNode1->AddShaderId(0);                     //6).d - sets Shader to use
-	//NewNode1->AddChild(NewNode1);               //6).e - set child node, if it has any
-	NewModel1->AddNode(NewNode1);                 //7) add node tree
-	NewModel1->SetWMat(Inv);                      //8) set world Orientation of the Model
-	this->All_Models.push_back(NewModel1);        //9) add model to render
+	//S_P<Model> NewModel1 = std::make_shared<Model>("Scelidosaurus", glm::vec3(0.f));//1) Make Model
+	/*for (int ii = jj; ii < this->All_Meshes.size(); ii++)
+			NewModel1->AddMeshes(All_Meshes[ii]);          //2) AddMeshes
+		NewModel1->AddTextures(this->All_Texture[0]); //3) Add Textures - Error Texture if it fails it fails to dispay correctly
+		NewModel1->AddTextures(this->All_Texture[2]); //3) Add Textures
+		NewModel1->AddShaders(this->All_Shader[0]);   //4) add Shaders
+		S_P<Node> NewNode1 = std::make_shared<Node>();//5)Create Nodes to Item
+		NewNode1->AddTextureId(0);                    //6).a - Sets Textures used in the Node
+		for (int ii = jj; ii < this->All_Meshes.size(); ii++)
+			NewNode1->SetMeshId(ii - jj);             //6).b - Set Mesh Id for the Node
+		//NewNode1->SetW_Mat(Inv);                    //6).c - set Rotation to upright the model
+		NewNode1->AddShaderId(0);                     //6).d - sets Shader to use
+		//NewNode1->AddChild(NewNode1);               //6).e - set child node, if it has any
+		NewModel1->AddNode(NewNode1);                 //7) add node tree
+		NewModel1->SetWMat(Inv);                      //8) set world Orientation of the Model
+		this->All_Models.push_back(NewModel1);        //9) add model to render
+	*/
 	//-----------------------------------------------------------------------------
 	//------------------------Load Animated Model to Render------------------------
 	//-----------------------------------------------------------------------------
@@ -133,10 +134,10 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//Determines if the file loaded is an Anim or a static model
 	//
 	S_P<Mdl_Ldr> ld = std::make_shared<Mdl_Ldr>();
-	ld->LoadFile("ls.dae", this->All_Texture, this->All_Shader,
+	/*ld->LoadFile("ls.dae", this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,
-		this->All_Anim_Models, this->All_Anim_Meshes);
-	ld->LoadFile("Arm_Test.dae", this->All_Texture, this->All_Shader,
+		this->All_Anim_Models, this->All_Anim_Meshes);*/
+	ld->LoadFile("velociraptor.dae", this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,
 		this->All_Anim_Models, this->All_Anim_Meshes);
 }
