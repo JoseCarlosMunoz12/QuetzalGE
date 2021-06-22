@@ -134,9 +134,9 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//Determines if the file loaded is an Anim or a static model
 	//
 	S_P<Mdl_Ldr> ld = std::make_shared<Mdl_Ldr>();
-	/*ld->LoadFile("ls.dae", this->All_Texture, this->All_Shader,
+	ld->LoadFile("Scelidosaurus.dae", this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,
-		this->All_Anim_Models, this->All_Anim_Meshes);*/
+		this->All_Anim_Models, this->All_Anim_Meshes);
 	ld->LoadFile("velociraptor.dae", this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,
 		this->All_Anim_Models, this->All_Anim_Meshes);

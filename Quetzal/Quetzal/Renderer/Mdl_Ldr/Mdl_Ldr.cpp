@@ -82,7 +82,8 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	//Get the Meshes relative Transform to the Scene
 	glm::mat4 SceneMat = this->aiMatToglmMat(Scene->mRootNode->mTransformation);
 	MdlNodes->SetW_Mat(SceneMat);
-	//find all relative Transform to the scene for nodes
+	//find all relative Transfoms
+	//of each model in the file
 	int NumChld = Scene->mRootNode->mNumChildren;
 	std::string BnName = Scene->mRootNode->mName.C_Str();
 	Count = 0;
@@ -139,7 +140,7 @@ void Mdl_Ldr::AnimChkChlds(aiNode* CurNd,std::string BnName, int Lvl)
 {
 	std::string Rs = CurNd->mName.C_Str();
 	int NumMsh = CurNd->mNumMeshes;
-	//if (NumMsh > 0)
+	if (NumMsh > 0)
 		std::cout <<BnName << "-----" << Rs << "----" << NumMsh <<"\n";
 	glm::mat4 Mats = this->aiMatToglmMat(CurNd->mTransformation);
 	int ChldCount = CurNd->mNumChildren;
