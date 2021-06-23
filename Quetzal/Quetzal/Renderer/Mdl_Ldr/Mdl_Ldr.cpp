@@ -82,13 +82,13 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	//Get the Meshes relative Transform to the Scene
 	glm::mat4 SceneMat = this->aiMatToglmMat(Scene->mRootNode->mTransformation);
 	MdlNodes->SetW_Mat(SceneMat);
-	//find all relative Transfoms
-	//of each model in the file
+	//
 	int NumChld = Scene->mRootNode->mNumChildren;
 	std::string BnName = Scene->mRootNode->mName.C_Str();
 	Count = 0;
+	std::vector<std::string> NodesNames;
 	for (int ii = 0; ii < NumChld; ii++)
-		this->AnimChkChlds(Scene->mRootNode->mChildren[ii],BnName, Count);
+		this->AnimChkChlds(Scene->mRootNode->mChildren[ii],NodesNames);
 	//this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);	 
 	//create the AnimModel with all Meshes
 	Vec_SH<Anim_Mesh> Rs;
@@ -136,16 +136,25 @@ void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
 	}
 }
 
-void Mdl_Ldr::AnimChkChlds(aiNode* CurNd,std::string BnName, int Lvl)
+void Mdl_Ldr::AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames)
 {
-	std::string Rs = CurNd->mName.C_Str();
 	int NumMsh = CurNd->mNumMeshes;
 	if (NumMsh > 0)
-		std::cout <<BnName << "-----" << Rs << "----" << NumMsh <<"\n";
+		MshNames.push_back(CurNd->mName.C_Str());
 	glm::mat4 Mats = this->aiMatToglmMat(CurNd->mTransformation);
 	int ChldCount = CurNd->mNumChildren;
 	for (int ii = 0; ii < ChldCount; ii++)
-		this->AnimChkChlds(CurNd->mChildren[ii],Rs, Lvl + 1);
+		this->AnimChkChlds(CurNd->mChildren[ii],MshNames);
+}
+
+glm::mat4 Mdl_Ldr::GetMainNode(aiNode* CurNd, std::string RootName)
+{
+	aiNode* Par = CurNd->mParent;
+	if (!Par)
+		return glm::mat4(1.f);
+	if (Par->mName.C_Str() == RootName)
+		return glm::mat4(1.f);
+	return this->GetMainNode(Par,RootName) * this->aiMatToglmMat(CurNd->mTransformation);
 }
 
 Mdl_Ldr::Mdl_Ldr()

@@ -11,7 +11,8 @@ private:
 	void CreateDynamic(const aiScene* Scene, Vec_SH<Anim_Model>& Mdls,Vec_SH<Anim_Mesh>& Mshs,
 		S_P<Texture> Txts, S_P<Shader> Shdrs);
 	void GetChlds(aiNode* Curnd, S_P<Node> MdlNodes);
-	void AnimChkChlds(aiNode* CurNd, std::string BnName, int Lvl);
+	void AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames);
+	glm::mat4 GetMainNode(aiNode* CurNd, std::string RootName);
 public:
 	Mdl_Ldr();
 	void LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs,
