@@ -44,7 +44,7 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 }
 
 void Mdl_Ldr::CreateDynamic(const aiScene* Scene, 
-	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
+	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs, S_P<AnimHandler> AnimHndler)
 {
 	this->ClearMaps();
 	Vec_UP<A_Primitive> A_Mshs;
@@ -82,13 +82,24 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	//Get the Meshes relative Transform to the Scene
 	glm::mat4 SceneMat = this->aiMatToglmMat(Scene->mRootNode->mTransformation);
 	MdlNodes->SetW_Mat(SceneMat);
-	//
+	//Get Nodes of each of the items
 	int NumChld = Scene->mRootNode->mNumChildren;
 	std::string BnName = Scene->mRootNode->mName.C_Str();
 	Count = 0;
 	std::vector<std::string> NodesNames;
 	for (int ii = 0; ii < NumChld; ii++)
 		this->AnimChkChlds(Scene->mRootNode->mChildren[ii],NodesNames);
+	for (auto& jj : NodesNames)
+	{
+		S_P<Node> NewNode = std::make_shared<Node>();
+		int MeshId = Scene->mRootNode->FindNode(jj.c_str())->mMeshes[0];
+		glm::mat4 NodeMatrix = this->GetMainNode(Scene->mRootNode->FindNode(jj.c_str()),BnName);
+		NewNode->SetW_Mat(NodeMatrix);
+		NewNode->AddTextureId(0);
+		NewNode->AddShaderId(0);
+		NewNode->SetMeshId(MeshId);
+		MdlNodes->AddChild(NewNode);
+	}
 	//this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);	 
 	//create the AnimModel with all Meshes
 	Vec_SH<Anim_Mesh> Rs;
@@ -112,6 +123,7 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	for (auto& jj : MdlNodes->GetChildren())
 		Mdl->AddNode(jj);
 	Mdls.push_back(Mdl);
+	AnimHndler->AddAnims(AnimData);
 }
 
 void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
@@ -164,7 +176,7 @@ Mdl_Ldr::Mdl_Ldr()
 
 void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs,
 	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
-	 Vec_SH<Anim_Model>& A_Mdls,Vec_SH<Anim_Mesh>& A_Mshs)
+	 Vec_SH<Anim_Model>& A_Mdls,Vec_SH<Anim_Mesh>& A_Mshs, S_P<AnimHandler> AnimHndler)
 {
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(File + FileName, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
@@ -187,5 +199,5 @@ void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader
 	if (!IsDynamic)
 		this->CreateStatic(scene,Mdls,Mshs,Txts[0],Shdrs[0]);
 	else
-		this->CreateDynamic(scene,A_Mdls,A_Mshs,Txts[1],Shdrs[1]);
+		this->CreateDynamic(scene,A_Mdls,A_Mshs,Txts[1],Shdrs[1], AnimHndler);
 }

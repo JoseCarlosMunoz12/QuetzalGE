@@ -1,6 +1,7 @@
 #pragma once
 #include "../Model.h"
 #include "../Anim_Model.h"
+#include "../AnimHandler.h"
 class Mdl_Ldr :public ASSIMPLOAD_M, A_ASSIMP_LOAD
 {
 private:
@@ -9,7 +10,7 @@ private:
 	void CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 		S_P<Texture> Txts, S_P<Shader> Shdrs);
 	void CreateDynamic(const aiScene* Scene, Vec_SH<Anim_Model>& Mdls,Vec_SH<Anim_Mesh>& Mshs,
-		S_P<Texture> Txts, S_P<Shader> Shdrs);
+		S_P<Texture> Txts, S_P<Shader> Shdrs, S_P<AnimHandler> AnimHndler);
 	void GetChlds(aiNode* Curnd, S_P<Node> MdlNodes);
 	void AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames);
 	glm::mat4 GetMainNode(aiNode* CurNd, std::string RootName);
@@ -17,7 +18,7 @@ public:
 	Mdl_Ldr();
 	void LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs,
 		Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
-		Vec_SH<Anim_Model>& A_Mshs, Vec_SH<Anim_Mesh>& A_Mdls);
+		Vec_SH<Anim_Model>& A_Mshs, Vec_SH<Anim_Mesh>& A_Mdls, S_P<AnimHandler> AnimHndler);
 
 };
 
