@@ -165,7 +165,7 @@ glm::mat4 Mdl_Ldr::GetMainNode(aiNode* CurNd, std::string RootName)
 	if (!Par)
 		return glm::mat4(1.f);
 	if (Par->mName.C_Str() == RootName)
-		return glm::mat4(1.f);
+		return this->aiMatToglmMat(CurNd->mTransformation);
 	return this->GetMainNode(Par,RootName) * this->aiMatToglmMat(CurNd->mTransformation);
 }
 
