@@ -3,6 +3,8 @@
 #include "Blend_Animation.h"
 using M_S_A = std::map<std::string, S_P<Animation>>;
 using M_S_B = std::map<std::string, S_P<Blend_Animation>>;
+using M_S_B = std::map<std::string, Bone_Inf>;
+
 class AnimationData
 {
 private:
@@ -12,6 +14,7 @@ private:
 	M_S_M Offsets;
 	M_S_M TransMats;
 	M_S_I BoneId;
+
 	std::vector<glm::mat4> AnimMats;
 	M_S_B Blends;
 	//Animation data and how it blends with each other
