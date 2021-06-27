@@ -7,12 +7,13 @@
 using M_S_M = std::map<std::string, glm::mat4>;
 using M_S_I = std::map<std::string, int>;
 
-struct Bone_Inf
+struct Bone_Information
 {
-	glm::mat4 Offsets;
+	glm::mat4 BoneOffset;
 	glm::mat4 TransMats;
 	int Id;
 };
+
 enum class InterType
 {
 	HOLD,
@@ -72,51 +73,4 @@ public:
 			this->AddChild(jj);
 	}
 	std::string GetId() { return this->Name; }
-};
-
-class Anim_Skels
-{
-private:
-	//Holds children of skeletons
-	Vec_SH<Anim_Skels> Chlds;
-	//Holds Frames skeleton movement
-	Vec_SH<Frames> Skel_Frames;
-	//Current changes of the Skeleton
-	glm::vec3 CurOffset;
-	glm::vec3 CurScale;
-	glm::quat CurRot;
-	//Holds Current Matrix calculations
-	glm::mat4 Matrix;
-	//Bone Name
-	std::string Bone_Name;
-	Vec_SH<Frames> GetFrames(float Time);
-	glm::vec3 LinInter(glm::vec3 Init, glm::vec3 Final, float Ratio);
-	float GetTimeRatio(float Time, Vec_SH<Frames> Frms);
-	void GetInterpolations(glm::vec3& NewCurO, glm::vec3& NewCurS, glm::quat& NewCurR, float Time);
-public:
-	Anim_Skels(Vec_SH<Frames> InitFrames, std::string InitName, glm::mat4 InitMat,
-		glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale = glm::vec3(1.f));
-	Anim_Skels(std::string InitName, glm::mat4 InitMat,
-		glm::vec3 InitOffset, glm::quat InitQuat, glm::vec3 InitScale = glm::vec3(1.f));
-	Anim_Skels(std::string Name);
-	//Matrix To get
-	void UpdateMatrix(float Time);
-	bool GetMatrix(glm::mat4& CurMat);
-	//Getters
-	Vec_SH<Anim_Skels> GetChildren();
-	glm::vec3 GetCurOffset();
-	glm::vec3 GetCurScale();
-	glm::quat GetCurRot();
-	Vec_SH<Frames> GetFrames();
-	std::string GetName();
-	//Setters
-	void SetCurOffset(glm::vec3 NewOffset);
-	void SetCurScale(glm::vec3 NewScale);
-	void SetCurRot(glm::quat NewRot);
-	void SetChild(S_P<Anim_Skels> NewChld);
-	void SetChilds(Vec_SH<Anim_Skels> NewChlds);
-	void SetFrames(Vec_SH<Frames> NewFrames);
-	//frame edits
-	void DeleteFrame(int FrameId);
-	void AddFrame(float NewTime);
 };

@@ -1,77 +1,12 @@
 #include "Animation.h"
 
-void Animation::UpdateSkels(S_P<Anim_Skels> Bone)
-{
-	Bone->UpdateMatrix(this->CurTime);
-	Vec_SH<Anim_Skels> chlds = Bone->GetChildren();
-	for (auto& jj : chlds)
-		this->UpdateSkels(jj);
-}
 
-void Animation::CalcMatrix(glm::mat4 Par,
-	std::vector<glm::mat4>& Collection,
-	S_P<Anim_Skels> Bone, M_S_M BnsOff, M_S_M TransMat, M_S_I MatLoc)
+Animation::Animation(std::string InitName, float InitFloat, M_S_F Inti_Frames)
 {
-	glm::mat4 ParMatrix = Par;
-	std::string BoneName = Bone->GetName();
-	glm::mat4 CurMat;
-	if(Bone->GetMatrix(CurMat))
-		ParMatrix = ParMatrix * CurMat;
-	else
-		ParMatrix = ParMatrix * TransMat[BoneName];
-	Collection[MatLoc[BoneName]] = ParMatrix * BnsOff[BoneName];
-	Vec_SH<Anim_Skels> Chlds = Bone->GetChildren();
-	for (auto& jj : Chlds)
-		this->CalcMatrix(ParMatrix, Collection, jj, BnsOff,TransMat, MatLoc);
-}
-
-Animation::Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv)
-	:Name(InitName),TimeLength(InitFloat), Inv(InitInv)
-{
-	this->Skels = InitSkels;
-	this->CurTime = 0.f;
-	this->LoopId = 1;
-}
-
-Animation::Animation()
-	:Name(""), TimeLength(0),Inv(glm::mat4(1.f))
-{
-	this->CurTime = 0;
-	this->LoopId = 1;
 }
 
 Animation::~Animation()
 {
-}
-
-void Animation::updateTime(float dt)
-{
-	//updates the Time
-	switch (LoopId)
-	{
-	case LoopID::LOOP:
-		this->CurTime += dt;
-		if (this->CurTime > this->TimeLength)
-			this->CurTime = this->TimeLength;
-		break;
-	case LoopID::ONCE:
-		this->CurTime += dt;
-		if (this->CurTime > this->TimeLength)
-			this->CurTime = 0;
-		break;
-	case LoopID::MANUAL:
-		break;
-	}
-	//update Skeletons with Time
-	this->UpdateSkels(this->Skels);
-}
-
-void Animation::GetAllMatrix(std::vector<glm::mat4>& AllMats,
-	M_S_M BnOff, M_S_M TrnsMat,
-	M_S_I MatLoc)
-{
-	glm::mat4 wrld = glm::mat4(1.f);
-	this->CalcMatrix(wrld, AllMats, this->Skels, BnOff,TrnsMat, MatLoc);
 }
 
 float Animation::GetCurTime()
@@ -84,10 +19,6 @@ float Animation::GetTimeLength()
 	return this->TimeLength;
 }
 
-int Animation::GetLoopId()
-{
-	return this->LoopId;
-}
 
 void Animation::SetCurTime(float NewCur)
 {
@@ -97,24 +28,4 @@ void Animation::SetCurTime(float NewCur)
 void Animation::SetTimeLength(float NewLength)
 {
 	this->TimeLength = NewLength;
-}
-
-void Animation::SetLoopId(int NewId)
-{
-	this->LoopId = NewId;
-}
-
-void Animation::SetName(std::string NewName)
-{
-	this->Name = NewName;
-}
-
-void Animation::SetSkels(S_P<Anim_Skels> InitSkels)
-{
-	this->Skels = InitSkels;
-}
-
-void Animation::SetInvMatrix(glm::mat4 NewInv)
-{
-	this->Inv = glm::inverse(NewInv);
 }

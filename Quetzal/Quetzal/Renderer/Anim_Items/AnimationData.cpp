@@ -1,76 +1,25 @@
 #include "AnimationData.h"
 
-void AnimationData::InitOffsets(M_S_M InitOffsets)
-{
-	this->Offsets = InitOffsets;
-	this->AnimMats = std::vector<glm::mat4>(this->Offsets.size());
-}
-
-void AnimationData::InitTransMat(M_S_M InitTransMat)
-{
-	this->TransMats = InitTransMat;
-}
-
-void AnimationData::InitBoneId(M_S_I InitBoneId)
-{
-	this->BoneId = InitBoneId;
-	for(auto& jj : this->TransMats)
-		this->AnimMats[this->BoneId[jj.first]] = jj.second;
-}
-
 AnimationData::AnimationData(std::string InitName)
 {
 	this->SetName(InitName);
 }
 
-AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId)
+AnimationData::AnimationData(std::string InitName, M_S_BI InitSkelsData)
 {
-	this->SetName(InitName);
-	this->InitOffsets(InitOffsets);
-	this->InitTransMat(TransMats);
-	this->InitBoneId(InitBoneId);
 }
 
-AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
-	Vec_SH<Animation> InitAnims)
+
+AnimationData::AnimationData(std::string InitName, M_S_BI InitSKelsData, Vec_SH<Animation> InitAnims)
 {
-	this->SetName(InitName);
-	this->InitOffsets(InitOffsets);
-	this->InitTransMat(InitTransmats);
-	this->InitBoneId(InitBoneId);
-	int Count = 0;
-	for (auto& jj : InitAnims)
-	{
-		if (Count == 0)
-		{
-			this->CurAnim = jj->GetName();
-			Count++;
-		}
-		this->Anims[jj->GetName()] = jj;
-	}
 }
 
-AnimationData::AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
-	Vec_SH<Animation> InitAnims, std::string InitAnim)
+AnimationData::AnimationData(std::string InitName, M_S_BI InitSkelsData, Vec_SH<Animation> InitAnims, std::string InitAnim)
 {
-	this->SetName(InitName);
-	this->InitOffsets(InitOffsets);
-	this->InitTransMat(InitTransmats);
-	this->InitBoneId(InitBoneId);
-	for (auto& jj : InitAnims)
-		this->Anims[jj->GetName()] = jj;
-	this->CurAnim = InitAnim;
 }
 
 AnimationData::~AnimationData()
 {
-}
-
-void AnimationData::InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId)
-{
-	this->InitOffsets(InitOffsets);
-	this->InitTransMat(InitTransmats);
-	this->InitBoneId(InitBoneId);
 }
 
 void AnimationData::AddAnimation(S_P<Animation> NewAnim)
@@ -103,13 +52,7 @@ void AnimationData::SetName(std::string NewName)
 
 std::vector<glm::mat4> AnimationData::GetMatrices()
 {
-	if (this->Anims.find(this->CurAnim) != this->Anims.end())
-		this->Anims[this->CurAnim]->GetAllMatrix(this->AnimMats, this->Offsets, this->TransMats, this->BoneId);
-	else if (this->Blends.find(this->CurAnim) != this->Blends.end())
-		this->Blends[this->CurAnim]->UpdateAnimations(this->AnimMats, this->Anims,
-			this->Offsets, this->TransMats, this->BoneId, this->dt);
-	
-	return this->AnimMats;
+	return this->Anim_Mats;
 }
 
 std::vector<std::string> AnimationData::GetAllAnims()

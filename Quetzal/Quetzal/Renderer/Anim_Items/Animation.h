@@ -8,23 +8,15 @@ enum LoopID
 	LOOP,
 	ONCE
 };
+using M_S_F = std::map<std::string, Vec_SH<Frames>>;
 class Animation
 {
 private:
-	S_P<Anim_Skels> Skels;
 	std::string Name;
 	float TimeLength;
 	float CurTime;
-	glm::mat4 Inv;
-	//-1 Control Current Time from function instead of dt
-	// 0 loop to beginning
-	// 1 from start to end once
-	int LoopId;
-	void UpdateSkels(S_P<Anim_Skels> Bone);
-	void CalcMatrix(glm::mat4 Par, std::vector<glm::mat4>& Collection, S_P<Anim_Skels> Bone,
-		M_S_M BnsOff, M_S_M TransMat, M_S_I MatLoc);
 public:
-	Animation(S_P<Anim_Skels> InitSkels, std::string InitName, float InitFloat, glm::mat4 InitInv);
+	Animation(std::string InitName, float InitFloat, M_S_F Inti_Frames);
 	Animation();
 	~Animation();
 	void updateTime(float dt);
@@ -35,14 +27,12 @@ public:
 	float GetTimeLength();
 	int GetLoopId();
 	std::string GetName() { return this->Name; }
-	S_P<Anim_Skels> GetAnimSkels() { return this->Skels; }
-	glm::mat4 GetInvMatrix() { return this->Inv; }
 	//Setters
 	void SetCurTime(float NewCur);
 	void SetTimeLength(float NewLength);
 	void SetLoopId(int NewId);
 	void SetName(std::string NewName);
-	void SetSkels(S_P<Anim_Skels> InitSkels);
+	void SetSkels();
 	void SetInvMatrix(glm::mat4 NewInv);
 };
 

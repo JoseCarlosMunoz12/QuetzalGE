@@ -3,7 +3,7 @@
 #include "Blend_Animation.h"
 using M_S_A = std::map<std::string, S_P<Animation>>;
 using M_S_B = std::map<std::string, S_P<Blend_Animation>>;
-using M_S_B = std::map<std::string, Bone_Inf>;
+using M_S_BI = std::map<std::string, Bone_Information>;
 
 class AnimationData
 {
@@ -11,28 +11,22 @@ private:
 	//Name
 	std::string Name;
 	//base data of the whole model for animation
-	M_S_M Offsets;
-	M_S_M TransMats;
-	M_S_I BoneId;
-
-	std::vector<glm::mat4> AnimMats;
-	M_S_B Blends;
+	S_P<Skels> Anim_Skels;
+	M_S_BI Skels_Data;
+	std::vector<glm::mat4> Anim_Mats;
 	//Animation data and how it blends with each other
 	M_S_A Anims;
+	M_S_B Blends;
 	std::string CurAnim;
 	float dt;//adds how much time has passed, to be used in the Blend system
-	void InitOffsets(M_S_M InitOffsets);
-	void InitTransMat(M_S_M InitTransMat);
-	void InitBoneId(M_S_I InitBoneId);
 public:
 	AnimationData(std::string InitName);
-	AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M TransMats, M_S_I InitBoneId);
-	AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
+	AnimationData(std::string InitName, M_S_BI InitSkelsData);
+	AnimationData(std::string InitName, M_S_BI InitSKelsData,
 		Vec_SH<Animation> InitAnims);
-	AnimationData(std::string InitName, M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId,
+	AnimationData(std::string InitName,M_S_BI InitSkelsData,
 		Vec_SH<Animation> InitAnims, std::string InitAnim);
 	~AnimationData();
-	void InitAnimData(M_S_M InitOffsets, M_S_M InitTransmats, M_S_I InitBoneId);
 	void AddAnimation(S_P<Animation> NewAnim);
 	void AddAnimations(Vec_SH<Animation> NewAnims);
 	void ChangeAnim(std::string NewAnimChoosen);
