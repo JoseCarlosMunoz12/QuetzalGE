@@ -30,6 +30,11 @@ void Animation::SetTimeLength(float NewLength)
 	this->TimeLength = NewLength;
 }
 
+void Animation::Update(float dt)
+{
+	this->CurTime += dt;
+}
+
 glm::mat4 Animation::GetMat(std::string BoneName, float CurTime)
 {
 	if (this->Frame_Data.find("") != this->Frame_Data.end())

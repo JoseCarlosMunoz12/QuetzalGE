@@ -29,6 +29,7 @@ public:
 	void SetCurTime(float NewCur);
 	void SetTimeLength(float NewLength);
 	//Animation Matrices
+	void Update(float dt);
 	glm::mat4 GetMat(std::string BoneName, float CurTime);
 	void AddFrame(float NewTime, std::string BoneName, S_P<Frames> NewFrame);
 };

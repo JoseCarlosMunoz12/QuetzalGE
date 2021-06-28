@@ -19,6 +19,7 @@ private:
 	M_S_B Blends;
 	std::string CurAnim;
 	float dt;//adds how much time has passed, to be used in the Blend system
+	void UpdateMatrices(S_P<Skels> CurNode);
 public:
 	AnimationData(std::string InitName);
 	AnimationData(std::string InitName, M_S_BI InitSkelsData);
