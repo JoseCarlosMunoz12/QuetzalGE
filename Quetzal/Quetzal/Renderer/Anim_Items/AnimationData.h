@@ -23,9 +23,9 @@ public:
 	AnimationData(std::string InitName);
 	AnimationData(std::string InitName, M_S_BI InitSkelsData);
 	AnimationData(std::string InitName, M_S_BI InitSKelsData,
-		Vec_SH<Animation> InitAnims);
+		M_S_A InitAnims);
 	AnimationData(std::string InitName,M_S_BI InitSkelsData,
-		Vec_SH<Animation> InitAnims, std::string InitAnim);
+		M_S_A InitAnims, std::string InitAnim);
 	~AnimationData();
 	void AddAnimation(S_P<Animation> NewAnim);
 	void AddAnimations(Vec_SH<Animation> NewAnims);
@@ -37,6 +37,6 @@ public:
 	std::vector<std::string> GetAllBlends();
 	S_P<Animation> GetCurrentAnim() { return this->Anims[this->CurAnim]; }
 	std::string GetName()           { return this->Name; }
-	std::string GetAnimId()                 { return this->CurAnim; }
-	M_S_B GetBlends() { return this->Blends; }
+	std::string GetAnimId()         { return this->CurAnim; }
+	M_S_B GetBlends()               { return this->Blends; }
 };

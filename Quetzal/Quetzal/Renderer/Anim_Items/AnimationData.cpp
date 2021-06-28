@@ -6,20 +6,26 @@ AnimationData::AnimationData(std::string InitName)
 }
 
 AnimationData::AnimationData(std::string InitName, M_S_BI InitSkelsData)
+	:Name(InitName),Skels_Data(InitSkelsData)
 {
 }
 
 
-AnimationData::AnimationData(std::string InitName, M_S_BI InitSKelsData, Vec_SH<Animation> InitAnims)
+AnimationData::AnimationData(std::string InitName, M_S_BI InitSKelsData, M_S_A InitAnims)
+	:Name(InitName), Skels_Data(InitSKelsData)
 {
+	this->Anims = InitAnims;
 }
 
-AnimationData::AnimationData(std::string InitName, M_S_BI InitSkelsData, Vec_SH<Animation> InitAnims, std::string InitAnim)
+AnimationData::AnimationData(std::string InitName, M_S_BI InitSkelsData, M_S_A InitAnims, std::string InitAnim)\
+	:Name(InitName), Skels_Data(InitSkelsData)
 {
+	this->Anims = InitAnims;
 }
 
 AnimationData::~AnimationData()
 {
+
 }
 
 void AnimationData::AddAnimation(S_P<Animation> NewAnim)
@@ -40,8 +46,6 @@ void AnimationData::ChangeAnim(std::string NewAnimChoosen)
 
 void AnimationData::Update(float dt)
 {
-	if (this->Anims.find(this->CurAnim) != this->Anims.end())
-		this->Anims[this->CurAnim]->updateTime(dt);
 	this->dt = dt;
 }
 
