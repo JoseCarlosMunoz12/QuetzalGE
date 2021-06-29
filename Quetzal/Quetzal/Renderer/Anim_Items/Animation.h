@@ -18,6 +18,7 @@ private:
 	M_S_F Frame_Data;
 	float TimeLength;
 	float CurTime;
+	glm::mat4 GetMatrix(std::string BoneName);
 public:
 	Animation(std::string InitName, float InitFloat, M_S_F Inti_Frames);
 	~Animation();
@@ -30,7 +31,7 @@ public:
 	void SetTimeLength(float NewLength);
 	//Animation Matrices
 	void Update(float dt);
-	glm::mat4 GetMat(std::string BoneName, float CurTime);
+	glm::mat4 GetMat(std::string BoneName);
 	void AddFrame(float NewTime, std::string BoneName, S_P<Frames> NewFrame);
 };
 

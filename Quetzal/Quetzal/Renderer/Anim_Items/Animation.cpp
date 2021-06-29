@@ -35,7 +35,7 @@ void Animation::Update(float dt)
 	this->CurTime += dt;
 }
 
-glm::mat4 Animation::GetMat(std::string BoneName, float CurTime)
+glm::mat4 Animation::GetMat(std::string BoneName)
 {
 	if (this->Frame_Data.find("") != this->Frame_Data.end())
 		return glm::mat4(1.f);

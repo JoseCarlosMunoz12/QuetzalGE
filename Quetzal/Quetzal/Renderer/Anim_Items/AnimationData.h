@@ -19,7 +19,7 @@ private:
 	M_S_B Blends;
 	std::string CurAnim;
 	float dt;//adds how much time has passed, to be used in the Blend system
-	void UpdateMatrices(S_P<Skels> CurNode);
+	void UpdateMatrices(S_P<Skels> CurNode, glm::mat4 ParMat);
 public:
 	AnimationData(std::string InitName);
 	AnimationData(std::string InitName, M_S_BI InitSkelsData);
@@ -33,7 +33,7 @@ public:
 	void ChangeAnim(std::string NewAnimChoosen);
 	void Update(float dt);
 	void SetName(std::string NewName);
-	std::vector<glm::mat4> GetMatrices();
+	std::vector<glm::mat4> GetMatrices(glm::mat4 WrldMat);
 	std::vector<std::string> GetAllAnims();
 	std::vector<std::string> GetAllBlends();
 	S_P<Animation> GetCurrentAnim() { return this->Anims[this->CurAnim]; }

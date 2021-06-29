@@ -1,5 +1,27 @@
 #include "AnimationData.h"
 
+void AnimationData::UpdateMatrices(S_P<Skels> CurNode, glm::mat4 ParMat)
+{
+	//Get basic Dat
+	std::string BoneId = CurNode->GetId();
+	glm::mat4 BoneOffset = this->Skels_Data[BoneId].BoneOffset;
+	glm::mat4 BoneTrans = this->Skels_Data[BoneId].TransMats;
+	int BoneLoc = this->Skels_Data[BoneId].Id;
+	glm::mat4 CurMat = ParMat;
+	//Calc Data
+	if (this->Anims.find(this->CurAnim) != this->Anims.end())
+		 CurMat = ParMat * this->Anims[this->CurAnim]->GetMat(BoneId);
+	else if (this->Blends.find(this->CurAnim) != this->Blends.end())
+		this->Blends[this->CurAnim];
+	else
+		CurMat = ParMat * BoneTrans;
+	this->Anim_Mats[BoneLoc] = CurMat * BoneOffset;
+	//Check Children
+	Vec_SH<Skels> Chlds = CurNode->GetChilds();
+	for (auto& jj : Chlds)
+		this->UpdateMatrices(jj, CurMat);
+}
+
 AnimationData::AnimationData(std::string InitName)
 {
 	this->SetName(InitName);
@@ -54,8 +76,9 @@ void AnimationData::SetName(std::string NewName)
 	this->Name = NewName;
 }
 
-std::vector<glm::mat4> AnimationData::GetMatrices()
+std::vector<glm::mat4> AnimationData::GetMatrices(glm::mat4 WrldMat)
 {
+	this->UpdateMatrices(this->Anim_Skels, WrldMat);
 	return this->Anim_Mats;
 }
 
