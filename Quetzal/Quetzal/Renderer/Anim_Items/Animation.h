@@ -18,9 +18,18 @@ private:
 	M_S_F Frame_Data;
 	float TimeLength;
 	float CurTime;
-	glm::mat4 GetMatrix(std::string BoneName);
+	//Matrix Data
+	glm::vec3 CurOffset;
+	glm::vec3 CurScale;
+	glm::quat CurRot;
+	//
+	glm::mat4 GetMat(Vec_SH<Frames> Frms);
+	Vec_SH<Frames> GetFrames(Vec_SH<Frames> Frms);
+	glm::vec3 LinInter(glm::vec3 Vec0, glm::vec3 Vec1, float Ratio);
+	glm::mat4 UpdatMatrix();
+	float GetTimeRatio(Vec_SH<Frames> Frms);
 public:
-	Animation(std::string InitName, float InitFloat, M_S_F Inti_Frames);
+	Animation(std::string InitName, float InitFloat, M_S_F Init_Frames);
 	~Animation();
 	//Getters
 	float GetCurTime();
