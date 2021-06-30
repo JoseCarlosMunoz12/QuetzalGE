@@ -43,87 +43,26 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 	Mdls.push_back(Mdl);
 }
 
-void Mdl_Ldr::CreateDynamic(const aiScene* Scene, 
+void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs, S_P<AnimHandler> AnimHndler)
 {
-	this->ClearMaps();
 	Vec_UP<A_Primitive> A_Mshs;
 	Vec_SH<Animation> Animations;
 	std::vector<std::string> MshNames;
 	S_P<Node> MdlNodes = std::make_shared<Node>();
 	int msh_num = Scene->mNumMeshes;
-	//Gets all Skeleton data to be
-	Vec_SH<Anim_Skels> Bones;
-	for (int ii = 0; ii < msh_num; ii++)
-		this->FindAllBones(Scene, Scene->mMeshes[ii], Bones);
-	int Count = 0;
-	int Par = 0;
-	this->FindChilds(Scene->mRootNode, Par, Count);
-	//create correct id and Create the root nodes
-	//And load meshes into the primitives
+	//Get Vertex Data
 	for (int ii = 0; ii < msh_num; ii++)
 	{
 		std::vector<AnimVertex> rs = this->A_FinalVertex(Scene->mMeshes[ii]);
 		std::vector<GLuint> Indices = this->A_FinalGluint(Scene->mMeshes[ii]);
-		this->SetBonesId(Scene->mMeshes[ii], rs);
 		A_Mshs.push_back(std::make_unique<A_Primitive>());
 		A_Mshs[ii]->set(rs, Indices);
 		MshNames.push_back(Scene->mMeshes[ii]->mName.C_Str());
 	}
-	//create the Skel Node
-	this->SetTree(Bones);
-	int anims = Scene->mNumAnimations;
-	for (int ii = 0; ii < anims; ii++)
-	{
-		int Size = Animations.size();
-		Animations.push_back(std::make_shared<Animation>());
-		this->GetAnimations(Scene->mAnimations[ii], Animations[Size], Bones);
-	}
-	//Get the Meshes relative Transform to the Scene
-	glm::mat4 SceneMat = this->aiMatToglmMat(Scene->mRootNode->mTransformation);
-	MdlNodes->SetW_Mat(SceneMat);
-	//Get Nodes of each of the items
-	int NumChld = Scene->mRootNode->mNumChildren;
-	std::string BnName = Scene->mRootNode->mName.C_Str();
-	Count = 0;
-	std::vector<std::string> NodesNames;
-	for (int ii = 0; ii < NumChld; ii++)
-		this->AnimChkChlds(Scene->mRootNode->mChildren[ii],NodesNames);
-	for (auto& jj : NodesNames)
-	{
-		S_P<Node> NewNode = std::make_shared<Node>();
-		int MeshId = Scene->mRootNode->FindNode(jj.c_str())->mMeshes[0];
-		glm::mat4 NodeMatrix = this->GetMainNode(Scene->mRootNode->FindNode(jj.c_str()),BnName);
-		NewNode->SetW_Mat(NodeMatrix);
-		NewNode->AddTextureId(0);
-		NewNode->AddShaderId(0);
-		NewNode->SetMeshId(MeshId);
-		MdlNodes->AddChild(NewNode);
-	}
-	//this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);	 
-	//create the AnimModel with all Meshes
-	Vec_SH<Anim_Mesh> Rs;
-	Count = 0;
-	for (auto& ii : A_Mshs)
-	{
-		Rs.push_back(std::make_shared<Anim_Mesh>(std::move(ii), MshNames[Count]));
-		Mshs.push_back(Rs[Count]);
-		Count++;
-	}
-	//create AnimationData
-	S_P<AnimationData> AnimData = std::make_shared<AnimationData>("NewAnim",this->BoneOffsets,this->TransMats,this->BoneLoc,Animations);
-	//create Animation Model to Render
-	S_P<Anim_Model> Mdl = std::make_shared<Anim_Model>("AnimFileName");
-	for (auto& ii : Rs)
-		Mdl->AddMeshes(ii);
-	Mdl->AddShaders(Shdrs);
-	Mdl->AddTextures(Txts);
-	Mdl->SetWMat(MdlNodes->GetMatrix());
-	Mdl->SetAnimationData(AnimData);
-	for (auto& jj : MdlNodes->GetChildren())
-		Mdl->AddNode(jj);
-	Mdls.push_back(Mdl);
-	AnimHndler->AddAnims(AnimData);
+	//Get Bones Data
+	// 
+	//
 }
 
 void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
@@ -148,17 +87,6 @@ void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
 	}
 }
 
-void Mdl_Ldr::AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames)
-{
-	int NumMsh = CurNd->mNumMeshes;
-	if (NumMsh > 0)
-		MshNames.push_back(CurNd->mName.C_Str());
-	glm::mat4 Mats = this->aiMatToglmMat(CurNd->mTransformation);
-	int ChldCount = CurNd->mNumChildren;
-	for (int ii = 0; ii < ChldCount; ii++)
-		this->AnimChkChlds(CurNd->mChildren[ii],MshNames);
-}
-
 glm::mat4 Mdl_Ldr::GetMainNode(aiNode* CurNd, std::string RootName)
 {
 	aiNode* Par = CurNd->mParent;
@@ -169,8 +97,59 @@ glm::mat4 Mdl_Ldr::GetMainNode(aiNode* CurNd, std::string RootName)
 	return this->GetMainNode(Par,RootName) * this->aiMatToglmMat(CurNd->mTransformation);
 }
 
+void Mdl_Ldr::AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames)
+{
+
+}
+
+std::vector<AnimVertex> Mdl_Ldr::A_FinalVertex(aiMesh* Meshes)
+{
+	std::vector<AnimVertex> TempVerts;
+	for (int ii = 0; ii < Meshes->mNumVertices; ii++)
+	{
+		AnimVertex NewVertex{};
+		//Position
+		NewVertex.position.x = Meshes->mVertices[ii].x;
+		NewVertex.position.y = Meshes->mVertices[ii].y;
+		NewVertex.position.z = Meshes->mVertices[ii].z;
+		//Normals
+		NewVertex.normal.x = Meshes->mNormals[ii].x;
+		NewVertex.normal.y = Meshes->mNormals[ii].y;
+		NewVertex.normal.z = Meshes->mNormals[ii].z;
+		//Texture Coordinates
+		NewVertex.texcoord.x = Meshes->mTextureCoords[0][ii].x;
+		NewVertex.texcoord.y = Meshes->mTextureCoords[0][ii].y;
+		//MatIDs
+		NewVertex.MatId.x = -1;
+		NewVertex.MatId.y = -1;
+		NewVertex.MatId.z = -1;
+		NewVertex.MatId.w = -1;
+		//MatWieghts
+		NewVertex.Weights.x = 0.f;
+		NewVertex.Weights.y = 0.f;
+		NewVertex.Weights.z = 0.f;
+		NewVertex.Weights.w = 0.f;
+
+		TempVerts.push_back(NewVertex);
+	}
+	return TempVerts;
+}
+
+std::vector<GLuint> Mdl_Ldr::A_FinalGluint(aiMesh* Meshes)
+{
+	std::vector<GLuint> TempInd;
+	for (int ii = 0; ii < Meshes->mNumFaces; ii++)
+	{
+		aiFace face = Meshes->mFaces[ii];
+		TempInd.push_back(face.mIndices[0]);
+		TempInd.push_back(face.mIndices[1]);
+		TempInd.push_back(face.mIndices[2]);
+	}
+	return TempInd;
+}
+
 Mdl_Ldr::Mdl_Ldr()
-	:ASSIMPLOAD_M(""),A_ASSIMP_LOAD("")
+	:ASSIMPLOAD_M("")
 {
 }
 
