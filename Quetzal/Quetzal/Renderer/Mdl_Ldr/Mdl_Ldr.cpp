@@ -46,23 +46,27 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs, S_P<AnimHandler> AnimHndler)
 {
+	M_S_BI BoneInf;
 	Vec_UP<A_Primitive> A_Mshs;
 	Vec_SH<Animation> Animations;
 	std::vector<std::string> MshNames;
 	S_P<Node> MdlNodes = std::make_shared<Node>();
 	int msh_num = Scene->mNumMeshes;
+	//Get Bones Data
+	for (int ii = 0; ii < msh_num; ii++)
+		this->FinalAllBones(Scene, Scene->mMeshes[ii], BoneInf);
 	//Get Vertex Data
 	for (int ii = 0; ii < msh_num; ii++)
 	{
 		std::vector<AnimVertex> rs = this->A_FinalVertex(Scene->mMeshes[ii]);
 		std::vector<GLuint> Indices = this->A_FinalGluint(Scene->mMeshes[ii]);
 		A_Mshs.push_back(std::make_unique<A_Primitive>());
+		this->SetBonesID(Scene->mMeshes[ii], rs, BoneInf);
 		A_Mshs[ii]->set(rs, Indices);
 		MshNames.push_back(Scene->mMeshes[ii]->mName.C_Str());
 	}
-	//Get Bones Data
-	// 
-	//
+	//Create the Skeleton
+	std::cout << "e";
 }
 
 void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
@@ -100,6 +104,63 @@ glm::mat4 Mdl_Ldr::GetMainNode(aiNode* CurNd, std::string RootName)
 void Mdl_Ldr::AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames)
 {
 
+}
+
+void Mdl_Ldr::FinalAllBones(const aiScene* scene, aiMesh* meshes, M_S_BI& BonesInf)
+{
+	for (int jj = 0; jj < meshes->mNumBones; jj++)
+	{
+		aiBone* TempBone = meshes->mBones[jj];
+		std::string BoneName = TempBone->mName.C_Str();
+		if (BonesInf.find(BoneName) == BonesInf.end())
+		{
+			int Skels = BonesInf.size();
+			BonesInf[BoneName].BoneOffset = aiMatToglmMat(TempBone->mOffsetMatrix);
+			BonesInf[BoneName].Id = Skels;
+			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
+			BonesInf[BoneName].TransMats = TransMat;
+		}
+	}
+}
+
+void Mdl_Ldr::SetIndex(AnimVertex* Vert, int BoneID, float BoneWieght)
+{
+	if (Vert->MatId.x == -1)
+	{
+		Vert->MatId.x = BoneID;
+		Vert->Weights.x = BoneWieght;
+	}
+	else if (Vert->MatId.y == -1)
+	{
+		Vert->MatId.y = BoneID;
+		Vert->Weights.y = BoneWieght;
+	}
+	else if (Vert->MatId.z == -1)
+	{
+		Vert->MatId.z = BoneID;
+		Vert->Weights.z = BoneWieght;
+	}
+	else if (Vert->MatId.w == -1)
+	{
+		Vert->MatId.w = BoneID;
+		Vert->Weights.w = BoneWieght;
+	}
+
+}
+
+void Mdl_Ldr::SetBonesID(aiMesh* meshes, std::vector<AnimVertex>& Vertx, M_S_BI BonesInf)
+{
+	for (int ii = 0; ii < meshes->mNumBones; ii++)
+	{
+		aiBone* TempBone = meshes->mBones[ii];
+		std::string BoneName = TempBone->mName.C_Str();
+		for (int jj = 0; jj < TempBone->mNumWeights; jj++)
+		{
+			int VertId = TempBone->mWeights[jj].mVertexId;
+			float Weight = TempBone->mWeights[jj].mWeight;
+			this->SetIndex(&Vertx[VertId], BonesInf[BoneName].Id, Weight);
+		}
+	}
 }
 
 std::vector<AnimVertex> Mdl_Ldr::A_FinalVertex(aiMesh* Meshes)

@@ -66,11 +66,9 @@ void Blend_Animation::UpdateAnimations(std::vector<glm::mat4>& Mats, M_S_A Anims
 {
 	//Update time for animations
 	for (auto& jj : this->AnimNames)
-		Anims[jj]->updateTime(dt);
+		Anims[jj]->Update(dt);
 	//Get the Updated Matrices
-	Anims[this->AnimNames[0]]->GetAllMatrix(this->MatsOfAnim0, Offsett, TransMats, BoneId);
-	Anims[this->AnimNames[0]]->GetAllMatrix(this->MatsOfAnim1, Offsett, TransMats, BoneId);
-	//Blend Matrices with corresponding Ratios
+	
 	for (auto& jj : BoneId)
 		Mats[jj.second] = GetBlend(jj.first, this->MatsOfAnim0[jj.second], this->MatsOfAnim1[jj.second]);
 }

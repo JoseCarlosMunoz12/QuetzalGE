@@ -232,25 +232,6 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
                     if (ImGui::Selectable(jj.c_str(), jj == CurAnimId))
                         Anims->ChangeAnim(jj);
                 }
-                if (AnimInUse)
-                {
-                    //See if it is running or not
-                    bool rt = CurAnim->GetLoopId() == -1;
-                    //track the current time for current animation
-                    float A_Dt = CurAnim->GetCurTime();
-                    float A_Lngth = CurAnim->GetTimeLength();
-                    if (ImGui::Checkbox("Manual", &rt))
-                        if (rt)
-                            CurAnim->SetLoopId(-1);
-                        else
-                            CurAnim->SetLoopId(0);
-                    if (ImGui::TreeNode("Animation Current Time Cycle"))
-                    {
-                        if (ImGui::SliderFloat("Time in Animation", &A_Dt, 0.f, A_Lngth) && rt)
-                            CurAnim->SetCurTime(A_Dt);
-                        ImGui::TreePop();
-                    }
-                }
             }
             else
                 ImGui::Text("Animation Model has no Animation");

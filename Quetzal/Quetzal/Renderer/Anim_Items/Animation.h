@@ -9,13 +9,13 @@ enum LoopID
 	ONCE
 };
 
-using M_S_F = std::map<std::string, Vec_SH<Frames>>;
+using M_S_Fr = std::map<std::string, Vec_SH<Frames>>;
 
 class Animation
 {
 private:
 	std::string Name;
-	M_S_F Frame_Data;
+	M_S_Fr Frame_Data;
 	float TimeLength;
 	float CurTime;
 	//Matrix Data
@@ -29,7 +29,7 @@ private:
 	glm::mat4 UpdatMatrix();
 	float GetTimeRatio(Vec_SH<Frames> Frms);
 public:
-	Animation(std::string InitName, float InitFloat, M_S_F Init_Frames);
+	Animation(std::string InitName, float InitFloat, M_S_Fr Init_Frames);
 	~Animation();
 	//Getters
 	float GetCurTime();

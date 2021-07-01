@@ -15,6 +15,9 @@ private:
 	void CreateDynamic(const aiScene* Scene, Vec_SH<Anim_Model>& Mdls,Vec_SH<Anim_Mesh>& Mshs,
 		S_P<Texture> Txts, S_P<Shader> Shdrs, S_P<AnimHandler> AnimHndler);
 	void AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames);
+	void FinalAllBones(const aiScene* scene, aiMesh* meshes, M_S_BI& BonesInf);
+	void SetIndex(AnimVertex* Vert, int BoneID, float BoneWieght);
+	void SetBonesID(aiMesh* meshes, std::vector<AnimVertex>& Vertx, M_S_BI BonesInf);
 	std::vector<AnimVertex> A_FinalVertex(aiMesh* Meshes);
 	std::vector<GLuint> A_FinalGluint(aiMesh* Meshes);
 public:

@@ -65,7 +65,7 @@ float Animation::GetTimeRatio(Vec_SH<Frames> Frms)
     return TimeLeft / FrameDiff;;
 }
 
-Animation::Animation(std::string InitName, float InitFloat, M_S_F Init_Frames)
+Animation::Animation(std::string InitName, float InitFloat, M_S_Fr Init_Frames)
     :Name(InitName),TimeLength(InitFloat),CurTime(0.f),
     CurOffset(glm::vec3(0.f)), CurScale(glm::vec3(1.f))
 {

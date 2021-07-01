@@ -107,7 +107,7 @@ void Anim_Model::Render()
 {
 	//Calcualtes all the matrices for the Model and its meshes
 	if(this->AnimData)
-		this->AllMats = this->AnimData->GetMatrices();
+		this->AllMats = this->AnimData->GetMatrices(this->ModMatrix);
 	//Render all meshes with textues, materials and shaders
 	for(auto& jj : this->Nodes)
 		this->RenderNodes(this->ModMatrix, jj, this->AllMats);
