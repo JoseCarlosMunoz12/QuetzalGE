@@ -51,10 +51,13 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	Vec_SH<Animation> Animations;
 	std::vector<std::string> MshNames;
 	S_P<Node> MdlNodes = std::make_shared<Node>();
+	M_S_Sk SkelsFound;	
 	int msh_num = Scene->mNumMeshes;
 	//Get Bones Data
 	for (int ii = 0; ii < msh_num; ii++)
-		this->FinalAllBones(Scene, Scene->mMeshes[ii], BoneInf);
+		this->FinalAllBones(Scene, Scene->mMeshes[ii], BoneInf,SkelsFound);
+	//Create the Skeleton
+	S_P<Skels> MeshSkel = this->Skeleton(Scene, SkelsFound);
 	//Get Vertex Data
 	for (int ii = 0; ii < msh_num; ii++)
 	{
@@ -65,7 +68,11 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 		A_Mshs[ii]->set(rs, Indices);
 		MshNames.push_back(Scene->mMeshes[ii]->mName.C_Str());
 	}
-	//Create the Skeleton
+	//Create Animation Data and Animations
+	
+	//Get Nodes for Meshes
+	//Create Model
+	//add models, meshes,, animation handler
 	std::cout << "e";
 }
 
@@ -106,7 +113,7 @@ void Mdl_Ldr::AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames)
 
 }
 
-void Mdl_Ldr::FinalAllBones(const aiScene* scene, aiMesh* meshes, M_S_BI& BonesInf)
+void Mdl_Ldr::FinalAllBones(const aiScene* scene, aiMesh* meshes, M_S_BI& BonesInf, M_S_Sk &BonesSkel)
 {
 	for (int jj = 0; jj < meshes->mNumBones; jj++)
 	{
@@ -114,13 +121,32 @@ void Mdl_Ldr::FinalAllBones(const aiScene* scene, aiMesh* meshes, M_S_BI& BonesI
 		std::string BoneName = TempBone->mName.C_Str();
 		if (BonesInf.find(BoneName) == BonesInf.end())
 		{
-			int Skels = BonesInf.size();
+
+			int Id = BonesInf.size();
 			BonesInf[BoneName].BoneOffset = aiMatToglmMat(TempBone->mOffsetMatrix);
-			BonesInf[BoneName].Id = Skels;
+			BonesInf[BoneName].Id = Id;
 			glm::mat4 TransMat = this->aiMatToglmMat(scene->mRootNode->FindNode(BoneName.c_str())->mTransformation);
 			BonesInf[BoneName].TransMats = TransMat;
+			S_P<Skels> Bone = std::make_shared<Skels>(BoneName);
+			BonesSkel[BoneName] = Bone;
 		}
 	}
+}
+
+S_P<Skels> Mdl_Ldr::Skeleton(const aiScene* scene, M_S_Sk Bones)
+{
+	S_P<Skels> root;
+	for (auto& jj : Bones)
+	{
+		std::string BoneName = jj.first;
+		aiNode* cur = scene->mRootNode->FindNode(BoneName.c_str());
+		std::string par = cur->mParent->mName.C_Str();
+		if (Bones.find(par) != Bones.end())
+			Bones[par]->AddChild(jj.second);
+		else
+			root = jj.second;
+	}
+	return root;
 }
 
 void Mdl_Ldr::SetIndex(AnimVertex* Vert, int BoneID, float BoneWieght)
