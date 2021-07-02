@@ -44,7 +44,8 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 }
 
 void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
-	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs, S_P<AnimHandler> AnimHndler)
+	Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs, S_P<AnimHandler> AnimHndler,
+	std::string Filename)
 {
 	M_S_BI BoneInf;
 	Vec_UP<A_Primitive> A_Mshs;
@@ -69,7 +70,8 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 		MshNames.push_back(Scene->mMeshes[ii]->mName.C_Str());
 	}
 	//Create Animation Data and Animations
-	
+	S_P<AnimationData> AnimData = std::make_shared<AnimationData>(Filename, MeshSkel, BoneInf);
+
 	//Get Nodes for Meshes
 	//Create Model
 	//add models, meshes,, animation handler
@@ -265,5 +267,5 @@ void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader
 	if (!IsDynamic)
 		this->CreateStatic(scene,Mdls,Mshs,Txts[0],Shdrs[0]);
 	else
-		this->CreateDynamic(scene,A_Mdls,A_Mshs,Txts[1],Shdrs[1], AnimHndler);
+		this->CreateDynamic(scene,A_Mdls,A_Mshs,Txts[1],Shdrs[1], AnimHndler, FileName);
 }

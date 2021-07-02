@@ -22,24 +22,27 @@ void AnimationData::UpdateMatrices(S_P<Skels> CurNode, glm::mat4 ParMat)
 		this->UpdateMatrices(jj, CurMat);
 }
 
-AnimationData::AnimationData(std::string InitName)
+AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton)
 {
 	this->SetName(InitName);
+	this->Anim_Skels = InitSkeleton;
 }
 
-AnimationData::AnimationData(std::string InitName, M_S_BI InitSkelsData)
+AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSkelsData)
 	:Name(InitName),Skels_Data(InitSkelsData)
 {
+	this->Anim_Skels = InitSkeleton;
 }
 
 
-AnimationData::AnimationData(std::string InitName, M_S_BI InitSKelsData, M_S_A InitAnims)
+AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSKelsData, M_S_A InitAnims)
 	:Name(InitName), Skels_Data(InitSKelsData)
 {
 	this->Anims = InitAnims;
+	this->Anim_Skels = InitSkeleton;
 }
 
-AnimationData::AnimationData(std::string InitName, M_S_BI InitSkelsData, M_S_A InitAnims, std::string InitAnim)\
+AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSkelsData, M_S_A InitAnims, std::string InitAnim)\
 	:Name(InitName), Skels_Data(InitSkelsData)
 {
 	this->Anims = InitAnims;

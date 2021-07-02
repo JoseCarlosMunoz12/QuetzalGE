@@ -21,11 +21,11 @@ private:
 	float dt;//adds how much time has passed, to be used in the Blend system
 	void UpdateMatrices(S_P<Skels> CurNode, glm::mat4 ParMat);
 public:
-	AnimationData(std::string InitName);
-	AnimationData(std::string InitName, M_S_BI InitSkelsData);
-	AnimationData(std::string InitName, M_S_BI InitSKelsData,
+	AnimationData(std::string InitName, S_P<Skels> InitSkeleton);
+	AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSkelsData);
+	AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSKelsData,
 		M_S_A InitAnims);
-	AnimationData(std::string InitName,M_S_BI InitSkelsData,
+	AnimationData(std::string InitName, S_P<Skels> InitSkeleton,M_S_BI InitSkelsData,
 		M_S_A InitAnims, std::string InitAnim);
 	~AnimationData();
 	void AddAnimation(S_P<Animation> NewAnim);
