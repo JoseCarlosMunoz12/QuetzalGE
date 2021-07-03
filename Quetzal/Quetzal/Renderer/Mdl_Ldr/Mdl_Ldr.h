@@ -6,6 +6,7 @@ using M_S_Sk = std::map<std::string, S_P<Skels>>;
 class Mdl_Ldr :public ASSIMPLOAD_M
 {
 private:
+	glm::quat aiQuatToglmQuat(aiQuaternion aiVal);
 	std::string File = "Models/ModelCol/";
 	//After Check, create the either dynamic or static Primitives to be used in the New Model
 	void CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
@@ -15,7 +16,7 @@ private:
 	//Get Data for the Animation Model and its other functions
 	void CreateDynamic(const aiScene* Scene, Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs,
 		S_P<Texture> Txts, S_P<Shader> Shdrs, S_P<AnimHandler> AnimHndler, std::string Filename);
-	void AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames);
+	S_P<Animation> MakeAnimation(aiAnimation* animation);
 	void FinalAllBones(const aiScene* scene, aiMesh* meshes, M_S_BI& BonesInf,M_S_Sk& BonesSkel);
 	S_P<Skels> Skeleton(const aiScene* scene, M_S_Sk Bones);
 	void SetIndex(AnimVertex* Vert, int BoneID, float BoneWieght);

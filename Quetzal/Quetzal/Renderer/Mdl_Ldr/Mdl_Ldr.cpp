@@ -1,5 +1,10 @@
 #include "Mdl_Ldr.h"
 
+glm::quat Mdl_Ldr::aiQuatToglmQuat(aiQuaternion aiVal)
+{
+	return glm::quat(aiVal.w, aiVal.x, aiVal.y, aiVal.z);
+}
+
 void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
 {
@@ -71,11 +76,50 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	}
 	//Create Animation Data and Animations
 	S_P<AnimationData> AnimData = std::make_shared<AnimationData>(Filename, MeshSkel, BoneInf);
-
+	if (Scene->HasAnimations())
+	{
+		int AnimNum = Scene->mNumAnimations;
+		for (int jj = 0; jj < AnimNum; jj++)
+		{
+			S_P<Animation> AnimFound = this->MakeAnimation(Scene->mAnimations[jj]);
+			AnimData->AddAnimation(AnimFound);
+		}
+	}
 	//Get Nodes for Meshes
+	
 	//Create Model
 	//add models, meshes,, animation handler
 	std::cout << "e";
+}
+
+S_P<Animation> Mdl_Ldr::MakeAnimation(aiAnimation* animation)
+{
+	float NumTicks = animation->mDuration;
+	float TcksperSec = animation->mTicksPerSecond;
+	float TotalTime = NumTicks / TcksperSec;
+	std::string AnimName = animation->mName.C_Str();
+	M_S_Fr BoneFrame;
+	int ChanNums = animation->mNumChannels;
+	for (int ii = 0; ii < ChanNums; ii++)
+	{
+		aiNodeAnim* rs = animation->mChannels[ii];
+		std::string Bonename = rs->mNodeName.C_Str();
+		int NumOfRots = rs->mNumRotationKeys;
+		Vec_SH<Frames> r;
+		for (int jj = 0; jj < NumOfRots; jj++)
+		{
+			float F_Time = rs->mRotationKeys[jj].mTime;
+			F_Time = F_Time / NumTicks * TotalTime;
+			glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[ii].mValue);
+			glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
+			glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
+			Joint T_Joint = { Offset, Rot, Scale };
+			S_P<Frames> NewFrame = std::make_shared<Frames>(F_Time,T_Joint);
+			r.push_back(NewFrame);
+		}
+		BoneFrame[Bonename] = r;
+	}
+	return std::make_shared<Animation>(AnimName, TotalTime, BoneFrame);
 }
 
 void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
@@ -108,11 +152,6 @@ glm::mat4 Mdl_Ldr::GetMainNode(aiNode* CurNd, std::string RootName)
 	if (Par->mName.C_Str() == RootName)
 		return this->aiMatToglmMat(CurNd->mTransformation);
 	return this->GetMainNode(Par,RootName) * this->aiMatToglmMat(CurNd->mTransformation);
-}
-
-void Mdl_Ldr::AnimChkChlds(aiNode* CurNd, std::vector<std::string>& MshNames)
-{
-
 }
 
 void Mdl_Ldr::FinalAllBones(const aiScene* scene, aiMesh* meshes, M_S_BI& BonesInf, M_S_Sk &BonesSkel)
@@ -241,7 +280,9 @@ Mdl_Ldr::Mdl_Ldr()
 	:ASSIMPLOAD_M("")
 {
 }
-
+//
+//Public Function for loading files into the renderer
+//
 void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs,
 	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 	 Vec_SH<Anim_Model>& A_Mdls,Vec_SH<Anim_Mesh>& A_Mshs, S_P<AnimHandler> AnimHndler)
