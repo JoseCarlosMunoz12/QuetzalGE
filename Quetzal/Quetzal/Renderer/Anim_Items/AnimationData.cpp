@@ -22,16 +22,17 @@ void AnimationData::UpdateMatrices(S_P<Skels> CurNode, glm::mat4 ParMat)
 		this->UpdateMatrices(jj, CurMat);
 }
 
-AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton)
+void AnimationData::BuildMatrices()
 {
-	this->SetName(InitName);
-	this->Anim_Skels = InitSkeleton;
+	for (auto& jj : this->Skels_Data)
+		this->Anim_Mats.push_back(glm::mat4(1.f));
 }
 
 AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSkelsData)
 	:Name(InitName),Skels_Data(InitSkelsData)
 {
 	this->Anim_Skels = InitSkeleton;
+	this->BuildMatrices();
 }
 
 
@@ -40,12 +41,14 @@ AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_
 {
 	this->Anims = InitAnims;
 	this->Anim_Skels = InitSkeleton;
+	this->BuildMatrices();
 }
 
 AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSkelsData, M_S_A InitAnims, std::string InitAnim)\
 	:Name(InitName), Skels_Data(InitSkelsData)
 {
 	this->Anims = InitAnims;
+	this->BuildMatrices();
 }
 
 AnimationData::~AnimationData()

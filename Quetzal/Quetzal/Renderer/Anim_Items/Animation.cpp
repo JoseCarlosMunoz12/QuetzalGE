@@ -106,7 +106,7 @@ void Animation::Update(float dt)
 
 glm::mat4 Animation::GetMat(std::string BoneName)
 {
-	if (this->Frame_Data.find("") != this->Frame_Data.end())
+	if (this->Frame_Data.find("") == this->Frame_Data.end())
 		return glm::mat4(1.f);
 	return this->GetMat(this->Frame_Data[BoneName]);
 }

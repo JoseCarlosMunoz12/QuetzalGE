@@ -6,7 +6,8 @@ glm::quat Mdl_Ldr::aiQuatToglmQuat(aiQuaternion aiVal)
 }
 
 void Mdl_Ldr::CreateStatic(const aiScene* Scene,
-	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs)
+	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs, S_P<Texture> Txts, S_P<Shader> Shdrs,
+	std::string Filename)
 {
 	int Amount_Mshs = Scene->mNumMeshes;
 	glm::mat4 SceneMat;
@@ -56,7 +57,6 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	Vec_UP<A_Primitive> A_Mshs;
 	Vec_SH<Animation> Animations;
 	std::vector<std::string> MshNames;
-	S_P<Node> MdlNodes = std::make_shared<Node>();
 	M_S_Sk SkelsFound;	
 	int msh_num = Scene->mNumMeshes;
 	//Get Bones Data
@@ -86,10 +86,33 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 		}
 	}
 	//Get Nodes for Meshes
-	
+	S_P<Node> MdlNodes = std::make_shared<Node>();
+	glm::mat4 SceneMat = this->aiMatToglmMat(Scene->mRootNode->mTransformation);
+	MdlNodes->SetW_Mat(SceneMat);
+	//find all relative Transform to the scene for nodes
+	int NumChld = Scene->mRootNode->mNumChildren;
+	for (int ii = 0; ii < NumChld; ii++)
+		this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);
 	//Create Model
-	//add models, meshes,, animation handler
-	std::cout << "e";
+	S_P<Anim_Model> Mdl = std::make_shared<Anim_Model>(Filename);
+	Vec_SH<Anim_Mesh> meshes;
+	int Count = 0;
+	for (auto& ii : A_Mshs)
+	{
+		meshes.push_back(std::make_shared<Anim_Mesh>(std::move(ii), MshNames[Count]));
+		Mshs.push_back(meshes[Count]);
+		Count++;
+	}
+	for(auto& ii : meshes)
+		Mdl->AddMeshes(ii);
+	Mdl->AddShaders(Shdrs);
+	Mdl->AddTextures(Txts);
+	Mdl->SetWMat(MdlNodes->GetMatrix());
+	for (auto& jj : MdlNodes->GetChildren())
+		Mdl->AddNode(jj);
+	Mdl->SetAnimationData(AnimData);
+	AnimHndler->AddAnims(AnimData);
+	Mdls.push_back(Mdl);
 }
 
 S_P<Animation> Mdl_Ldr::MakeAnimation(aiAnimation* animation)
@@ -110,7 +133,7 @@ S_P<Animation> Mdl_Ldr::MakeAnimation(aiAnimation* animation)
 		{
 			float F_Time = rs->mRotationKeys[jj].mTime;
 			F_Time = F_Time / NumTicks * TotalTime;
-			glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[ii].mValue);
+			glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[jj].mValue);
 			glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
 			glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
 			Joint T_Joint = { Offset, Rot, Scale };
@@ -306,7 +329,7 @@ void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader
 		}
 	//Creates anim or static model to be used
 	if (!IsDynamic)
-		this->CreateStatic(scene,Mdls,Mshs,Txts[0],Shdrs[0]);
+		this->CreateStatic(scene,Mdls,Mshs,Txts[0],Shdrs[0],FileName);
 	else
 		this->CreateDynamic(scene,A_Mdls,A_Mshs,Txts[1],Shdrs[1], AnimHndler, FileName);
 }

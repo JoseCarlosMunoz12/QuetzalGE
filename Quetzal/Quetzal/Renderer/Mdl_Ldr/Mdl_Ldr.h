@@ -10,7 +10,7 @@ private:
 	std::string File = "Models/ModelCol/";
 	//After Check, create the either dynamic or static Primitives to be used in the New Model
 	void CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
-		S_P<Texture> Txts, S_P<Shader> Shdrs);
+		S_P<Texture> Txts, S_P<Shader> Shdrs, std::string Filename);
 	void GetChlds(aiNode* Curnd, S_P<Node> MdlNodes);
 	glm::mat4 GetMainNode(aiNode* CurNd, std::string RootName);
 	//Get Data for the Animation Model and its other functions
