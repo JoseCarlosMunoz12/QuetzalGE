@@ -35,7 +35,6 @@ AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_
 	this->BuildMatrices();
 }
 
-
 AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSKelsData, M_S_A InitAnims)
 	:Name(InitName), Skels_Data(InitSKelsData)
 {
@@ -75,6 +74,8 @@ void AnimationData::ChangeAnim(std::string NewAnimChoosen)
 void AnimationData::Update(float dt)
 {
 	this->dt = dt;
+	if(this->Anims.find(this->CurAnim) != this->Anims.end())
+		this->Anims[this->CurAnim]->Update(dt);
 }
 
 void AnimationData::SetName(std::string NewName)
@@ -108,5 +109,5 @@ S_P<Animation> AnimationData::GetCurrentAnim()
 {
 	if (this->Anims.find(this->CurAnim) != this->Anims.end())
 		return this->Anims[this->CurAnim];
-	return S_P<Animation>();
+	return NULL;
 }

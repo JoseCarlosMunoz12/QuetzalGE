@@ -18,15 +18,11 @@ private:
 	M_S_Fr Frame_Data;
 	float TimeLength;
 	float CurTime;
-	//Matrix Data
-	glm::vec3 CurOffset;
-	glm::vec3 CurScale;
-	glm::quat CurRot;
 	//
 	glm::mat4 GetMat(Vec_SH<Frames> Frms);
 	Vec_SH<Frames> GetFrames(Vec_SH<Frames> Frms);
 	glm::vec3 LinInter(glm::vec3 Vec0, glm::vec3 Vec1, float Ratio);
-	glm::mat4 UpdatMatrix();
+	glm::mat4 UpdatMatrix(glm::vec3 CurOffset, glm::quat CurRot, glm::vec3 CurScale);
 	float GetTimeRatio(Vec_SH<Frames> Frms);
 public:
 	Animation(std::string InitName, float InitFloat, M_S_Fr Init_Frames);

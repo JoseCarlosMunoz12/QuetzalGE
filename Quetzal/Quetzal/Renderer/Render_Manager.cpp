@@ -160,7 +160,6 @@ void Render_Manager::Update(float dt)
 	}
 	for (auto& ii : this->All_Anim_Models)
 	{
-		ii->Update(dt);
 		ii->UpdateUniforms();
 	}
 	for (auto& ii : this->All_Models)

@@ -266,6 +266,16 @@ void IG_All_Items::DisplayData(S_P<Anim_Model> Mdl)
                 ImGui::Text("Animation Model has no blending Animation");
             ImGui::TreePop();
         }
+        //animation information
+        if (CurAnim)
+        {
+            float CurTime = CurAnim->GetCurTime();
+            float TimeLength = CurAnim->GetTimeLength();
+            if (ImGui::DragFloat("Current Time", &CurTime, 0, TimeLength))
+            {
+                TimeLength = CurTime;
+            }
+        }
         //display Data about the nodes
         Vec_SH<Anim_Mesh> Mshs = Mdl->GetMeshes();
         Vec_SH<Texture> Txt = Mdl->GetTextures();
