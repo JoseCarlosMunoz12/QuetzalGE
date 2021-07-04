@@ -123,19 +123,16 @@ S_P<Animation> Mdl_Ldr::MakeAnimation(aiAnimation* animation)
 	std::string AnimName = animation->mName.C_Str();
 	M_S_Fr BoneFrame;
 	int ChanNums = animation->mNumChannels;
-	std::cout << TotalTime << "\n";
 	for (int ii = 0; ii < ChanNums; ii++)
 	{
 		aiNodeAnim* rs = animation->mChannels[ii];
 		std::string Bonename = rs->mNodeName.C_Str();
-		std::cout << "BoneName:" << Bonename << "\n";
 		int NumOfRots = rs->mNumRotationKeys;
 		Vec_SH<Frames> r;
 		for (int jj = 0; jj < NumOfRots; jj++)
 		{
 			float F_Time = rs->mRotationKeys[jj].mTime;
 			F_Time = F_Time / NumTicks * TotalTime;
-			std::cout << F_Time << "\n";
 			glm::quat Rot = this->aiQuatToglmQuat(rs->mRotationKeys[jj].mValue);
 			glm::vec3 Scale = this->aiVecToglmVec(rs->mScalingKeys[jj].mValue);
 			glm::vec3 Offset = this->aiVecToglmVec(rs->mPositionKeys[jj].mValue);
