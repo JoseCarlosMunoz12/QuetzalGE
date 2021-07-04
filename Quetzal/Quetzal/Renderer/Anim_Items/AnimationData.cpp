@@ -44,7 +44,7 @@ AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_
 	this->BuildMatrices();
 }
 
-AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSkelsData, M_S_A InitAnims, std::string InitAnim)\
+AnimationData::AnimationData(std::string InitName, S_P<Skels> InitSkeleton, M_S_BI InitSkelsData, M_S_A InitAnims, std::string InitAnim)
 	:Name(InitName), Skels_Data(InitSkelsData)
 {
 	this->Anims = InitAnims;
@@ -102,4 +102,11 @@ std::vector<std::string> AnimationData::GetAllBlends()
 	for (auto& jj : this->Blends)
 		AllNames.push_back(jj.first);
 	return AllNames;
+}
+
+S_P<Animation> AnimationData::GetCurrentAnim()
+{
+	if (this->Anims.find(this->CurAnim) != this->Anims.end())
+		return this->Anims[this->CurAnim];
+	return S_P<Animation>();
 }

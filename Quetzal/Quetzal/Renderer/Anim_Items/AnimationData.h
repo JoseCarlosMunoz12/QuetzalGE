@@ -36,7 +36,7 @@ public:
 	std::vector<glm::mat4> GetMatrices(glm::mat4 WrldMat);
 	std::vector<std::string> GetAllAnims();
 	std::vector<std::string> GetAllBlends();
-	S_P<Animation> GetCurrentAnim() { return this->Anims[this->CurAnim]; }
+	S_P<Animation> GetCurrentAnim();
 	std::string GetName()           { return this->Name; }
 	std::string GetAnimId()         { return this->CurAnim; }
 	M_S_B GetBlends()               { return this->Blends; }
