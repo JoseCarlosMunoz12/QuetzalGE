@@ -134,8 +134,8 @@ Render_Manager::Render_Manager(GLFWwindow* window, const int GlVerMajorInit, con
 	//Determines if the file loaded is an Anim or a static model
 	//
 	S_P<Mdl_Ldr> ld = std::make_shared<Mdl_Ldr>();
-	std::string Filename = "SCelidosaurus.dae";
-	//std::string Filename = "Man_Anims.fbx";
+	//std::string Filename = "SCelidosaurus.dae";
+	std::string Filename = "dancing_vampire.dae";
 	//std::string Filename = "RT.fbx";
 	ld->LoadFile(Filename, this->All_Texture, this->All_Shader,
 		this->All_Models, this->All_Meshes,

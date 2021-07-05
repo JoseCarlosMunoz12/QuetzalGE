@@ -11,7 +11,7 @@ private:
 	//After Check, create the either dynamic or static Primitives to be used in the New Model
 	void CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 		S_P<Texture> Txts, S_P<Shader> Shdrs, std::string Filename);
-	void GetChlds(aiNode* Curnd, S_P<Node> MdlNodes,std::vector<std::string>& BonesFound, std::string RootNode);
+	void GetChlds(aiNode* Curnd, S_P<Node> MdlNodes, std::string RootNode);
 	glm::mat4 GetMainNode(aiNode* CurNd, std::string RootName);
 	//Get Data for the Animation Model and its other functions
 	void CreateDynamic(const aiScene* Scene, Vec_SH<Anim_Model>& Mdls, Vec_SH<Anim_Mesh>& Mshs,

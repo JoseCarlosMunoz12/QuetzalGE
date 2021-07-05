@@ -106,8 +106,9 @@ void Anim_Model::UpdateUniforms()
 void Anim_Model::Render()
 {
 	//Calcualtes all the matrices for the Model and its meshes
+	glm::mat4 World = glm::mat4(1.f);
 	if(this->AnimData)
-		this->AllMats = this->AnimData->GetMatrices(this->ModMatrix);
+		this->AllMats = this->AnimData->GetMatrices(World);
 	//Render all meshes with textues, materials and shaders
 	for(auto& jj : this->Nodes)
 		this->RenderNodes(this->ModMatrix, jj, this->AllMats);
@@ -151,4 +152,5 @@ void Anim_Model::SetName(std::string NewName)
 void Anim_Model::SetWMat(glm::mat4 WrldMat)
 {
 	Math::Decompose(WrldMat, this->Position, this->Rot, this->Scale);
+	this->UpdateMatrix();
 }
