@@ -26,8 +26,9 @@ void Mdl_Ldr::CreateStatic(const aiScene* Scene,
 	MdlNodes->SetW_Mat(SceneMat);
 	//find all relative Transform to the scene for nodes
 	int NumChld = Scene->mRootNode->mNumChildren;
+	std::vector<std::string> BonesFound;
 	for (int ii = 0; ii < NumChld; ii++)
-		this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);
+		this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes,BonesFound);
 	//create the meshes to add to main render and to reuse
 	Vec_SH<Mesh> Rs;
 	int Count = 0;
@@ -91,8 +92,11 @@ void Mdl_Ldr::CreateDynamic(const aiScene* Scene,
 	MdlNodes->SetW_Mat(SceneMat);
 	//find all relative Transform to the scene for nodes
 	int NumChld = Scene->mRootNode->mNumChildren;
+	std::vector<std::string> ModelsNames;
 	for (int ii = 0; ii < NumChld; ii++)
-		this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes);
+	{
+		this->GetChlds(Scene->mRootNode->mChildren[ii], MdlNodes,ModelsNames);
+	}
 	//Create Model
 	S_P<Anim_Model> Mdl = std::make_shared<Anim_Model>(Filename);
 	Vec_SH<Anim_Mesh> meshes;
@@ -145,26 +149,37 @@ S_P<Animation> Mdl_Ldr::MakeAnimation(aiAnimation* animation)
 	return std::make_shared<Animation>(AnimName, TotalTime, BoneFrame);
 }
 
-void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes)
+void Mdl_Ldr::GetChlds(aiNode* Curnd, S_P<Node> MdlNodes, std::vector<std::string>& BonesFound)
 {
 	S_P<Node> Rs = MdlNodes;
-	//Checks if node is an actual
-	if (Curnd->mNumMeshes != 0)
+	//Checks if node holds a Mesh
+	if (Curnd->mNumMeshes > 0)
 	{
 		Rs = std::make_shared<Node>();
-		std::string nm = Curnd->mName.C_Str();
-		//Sets the ID mesh for the Node
-		for (int jj = 0; jj < Curnd->mNumMeshes; jj++)
-			Rs->SetMeshId(Curnd->mMeshes[jj]);
-		Rs->AddShaderId(0);
-		//Sets Node Location
+		std::string BoneName = Curnd->mName.C_Str();
+		BonesFound.push_back(BoneName);
 		glm::mat4 Transform = this->aiMatToglmMat(Curnd->mTransformation);
 		Rs->SetW_Mat(Transform);
-		//Checks for children if there is any
-		for (int ii = 0; ii < Curnd->mNumChildren; ii++)
-			this->GetChlds(Curnd->mChildren[ii], Rs);
 		MdlNodes->AddChild(Rs);
 	}
+	for (int jj = 0; jj < Curnd->mNumChildren; jj++)
+		this->GetChlds(Curnd->mChildren[jj], MdlNodes,BonesFound);
+	//if (Curnd->mNumMeshes != 0)
+	//{
+	//	Rs = std::make_shared<Node>();
+	//	std::string nm = Curnd->mName.C_Str();
+	//	//Sets the ID mesh for the Node
+	//	for (int jj = 0; jj < Curnd->mNumMeshes; jj++)
+	//		Rs->SetMeshId(Curnd->mMeshes[jj]);
+	//	Rs->AddShaderId(0);
+	//	//Sets Node Location
+	//	glm::mat4 Transform = this->aiMatToglmMat(Curnd->mTransformation);
+	//	Rs->SetW_Mat(Transform);
+	//	//Checks for children if there is any
+	//	for (int ii = 0; ii < Curnd->mNumChildren; ii++)
+	//		this->GetChlds(Curnd->mChildren[ii], Rs);
+	//	MdlNodes->AddChild(Rs);
+	//}
 }
 
 glm::mat4 Mdl_Ldr::GetMainNode(aiNode* CurNd, std::string RootName)
