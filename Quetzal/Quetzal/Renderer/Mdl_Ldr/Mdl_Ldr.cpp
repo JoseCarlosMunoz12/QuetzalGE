@@ -1,4 +1,5 @@
 #include "Mdl_Ldr.h"
+#include "pugixml.hpp"
 
 glm::quat Mdl_Ldr::aiQuatToglmQuat(aiQuaternion aiVal)
 {
@@ -302,6 +303,28 @@ std::vector<GLuint> Mdl_Ldr::A_FinalGluint(aiMesh* Meshes)
 	}
 	return TempInd;
 }
+//
+//Functions to Load QMF Files
+//
+void Mdl_Ldr::Load_QMF_File(std::string FileName)
+{
+}
+
+std::vector<std::string> Mdl_Ldr::tokenize(std::string s, std::string del)
+{
+	int start = 0;
+	int end = s.find(del);
+	int length = s.length();
+	std::vector<std::string> Parts;
+	while (end != -1)
+	{
+		Parts.push_back(s.substr(start, end - start));
+		start = end + del.size();
+		end = s.find(del, start);
+	}
+	Parts.push_back(s.substr(start, length - 1));
+	return Parts;
+}
 
 Mdl_Ldr::Mdl_Ldr()
 	:ASSIMPLOAD_M("")
@@ -314,6 +337,13 @@ void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader
 	Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 	 Vec_SH<Anim_Model>& A_Mdls,Vec_SH<Anim_Mesh>& A_Mshs, S_P<AnimHandler> AnimHndler)
 {
+	std::vector<std::string> part_filename = this->tokenize(FileName, ".");
+	int size = part_filename.size() - 1;
+	if (part_filename[size] == "Q_MF")
+	{
+		this->Load_QMF_File(FileName);
+		return;
+	}
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(File + FileName, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
 	//Checks if file is valid or exists

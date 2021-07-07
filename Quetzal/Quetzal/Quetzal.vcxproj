@@ -173,6 +173,7 @@
     <ClCompile Include="ImGuiWinAndMan\ImGuiWinManager.cpp" />
     <ClCompile Include="ImGuiWinAndMan\ImGui\ImSequencer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderer\Mdl_Ldr\pugixml.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\Render_Manager.cpp" />
   </ItemGroup>
@@ -215,6 +216,8 @@
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImWidgets\ImZoomSlider.h" />
     <ClInclude Include="ImGuiWinAndMan\ImGui\ImZoomSlider.h" />
     <ClInclude Include="libs.h" />
+    <ClInclude Include="Renderer\Mdl_Ldr\pugiconfig.hpp" />
+    <ClInclude Include="Renderer\Mdl_Ldr\pugixml.hpp" />
     <ClInclude Include="Renderer\Render_Items\Material.h" />
     <ClInclude Include="Renderer\Static_Items\Mesh.h" />
     <ClInclude Include="Renderer\Model.h" />

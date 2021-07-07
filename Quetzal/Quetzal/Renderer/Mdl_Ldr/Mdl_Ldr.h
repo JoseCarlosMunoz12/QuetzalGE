@@ -23,6 +23,11 @@ private:
 	void SetBonesID(aiMesh* meshes, std::vector<AnimVertex>& Vertx, M_S_BI BonesInf);
 	std::vector<AnimVertex> A_FinalVertex(aiMesh* Meshes);
 	std::vector<GLuint> A_FinalGluint(aiMesh* Meshes);
+	//
+	// --------------------
+	//
+	void Load_QMF_File(std::string FileName);
+	std::vector<std::string> tokenize(std::string s, std::string del = " ");
 public:
 	Mdl_Ldr();
 	void LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs,
