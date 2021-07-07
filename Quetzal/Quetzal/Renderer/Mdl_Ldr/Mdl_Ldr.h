@@ -2,12 +2,14 @@
 #include "../Model.h"
 #include "../Anim_Model.h"
 #include "../AnimHandler.h"
+#include "pugixml.hpp"
 using M_S_Sk = std::map<std::string, S_P<Skels>>;
 class Mdl_Ldr :public ASSIMPLOAD_M
 {
 private:
 	glm::quat aiQuatToglmQuat(aiQuaternion aiVal);
 	std::string File = "Models/ModelCol/";
+	std::string TextureFile = "Images/";
 	//After Check, create the either dynamic or static Primitives to be used in the New Model
 	void CreateStatic(const aiScene* Scene, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 		S_P<Texture> Txts, S_P<Shader> Shdrs, std::string Filename);

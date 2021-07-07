@@ -1,5 +1,4 @@
 #include "Mdl_Ldr.h"
-#include "pugixml.hpp"
 
 glm::quat Mdl_Ldr::aiQuatToglmQuat(aiQuaternion aiVal)
 {
