@@ -1,41 +1,37 @@
 <FileID >
-	<Model FormatVersion="File Zip">
-		<ModelData>
-			<ModName FileName="scelidosaurus.dae"/>
-			<ModName FileName="scelido.dae"/>
-			<ModName FileName="saurus.dae"/>
-		</ModelData>
-		<ModelInformation>
-			<Init Position="0 0 1" Rotation="0 0 0 1" Scale="0 1 1"/>
-			<Init Position="0 1 0" Rotation="1 0 0 0" Scale="1 0 1"/>
-			<Init Position="1 0 0" Rotation="0 0 1 0" Scale="1 1 0"/>
-		</ModelInformation>
-	</Model>
-	<Texture>
-		<TextureData>
-			<FileName FileName="scelidosaurus_image.png"/>
-			<FileName FileName="material.png"/>		
-		</TextureData>
-		<TextureNodes>
-			<NodeFormat modelid="0" nodeid="0" shadersid="0 1"/>
-			<NodeFormat modelid="0" nodeid="1" shadersid="1"/>
-			<NodeFormat modelid="0" nodeid="2" shadersid="0"/>
-		</TextureNodes>
-	</Texture>
-	<Shader FileType="2">
-		<ShaderData>
-			<FileName FragShader="shader.fs" VertexShader="shader.vs"/>
-			<FileName FragShader="multi.fs" VertexShader="multi.vs"/>
-		</ShaderData>
-		<ShaderNodes>
-			<NodeFormat modelid="0" nodeid="0" shadersid="0"/>
-			<NodeFormat modelid="0" nodeid="1" shadersid="1"/>
-			<NodeFormat modelid="0" nodeid="2" shadersid="1"/>
-		</ShaderNodes>
-	</Shader>
-	<Nodes>
-		<NodeId ModelID="0" Id="0" Par="NULL"/>
-		<NodeId ModelID="0" Id="1" Par="0"/>
-		<NodeId ModelID="0" Id="2" Par="1"/>
-	</Nodes>
+  <Model FormatVersion="File Zip">
+    <ModelData>
+      <ModName FileName="scelidosaurus.dae"/>
+    </ModelData>
+    <ModelInformation>
+      <Init Position="0 0 1" Rotation="0 0 0 1" Scale="1 1 1"/>
+    </ModelInformation>
+  </Model>
+  <Texture>
+    <TextureData>
+      <FileName FileName="scelidosaurus_image.png"/>
+      <FileName FileName="material.png"/>
+    </TextureData>
+    <TextureNodes>
+      <NodeFormat modelid="0" nodeid="0" shadersid="0 1"/>
+      <NodeFormat modelid="0" nodeid="1" shadersid="1"/>
+      <NodeFormat modelid="0" nodeid="2" shadersid="0"/>
+    </TextureNodes>
+  </Texture>
+  <Shader FileType="2">
+    <ShaderData>
+      <FileName FragShader="shader.fs" VertexShader="shader.vs"/>
+      <FileName FragShader="multi.fs" VertexShader="multi.vs"/>
+    </ShaderData>
+    <ShaderNodes>
+      <NodeFormat modelid="0" nodeid="0" shadersid="0"/>
+      <NodeFormat modelid="0" nodeid="1" shadersid="1"/>
+      <NodeFormat modelid="0" nodeid="2" shadersid="1"/>
+    </ShaderNodes>
+  </Shader>
+  <Nodes>
+    <NodeId ModelID="0" Id="0" Par="NULL"/>
+    <NodeId ModelID="0" Id="1" Par="0"/>
+    <NodeId ModelID="0" Id="2" Par="1"/>
+  </Nodes>
 </FileID>

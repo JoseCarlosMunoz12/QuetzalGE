@@ -307,7 +307,14 @@ std::vector<GLuint> Mdl_Ldr::A_FinalGluint(aiMesh* Meshes)
 //
 void Mdl_Ldr::Load_QMF_File(std::string FileName)
 {
-
+	pugi::xml_document doc;
+	if (!doc.load_file(FileName.c_str()))
+		return;
+	pugi::xml_node ModelData = doc.child("FileID").child("Model");
+	pugi::xml_node TextureData = doc.child("FileID").child("Texture");
+	pugi::xml_node ShadereData = doc.child("FileID").child("Shader");
+	pugi::xml_node NodesData = doc.child("FileID").child("Nodes");
+	Q_Parser::ParseM_Data results = Q_Parser::GetModelData(ModelData);
 }
 
 std::vector<std::string> Mdl_Ldr::tokenize(std::string s, std::string del)
