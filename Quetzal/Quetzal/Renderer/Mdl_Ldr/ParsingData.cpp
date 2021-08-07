@@ -36,14 +36,38 @@ namespace Q_Parser
         for (pugi::xml_node tool = ModInformation.child("Init"); tool; tool = tool.next_sibling("Init"))
         {
             std::string values = "";
+            int ldcount = 0;
             for (pugi::xml_attribute attr = tool.first_attribute(); attr; attr = attr.next_attribute())
             {
-                values += attr.name();
-                values += "*";
-                values += attr.value();
-                values += "@";
+                values = attr.value();
+                std::vector<std::string> vars = tokenize(values, " ");
+                switch (ldcount)
+                {
+                case 0:
+                    DataFound[count].Position = glm::vec3(std::stof(vars[0]), std::stof(vars[1]), std::stof(vars[2]));
+                    break;
+                case 1:
+                    DataFound[count].Rotation = glm::quat(std::stof(vars[3]), std::stof(vars[0]), std::stof(vars[1]),std::stof(vars[2]));
+                    break;
+                default:
+                    DataFound[count].Scale= glm::vec3(std::stof(vars[0]), std::stof(vars[1]), std::stof(vars[2]));
+                    break;
+                }
+                ldcount++;
             }
         }
         return DataFound;
 	}
+    std::vector<TextureData> GetTextureData(pugi::xml_node Texture_Data)
+    {
+        return std::vector<TextureData>();
+    }
+    std::vector<ShaderData> GetShaderData(pugi::xml_node Shader_Data)
+    {
+        return std::vector<ShaderData>();
+    }
+    std::vector<NodeData> GetNodeData(pugi::xml_node Node_Data)
+    {
+        return std::vector<NodeData>();
+    }
 }
