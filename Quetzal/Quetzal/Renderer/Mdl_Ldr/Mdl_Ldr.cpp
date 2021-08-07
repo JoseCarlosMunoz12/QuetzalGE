@@ -315,6 +315,7 @@ void Mdl_Ldr::Load_QMF_File(std::string FileName)
 	pugi::xml_node ShadereData = doc.child("FileID").child("Shader");
 	pugi::xml_node NodesData = doc.child("FileID").child("Nodes");
 	Q_Parser::GetModelData(ModelData);
+	Q_Parser::GetTextureData(TextureData);
 }
 
 std::vector<std::string> Mdl_Ldr::tokenize(std::string s, std::string del)

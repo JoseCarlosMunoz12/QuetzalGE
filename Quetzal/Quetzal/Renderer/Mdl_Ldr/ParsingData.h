@@ -34,7 +34,7 @@ namespace Q_Parser
 	};
 	std::vector<std::string> tokenize(std::string s, std::string del);
 	std::vector<ModelData> GetModelData(pugi::xml_node ModelData);
-	std::vector<TextureData> GetTextureData(pugi::xml_node Texture_Data);
-	std::vector<ShaderData> GetShaderData(pugi::xml_node Shader_Data);
+	TextureData GetTextureData(pugi::xml_node Texture_Data);
+	ShaderData GetShaderData(pugi::xml_node Shader_Data);
 	std::vector<NodeData> GetNodeData(pugi::xml_node Node_Data);
 }
