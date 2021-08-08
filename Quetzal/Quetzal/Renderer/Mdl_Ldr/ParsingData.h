@@ -32,9 +32,15 @@ namespace Q_Parser
 		std::vector<std::string> FileNames;
 		std::vector<NodeData> BasicData;
 	};
+	struct ModNodeRel
+	{
+		int ModelID;
+		int ID;
+		int ParID;
+	};
 	std::vector<std::string> tokenize(std::string s, std::string del);
 	std::vector<ModelData> GetModelData(pugi::xml_node ModelData);
 	TextureData GetTextureData(pugi::xml_node Texture_Data);
 	ShaderData GetShaderData(pugi::xml_node Shader_Data);
-	std::vector<NodeData> GetNodeData(pugi::xml_node Node_Data);
+	std::vector<ModNodeRel> GetNodeData(pugi::xml_node Node_Data);
 }

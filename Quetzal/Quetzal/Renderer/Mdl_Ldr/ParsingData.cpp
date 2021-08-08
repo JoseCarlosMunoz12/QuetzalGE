@@ -99,18 +99,68 @@ namespace Q_Parser
     }
     ShaderData GetShaderData(pugi::xml_node Shader_Data)
     {
-        int FileTypeID = std::stoi( Shader_Data.attribute("FileType").value());
+        int FileTypeID = std::stoi(Shader_Data.attribute("FileType").value());
+        ShaderData Data;
         pugi::xml_node sData = Shader_Data.child("ShaderData");
         for (pugi::xml_node tool = sData.child("FileName"); tool; tool = tool.next_sibling("FileName"))
         {
+            std::string FrgShdr = "";
+            std::string VrtxShdr = "";
+            switch (FileTypeID)
+            {
+            case 2: 
+                FrgShdr = tool.attribute("FragShader").value();
+                VrtxShdr = tool.attribute("VertexShader").value();
+                break;
+            default:
+                FrgShdr = tool.attribute("FragShader").value();
+                break;
+            }
 
+            std::string FinalString = FrgShdr;
+            FinalString += (FileTypeID == 2) ? " "+ VrtxShdr : "";
+            Data.FileNames.push_back(FinalString);
         }
         pugi::xml_node nData = Shader_Data.child("ShaderNodes");
-
-        return ShaderData();
+        for (pugi::xml_node tool = nData.child("NodeFormat"); tool; tool = tool.next_sibling("NodeFormat"))
+        {
+            int count = 0;
+            NodeData nData;
+            for (pugi::xml_attribute attr = tool.first_attribute(); attr; attr = attr.next_attribute())
+            {
+                std::vector<std::string> vars = tokenize(attr.value(), " ");
+                switch (count)
+                {
+                case 0:
+                    nData.ModelId = std::stoi(vars[0]);
+                    break;
+                case 1:
+                    for (auto& jj : vars)
+                        nData.NodeId.push_back(std::stoi(jj));
+                    break;
+                default:
+                    for (auto& jj : vars)
+                        nData.ShaderID.push_back(std::stoi(jj));
+                    break;
+                }
+                count++;
+            }
+            Data.BasicData.push_back(nData);
+        }
+        return Data;
     }
-    std::vector<NodeData> GetNodeData(pugi::xml_node Node_Data)
+    std::vector<ModNodeRel> GetNodeData(pugi::xml_node Node_Data)
     {
-        return std::vector<NodeData>();
+        std::vector<ModNodeRel> Data;
+        for (pugi::xml_node tool = Node_Data.child("NodeId"); tool; tool = tool.next_sibling("NodeId"))
+        {
+            ModNodeRel Cur{};
+            Cur.ModelID = std::stoi(tool.attribute("ModelID").value());
+            Cur.ID = std::stoi(tool.attribute("Id").value());
+            std::string ParID = tool.attribute("Par").value();
+            Cur.ParID = (ParID == "NULL") ? -1 : std::stoi(ParID);
+            Data.push_back(Cur);
+        }
+        return Data;
     }
 }
