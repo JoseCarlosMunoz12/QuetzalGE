@@ -12,6 +12,9 @@ void ImGuiTextureWindow::Update(float dt)
         {
             if(ImGui::Button("Run Game"))
                 this->Base_Render->ChangeRenderTarget(true);
+            ImGui::SameLine();
+            float fps = 1.f / dt;
+            ImGui::Text("FPS: %6.3f",fps);
             ImVec2 Te = ImGui::GetWindowSize();
             Te.y -= 60;
             if (Te.y <= 0)
