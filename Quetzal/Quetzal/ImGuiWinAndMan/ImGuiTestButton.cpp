@@ -5,7 +5,7 @@ ImGuiTestButton::ImGuiTestButton(std::string Name = "BaseName")
 {
 }
 
-void ImGuiTestButton::Update()
+void ImGuiTestButton::Update(float dt)
 {
     if (show)
     {

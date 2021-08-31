@@ -4,7 +4,7 @@ class ImGuiTestButton : public ImGuiWinPar
 {
 public:
     ImGuiTestButton(std::string Name);
-    void Update() override;
+    void Update(float) override;
 private:
     std::string WinName;
     int Counter = 0;

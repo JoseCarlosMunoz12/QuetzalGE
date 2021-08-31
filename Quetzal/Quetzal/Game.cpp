@@ -114,7 +114,7 @@ void Game::updateController()
  
 void Game::ImGuiOptions()
 {
-	this->ImManager->Update();
+	this->ImManager->Update(this->dt);
 }
 
 void Game::updateUniforms()

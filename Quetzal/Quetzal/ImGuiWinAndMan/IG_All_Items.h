@@ -14,6 +14,6 @@ private:
 public:
 	IG_All_Items(std::string Name = "All Items");
 	~IG_All_Items();
-	void Update() override;
+	void Update(float dt) override;
 };
 

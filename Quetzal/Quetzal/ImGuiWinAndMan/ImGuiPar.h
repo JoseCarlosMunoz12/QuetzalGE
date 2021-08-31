@@ -9,7 +9,7 @@ public:
 		:show(true)
 	{};
 	~ImGuiWinPar() {};
-	virtual void Update() {};
+	virtual void Update(float dt) {};
 	void Show() {};
 	void AddManager(S_P<Render_Manager> Init_Base) { this->Base_Render = Init_Base; };
 protected:

@@ -296,7 +296,7 @@ IG_All_Items::~IG_All_Items()
 {
 }
 
-void IG_All_Items::Update()
+void IG_All_Items::Update(float dt)
 {
     if (show)
     {

@@ -1,6 +1,6 @@
 #include "ImGuiTextureWindow.h"
 
-void ImGuiTextureWindow::Update()
+void ImGuiTextureWindow::Update(float dt)
 {
     if (show)
     {

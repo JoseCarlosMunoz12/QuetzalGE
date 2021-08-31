@@ -22,7 +22,7 @@ ImGuiWindowManager::ImGuiWindowManager(GLFWwindow* window, S_P<Render_Manager> I
     ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
-void ImGuiWindowManager::Update()
+void ImGuiWindowManager::Update(float dt)
 {
 
     bool show = true;
@@ -33,7 +33,7 @@ void ImGuiWindowManager::Update()
 
     ShowDockSpace(&show);
 
-    UpdateWindows();
+    UpdateWindows(dt);
 
     ImGui::Render();
 
@@ -184,12 +184,12 @@ void ImGuiWindowManager::SetStyle()
 
 }
 
-void ImGuiWindowManager::UpdateWindows()
+void ImGuiWindowManager::UpdateWindows(float dt)
 {
 
     for (auto i = 0; i < windows.size(); i++)
     {
-        windows[i]->Update();
+        windows[i]->Update(dt);
     }
 }
 
