@@ -302,28 +302,6 @@ std::vector<GLuint> Mdl_Ldr::A_FinalGluint(aiMesh* Meshes)
 	}
 	return TempInd;
 }
-//
-//Functions to Load QMF Files
-//
-void Mdl_Ldr::Load_QMF_File(std::string FileName)
-{
-	;
-	pugi::xml_document doc;
-	if (!doc.load_file(FileName.c_str()))
-		return;
-	pugi::xml_node ModelData = doc.child("FileID").child("Model");
-	pugi::xml_node TextureData = doc.child("FileID").child("Texture");
-	pugi::xml_node ShaderData = doc.child("FileID").child("Shader");
-	pugi::xml_node NodesData = doc.child("FileID").child("Nodes");
-	std::vector<Q_Parser::ModelData> Models = Q_Parser::GetModelData(ModelData);
-	Q_Parser::TextureData Textures = Q_Parser::GetTextureData(TextureData);
-	Q_Parser::ShaderData Shaders = Q_Parser::GetShaderData(ShaderData);
-	std::vector<Q_Parser::ModNodeRel> Nodes = Q_Parser::GetNodeData(NodesData);
-	//Generate Models with Data
-	for (auto& jj : Models)
-	{
-	}
-}
 
 std::vector<std::string> Mdl_Ldr::tokenize(std::string s, std::string del)
 {
@@ -342,7 +320,7 @@ std::vector<std::string> Mdl_Ldr::tokenize(std::string s, std::string del)
 }
 
 Mdl_Ldr::Mdl_Ldr()
-	:ASSIMPLOAD_M("")
+	:ASSIMPLOAD_M(""),Q_Loader()
 {
 }
 //
