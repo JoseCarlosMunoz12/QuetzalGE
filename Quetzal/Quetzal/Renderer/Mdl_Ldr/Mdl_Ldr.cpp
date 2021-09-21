@@ -307,6 +307,7 @@ std::vector<GLuint> Mdl_Ldr::A_FinalGluint(aiMesh* Meshes)
 //
 void Mdl_Ldr::Load_QMF_File(std::string FileName)
 {
+	;
 	pugi::xml_document doc;
 	if (!doc.load_file(FileName.c_str()))
 		return;
@@ -314,10 +315,14 @@ void Mdl_Ldr::Load_QMF_File(std::string FileName)
 	pugi::xml_node TextureData = doc.child("FileID").child("Texture");
 	pugi::xml_node ShaderData = doc.child("FileID").child("Shader");
 	pugi::xml_node NodesData = doc.child("FileID").child("Nodes");
-	Q_Parser::GetModelData(ModelData);
-	Q_Parser::GetTextureData(TextureData);
-	Q_Parser::GetShaderData(ShaderData);
-	Q_Parser::GetNodeData(NodesData);
+	std::vector<Q_Parser::ModelData> Models = Q_Parser::GetModelData(ModelData);
+	Q_Parser::TextureData Textures = Q_Parser::GetTextureData(TextureData);
+	Q_Parser::ShaderData Shaders = Q_Parser::GetShaderData(ShaderData);
+	std::vector<Q_Parser::ModNodeRel> Nodes = Q_Parser::GetNodeData(NodesData);
+	//Generate Models with Textures
+	for (auto& jj : Models)
+	{
+	}
 }
 
 std::vector<std::string> Mdl_Ldr::tokenize(std::string s, std::string del)
