@@ -319,7 +319,7 @@ void Mdl_Ldr::Load_QMF_File(std::string FileName)
 	Q_Parser::TextureData Textures = Q_Parser::GetTextureData(TextureData);
 	Q_Parser::ShaderData Shaders = Q_Parser::GetShaderData(ShaderData);
 	std::vector<Q_Parser::ModNodeRel> Nodes = Q_Parser::GetNodeData(NodesData);
-	//Generate Models with Textures
+	//Generate Models with Data
 	for (auto& jj : Models)
 	{
 	}
