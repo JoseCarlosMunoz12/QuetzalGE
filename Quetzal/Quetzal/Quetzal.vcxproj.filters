@@ -108,12 +108,6 @@
     <ClCompile Include="Renderer\Mdl_Ldr\ParsingData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Q_Loader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Q_Loader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Mdl_Ldr\Q_Loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -264,12 +258,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Mdl_Ldr\ParsingData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Q_Loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Q_Loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Mdl_Ldr\Q_Loader.h">

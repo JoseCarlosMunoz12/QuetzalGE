@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Q_Loader.cpp" />
     <ClCompile Include="Renderer\Mdl_Ldr\ParsingData.cpp" />
     <ClCompile Include="Renderer\Mdl_Ldr\Mdl_Ldr.cpp" />
     <ClCompile Include="Renderer\Anim_Items\Blend_Animation.cpp" />
@@ -178,11 +177,9 @@
     <ClCompile Include="Renderer\Mdl_Ldr\pugixml.cpp" />
     <ClCompile Include="Renderer\Mdl_Ldr\Q_Loader.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
-    <ClCompile Include="Renderer\Q_Loader.cpp" />
     <ClCompile Include="Renderer\Render_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Q_Loader.h" />
     <ClInclude Include="Renderer\Mdl_Ldr\ParsingData.h" />
     <ClInclude Include="Renderer\Mdl_Ldr\Mdl_Ldr.h" />
     <ClInclude Include="Renderer\Anim_Items\Blend_Animation.h" />
@@ -225,7 +222,6 @@
     <ClInclude Include="Renderer\Mdl_Ldr\pugiconfig.hpp" />
     <ClInclude Include="Renderer\Mdl_Ldr\pugixml.hpp" />
     <ClInclude Include="Renderer\Mdl_Ldr\Q_Loader.h" />
-    <ClInclude Include="Renderer\Q_Loader.h" />
     <ClInclude Include="Renderer\Render_Items\Material.h" />
     <ClInclude Include="Renderer\Static_Items\Mesh.h" />
     <ClInclude Include="Renderer\Model.h" />
