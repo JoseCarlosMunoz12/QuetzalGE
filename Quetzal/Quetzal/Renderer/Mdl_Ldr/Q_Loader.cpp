@@ -35,10 +35,17 @@ void Q_Loader::LoadQ_File(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Sha
 	ShaderData Shaders = Q_Parser::GetShaderData(Shader_Data);
 	std::vector<Q_Parser::ModNodeRel> Nodes = Q_Parser::GetNodeData(Nodes_Data);
 	//Generate Models with Data
+	std::vector<std::string> Parse = tokenize(FileName,"\\");
+	int size = Parse.size();
+	std::string Loc = "";
+	for (int ii = 0; ii < size - 1; ii++)
+		Loc += Parse[ii] + "\\";
+	//search for all related files to load
 	for (auto& jj : Models)
 	{
+		std::string ModLoc = Loc + jj.FileName;
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(FileName, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
+		const aiScene* scene = importer.ReadFile(ModLoc, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
 		//Checks if file is valid or exists
 		if (!scene)
 		{
