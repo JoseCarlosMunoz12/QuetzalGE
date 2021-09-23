@@ -2,7 +2,7 @@
 #include "ParsingData.h"
 #include "Q_Loader.h"
 using M_S_Sk = std::map<std::string, S_P<Skels>>;
-class Mdl_Ldr :public ASSIMPLOAD_M,public Q_Loader
+class Mdl_Ldr : public Q_Loader
 {
 private:
 	glm::quat aiQuatToglmQuat(aiQuaternion aiVal);

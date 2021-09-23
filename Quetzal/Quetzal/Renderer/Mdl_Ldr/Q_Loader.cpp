@@ -5,6 +5,22 @@ Q_Loader::Q_Loader()
 {
 }
 
+std::vector<std::string> Q_Loader::tokenize(std::string s, std::string del)
+{
+	int start = 0;
+	int end = s.find(del);
+	int length = s.length();
+	std::vector<std::string> Parts;
+	while (end != -1)
+	{
+		Parts.push_back(s.substr(start, end - start));
+		start = end + del.size();
+		end = s.find(del, start);
+	}
+	Parts.push_back(s.substr(start, length - 1));
+	return Parts;
+}
+
 void Q_Loader::LoadQ_File(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs, Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs, Vec_SH<Anim_Model>& A_Mdls, Vec_SH<Anim_Mesh>& A_Mshs, S_P<AnimHandler> AnimHndler)
 {
 	pugi::xml_document doc;
@@ -21,5 +37,23 @@ void Q_Loader::LoadQ_File(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Sha
 	//Generate Models with Data
 	for (auto& jj : Models)
 	{
+		Assimp::Importer importer;
+		const aiScene* scene = importer.ReadFile(FileName, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs);
+		//Checks if file is valid or exists
+		if (!scene)
+		{
+			std::cout << "Error";
+			return;
+		}
+		//checks file to see if it has bones, to see if it's an A_Primitive
+		int MshNums = scene->mNumMeshes;
+		bool IsDynamic = false;
+		for (int ii = 0; ii < MshNums; ii++)
+			if (scene->mMeshes[ii]->HasBones())
+			{
+				IsDynamic = true;
+				break;
+			}
+		//Creates anim or static model to be used
 	}
 }

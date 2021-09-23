@@ -8,9 +8,11 @@ using namespace Q_Parser;
 class Q_Loader : public ASSIMPLOAD_M
 {
 private:
+	void LoadItems() {};
 	
 public:
 	Q_Loader();
+	std::vector<std::string> tokenize(std::string s, std::string del = " ");
 	void LoadQ_File(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader> Shdrs,
 		Vec_SH<Model>& Mdls, Vec_SH<Mesh>& Mshs,
 		Vec_SH<Anim_Model>& A_Mdls, Vec_SH<Anim_Mesh>& A_Mshs, S_P<AnimHandler> AnimHndler);

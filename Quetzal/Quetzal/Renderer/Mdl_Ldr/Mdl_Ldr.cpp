@@ -320,7 +320,7 @@ std::vector<std::string> Mdl_Ldr::tokenize(std::string s, std::string del)
 }
 
 Mdl_Ldr::Mdl_Ldr()
-	:ASSIMPLOAD_M(""),Q_Loader()
+	:Q_Loader()
 {
 }
 //
