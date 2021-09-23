@@ -1,7 +1,4 @@
 #pragma once
-#include "../Model.h"
-#include "../Anim_Model.h"
-#include "../AnimHandler.h"
 #include "ParsingData.h"
 #include "Q_Loader.h"
 using M_S_Sk = std::map<std::string, S_P<Skels>>;

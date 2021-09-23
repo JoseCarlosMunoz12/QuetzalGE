@@ -5,7 +5,7 @@
 #include "ParsingData.h"
 
 using namespace Q_Parser;
-class Q_Loader
+class Q_Loader : public ASSIMPLOAD_M
 {
 private:
 	

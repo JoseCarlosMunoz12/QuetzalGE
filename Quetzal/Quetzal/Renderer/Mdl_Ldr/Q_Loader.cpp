@@ -1,6 +1,7 @@
 #include "Q_Loader.h"
 using namespace Q_Parser;
 Q_Loader::Q_Loader()
+	:ASSIMPLOAD_M("")
 {
 }
 

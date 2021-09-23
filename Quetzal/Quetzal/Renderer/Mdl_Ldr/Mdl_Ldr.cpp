@@ -334,8 +334,7 @@ void Mdl_Ldr::LoadFile(std::string FileName, Vec_SH<Texture> Txts, Vec_SH<Shader
 	int size = part_filename.size() - 1;
 	if (part_filename[size] == "Q_MF")
 	{
-		this->LoadQ_File(FileName, Txts, Shdrs,Mdls,Mshs,A_Mdls,A_Mshs,AnimHndler); 
-		this->Load_QMF_File(FileName);
+		this->LoadQ_File(FileName, Txts, Shdrs,Mdls,Mshs,A_Mdls,A_Mshs,AnimHndler);
 		return;
 	}
 	Assimp::Importer importer;
