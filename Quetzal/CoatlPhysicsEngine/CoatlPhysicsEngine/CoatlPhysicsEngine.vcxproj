@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CoatlPhysicsEngine.h" />
-    <ClInclude Include="define.h" />
+    <ClInclude Include="src\CoatlPhysicsEngine.h" />
+    <ClInclude Include="src\define.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CoatlPhysicsEngine.cpp" />
+    <ClCompile Include="src\CoatlPhysicsEngine.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
