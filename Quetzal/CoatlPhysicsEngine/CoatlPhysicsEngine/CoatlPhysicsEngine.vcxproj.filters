@@ -21,9 +21,15 @@
     <ClInclude Include="src\define.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Maths\Maths.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CoatlPhysicsEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Maths\Maths.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

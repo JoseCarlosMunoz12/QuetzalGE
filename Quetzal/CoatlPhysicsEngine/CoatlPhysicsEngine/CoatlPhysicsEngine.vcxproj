@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Maths\Maths.h" />
     <ClInclude Include="src\CoatlPhysicsEngine.h" />
     <ClInclude Include="src\define.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Maths\Maths.cpp" />
     <ClCompile Include="src\CoatlPhysicsEngine.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
