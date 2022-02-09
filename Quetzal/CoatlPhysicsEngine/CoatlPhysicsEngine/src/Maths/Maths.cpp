@@ -29,3 +29,21 @@ Vector3D::Vector3D(double initX, double initY, double initZ)
 {
 
 }
+
+MatrixXxYD::MatrixXxYD(int initRC)
+{
+	for (int ii = 0; ii < initRC; ii++)
+		this->Rows.push_back(VectorXD(initRC, 0.0));
+}
+
+MatrixXxYD::MatrixXxYD(int initRows, int initCols)
+{
+	for (int ii = 0; ii < initRows; ii++)
+		this->Rows.push_back(VectorXD(initCols, 0.0));
+}
+
+MatrixXxYD::MatrixXxYD(int initRows, int initCols, double initVal)
+{
+	for (int ii = 0; ii < initRows; ii++)
+		this->Rows.push_back(VectorXD(initCols,initVal));
+}
