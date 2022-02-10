@@ -19,12 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Maths\Matrix.h" />
     <ClInclude Include="src\Maths\Maths.h" />
     <ClInclude Include="src\CoatlPhysicsEngine.h" />
     <ClInclude Include="src\define.h" />
+    <ClInclude Include="src\Maths\Vectors.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Maths\Matrix.cpp" />
     <ClCompile Include="src\Maths\Maths.cpp" />
+    <ClCompile Include="src\Maths\Vectors.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
