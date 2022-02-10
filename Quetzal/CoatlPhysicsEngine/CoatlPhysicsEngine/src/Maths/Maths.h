@@ -3,6 +3,11 @@
 #include "Vectors.h"
 #include "Matrix.h"
 
+#include <cstdint>
+#include <algorithm>
+#include <iostream>
+#include <iomanip>
+
 using namespace CoatlPhysicsEngine;
 
 namespace MATH {
