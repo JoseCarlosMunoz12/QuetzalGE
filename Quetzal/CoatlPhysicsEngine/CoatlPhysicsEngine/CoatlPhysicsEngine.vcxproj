@@ -30,6 +30,9 @@
     <ClCompile Include="src\Maths\Maths.cpp" />
     <ClCompile Include="src\Maths\Vectors.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
