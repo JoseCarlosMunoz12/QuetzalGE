@@ -18,7 +18,6 @@ namespace MATH {
 	COATL_API void ClosestSeg_Seg(std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1,Vec3D& Pos0, Vec3D& Pos1);
 	//DistanceValue
 	COATL_API double Distance_Pnt(std::vector<Vec3D> Seg, Vec3D Pos, Vec3D Point);
-	COATL_API double Distance_Seg(std::vector<Vec3D> Seg0, Vec3D Pos, std::vector<Vec3D> Seg1);
 	COATL_API double Distance_Seg(std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1);
 	COATL_API double Distance_Tr_Pnt(std::vector<Vec3D> Tr, Vec3D Pos, Vec3D Pnt);
 	// Bool SegmentTest

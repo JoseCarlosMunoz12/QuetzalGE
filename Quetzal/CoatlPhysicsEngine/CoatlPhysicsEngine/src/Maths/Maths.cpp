@@ -70,26 +70,86 @@ Vec3D MATH::ClosestPoint_Pnt(std::vector<Vec3D> Seg, Vec3D Pos, Vec3D Point)
 
 void MATH::ClosestSeg_Seg(std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1, Vec3D& Pos0, Vec3D& Pos1)
 {
+	double EPSILON = 0.00000001;
+	Vec3D D1 = Seg0[1] - Seg0[0];
+	Vec3D D2 = Seg1[1] - Seg1[0];
+	Vec3D R = Seg0[0] - Seg1[0];
+
+	double A = D1 * D1;
+	double E = D2 * D2;
+	double F = D2 * R;
+
+	double S = 0.0;
+	double T = 0.0;
+	if (A <= EPSILON && E <= EPSILON)
+	{
+		Pos0 = Seg0[0];
+		Pos1 = Seg1[0];
+		return;
+	}
+	if (A <= EPSILON)
+	{
+		S = 0.0;
+		T = F / E;
+		T = std::clamp(T, 0.0, 1.0);
+	}
+	else
+	{
+		double C = D1 * R;
+		if (E <= EPSILON)
+		{
+			T = 0.0;
+			S = std::clamp(-C / A, 0.0, 1.0);
+		}
+		else
+		{
+			double B = D1 * D2;
+			double denom = A * E - B * B;
+			if (denom != 0.0)
+				S = std::clamp((B * F - C * E) / denom, 0.0, 1.0);
+			else
+				S = 0.0;
+			T = ((B * S) + F) / E;
+			if (T < 0.0)
+			{
+				T = 0;
+				S = std::clamp(-C / A, 0.0, 1.0);
+			}
+			else
+			{
+				T = 1.0;
+				S = std::clamp((B - C) / A, 0.0, 1.0);
+			}
+		}
+	}
+	Pos0 = Seg0[0] + D1 * S;
+	Pos1 = Seg1[0] + D2 * T;
 }
 
 double MATH::Distance_Pnt(std::vector<Vec3D> Seg, Vec3D Pos, Vec3D Point)
 {
-	return 0.0;
-}
+	Vec3D P1 = MATH::ClosestPoint_Pnt(Seg, Pos, Point);
+	Vec3D D = P1 - Pos;
+	double mag = D * D;
+	return std::sqrt(mag);
 
-double MATH::Distance_Seg(std::vector<Vec3D> Seg0, Vec3D Pos, std::vector<Vec3D> Seg1)
-{
-	return 0.0;
 }
 
 double MATH::Distance_Seg(std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1)
 {
-	return 0.0;
+	Vec3D Pos0;
+	Vec3D Pos1;
+	MATH::ClosestSeg_Seg(Seg0, Seg1, Pos0, Pos1);
+	Vec3D D = Pos0 - Pos1;
+	double mag = D * D;
+	return std::sqrt(mag);
 }
 
 double MATH::Distance_Tr_Pnt(std::vector<Vec3D> Tr, Vec3D Pos, Vec3D Pnt)
 {
-	return 0.0;
+	Vec3D dis = MATH::ClosestPoint_Seg(Tr, Pos, Pnt);
+	double mag = dis * dis;
+	return std::sqrt(mag);
 }
 
 bool MATH::ProjColl(std::vector<Vec3D> Seg, std::vector<Vec3D> Sh_Vert0, std::vector<Vec3D> Sh_Vert1)
