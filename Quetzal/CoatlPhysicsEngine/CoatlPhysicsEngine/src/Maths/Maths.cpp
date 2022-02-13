@@ -126,6 +126,13 @@ void MATH::ClosestSeg_Seg(std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1, Vec3
 	Pos1 = Seg1[0] + D2 * T;
 }
 
+double MATH::Distance(Vec3D Pos0, Vec3D Pos1)
+{
+	Vec3D D = Pos0 - Pos1;
+	double mag = D * D;
+	return std::sqrt(mag);
+}
+
 double MATH::Distance_Pnt(std::vector<Vec3D> Seg, Vec3D Pos, Vec3D Point)
 {
 	Vec3D P1 = MATH::ClosestPoint_Pnt(Seg, Pos, Point);
@@ -154,49 +161,170 @@ double MATH::Distance_Tr_Pnt(std::vector<Vec3D> Tr, Vec3D Pos, Vec3D Pnt)
 
 bool MATH::ProjColl(std::vector<Vec3D> Seg, std::vector<Vec3D> Sh_Vert0, std::vector<Vec3D> Sh_Vert1)
 {
-	return false;
+	//Max Min of Shape 0
+	Vec3D Max0;
+	Vec3D Min0;
+	//Max Min of Shape 1
+	Vec3D Max1;
+	Vec3D Min1;
+
+	Vec3D AB = Seg[1] - Seg[0];
+	int Count = 0;
+	for (auto& jj : Sh_Vert0)
+	{
+		if (Count == 0)
+		{
+			Max0 = jj;
+			Min0 = jj;
+			Count++;
+		}
+		Vec3D AJJ = jj - Seg[0];
+		double Num = AJJ * AB;
+		double Denom = AB * AB;
+		Vec3D TempPos = Seg[0] + AB * Num / Denom ;
+		MATH::SetMaxMins(Max0, Min0, TempPos);
+	}
+	Count = 0;
+	for (auto& jj : Sh_Vert1)
+	{
+		if (Count == 0)
+		{
+			Max1 = jj;
+			Min1 = jj;
+			Count++;
+		}
+		Vec3D AJJ = jj - Seg[0];
+		double Num = AJJ * AB;
+		double Denom = AB * AB;
+		Vec3D TempPos = Seg[0] + AB *Num / Denom  ;
+		MATH::SetMaxMins(Max1, Min1, TempPos);
+	}
+	double SegDis0 = MATH::Distance(Max0, Min0);
+	double SegDis1 = MATH::Distance(Max1, Min1);
+	double MaxMin0 = MATH::Distance(Max0, Min1);
+	double MaxMin1 = MATH::Distance(Max1, Min0);
+
+	double TotalLength = SegDis0 + SegDis1;
+	double MaxL = std::max(MaxMin0, MaxMin1);
+
+	return MaxL > TotalLength;
 }
 
 bool MATH::ProjColl(Vec3D Normal, std::vector<Vec3D> Sh_Vert0, std::vector<Vec3D> Sh_Vert1)
 {
-	return false;
-}
+	//Max Min of Shape 0
+	Vec3D Max0;
+	Vec3D Min0;
+	//Max Min of Shape 1
+	Vec3D Max1;
+	Vec3D Min1;
 
-bool MATH::SATColCheck(std::vector<Vec3D> Norm0, std::vector<Vec3D> Norm1, std::vector<Vec3D> Pnts0, std::vector<Vec3D> Pnts1)
-{
-	return false;
+	int Count = 0;
+	for (auto& jj : Sh_Vert0)
+	{
+		if (Count == 0)
+		{
+			Max0 = jj;
+			Min0 = jj;
+			Count++;
+		}
+		double Num = jj * Normal;
+		double Denom = Normal * Normal;
+		Vec3D TempPos =  Normal * Num / Denom;
+		MATH::SetMaxMins(Max0, Min0, TempPos);
+	}
+	Count = 0;
+	for (auto& jj : Sh_Vert1)
+	{
+		if (Count == 0)
+		{
+			Max1 = jj;
+			Min1 = jj;
+			Count++;
+		}
+		double Num = jj * Normal;
+		double Denom = Normal * Normal;
+		Vec3D TempPos = Normal * Num / Denom;
+		MATH::SetMaxMins(Max1, Min1, TempPos);
+	}
+	double SegDis0 = MATH::Distance(Max0, Min0);
+	double SegDis1 = MATH::Distance(Max1, Min1);
+	double MaxMin0 = MATH::Distance(Max0, Min1);
+	double MaxMin1 = MATH::Distance(Max1, Min0);
+
+	double TotalLength = SegDis0 + SegDis1;
+	double MaxL = std::max(MaxMin0, MaxMin1);
+
+	return MaxL > TotalLength;
 }
 
 void MATH::SetMaxMins(Vec3D& Max, Vec3D& Min, Vec3D NewVal)
 {
+	if (Max[0] < NewVal[0])
+	{
+		Max[0] = NewVal[0];
+	}
+	if (Max[1] < NewVal[1])
+	{
+		Max[1] = NewVal[1];
+	}
+	if (Max[2] < NewVal[2])
+	{
+		Max[2] = NewVal[2];
+		return;
+	}
+	//Check if Greater in Min
+	if (Min[0] > NewVal[0])
+	{
+		Min[0] = NewVal[0];
+	}
+	if (Min[1] > NewVal[1])
+	{
+		Min[1] = NewVal[1];
+	}
+	if (Min[2] > NewVal[2])
+	{
+		Min[2] = NewVal[2];
+	}
 }
 
 Vec3D MATH::SetMax(Vec3D Max, Vec3D NewVal)
 {
-	return Vec3D();
+	if (Max[0] < NewVal[0])
+	{
+		Max[0] = NewVal[0];
+	}
+	if (Max[1] < NewVal[1])
+	{
+		Max[1] = NewVal[1];
+	}
+	if (Max[2] < NewVal[2])
+	{
+		Max[2] = NewVal[2];
+	}
+	return Max;
 }
 
 Vec3D MATH::SetMin(Vec3D Min, Vec3D NewVal)
 {
-	return Vec3D();
+	if (Min[0] > NewVal[0])
+	{
+		Min[0] = NewVal[0];
+	}
+	if (Min[1] > NewVal[1])
+	{
+		Min[1] = NewVal[1];
+	}
+	if (Min[2] > NewVal[2])
+	{
+		Min[2] = NewVal[2];
+	}
+	return Min;
 }
 
 Vec3D MATH::CreateNormal(std::vector<Vec3D> Seg)
 {
-	return Vec3D();
-}
-
-Vec3D MATH::Normalize(Vec3D Vec)
-{
-	return Vec3D();
-}
-
-Vec3D MATH::ClampLowest(Vec3D Vec, float Limit)
-{
-	return Vec3D();
-}
-
-bool MATH::IsSame(Vec3D Vec0, Vec3D Vec1)
-{
-	return false;
+	Vec3D Dir = Seg[1] - Seg[0];
+	Dir.Normalize();
+	return Dir;
 }
