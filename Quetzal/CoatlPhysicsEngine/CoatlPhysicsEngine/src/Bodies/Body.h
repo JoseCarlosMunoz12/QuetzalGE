@@ -1,5 +1,6 @@
 #pragma once
 #include "../define.h"
+#include "../Maths/Maths.h"
 #include "../Maths/Matrix.h"
 #include "../Maths/Vectors.h"
 namespace CoatlPhysicsEngine {

@@ -7,5 +7,8 @@ namespace CoatlPhysicsEngine {
 		double Radius;
 	public:
 		Sphere(double initRadius, Vec3D initPos, Quat initRot);
+		//Getters and Setters
+		double GetRadius();
+		void SetRadius(double newRadius);
 	};
 }
