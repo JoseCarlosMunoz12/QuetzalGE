@@ -1,5 +1,8 @@
 #pragma once
-class BoundingBox
-{
-};
+#include "Body.h"
+namespace CoatlPhysicsEngine {
+	class COATL_API BoundingBox :public Body
+	{
 
+	};
+}

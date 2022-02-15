@@ -1,5 +1,8 @@
 #pragma once
-class ABB
-{
-};
+#include "Body.h"
+namespace CoatlPhysicsEngine {
+	class COATL_API ABB : public Body
+	{
 
+	};
+}

@@ -9,6 +9,7 @@ namespace CoatlPhysicsEngine {
 		Vec3D Seg1;
 		double Radius;
 	public:
+		Capsule(double initRadius,Vec3D initSeg0, Vec3D initSeg1, Vec3D initPos, Quat initRot);
 	};
 }
 
