@@ -19,9 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Bodies\ABB.h" />
+    <ClInclude Include="src\Bodies\BB.h" />
     <ClInclude Include="src\Bodies\Capsule.h" />
-    <ClInclude Include="src\Bodies\OBB.h" />
     <ClInclude Include="src\Bodies\Sphere.h" />
     <ClInclude Include="src\Bodies\Body.h" />
     <ClInclude Include="src\Maths\Matrix.h" />
@@ -31,9 +30,8 @@
     <ClInclude Include="src\Maths\Vectors.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Bodies\ABB.cpp" />
+    <ClCompile Include="src\Bodies\BB.cpp" />
     <ClCompile Include="src\Bodies\Capsule.cpp" />
-    <ClCompile Include="src\Bodies\OBB.cpp" />
     <ClCompile Include="src\Bodies\Sphere.cpp" />
     <ClCompile Include="src\Bodies\Body.cpp" />
     <ClCompile Include="src\Maths\Matrix.cpp" />

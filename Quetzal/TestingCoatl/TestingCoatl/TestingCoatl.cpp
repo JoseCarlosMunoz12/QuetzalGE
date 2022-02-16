@@ -5,10 +5,9 @@
 using namespace CPE;
 int main()
 {
-    std::cout << "Hello World!\n";
-    Vec3D R(0.0, 1.0,0.0);
-    Vec3D L(1.0, 0.0, 0.0);
-    Vec3D Dir = MATH::CreateNormal({ L,R });
-    Dir.DisplayAns();
-
+	Quat Rot;
+	Rot.SetZeroDegree();
+	Vec3D Pos(0.0);
+	Vec3D dim(1.0, 2.0, 1.0);
+	BB r(dim,Pos,Rot);
 }

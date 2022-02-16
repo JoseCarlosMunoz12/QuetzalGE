@@ -135,3 +135,9 @@ void Quat::DisplayAns()
 	std::cout << "Z:" << (*this)[2] << "\n";
 }
 
+void CoatlPhysicsEngine::Quat::SetZeroDegree()
+{
+	W = 1.0;
+	X = Y = Z = 0.0;
+}
+

@@ -5,4 +5,8 @@
 #include "Maths/Vectors.h"
 #include "Maths/Matrix.h"
 
+#include "Bodies/Sphere.h"
+#include "Bodies/Capsule.h"
+#include "Bodies/BB.h"
+
 namespace CPE = CoatlPhysicsEngine;

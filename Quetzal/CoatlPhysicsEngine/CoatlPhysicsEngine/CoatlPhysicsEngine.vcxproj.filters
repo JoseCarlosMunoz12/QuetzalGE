@@ -39,10 +39,7 @@
     <ClInclude Include="src\Bodies\Capsule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Bodies\ABB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Bodies\OBB.h">
+    <ClInclude Include="src\Bodies\BB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,10 +62,7 @@
     <ClCompile Include="src\Bodies\Capsule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bodies\ABB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Bodies\OBB.cpp">
+    <ClCompile Include="src\Bodies\BB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
