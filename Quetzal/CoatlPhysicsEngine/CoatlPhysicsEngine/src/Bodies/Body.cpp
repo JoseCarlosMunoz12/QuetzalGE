@@ -1,6 +1,28 @@
 #include "Body.h"
 using namespace CoatlPhysicsEngine;
 
+void Body::DisplayInternals()
+{
+	std::cout << "-Position: ";
+	this->Position.Display();
+	std::cout << "-Rotation: ";
+	this->Rotation.Display();
+	std::cout << "-Velocity: ";
+	this->Velocity.Display();
+	std::cout << "-Angular Velocity: ";
+	this->AngularVelocity.Display();
+	std::cout << "Mass: ";
+	if (this->MassInv == 0.0)
+		std::cout << "Infinite Mass\n";
+	else
+	{
+		double mass = 1 / MassInv;
+		printf("%.5f\n", mass);
+	}
+	std::cout << "Interntia Matrix:";
+	this->InertiaInv.GetInverse().DisplayMatrix();
+}
+
 Body::Body(double initMass, Matrix3x3 initIntert,
 	Vec3D initPos, Quat initRot)
 {
@@ -95,4 +117,9 @@ Vec3D Body::GetAngularVelocity()
 void Body::SetAngularVelocity(Vec3D newVel)
 {
 	this->AngularVelocity = newVel;
+}
+
+void Body::DisplayInfo()
+{
+	std::cout << "empty\n";
 }

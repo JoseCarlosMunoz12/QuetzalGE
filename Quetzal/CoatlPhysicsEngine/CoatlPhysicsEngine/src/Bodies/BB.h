@@ -10,5 +10,6 @@ namespace CoatlPhysicsEngine {
 		~BB();
 		Vec3D GetDimensions();
 		void SetDimensions(Vec3D newDimen);
+		void DisplayInfo() override;
 	};
 }

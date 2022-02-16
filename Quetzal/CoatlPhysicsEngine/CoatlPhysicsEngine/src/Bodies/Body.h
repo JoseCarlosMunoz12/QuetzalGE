@@ -13,6 +13,7 @@ namespace CoatlPhysicsEngine {
 		Quat Rotation;
 		Vec3D Velocity;
 		Vec3D AngularVelocity;
+		void DisplayInternals();
 	public:
 		Body(double initMass, Matrix3x3 initIntert,
 			Vec3D initPos, Quat initRot);
@@ -32,6 +33,7 @@ namespace CoatlPhysicsEngine {
 		void SetVelocity(Vec3D newVel);
 		Vec3D GetAngularVelocity();
 		void SetAngularVelocity(Vec3D newVel);
+		virtual void DisplayInfo();
 	};
 }
 

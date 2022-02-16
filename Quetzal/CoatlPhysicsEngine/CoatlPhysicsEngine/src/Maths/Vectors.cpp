@@ -61,7 +61,7 @@ Vec3D::Vec3D(double x, double y, double z)
 	(*this)[2] = z;
 }
 
-void Vec3D::DisplayAns()
+void Vec3D::Display()
 {
 	std::cout << "X:" << (*this)[0] << ",";
 	std::cout << "Y:" << (*this)[1] << ",";
@@ -127,7 +127,7 @@ Vec3D Quat::GetEulorValues(bool Convert)
 	return angles;
 }
 
-void Quat::DisplayAns()
+void Quat::Display()
 {
 	std::cout << "W:" << (*this)[3] << ",";
 	std::cout << "X:" << (*this)[0] << ",";

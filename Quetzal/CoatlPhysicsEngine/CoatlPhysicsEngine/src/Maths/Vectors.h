@@ -50,7 +50,7 @@ namespace CoatlPhysicsEngine {
 		Vec3D();
 		Vec3D(double init);
 		Vec3D(double x, double y, double z);
-		void DisplayAns();
+		void Display();
 		Vec3D operator^(Vec3D A)
 		{
 			Vec3D X;
@@ -90,7 +90,7 @@ namespace CoatlPhysicsEngine {
 		Quat(double initX = 0.f, double initY = 0.f, double initZ = 0.f,
 			double initW = 0.f);
 		Vec3D GetEulorValues(bool Convert = true);
-		void DisplayAns();
+		void Display();
 		void SetZeroDegree();
 		double& operator[] (int loc)
 		{
