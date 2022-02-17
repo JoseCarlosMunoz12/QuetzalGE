@@ -28,6 +28,21 @@ std::string Body::GetInternals()
 	std::string str = "Position: ";
 	str += this->Position.GetStr();
 	str += "Rotation :";
+	str += this->Rotation.GetStr();
+	str += "Velocity :";
+	str += this->Velocity.GetStr();
+	str += "Angular Velocity";
+	str += this->AngularVelocity.GetStr();
+	str += "Mass: ";
+	if (this->MassInv == 0.0)
+		std::cout << "Infinite Mass\n";
+	else
+	{
+		double mass = 1 / MassInv;
+		str += std::to_string(mass) + "\n";
+	}
+	str += "Interntia Matrix:\n";
+	str += this->InertiaInv.GetInverse().GetStr();
 	return str;
 }
 

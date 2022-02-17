@@ -144,6 +144,15 @@ void Quat::Display()
 	std::cout << "Z:" << (*this)[2] << "\n";
 }
 
+std::string CoatlPhysicsEngine::Quat::GetStr()
+{
+	std::string str = "[";
+	str += " " + std::to_string((*this)[3]);
+	for(int ii = 0; ii < 3; ii++)
+		str += " " + std::to_string((*this)[ii]);
+	return str + " ]\n";
+}
+
 void CoatlPhysicsEngine::Quat::SetZeroDegree()
 {
 	W = 1.0;

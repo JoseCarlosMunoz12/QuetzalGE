@@ -92,6 +92,7 @@ namespace CoatlPhysicsEngine {
 			double initW = 0.f);
 		Vec3D GetEulorValues(bool Convert = true);
 		void Display();
+		std::string GetStr();
 		void SetZeroDegree();
 		double& operator[] (int loc)
 		{
