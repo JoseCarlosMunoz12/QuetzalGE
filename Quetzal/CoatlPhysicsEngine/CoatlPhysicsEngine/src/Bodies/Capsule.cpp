@@ -32,3 +32,22 @@ double Capsule::GetLength()
 {
 	return MATH::Distance(this->Seg0, this->Seg1);
 }
+
+void Capsule::DisplayInfo()
+{
+	std::cout << "Capsule Information:\n";
+	printf("Radius : %.5f", this->Radius);
+	printf("Segment 0 X:%.5f Y:%.5f Z:%.5f\n", this->Seg0[0], this->Seg0[1], this->Seg0[2]);
+	printf("Segment 1 X:%.5f Y:%.5f Z:%.5f\n", this->Seg1[0], this->Seg1[1], this->Seg1[2]);
+	this->DisplayInternals();
+}
+
+std::string Capsule::GetStr()
+{
+	std::string str = "Capsule Information:\n";
+	str += "Radius: " + std::to_string(this->Radius) + "\n";
+	str += "Segment 0 " + this->Seg0.GetStr();
+	str += "Segment 1 " + this->Seg1.GetStr();
+	str += this->GetInternals();
+	return str;
+}

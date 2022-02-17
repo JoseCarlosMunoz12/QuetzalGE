@@ -16,6 +16,8 @@ namespace CoatlPhysicsEngine {
 		void GetSegment(Vec3D& outSeg0, Vec3D outSeg1);
 		void SetSegment(Vec3D newSeg0, Vec3D newSeg1);
 		double GetLength();
+		void DisplayInfo() override;
+		std::string GetStr() override;
 	};
 }
 
