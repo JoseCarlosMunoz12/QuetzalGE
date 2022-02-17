@@ -180,6 +180,20 @@ MatrixXYD MatrixXYD::GetDampedLeastSquares(double Lambda)
 	return T * Inv;
 }
 
+std::string MatrixXYD::GetStr()
+{
+	std::string str = "";
+
+	for (int ii = 0; ii < this->NumRows(); ii++)
+	{
+		str += "|";
+		for (int jj = 0; jj < this->NumCols(); jj++)
+			str += " " + std::to_string((*this)[ii][jj]);
+		str += " |\n";
+	}
+	return str;
+}
+
 void MatrixXYD::MultiplScalar(double Value)
 {
 

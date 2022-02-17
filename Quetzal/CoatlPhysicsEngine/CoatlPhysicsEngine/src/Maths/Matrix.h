@@ -28,6 +28,7 @@ namespace CoatlPhysicsEngine {
 		MatrixXYD GetTranspose();
 		MatrixXYD GetPsudeoInverse();
 		MatrixXYD GetDampedLeastSquares(double Lambda);
+		std::string GetStr();
 		void MultiplScalar(double Value);
 		MatrixXYD(int Row, int Col, double InitVal = 0.f);
 		MatrixXYD Concatinate(MatrixXYD A);

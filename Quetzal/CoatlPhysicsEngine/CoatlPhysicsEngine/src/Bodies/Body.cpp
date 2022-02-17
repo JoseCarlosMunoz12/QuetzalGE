@@ -18,9 +18,17 @@ void Body::DisplayInternals()
 	{
 		double mass = 1 / MassInv;
 		printf("%.5f\n", mass);
-	}
+	}	
 	std::cout << "Interntia Matrix:";
 	this->InertiaInv.GetInverse().DisplayMatrix();
+}
+
+std::string Body::GetInternals()
+{
+	std::string str = "Position: ";
+	str += this->Position.GetStr();
+	str += "Rotation :";
+	return str;
 }
 
 Body::Body(double initMass, Matrix3x3 initIntert,

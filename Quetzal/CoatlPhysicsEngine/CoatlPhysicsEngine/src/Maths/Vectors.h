@@ -19,6 +19,7 @@ namespace CoatlPhysicsEngine {
 		double length();
 		void Normalize();
 		void Multiply(double f);
+		std::string GetStr();
 		double operator* (VecXD RV)
 		{
 			int vSize = Size();

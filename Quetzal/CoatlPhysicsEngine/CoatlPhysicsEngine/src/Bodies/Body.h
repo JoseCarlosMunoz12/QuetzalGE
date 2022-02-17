@@ -14,6 +14,7 @@ namespace CoatlPhysicsEngine {
 		Vec3D Velocity;
 		Vec3D AngularVelocity;
 		void DisplayInternals();
+		std::string GetInternals();
 	public:
 		Body(double initMass, Matrix3x3 initIntert,
 			Vec3D initPos, Quat initRot);

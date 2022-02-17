@@ -40,6 +40,15 @@ void VecXD::Multiply(double f)
 		Vec[ii] = f * Vec[ii];
 }
 
+std::string VecXD::GetStr()
+{
+	int size = Size();
+	std::string str = "[";
+	for (int ii = 0; ii < size; ii++)
+		str += " " + std::to_string(Vec[ii]);
+	return str + " ]\n";
+}
+
 ///
 ///Vector3D
 ///
