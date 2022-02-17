@@ -10,5 +10,7 @@ namespace CoatlPhysicsEngine {
 		//Getters and Setters
 		double GetRadius();
 		void SetRadius(double newRadius);
+		void DisplayInfo() override;
+		std::string GetStr() override;
 	};
 }
