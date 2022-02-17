@@ -35,6 +35,7 @@ namespace CoatlPhysicsEngine {
 		Vec3D GetAngularVelocity();
 		void SetAngularVelocity(Vec3D newVel);
 		virtual void DisplayInfo();
+		virtual std::string GetStr();
 	};
 }
 

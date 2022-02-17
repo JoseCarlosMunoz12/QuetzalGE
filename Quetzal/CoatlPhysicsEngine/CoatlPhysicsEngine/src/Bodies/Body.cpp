@@ -146,3 +146,8 @@ void Body::DisplayInfo()
 {
 	std::cout << "empty\n";
 }
+
+std::string Body::GetStr()
+{
+	return "";
+}
