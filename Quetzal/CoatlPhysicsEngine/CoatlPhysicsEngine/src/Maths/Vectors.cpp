@@ -144,7 +144,7 @@ void Quat::Display()
 	std::cout << "Z:" << (*this)[2] << "\n";
 }
 
-std::string CoatlPhysicsEngine::Quat::GetStr()
+std::string Quat::GetStr()
 {
 	std::string str = "[";
 	str += " " + std::to_string((*this)[3]);
@@ -153,9 +153,31 @@ std::string CoatlPhysicsEngine::Quat::GetStr()
 	return str + " ]\n";
 }
 
-void CoatlPhysicsEngine::Quat::SetZeroDegree()
+void Quat::SetZeroDegree()
 {
 	W = 1.0;
 	X = Y = Z = 0.0;
 }
 
+Vec4D::Vec4D()
+	:VecXD(3, 0.f)
+{
+}
+
+Vec4D::Vec4D(double init)
+	: VecXD(4, init)
+{
+}
+
+Vec4D::Vec4D(double w,double x, double y, double z)
+	: VecXD(4, 0.f)
+{
+}
+
+void Vec4D::Display()
+{
+	std::cout << "W:" << (*this)[0] << ",";
+	std::cout << "X:" << (*this)[1] << ",";
+	std::cout << "Y:" << (*this)[2] << ",";
+	std::cout << "Z:" << (*this)[3] << "\n";
+}

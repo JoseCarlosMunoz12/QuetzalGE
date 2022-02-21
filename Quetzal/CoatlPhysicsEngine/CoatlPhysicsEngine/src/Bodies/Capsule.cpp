@@ -51,3 +51,19 @@ std::string Capsule::GetStr()
 	str += this->GetInternals();
 	return str;
 }
+
+std::vector<Vec3D> Capsule::GetVertices()
+{
+	Matrix3x3 R(this->Rotation);
+	Vec3D S0 = R * (this->Position + this->Seg0);
+	Vec3D S1 = R * (this->Position + this->Seg1);
+	return {S0, S1};
+}
+
+std::vector<Vec3D> Capsule::GetNormals()
+{
+	std::vector<Vec3D> Pnts = this->GetVertices();
+	Vec3D Norm = Pnts[1] - Pnts[0];
+	Norm.Normalize();
+	return { Norm };
+}

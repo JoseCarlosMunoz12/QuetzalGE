@@ -151,3 +151,13 @@ std::string Body::GetStr()
 {
 	return "";
 }
+
+std::vector<Vec3D> Body::GetNormals()
+{
+	return std::vector<Vec3D>();
+}
+
+std::vector<Vec3D> Body::GetVertices()
+{
+	return std::vector<Vec3D>();
+}

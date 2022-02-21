@@ -12,5 +12,6 @@ namespace CoatlPhysicsEngine {
 		void SetRadius(double newRadius);
 		void DisplayInfo() override;
 		std::string GetStr() override;
+		std::vector<Vec3D> GetVertices() override;
 	};
 }

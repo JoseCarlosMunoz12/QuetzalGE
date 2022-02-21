@@ -31,3 +31,8 @@ std::string Sphere::GetStr()
 	str += this->GetInternals();
 	return str;
 }
+
+std::vector<Vec3D> Sphere::GetVertices()
+{
+	return { Position };
+}

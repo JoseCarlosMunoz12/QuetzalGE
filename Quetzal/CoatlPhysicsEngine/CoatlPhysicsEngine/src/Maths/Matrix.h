@@ -161,7 +161,20 @@ namespace CoatlPhysicsEngine {
 				}
 			return A;
 		}
+		Vec4D operator* (Vec4D L)
+		{
+			Vec4D A;
+			for (int ii = 0; ii < 4; ii++)
+				for (int jj = 0; jj < 4; jj++)
+				{
+					double Val = 0.f;
+					Val += (*this)[ii][jj] * L[jj];
+					A[ii] = Val;
+				}
+			return A;
+		}
 	};
+
 	class COATL_API Matrix3x3 : public MatrixXYD
 	{
 	private:
@@ -187,6 +200,18 @@ namespace CoatlPhysicsEngine {
 					for (int kk = 0; kk < 3; kk++)
 						Val += (*this)[ii][kk] * L[kk][jj];
 					A[ii][jj] = Val;
+				}
+			return A;
+		}
+		Vec3D operator* (Vec3D L)
+		{
+			Vec3D A;
+			for (int ii = 0; ii < 3; ii++)
+				for (int jj = 0; jj < 3; jj++)
+				{
+					double Val = 0.f;
+						Val += (*this)[ii][jj] * L[jj];
+					A[ii] = Val;
 				}
 			return A;
 		}

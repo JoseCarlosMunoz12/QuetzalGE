@@ -75,6 +75,28 @@ namespace CoatlPhysicsEngine {
 			return Res;
 		}
 	};
+	class COATL_API Vec4D : public VecXD
+	{
+	public:
+		Vec4D();
+		Vec4D(double init);
+		Vec4D(double w, double x, double y, double z);
+		void Display();
+		Vec4D operator- (Vec4D RV)
+		{
+			Vec4D Res(Size());
+			for (int ii = 0; ii < Size(); ii++)
+				Res[ii] = (*this)[ii] - RV[ii];
+			return Res;
+		}
+		Vec4D operator+ (Vec4D RV)
+		{
+			Vec4D Res(Size());
+			for (int ii = 0; ii < Size(); ii++)
+				Res[ii] = (*this)[ii] + RV[ii];
+			return Res;
+		}
+	};
 	class COATL_API Quat
 	{
 	private:

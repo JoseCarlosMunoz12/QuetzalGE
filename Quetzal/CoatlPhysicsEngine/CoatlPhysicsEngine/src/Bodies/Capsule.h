@@ -18,6 +18,8 @@ namespace CoatlPhysicsEngine {
 		double GetLength();
 		void DisplayInfo() override;
 		std::string GetStr() override;
+		std::vector<Vec3D> GetVertices() override;
+		std::vector<Vec3D> GetNormals() override;
 	};
 }
 
