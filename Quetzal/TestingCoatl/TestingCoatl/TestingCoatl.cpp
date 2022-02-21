@@ -5,10 +5,13 @@
 using namespace CPE;
 int main()
 {
-	Quat Rot;
-	Rot.SetZeroDegree();
-	Vec3D Pos(0.0);
-	Vec3D dim(1.0, 2.0, 1.0);
-	BB r(dim,Pos,Rot);
-	r.DisplayInfo();
+	Vec3D Dimen(1.0,2.0,1.0);
+	Vec3D Pos(1.0, 0.0, 1.0);
+	Quat r;
+	r.SetZeroDegree();
+	BB R(Dimen,Pos ,r);
+	std::vector<Vec3D> Vecs = R.GetVertices();
+	for (auto& ii : Vecs)
+		ii.Display();
+
 }

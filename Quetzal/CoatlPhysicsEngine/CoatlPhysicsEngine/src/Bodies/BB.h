@@ -12,5 +12,7 @@ namespace CoatlPhysicsEngine {
 		void SetDimensions(Vec3D newDimen);
 		void DisplayInfo() override;
 		std::string GetStr() override;
+		std::vector<Vec3D> GetVertices() override;
+		std::vector<Vec3D> GetNormals() override;
 	};
 }

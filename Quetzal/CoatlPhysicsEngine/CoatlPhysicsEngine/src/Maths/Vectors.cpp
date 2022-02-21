@@ -54,7 +54,7 @@ std::string VecXD::GetStr()
 ///
 
 Vec3D::Vec3D()
-	:VecXD(3, 0.f)
+	:VecXD(3, 0.0)
 {
 }
 
@@ -76,6 +76,50 @@ void Vec3D::Display()
 	std::cout << "Y:" << (*this)[1] << ",";
 	std::cout << "Z:" << (*this)[2] << "\n";
 }
+
+///
+///Vec4D
+///
+
+Vec4D::Vec4D()
+	:VecXD(4, 0.0)
+{
+}
+
+Vec4D::Vec4D(double init)
+	: VecXD(4, init)
+{
+}
+
+Vec4D::Vec4D(Vec3D initVec, double init)
+	: VecXD(4, init)
+{
+	for (int ii = 0; ii < 3; ii++)
+		(*this)[ii] = initVec[ii];
+}
+
+Vec4D::Vec4D(double w, double x, double y, double z)
+	: VecXD(4, 0.0)
+{
+	(*this)[0] = w;
+	(*this)[1] = x;
+	(*this)[2] = y;
+	(*this)[3] = z;
+}
+
+Vec3D Vec4D::GetVec3()
+{
+	return Vec3D((*this)[0], (*this)[1], (*this)[2]);
+}
+
+void Vec4D::Display()
+{
+	std::cout << "W:" << (*this)[0] << ",";
+	std::cout << "X:" << (*this)[1] << ",";
+	std::cout << "Y:" << (*this)[2] << ",";
+	std::cout << "Z:" << (*this)[3] << "\n";
+}
+
 
 ///
 ///Quat
@@ -157,27 +201,4 @@ void Quat::SetZeroDegree()
 {
 	W = 1.0;
 	X = Y = Z = 0.0;
-}
-
-Vec4D::Vec4D()
-	:VecXD(3, 0.f)
-{
-}
-
-Vec4D::Vec4D(double init)
-	: VecXD(4, init)
-{
-}
-
-Vec4D::Vec4D(double w,double x, double y, double z)
-	: VecXD(4, 0.f)
-{
-}
-
-void Vec4D::Display()
-{
-	std::cout << "W:" << (*this)[0] << ",";
-	std::cout << "X:" << (*this)[1] << ",";
-	std::cout << "Y:" << (*this)[2] << ",";
-	std::cout << "Z:" << (*this)[3] << "\n";
 }

@@ -164,17 +164,15 @@ namespace CoatlPhysicsEngine {
 		Vec4D operator* (Vec4D L)
 		{
 			Vec4D A;
-			for (int ii = 0; ii < 4; ii++)
+			for (int ii = 0; ii < 4; ii++){
+				double Val = 0.f;
 				for (int jj = 0; jj < 4; jj++)
-				{
-					double Val = 0.f;
 					Val += (*this)[ii][jj] * L[jj];
-					A[ii] = Val;
-				}
+				A[ii] = Val;
+			}
 			return A;
 		}
 	};
-
 	class COATL_API Matrix3x3 : public MatrixXYD
 	{
 	private:

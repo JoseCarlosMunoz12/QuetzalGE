@@ -35,3 +35,37 @@ std::string BB::GetStr()
 	str += this->GetInternals();
 	return str;
 }
+
+std::vector<Vec3D> BB::GetVertices()
+{
+	Matrix4x4 R(this->Rotation);
+	Matrix4x4 T;
+	T[0][3] = this->Position[0]; T[1][3] = this->Position[1]; T[2][3] = this->Position[2];
+	Vec3D Positions[] =
+	{
+		//Bottom Plane
+		Vec3D(Dimensions[0],-Dimensions[1], -Dimensions[2]), Vec3D(Dimensions[0], Dimensions[1], -Dimensions[2]),
+		Vec3D(-Dimensions[0], Dimensions[1],-Dimensions[2]), Vec3D(-Dimensions[0],-Dimensions[1],-Dimensions[2]),
+		//Top Plane 
+		Vec3D(Dimensions[0],-Dimensions[1], Dimensions[2]),  Vec3D(Dimensions[0], Dimensions[1], Dimensions[2]),
+		Vec3D(-Dimensions[0], Dimensions[1], Dimensions[2]), Vec3D(-Dimensions[0],-Dimensions[1], Dimensions[2])
+	};
+	std::vector<Vec3D> Lines(std::begin(Positions), std::end(Positions));
+	for (auto& jj : Lines)
+	{
+		Vec4D Set = Vec4D(jj, 1.f);
+		Vec4D Res = T * Set;
+		Res = R * Res;
+		jj = Res.GetVec3();
+	}
+	return Lines;
+}
+
+std::vector<Vec3D> BB::GetNormals()
+{
+	std::vector<Vec3D> T = this->GetVertices();
+	std::vector<Vec3D> OBB_N = { MATH::CreateNormal({T[1],T[0]}),
+		 MATH::CreateNormal({T[3],T[0]}),
+		 MATH::CreateNormal({T[4],T[0]}) };
+	return OBB_N;
+}

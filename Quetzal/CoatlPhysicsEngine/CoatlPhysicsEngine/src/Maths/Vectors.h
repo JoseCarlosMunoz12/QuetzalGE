@@ -80,7 +80,9 @@ namespace CoatlPhysicsEngine {
 	public:
 		Vec4D();
 		Vec4D(double init);
+		Vec4D(Vec3D initVec, double init);
 		Vec4D(double w, double x, double y, double z);
+		Vec3D GetVec3();
 		void Display();
 		Vec4D operator- (Vec4D RV)
 		{
