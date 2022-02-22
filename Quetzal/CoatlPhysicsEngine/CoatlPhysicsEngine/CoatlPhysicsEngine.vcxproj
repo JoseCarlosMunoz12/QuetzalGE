@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CollisionManager\CollisionManager.h" />
     <ClInclude Include="src\Bodies\BB.h" />
     <ClInclude Include="src\Bodies\Capsule.h" />
     <ClInclude Include="src\Bodies\Sphere.h" />
@@ -30,6 +31,7 @@
     <ClInclude Include="src\Maths\Vectors.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="src\Bodies\BB.cpp" />
     <ClCompile Include="src\Bodies\Capsule.cpp" />
     <ClCompile Include="src\Bodies\Sphere.cpp" />
