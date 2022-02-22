@@ -161,3 +161,13 @@ std::vector<Vec3D> Body::GetVertices()
 {
 	return std::vector<Vec3D>();
 }
+
+Vec3D Body::Support(Vec3D Dir)
+{
+	return Vec3D();
+}
+
+Vec3D Body::EPA_Support(Vec3D Dir)
+{
+	return Vec3D();
+}

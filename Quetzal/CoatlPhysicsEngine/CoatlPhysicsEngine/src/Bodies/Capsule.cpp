@@ -67,3 +67,40 @@ std::vector<Vec3D> Capsule::GetNormals()
 	Norm.Normalize();
 	return { Norm };
 }
+
+Vec3D Capsule::Support(Vec3D dir)
+{
+	std::vector<Vec3D> Pnts = this->GetVertices();
+	double S = Pnts[0] * dir;
+	Vec3D MaxPnt = Pnts[0];
+	int Size = Pnts.size();
+	for (int ii = 1; ii < Size; ii++)
+	{
+		double T = Pnts[ii] * dir;
+		if (T > S)
+		{
+			S = T;
+			MaxPnt = Pnts[ii];
+		}
+	}
+	dir.Multiply(this->Radius);
+	return MaxPnt + dir;
+}
+
+Vec3D Capsule::EPA_Support(Vec3D dir)
+{
+	std::vector<Vec3D> Pnts = this->GetVertices();
+	double S = Pnts[0] * dir;
+	Vec3D MaxPnt = Pnts[0];
+	int Size = Pnts.size();
+	for (int ii = 1; ii < Size; ii++)
+	{
+		double T = Pnts[ii] * dir;
+		if (T > S)
+		{
+			S = T;
+			MaxPnt = Pnts[ii];
+		}
+	}
+	return MaxPnt;
+}

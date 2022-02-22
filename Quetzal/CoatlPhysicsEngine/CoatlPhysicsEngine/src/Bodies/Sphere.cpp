@@ -36,3 +36,14 @@ std::vector<Vec3D> Sphere::GetVertices()
 {
 	return { Position };
 }
+
+Vec3D Sphere::Support(Vec3D dir)
+{
+	dir.Multiply(this->Radius);
+	return this->Position + dir;
+}
+
+Vec3D Sphere::EPA_Support(Vec3D dir)
+{
+	return this->Position;
+}

@@ -13,5 +13,7 @@ namespace CoatlPhysicsEngine {
 		void DisplayInfo() override;
 		std::string GetStr() override;
 		std::vector<Vec3D> GetVertices() override;
+		Vec3D Support(Vec3D dir) override;
+		Vec3D EPA_Support(Vec3D dir) override;
 	};
 }
