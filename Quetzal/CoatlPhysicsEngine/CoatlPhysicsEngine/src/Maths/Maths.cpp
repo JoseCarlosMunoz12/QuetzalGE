@@ -230,7 +230,8 @@ bool MATH::ProjColl(Vec3D Normal, std::vector<Vec3D> Sh_Vert0, std::vector<Vec3D
 		}
 		double Num = jj * Normal;
 		double Denom = Normal * Normal;
-		Vec3D TempPos =  Normal * Num / Denom;
+		Vec3D TempPos =  Normal ;
+		TempPos.Multiply((Num / Denom));
 		MATH::SetMaxMins(Max0, Min0, TempPos);
 	}
 	Count = 0;
@@ -244,7 +245,8 @@ bool MATH::ProjColl(Vec3D Normal, std::vector<Vec3D> Sh_Vert0, std::vector<Vec3D
 		}
 		double Num = jj * Normal;
 		double Denom = Normal * Normal;
-		Vec3D TempPos = Normal * Num / Denom;
+		Vec3D TempPos = Normal ;
+		TempPos.Multiply((Num / Denom));
 		MATH::SetMaxMins(Max1, Min1, TempPos);
 	}
 	double SegDis0 = MATH::Distance(Max0, Min0);

@@ -13,4 +13,8 @@ int main()
 	std::vector<Vec3D> Vecs = R.GetVertices();
 	for (auto& ii : Vecs)
 		ii.Display();
+	CollisionManager Col;
+	bool rs = Col.CheckCollideBB(R, R);
+	if (rs)
+		std::cout << "asd";
 }

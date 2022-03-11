@@ -3,13 +3,12 @@
 #include "../Bodies/BB.h"
 #include "../Bodies/Sphere.h"
 namespace CoatlPhysicsEngine {
-	class CollisionManager
+	class COATL_API CollisionManager
 	{
 	private:
 	public:
-		CollisionManager();
-		~CollisionManager();
-		template<typename _T, typename _N>
-		bool CheckCollide(_T R, _T N);
+		bool CheckCollideBB(BB R,BB N);
+		bool CheckCollideCC(Capsule R, Capsule N);
+		bool CheckCollideSS(Sphere R, Sphere N);
 	};
 }
