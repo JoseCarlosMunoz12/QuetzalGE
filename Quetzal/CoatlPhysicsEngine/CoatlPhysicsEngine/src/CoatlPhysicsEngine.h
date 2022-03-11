@@ -9,4 +9,6 @@
 #include "Bodies/Capsule.h"
 #include "Bodies/BB.h"
 
+#include "CollisionManager/CollisionManager.h"
+
 namespace CPE = CoatlPhysicsEngine;

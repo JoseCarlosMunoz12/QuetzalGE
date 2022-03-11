@@ -1,4 +1,7 @@
 #pragma once
+#include "../Bodies/Capsule.h"
+#include "../Bodies/BB.h"
+#include "../Bodies/Sphere.h"
 namespace CoatlPhysicsEngine {
 	class CollisionManager
 	{

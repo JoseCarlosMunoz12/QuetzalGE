@@ -328,3 +328,23 @@ Vec3D MATH::CreateNormal(std::vector<Vec3D> Seg)
 	Dir.Normalize();
 	return Dir;
 }
+
+bool MATH::SATColCheck(std::vector<Vec3D> Seg0, std::vector<Vec3D> norm0, std::vector<Vec3D> Seg1, std::vector<Vec3D> norm1)
+{
+
+	for (auto& jj : norm0)
+		if (MATH::ProjColl(jj, Seg0, Seg1))
+			return false;
+	for (auto& jj : norm1)
+		if (MATH::ProjColl(jj, Seg0, Seg1))
+			return false;
+	for (auto& ii : norm0)
+		for (auto& jj : norm1)
+		{
+			Vec3D N = ii ^ jj;
+			if (!(N[0] == 0 && N[1] == 0 && N[2] == 0))
+				if (MATH::ProjColl(N, Seg0, Seg1))
+					return false;
+		}
+	return true;
+}

@@ -30,4 +30,5 @@ namespace MATH {
 	COATL_API Vec3D SetMin(Vec3D Min, Vec3D NewVal);
 	//Vector Maths
 	COATL_API Vec3D CreateNormal(std::vector<Vec3D> Seg);
+	COATL_API bool SATColCheck(std::vector<Vec3D> Seg0, std::vector<Vec3D> norm0, std::vector<Vec3D> Seg1, std::vector<Vec3D> norm1);
 }

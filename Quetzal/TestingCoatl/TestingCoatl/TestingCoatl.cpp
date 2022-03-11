@@ -13,5 +13,4 @@ int main()
 	std::vector<Vec3D> Vecs = R.GetVertices();
 	for (auto& ii : Vecs)
 		ii.Display();
-
 }
