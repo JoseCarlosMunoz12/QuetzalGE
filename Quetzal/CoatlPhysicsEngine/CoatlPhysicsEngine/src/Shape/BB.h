@@ -1,7 +1,7 @@
 #pragma once
-#include "Body.h"
+#include "Shape.h"
 namespace CoatlPhysicsEngine {
-	class COATL_API BB : public Body
+	class COATL_API BB : public Shape
 	{
 	private:
 		Vec3D Dimensions;

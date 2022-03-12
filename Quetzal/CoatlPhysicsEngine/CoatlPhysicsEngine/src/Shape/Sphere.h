@@ -1,7 +1,7 @@
 #pragma once
-#include "Body.h"
+#include "Shape.h"
 namespace CoatlPhysicsEngine {
-	class COATL_API Sphere: public Body
+	class COATL_API Sphere: public Shape
 	{
 	private:
 		double Radius;

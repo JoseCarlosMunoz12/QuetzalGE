@@ -1,8 +1,8 @@
 #pragma once
-#include "Body.h"
+#include "Shape.h"
 namespace CoatlPhysicsEngine {
 
-	class COATL_API Capsule : public Body
+	class COATL_API Capsule : public Shape
 	{
 	private:
 		Vec3D Seg0;

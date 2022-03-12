@@ -30,16 +30,16 @@
     <ClInclude Include="src\Maths\Vectors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Bodies\Body.h">
+    <ClInclude Include="src\Shape\Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Bodies\Sphere.h">
+    <ClInclude Include="src\Shape\Sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Bodies\Capsule.h">
+    <ClInclude Include="src\Shape\Capsule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Bodies\BB.h">
+    <ClInclude Include="src\Shape\BB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionManager\CollisionManager.h">
@@ -56,16 +56,16 @@
     <ClCompile Include="src\Maths\Vectors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bodies\Body.cpp">
+    <ClCompile Include="src\Shape\Shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bodies\Sphere.cpp">
+    <ClCompile Include="src\Shape\Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bodies\Capsule.cpp">
+    <ClCompile Include="src\Shape\Capsule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bodies\BB.cpp">
+    <ClCompile Include="src\Shape\BB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionManager\CollisionManager.cpp">

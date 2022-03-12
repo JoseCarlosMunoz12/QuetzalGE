@@ -1,7 +1,7 @@
-#include "Body.h"
+#include "Shape.h"
 using namespace CoatlPhysicsEngine;
 
-void Body::DisplayInternals()
+void Shape::DisplayInternals()
 {
 	std::cout << "-Position: ";
 	this->Position.Display();
@@ -23,7 +23,7 @@ void Body::DisplayInternals()
 	this->InertiaInv.GetInverse().DisplayMatrix();
 }
 
-std::string Body::GetInternals()
+std::string Shape::GetInternals()
 {
 	std::string str = "Position: ";
 	str += this->Position.GetStr();
@@ -46,7 +46,7 @@ std::string Body::GetInternals()
 	return str;
 }
 
-Body::Body(double initMass, Matrix3x3 initIntert,
+Shape::Shape(double initMass, Matrix3x3 initIntert,
 	Vec3D initPos, Quat initRot)
 {
 	this->SetInertia(initIntert);
@@ -57,7 +57,7 @@ Body::Body(double initMass, Matrix3x3 initIntert,
 	this->SetRotation(initRot);
 }
 
-Body::Body(Vec3D initPos, Quat initRot)
+Shape::Shape(Vec3D initPos, Quat initRot)
 {
 	this->SetMassInfinite();
 	this->SetIntertiaInfinite();
@@ -67,107 +67,107 @@ Body::Body(Vec3D initPos, Quat initRot)
 	this->SetRotation(initRot);
 }
 
-Body::~Body()
+Shape::~Shape()
 {
 }
 
-double Body::GetInvMass()
+double Shape::GetInvMass()
 {
 	return this->MassInv;
 }
 
-void Body::SetMass(double newMass)
+void Shape::SetMass(double newMass)
 {
 	this->MassInv = 1.0 / newMass;
 }
 
-void Body::SetMassInfinite()
+void Shape::SetMassInfinite()
 {
 	this->MassInv = 0.0;
 }
 
-Matrix3x3 Body::GetInvInertia()
+Matrix3x3 Shape::GetInvInertia()
 {
 	return this->InertiaInv;
 }
 
-void Body::SetInertia(Matrix3x3 newInertia)
+void Shape::SetInertia(Matrix3x3 newInertia)
 {
 	this->InertiaInv = newInertia;
 }
 
-void Body::SetIntertiaInfinite()
+void Shape::SetIntertiaInfinite()
 {
 	this->InertiaInv = Matrix3x3();
 
 }
 
-Vec3D Body::GetPosition()
+Vec3D Shape::GetPosition()
 {
 	return this->Position;
 }
 
-void Body::SetPosition(Vec3D newPos)
+void Shape::SetPosition(Vec3D newPos)
 {
 	this->Position = newPos;
 }
 
-Quat Body::GetRotation()
+Quat Shape::GetRotation()
 {
 	return Rotation;
 }
 
-void Body::SetRotation(Quat newRot)
+void Shape::SetRotation(Quat newRot)
 {
 	this->Rotation = newRot;
 }
 
-Vec3D Body::GetVelocity()
+Vec3D Shape::GetVelocity()
 {
 	return this->Velocity;
 }
 
-void Body::SetVelocity(Vec3D newVel)
+void Shape::SetVelocity(Vec3D newVel)
 {
 	this->Velocity = newVel;
 }
 
-Vec3D Body::GetAngularVelocity()
+Vec3D Shape::GetAngularVelocity()
 {
 	return this->AngularVelocity;
 }
 
-void Body::SetAngularVelocity(Vec3D newVel)
+void Shape::SetAngularVelocity(Vec3D newVel)
 {
 	this->AngularVelocity = newVel;
 }
 
-void Body::DisplayInfo()
+void Shape::DisplayInfo()
 {
 	std::cout << "empty\n";
 }
 
-std::string Body::GetStr()
+std::string Shape::GetStr()
 {
 	return "";
 }
 
-std::vector<Vec3D> Body::GetNormals()
+std::vector<Vec3D> Shape::GetNormals()
 {
 	return std::vector<Vec3D>();
 }
 
-std::vector<Vec3D> Body::GetVertices()
+std::vector<Vec3D> Shape::GetVertices()
 {
 	return std::vector<Vec3D>();
 }
 
-Vec3D Body::Support(Vec3D Dir)
+Vec3D Shape::Support(Vec3D Dir)
 {
 	return Vec3D();
 }
 
-Vec3D Body::EPA_Support(Vec3D Dir)
+Vec3D Shape::EPA_Support(Vec3D Dir)
 {
 	return Vec3D();
 }

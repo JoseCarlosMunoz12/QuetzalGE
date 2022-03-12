@@ -4,7 +4,7 @@
 #include "../Maths/Matrix.h"
 #include "../Maths/Vectors.h"
 namespace CoatlPhysicsEngine {
-	class COATL_API Body
+	class COATL_API Shape
 	{
 	protected:
 		double MassInv;
@@ -16,10 +16,10 @@ namespace CoatlPhysicsEngine {
 		void DisplayInternals();
 		std::string GetInternals();
 	public:
-		Body(double initMass, Matrix3x3 initIntert,
+		Shape(double initMass, Matrix3x3 initIntert,
 			Vec3D initPos, Quat initRot);
-		Body(Vec3D initPos, Quat initRot);
-		~Body();
+		Shape(Vec3D initPos, Quat initRot);
+		~Shape();
 		double GetInvMass();
 		void SetMass(double newMass);
 		void SetMassInfinite();

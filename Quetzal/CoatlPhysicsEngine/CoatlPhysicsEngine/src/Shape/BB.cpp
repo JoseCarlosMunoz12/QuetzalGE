@@ -1,7 +1,7 @@
 #include "BB.h"
 using namespace CoatlPhysicsEngine;
 BB::BB(Vec3D initDimen, Vec3D initPos, Quat initRot)
-	:Body(initPos, initRot), Dimensions(initDimen)
+	:Shape(initPos, initRot), Dimensions(initDimen)
 {
 }
 

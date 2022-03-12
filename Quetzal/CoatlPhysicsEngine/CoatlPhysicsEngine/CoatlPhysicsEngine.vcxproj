@@ -20,10 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CollisionManager\CollisionManager.h" />
-    <ClInclude Include="src\Bodies\BB.h" />
-    <ClInclude Include="src\Bodies\Capsule.h" />
-    <ClInclude Include="src\Bodies\Sphere.h" />
-    <ClInclude Include="src\Bodies\Body.h" />
+    <ClInclude Include="src\Shape\BB.h" />
+    <ClInclude Include="src\Shape\Capsule.h" />
+    <ClInclude Include="src\Shape\Sphere.h" />
+    <ClInclude Include="src\Shape\Shape.h" />
     <ClInclude Include="src\Maths\Matrix.h" />
     <ClInclude Include="src\Maths\Maths.h" />
     <ClInclude Include="src\CoatlPhysicsEngine.h" />
@@ -32,10 +32,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CollisionManager\CollisionManager.cpp" />
-    <ClCompile Include="src\Bodies\BB.cpp" />
-    <ClCompile Include="src\Bodies\Capsule.cpp" />
-    <ClCompile Include="src\Bodies\Sphere.cpp" />
-    <ClCompile Include="src\Bodies\Body.cpp" />
+    <ClCompile Include="src\Shape\BB.cpp" />
+    <ClCompile Include="src\Shape\Capsule.cpp" />
+    <ClCompile Include="src\Shape\Sphere.cpp" />
+    <ClCompile Include="src\Shape\Shape.cpp" />
     <ClCompile Include="src\Maths\Matrix.cpp" />
     <ClCompile Include="src\Maths\Maths.cpp" />
     <ClCompile Include="src\Maths\Vectors.cpp" />
