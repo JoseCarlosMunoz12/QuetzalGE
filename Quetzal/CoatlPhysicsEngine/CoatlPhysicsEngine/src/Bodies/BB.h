@@ -10,6 +10,7 @@ namespace CoatlPhysicsEngine {
 		~BB();
 		Vec3D GetDimensions();
 		void SetDimensions(Vec3D newDimen);
+		Vec3D GetClosestPoint(Vec3D pnt);
 		void DisplayInfo() override;
 		std::string GetStr() override;
 		std::vector<Vec3D> GetVertices() override;

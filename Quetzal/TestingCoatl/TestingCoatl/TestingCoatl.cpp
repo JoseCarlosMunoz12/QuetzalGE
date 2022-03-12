@@ -1,4 +1,4 @@
-// TestingCoatl.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Testing Ground for the Coatl Physics engine.
 //
 #include <iostream>
 #include "CoatlPhysicsEngine.h"

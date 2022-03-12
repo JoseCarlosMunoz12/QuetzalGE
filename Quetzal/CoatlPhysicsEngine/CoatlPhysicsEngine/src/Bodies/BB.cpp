@@ -19,6 +19,38 @@ void BB::SetDimensions(Vec3D newDimen)
 	this->Dimensions = newDimen;
 }
 
+Vec3D BB::GetClosestPoint(Vec3D pnt)
+{
+	std::vector<Vec3D> Segs = this->GetVertices();
+	Vec3D clstPnt;
+	std::vector<int> Ind = { 0,1,1,2,2,3,3,0,
+		4,5,5,6,6,7,7,4,
+		0,4,1,5,2,6,3,7 };
+	double Min;
+	int Count = 0;
+	for (int jj = 0; jj < 6; jj++)
+	{
+		int Val = jj * 2;
+		Vec3D t = MATH::ClosestPoint_Seg({ Segs[Ind[Val]], Segs[Ind[Val + 1]]}, pnt);
+		double temp = t.length();
+		if (Count > 0)
+		{
+			if (Min > temp)
+			{
+				Min = temp;
+				clstPnt = t;
+			}
+		}
+		else
+		{
+			Min = temp;
+			clstPnt = temp;
+		}
+		Count++;
+	}
+	return clstPnt;
+}
+
 void BB::DisplayInfo()
 {
 	std::cout << "Bounding Box information:\n";
