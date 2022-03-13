@@ -44,6 +44,20 @@ namespace CoatlPhysicsEngine {
 				Res[ii] = (*this)[ii] + RV[ii];
 			return Res;
 		}
+		bool operator == (VecXD RV)
+		{
+			for (int ii = 0; ii < Size(); ii++)
+				if ((*this)[ii] != RV[ii])
+					return false;
+			return true;
+		}
+		bool operator != (VecXD RV)
+		{
+			for (int ii = 0; ii < Size(); ii++)
+				if ((*this)[ii] == RV[ii])
+					return false;
+			return true;
+		}
 	};
 	class COATL_API Vec3D : public VecXD
 	{
@@ -52,6 +66,7 @@ namespace CoatlPhysicsEngine {
 		Vec3D(double init);
 		Vec3D(double x, double y, double z);
 		void Display();
+		Vec3D SetNormalize();
 		Vec3D operator^(Vec3D A)
 		{
 			Vec3D X;

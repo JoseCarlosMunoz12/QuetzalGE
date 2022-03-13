@@ -77,6 +77,12 @@ void Vec3D::Display()
 	std::cout << "Z:" << (*this)[2] << "\n";
 }
 
+Vec3D Vec3D::SetNormalize()
+{
+	Normalize();
+	return (*this);
+}
+
 ///
 ///Vec4D
 ///
