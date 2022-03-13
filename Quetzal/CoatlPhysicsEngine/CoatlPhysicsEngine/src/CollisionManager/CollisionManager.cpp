@@ -1,5 +1,17 @@
 #include "CollisionManager.h"
 using namespace CoatlPhysicsEngine;
+CollisionManager::CollisionManager()
+	:GJK()
+{
+}
+CollisionManager::~CollisionManager()
+{
+}
+//GJK Collision
+bool CollisionManager::CheckCollide(Shape R, Shape N)
+{
+	return false;
+}
 //Same Body Collisions
 bool CollisionManager::CheckCollideSS(Sphere R, Sphere N)
 {
@@ -23,6 +35,10 @@ bool CollisionManager::CheckCollideBB(BB R, BB N)
 	std::vector<Vec3D> norms0 = R.GetNormals();
 	std::vector<Vec3D> norms1 = N.GetNormals();
 	return MATH::SATColCheck(Ob0_Segs, norms0, Ob1_Segs, norms1);
+}
+bool CollisionManager::CheckCollideCvCv(Convex R, Convex N)
+{
+	return false;
 }
 //
 //Shape Combinations
@@ -55,6 +71,10 @@ bool CollisionManager::CheckCollideBS(BB R, Sphere N)
 	double dis = dif.length();
 	return dis <= rad;
 }
+bool CollisionManager::CheckCollisdBCv(BB r, Convex)
+{
+	return false;
+}
 bool CollisionManager::CheckCollideCS(Capsule R, Sphere N)
 {
 	double cpRad = R.GetRadius();
@@ -63,4 +83,14 @@ bool CollisionManager::CheckCollideCS(Capsule R, Sphere N)
 	double dis = T.length();
 	double radSum = cpRad + spRad;
 	return radSum > dis;
+}
+
+bool CollisionManager::CheckCollideCCv(Capsule R, Convex N)
+{
+	return false;
+}
+
+bool CoatlPhysicsEngine::CollisionManager::CheckCollideSCv(Sphere R, Convex n)
+{
+	return false;
 }

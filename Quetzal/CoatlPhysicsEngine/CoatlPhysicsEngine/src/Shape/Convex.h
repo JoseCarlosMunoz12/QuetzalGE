@@ -14,6 +14,5 @@ namespace CoatlPhysicsEngine {
 		std::vector<Vec3D> GetNormals() override;
 		Vec3D Support(Vec3D dir) override;
 		Vec3D EPA_Support(Vec3D dir) override;
-
 	};
 }
