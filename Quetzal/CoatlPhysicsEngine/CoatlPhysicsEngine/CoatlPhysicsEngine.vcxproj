@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CollisionManager\Contact.h" />
     <ClInclude Include="src\CollisionManager\GJK.h" />
     <ClInclude Include="src\Shape\Convex.h" />
     <ClInclude Include="src\CollisionManager\CollisionManager.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="src\Maths\Vectors.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\CollisionManager\Contact.cpp" />
     <ClCompile Include="src\CollisionManager\GJK.cpp" />
     <ClCompile Include="src\Shape\Convex.cpp" />
     <ClCompile Include="src\CollisionManager\CollisionManager.cpp" />

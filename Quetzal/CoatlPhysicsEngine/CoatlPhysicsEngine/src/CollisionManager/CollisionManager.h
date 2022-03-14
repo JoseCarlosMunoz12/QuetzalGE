@@ -11,6 +11,7 @@ namespace CoatlPhysicsEngine {
 	public:
 		CollisionManager();
 		~CollisionManager();
+		//Just Collision Checks
 		//
 		bool CheckCollide(S_P<Shape> L, S_P<Shape> R);
 		//
@@ -21,5 +22,7 @@ namespace CoatlPhysicsEngine {
 		bool CheckCollideBC(S_P<BB> L, S_P<Capsule> R);
 		bool CheckCollideBS(S_P<BB> L, S_P<Sphere> R);
 		bool CheckCollideCS(S_P<Capsule> L, S_P<Sphere> R);
+		//Collision as well as Penetration
+
 	};
 }
