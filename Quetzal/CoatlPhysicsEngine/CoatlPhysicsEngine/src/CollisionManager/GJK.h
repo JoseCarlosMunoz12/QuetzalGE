@@ -38,8 +38,8 @@ namespace CoatlPhysicsEngine {
 			std::vector<Vec3D>& Verts, Vec3D& Dir);
 		std::vector<int> C_F_S(std::vector<Vec3D>& Verts);
 
-		bool ColCheck(S_P<Shape> Shape0, S_P<Shape> Shape1);
-		bool ColCheck(S_P<Shape> Shape0, S_P<Shape> Shape1,
+		bool GJK_Col(S_P<Shape> Shape0, S_P<Shape> Shape1);
+		bool GJK_Col(S_P<Shape> Shape0, S_P<Shape> Shape1,
 			std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1);
 		bool EPA_GJK(S_P<Shape> Shape0, S_P<Shape> Shape1, Vec3D& DistVect, double& Pen);
 

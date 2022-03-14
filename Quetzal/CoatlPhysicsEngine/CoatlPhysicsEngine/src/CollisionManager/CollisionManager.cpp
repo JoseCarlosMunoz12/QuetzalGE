@@ -8,54 +8,54 @@ CollisionManager::~CollisionManager()
 {
 }
 //GJK Collision
-bool CollisionManager::CheckCollide(Shape R, Shape N)
+bool CollisionManager::CheckCollide(S_P<Shape> L, S_P<Shape> R)
 {
-	return false;
+	return this->GJK_Col(L, R);
 }
 //Same Body Collisions
-bool CollisionManager::CheckCollideSS(Sphere R, Sphere N)
+bool CollisionManager::CheckCollideSS(S_P<Sphere> L, S_P<Sphere> R)
 {
-	double radSum = R.GetRadius() + N.GetRadius();
-	Vec3D Dis = R.GetPosition() - N.GetPosition();
+	double radSum = L->GetRadius() + R->GetRadius();
+	Vec3D Dis = L->GetPosition() - R->GetPosition();
 	double dis = Dis.length();
 	return radSum > dis;
 }
-bool CollisionManager::CheckCollideCC(Capsule R, Capsule N)
+bool CollisionManager::CheckCollideCC(S_P<Capsule> L, S_P<Capsule> R)
 {
-	double cap0R = R.GetRadius();
-	double cap1R = N.GetRadius();
+	double cap0R = L->GetRadius();
+	double cap1R = R->GetRadius();
 	double rDis = cap0R + cap1R;
-	double dis = MATH::Distance_Seg(R.GetVertices(), N.GetVertices());
+	double dis = MATH::Distance_Seg(L->GetVertices(), R->GetVertices());
 	return rDis > dis;
 }
-bool CollisionManager::CheckCollideBB(BB R, BB N)
+bool CollisionManager::CheckCollideBB(S_P<BB> L, S_P<BB> R)
 {
-	std::vector<Vec3D> Ob0_Segs = R.GetVertices();
-	std::vector<Vec3D> Ob1_Segs = N.GetVertices();
-	std::vector<Vec3D> norms0 = R.GetNormals();
-	std::vector<Vec3D> norms1 = N.GetNormals();
+	std::vector<Vec3D> Ob0_Segs = R->GetVertices();
+	std::vector<Vec3D> Ob1_Segs = R->GetVertices();
+	std::vector<Vec3D> norms0 = L->GetNormals();
+	std::vector<Vec3D> norms1 = R->GetNormals();
 	return MATH::SATColCheck(Ob0_Segs, norms0, Ob1_Segs, norms1);
 }
-bool CollisionManager::CheckCollideCvCv(Convex R, Convex N)
+bool CollisionManager::CheckCollideCvCv(S_P<Convex> L, S_P<Convex> R)
 {
 	return false;
 }
 //
 //Shape Combinations
 //
-bool CollisionManager::CheckCollideBC(BB R, Capsule N)
+bool CollisionManager::CheckCollideBC(S_P<BB> L, S_P<Capsule> R)
 {
 
 	std::vector<int> Ind = { 0,1,1,2,2,3,3,0,
 		4,5,5,6,6,7,7,4,
 		0,4,1,5,2,6,3,7 };
-	std::vector<Vec3D> Points = R.GetVertices();
-	double rad = N.GetRadius();
+	std::vector<Vec3D> Points = L->GetVertices();
+	double rad = R->GetRadius();
 	for (int ii = 0; ii < 12; ii++)
 	{
 		int JJ = ii * 2;
 		int KK = JJ + 1;
-		double Dis = MATH::Distance_Seg(N.GetVertices(), { Points[Ind[JJ]] ,Points[Ind[KK]] });
+		double Dis = MATH::Distance_Seg(R->GetVertices(), { Points[Ind[JJ]] ,Points[Ind[KK]] });
 		if (rad > Dis)
 		{
 			return true;
@@ -63,34 +63,34 @@ bool CollisionManager::CheckCollideBC(BB R, Capsule N)
 	}
 	return false;
 }
-bool CollisionManager::CheckCollideBS(BB R, Sphere N)
+bool CollisionManager::CheckCollideBS(S_P<BB> L, S_P<Sphere> R)
 {
-	Vec3D clsPnt = R.GetClosestPoint(N.GetPosition());
-	double rad = N.GetRadius();
-	Vec3D dif = clsPnt - N.GetPosition();
+	Vec3D clsPnt = L->GetClosestPoint(R->GetPosition());
+	double rad = R->GetRadius();
+	Vec3D dif = clsPnt - R->GetPosition();
 	double dis = dif.length();
 	return dis <= rad;
 }
-bool CollisionManager::CheckCollisdBCv(BB r, Convex)
+bool CollisionManager::CheckCollisdBCv(S_P<BB> L, S_P<Convex> R)
 {
 	return false;
 }
-bool CollisionManager::CheckCollideCS(Capsule R, Sphere N)
+
+bool CollisionManager::CheckCollideCS(S_P<Capsule> L, S_P<Sphere> R)
 {
-	double cpRad = R.GetRadius();
-	double spRad = N.GetRadius();
-	Vec3D T = MATH::ClosestPoint_Seg(R.GetVertices(), N.GetPosition());
+	double cpRad = L->GetRadius();
+	double spRad = R->GetRadius();
+	Vec3D T = MATH::ClosestPoint_Seg(L->GetVertices(), R->GetPosition());
 	double dis = T.length();
 	double radSum = cpRad + spRad;
 	return radSum > dis;
 }
-
-bool CollisionManager::CheckCollideCCv(Capsule R, Convex N)
+bool CollisionManager::CheckCollideCCv(S_P<Capsule> L, S_P<Convex> R)
 {
 	return false;
 }
 
-bool CoatlPhysicsEngine::CollisionManager::CheckCollideSCv(Sphere R, Convex n)
+bool CollisionManager::CheckCollideSCv(S_P<Sphere> L, S_P<Convex> R)
 {
 	return false;
 }

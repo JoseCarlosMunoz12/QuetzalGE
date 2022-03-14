@@ -3,7 +3,7 @@
 using namespace CoatlPhysicsEngine;
 
 Sphere::Sphere(double initRadius, Vec3D initPos, Quat initRot)
-	:Body(initPos, initRot), Radius(initRadius)
+	:Shape(initPos, initRot), Radius(initRadius)
 {
 }
 

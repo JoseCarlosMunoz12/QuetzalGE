@@ -12,18 +12,18 @@ namespace CoatlPhysicsEngine {
 		CollisionManager();
 		~CollisionManager();
 		//
-		bool CheckCollide(Shape R, Shape N);
+		bool CheckCollide(S_P<Shape> L, S_P<Shape> R);
 		//
-		bool CheckCollideBB(BB R,BB N);
-		bool CheckCollideCC(Capsule R, Capsule N);
-		bool CheckCollideSS(Sphere R, Sphere N);
-		bool CheckCollideCvCv(Convex R, Convex N);
+		bool CheckCollideBB(S_P<BB> L,S_P<BB> R);
+		bool CheckCollideCC(S_P<Capsule> L, S_P<Capsule> R);
+		bool CheckCollideSS(S_P<Sphere> L, S_P<Sphere> R);
+		bool CheckCollideCvCv(S_P<Convex> L, S_P<Convex> R);
 		//
-		bool CheckCollideBC(BB R, Capsule N);
-		bool CheckCollideBS(BB R, Sphere N);
-		bool CheckCollisdBCv(BB r, Convex);
-		bool CheckCollideCS(Capsule R, Sphere N);
-		bool CheckCollideCCv(Capsule R, Convex N);
-		bool CheckCollideSCv(Sphere R, Convex n);
+		bool CheckCollideBC(S_P<BB> L, S_P<Capsule> R);
+		bool CheckCollideBS(S_P<BB> L, S_P<Sphere> R);
+		bool CheckCollisdBCv(S_P<BB> L, S_P<Convex> R);
+		bool CheckCollideCS(S_P<Capsule> L, S_P<Sphere> R);
+		bool CheckCollideCCv(S_P<Capsule> L, S_P<Convex> R);
+		bool CheckCollideSCv(S_P<Sphere> L, S_P<Convex> R);
 	};
 }

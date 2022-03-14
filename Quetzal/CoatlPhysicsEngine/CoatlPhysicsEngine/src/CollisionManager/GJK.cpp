@@ -641,7 +641,7 @@ std::vector<int> GJK::C_F_S(std::vector<Vec3D>& Verts)
 	}
 }
 
-bool GJK::ColCheck(S_P<Shape> Shape0, S_P<Shape> Shape1)
+bool GJK::GJK_Col(S_P<Shape> Shape0, S_P<Shape> Shape1)
 {
 	std::vector<Vec3D> Verts;
 	Vec3D Dir;
@@ -662,7 +662,7 @@ bool GJK::ColCheck(S_P<Shape> Shape0, S_P<Shape> Shape1)
 	return false;
 }
 
-bool GJK::ColCheck(S_P<Shape> Shape0, S_P<Shape> Shape1, std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1)
+bool GJK::GJK_Col(S_P<Shape> Shape0, S_P<Shape> Shape1, std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1)
 {
 	std::vector<Vec3D> Verts;
 	Vec3D Pos0 = (Seg0[1] + Seg0[0]);
