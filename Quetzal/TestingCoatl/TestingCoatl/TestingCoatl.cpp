@@ -7,14 +7,16 @@ int main()
 {
 	Vec3D Dimen(1.0,2.0,1.0);
 	Vec3D Pos(1.0, 0.0, 1.0);
+	Vec3D Pos0(1.0, 1.0, 1.0);
 	Quat r;
 	r.SetZeroDegree();
-	BB R(Dimen,Pos ,r);
-	std::vector<Vec3D> Vecs = R.GetVertices();
-	for (auto& ii : Vecs)
-		ii.Display();
+	S_P<BB> R = std::make_shared<BB>(Dimen, Pos, r);
+	S_P<BB> RS = std::make_shared<BB>(Dimen, Pos0, r);
 	CollisionManager Col;
-	bool rs = Col.CheckCollideBB(R, R);
+	bool rs = Col.CheckCollideBB(R, RS);
+	bool sr = Col.CheckCollide(R, RS);
 	if (rs)
+		std::cout << "asd";
+	if (sr)
 		std::cout << "asd";
 }

@@ -17,13 +17,9 @@ namespace CoatlPhysicsEngine {
 		bool CheckCollideBB(S_P<BB> L,S_P<BB> R);
 		bool CheckCollideCC(S_P<Capsule> L, S_P<Capsule> R);
 		bool CheckCollideSS(S_P<Sphere> L, S_P<Sphere> R);
-		bool CheckCollideCvCv(S_P<Convex> L, S_P<Convex> R);
 		//
 		bool CheckCollideBC(S_P<BB> L, S_P<Capsule> R);
 		bool CheckCollideBS(S_P<BB> L, S_P<Sphere> R);
-		bool CheckCollisdBCv(S_P<BB> L, S_P<Convex> R);
 		bool CheckCollideCS(S_P<Capsule> L, S_P<Sphere> R);
-		bool CheckCollideCCv(S_P<Capsule> L, S_P<Convex> R);
-		bool CheckCollideSCv(S_P<Sphere> L, S_P<Convex> R);
 	};
 }

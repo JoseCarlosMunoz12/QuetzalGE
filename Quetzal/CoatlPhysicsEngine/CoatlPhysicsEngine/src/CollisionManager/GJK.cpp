@@ -43,7 +43,9 @@ int GJK::Tr_Farthest_Point(std::vector<Vec3D> Vec)
 
 Vec3D GJK::Support(S_P<Shape> Shape0, S_P<Shape> Shape1, Vec3D Dir)
 {
-	return Shape0->Support(Dir) - Shape1->Support(Dir);
+	Vec3D negDir = Dir;
+	negDir.Multiply(-1.0);
+	return Shape0->Support(Dir) - Shape1->Support(negDir);
 }
 
 Vec3D GJK::Support(S_P<Shape> Shape0, S_P<Shape> Shape1, std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1, Vec3D Dir)
@@ -433,15 +435,15 @@ bool GJK::Simplex_Maker(S_P<Shape> Shape0, S_P<Shape> Shape1, std::vector<Vec3D>
 	switch (Size)
 	{
 	case 0: {
-		Dir = Shape0->GetPosition() - Shape1->GetPosition();
+		Dir = Vec3D(1.0, 0.0, 0.0);
 	}break;
 	case 1: {
 		Dir = Verts[0];
 		Dir.Multiply(-1.0);
 	}break;
 	case 2: {
-		Vec3D AB = Verts[0] - Verts[1];
-		Vec3D A0 = Verts[1];
+		Vec3D AB = Verts[1] - Verts[0];
+		Vec3D A0 = Verts[0];
 		A0.Multiply(-1.0);
 		if ((AB * A0) > 0.0)
 			Dir = TripleCross(AB, A0);

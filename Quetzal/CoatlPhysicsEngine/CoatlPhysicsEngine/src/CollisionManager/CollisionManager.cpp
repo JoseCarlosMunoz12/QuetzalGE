@@ -36,10 +36,6 @@ bool CollisionManager::CheckCollideBB(S_P<BB> L, S_P<BB> R)
 	std::vector<Vec3D> norms1 = R->GetNormals();
 	return MATH::SATColCheck(Ob0_Segs, norms0, Ob1_Segs, norms1);
 }
-bool CollisionManager::CheckCollideCvCv(S_P<Convex> L, S_P<Convex> R)
-{
-	return false;
-}
 //
 //Shape Combinations
 //
@@ -71,11 +67,6 @@ bool CollisionManager::CheckCollideBS(S_P<BB> L, S_P<Sphere> R)
 	double dis = dif.length();
 	return dis <= rad;
 }
-bool CollisionManager::CheckCollisdBCv(S_P<BB> L, S_P<Convex> R)
-{
-	return false;
-}
-
 bool CollisionManager::CheckCollideCS(S_P<Capsule> L, S_P<Sphere> R)
 {
 	double cpRad = L->GetRadius();
@@ -84,13 +75,4 @@ bool CollisionManager::CheckCollideCS(S_P<Capsule> L, S_P<Sphere> R)
 	double dis = T.length();
 	double radSum = cpRad + spRad;
 	return radSum > dis;
-}
-bool CollisionManager::CheckCollideCCv(S_P<Capsule> L, S_P<Convex> R)
-{
-	return false;
-}
-
-bool CollisionManager::CheckCollideSCv(S_P<Sphere> L, S_P<Convex> R)
-{
-	return false;
 }
