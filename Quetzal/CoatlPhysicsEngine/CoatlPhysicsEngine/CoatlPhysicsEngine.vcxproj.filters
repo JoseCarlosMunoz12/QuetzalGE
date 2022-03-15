@@ -54,6 +54,9 @@
     <ClInclude Include="src\CollisionManager\Contact.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Body\Body.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Maths\Maths.cpp">
@@ -87,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionManager\Contact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Body\Body.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
