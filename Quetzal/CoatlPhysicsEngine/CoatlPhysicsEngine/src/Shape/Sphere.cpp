@@ -21,14 +21,12 @@ void Sphere::DisplayInfo()
 {
 	std::cout << "Sphere Information:\n";
 	printf("Radius: %.5f", this->Radius);
-	this->DisplayInternals();
 }
 
 std::string Sphere::GetStr()
 {
 	std::string str =  "Sphere Information:\n";
 	str += "Radius: " + std::to_string(this->Radius) + "\n";
-	str += this->GetInternals();
 	return str;
 }
 

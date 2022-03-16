@@ -16,7 +16,7 @@ int main()
 	bool rs = Col.CheckCollideBB(R, RS);
 	bool sr = Col.CheckCollide(R, RS);
 	if (rs)
-		std::cout << "asd";
+		std::cout << "asd\n";
 	if (sr)
 		std::cout << "asd";
 }

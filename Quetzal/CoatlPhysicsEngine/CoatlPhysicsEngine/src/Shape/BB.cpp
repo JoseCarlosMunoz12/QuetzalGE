@@ -55,7 +55,6 @@ void BB::DisplayInfo()
 {
 	std::cout << "Bounding Box information:\n";
 	printf("X:%.5f Y:%.5f Z:%.5f\n", this->Dimensions[0], this->Dimensions[1], this->Dimensions[2]);
-	this->DisplayInternals();
 }
 
 std::string BB::GetStr()
@@ -64,7 +63,6 @@ std::string BB::GetStr()
 	str += "X:" + std::to_string(this->Dimensions[0]) + "\n";
 	str += "Y:" + std::to_string(this->Dimensions[1]) + "\n";
 	str += "Z:" + std::to_string(this->Dimensions[2]) + "\n";
-	str += this->GetInternals();
 	return str;
 }
 

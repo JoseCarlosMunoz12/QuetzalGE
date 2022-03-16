@@ -16,7 +16,6 @@ void Convex::DisplayInfo()
 	std::cout << "Shape Information Information:\n";
 	int size = this->Pnts.size();
 	printf("Number of Points : %d", size);
-	this->DisplayInternals();
 }
 
 std::string Convex::GetStr()
@@ -24,7 +23,6 @@ std::string Convex::GetStr()
 	std::string str = "Capsule Information:\n";
 	int size = this->Pnts.size();
 	str += "Number of Points: " + std::to_string(size) + "\n";
-	str += this->GetInternals();
 	return str;
 }
 

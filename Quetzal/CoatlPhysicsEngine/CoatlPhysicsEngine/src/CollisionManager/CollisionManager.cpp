@@ -10,7 +10,7 @@ CollisionManager::~CollisionManager()
 //GJK Collision
 bool CollisionManager::CheckCollide(S_P<Shape> L, S_P<Shape> R)
 {
-	return this->GJK_Col(L, R);
+	return GJK_Col(L, R);
 }
 //Same Body Collisions
 bool CollisionManager::CheckCollideSS(S_P<Sphere> L, S_P<Sphere> R)
