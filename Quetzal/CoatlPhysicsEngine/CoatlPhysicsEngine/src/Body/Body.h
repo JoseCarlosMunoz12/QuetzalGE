@@ -2,7 +2,7 @@
 #include "../define.h"
 #include "../Shape/Shape.h"
 namespace CoatlPhysicsEngine {
-	class Body
+	class COATL_API Body
 	{
 	private:
 		S_P<Shape> _Shape;

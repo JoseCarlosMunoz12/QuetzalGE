@@ -33,6 +33,7 @@
     <ClInclude Include="src\CoatlPhysicsEngine.h" />
     <ClInclude Include="src\define.h" />
     <ClInclude Include="src\Maths\Vectors.h" />
+    <ClInclude Include="src\World\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Body\Body.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="src\Maths\Matrix.cpp" />
     <ClCompile Include="src\Maths\Maths.cpp" />
     <ClCompile Include="src\Maths\Vectors.cpp" />
+    <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

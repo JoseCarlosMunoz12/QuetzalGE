@@ -9,7 +9,7 @@ int main()
 	Vec3D Pos(1.0, 0.0, 1.0);
 	Vec3D Pos0(1.0, 1.0, 1.0);
 	Quat r;
-	r.SetZeroDegree();
+	r.SetZeroDegree();	
 	S_P<BB> R = std::make_shared<BB>(Dimen, Pos, r);
 	S_P<BB> RS = std::make_shared<BB>(Dimen, Pos0, r);
 	CollisionManager Col;
