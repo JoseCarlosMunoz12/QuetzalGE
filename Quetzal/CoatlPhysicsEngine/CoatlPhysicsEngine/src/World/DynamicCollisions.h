@@ -7,6 +7,8 @@ namespace CoatlPhysicsEngine {
 	class COATL_API DynamicCollisions 
 	{
 	private:
+
 	public:
+
 	};
 }

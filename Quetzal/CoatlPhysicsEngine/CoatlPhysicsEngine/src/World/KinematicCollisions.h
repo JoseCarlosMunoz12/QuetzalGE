@@ -6,6 +6,9 @@
 namespace CoatlPhysicsEngine {
 	class COATL_API KinematicCollisions : public StaticCollisions
 	{
+	private:
+
+	public:
 
 	};
 }

@@ -5,5 +5,9 @@
 namespace CoatlPhysicsEngine {
 	class COATL_API StaticCollisions
 	{
+	private:
+
+	public:
+
 	};
 }
