@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\World\DynamicCollisions.h" />
+    <ClInclude Include="src\World\KinematicCollisions.h" />
     <ClInclude Include="src\Body\Body.h" />
     <ClInclude Include="src\CollisionManager\Contact.h" />
     <ClInclude Include="src\CollisionManager\GJK.h" />
@@ -34,8 +36,11 @@
     <ClInclude Include="src\define.h" />
     <ClInclude Include="src\Maths\Vectors.h" />
     <ClInclude Include="src\World\World.h" />
+    <ClInclude Include="src\World\StaticCollisions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\World\DynamicCollisions.cpp" />
+    <ClCompile Include="src\World\KinematicCollisions.cpp" />
     <ClCompile Include="src\Body\Body.cpp" />
     <ClCompile Include="src\CollisionManager\Contact.cpp" />
     <ClCompile Include="src\CollisionManager\GJK.cpp" />
@@ -49,6 +54,7 @@
     <ClCompile Include="src\Maths\Maths.cpp" />
     <ClCompile Include="src\Maths\Vectors.cpp" />
     <ClCompile Include="src\World\World.cpp" />
+    <ClCompile Include="src\World\StaticCollisions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
