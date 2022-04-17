@@ -1,6 +1,7 @@
 #pragma once
 #include "../define.h"
 #include "../Body/Body.h"
+#include "../CollisionManager/CollisionManager.h"
 
 namespace CoatlPhysicsEngine {
 	class COATL_API StaticCollisions

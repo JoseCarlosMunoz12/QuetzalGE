@@ -4,11 +4,10 @@
 #include "KinematicCollisions.h"
 
 namespace CoatlPhysicsEngine {
-	class COATL_API DynamicCollisions 
+	class COATL_API DynamicCollisions : public KinematicCollisions
 	{
 	private:
 
 	public:
-
 	};
 }

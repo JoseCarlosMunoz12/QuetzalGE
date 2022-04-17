@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Queries\Queries.h" />
     <ClInclude Include="src\World\DynamicCollisions.h" />
     <ClInclude Include="src\World\KinematicCollisions.h" />
     <ClInclude Include="src\Body\Body.h" />
