@@ -5,9 +5,12 @@
 namespace CoatlPhysicsEngine {
 	class COATL_API StaticCollisions
 	{
-	private:
-
+	protected:
+		Vec_SH<Body> Bodies;
 	public:
-
+		StaticCollisions();
+		~StaticCollisions();
+		void AddBody(S_P<Body> initBody);
+		Vec_SH<Body> GetBodies();
 	};
 }
