@@ -109,3 +109,8 @@ S_P<Shape> Body::GetShape()
 {
 	return this->_Shape;
 }
+
+int Body::GetID()
+{
+	return 0;
+}

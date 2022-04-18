@@ -1,15 +1,15 @@
 #include "OctoTree.h"
 using namespace CoatlPhysicsEngine;
 
- OctoTree::OctoTree()
+OctoTree::OctoTree()
 {
 }
 
- OctoTree::~OctoTree()
+OctoTree::~OctoTree()
 {
 }
 
-bool  OctoTree::Insert(S_P<Body> body)
+bool OctoTree::Insert(S_P<Body> body)
 {
 	return false;
 }
