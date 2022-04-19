@@ -105,7 +105,7 @@ Vec_SH<Body> QuadTree::GetQueries(S_P<Body> Bod, double Ext)
 
 	std::vector<std::shared_ptr<Body>> SEBods = SouthEast->GetQueries(Bod, Ext);
 	Temp.insert(Temp.end(), SEBods.begin(), SEBods.end());
-	return Temp
+	return Temp;
 }
 
 std::string QuadTree::GetAlgorType()
