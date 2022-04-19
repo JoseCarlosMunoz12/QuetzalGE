@@ -29,12 +29,11 @@ bool QuadTree::InsidePar(Vec3D Pos)
 
 bool QuadTree::InsidePar(Vec3D Pos, double Ex)
 {
-	if (Pos[0] > (Center[0] + Ext) || Pos[0] < (Center[0] - Ext))
+	if(std::abs(Pos[0] - Center[0]) >= (Ext + Ex))
 		return false;
-	if (Pos[1] > (Center[1] + Ext) || Pos[1] < (Center[1] - Ext))
+	if(std::abs(Pos[1] - Center[1]) >= (Ext + Ex))
 		return false;
 	return true;
-
 }
 
 QuadTree::QuadTree(Vec3D Pos, double Dim)
