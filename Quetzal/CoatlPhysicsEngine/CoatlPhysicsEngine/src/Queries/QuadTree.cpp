@@ -107,6 +107,34 @@ Vec_SH<Body> QuadTree::GetQueries(S_P<Body> Bod, double Ext)
 	return Temp;
 }
 
+Vec_SH<Body> QuadTree::GetQueries(Vec3D Pos, double Ext)
+{
+	std::vector<std::shared_ptr<Body>> Temp;
+	Vec3D Loc = Pos;
+	//Check if the Location and Ext is in the Quadtree
+	if (!InsidePar(Loc, Ext))
+		return Temp;
+	//Append all Bods in the Quad
+	for (auto& jj : Bodies)
+		Temp.push_back(jj);
+	//Terminate if there is no Children
+	if (NorthWest == NULL)
+		return Temp;
+	//get rest of Bodies
+	std::vector<std::shared_ptr<Body>> NWBods = NorthWest->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), NWBods.begin(), NWBods.end());
+
+	std::vector<std::shared_ptr<Body>> NEBods = NorthEast->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), NEBods.begin(), NEBods.end());
+
+	std::vector<std::shared_ptr<Body>> SWBods = SouthWest->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), SWBods.begin(), SWBods.end());
+
+	std::vector<std::shared_ptr<Body>> SEBods = SouthEast->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), SEBods.begin(), SEBods.end());
+	return Temp;
+}
+
 std::string QuadTree::GetAlgorType()
 {
 	return "QuadTree";

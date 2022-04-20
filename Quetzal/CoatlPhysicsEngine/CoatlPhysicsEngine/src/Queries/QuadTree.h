@@ -20,6 +20,7 @@ namespace CoatlPhysicsEngine {
 		~QuadTree();
 		bool Insert(S_P<Body> body) override;
 		Vec_SH<Body> GetQueries(S_P<Body> Bod, double Ext) override;
+		Vec_SH<Body> GetQueries(Vec3D Pos, double Ext) override;
 		std::string GetAlgorType() override;
 	};
 }

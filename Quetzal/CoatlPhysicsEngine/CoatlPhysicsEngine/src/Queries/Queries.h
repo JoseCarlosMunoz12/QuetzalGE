@@ -9,6 +9,7 @@ namespace CoatlPhysicsEngine {
 		~Queries() {}
 		virtual bool Insert(S_P<Body> Bod) = 0;
 		virtual Vec_SH<Body> GetQueries(S_P<Body> Bod, double Ext) = 0;
+		virtual Vec_SH<Body> GetQueries(Vec3D Pos, double Ext) = 0;
 		virtual std::string GetAlgorType(){return "None";}
 		void Erase() { Bodies.clear(); };
 	};

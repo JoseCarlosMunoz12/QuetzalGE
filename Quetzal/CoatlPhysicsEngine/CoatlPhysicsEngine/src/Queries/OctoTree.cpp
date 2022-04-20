@@ -129,8 +129,48 @@ Vec_SH<Body> OctoTree::GetQueries(S_P<Body> Bod, double Ext)
 
 	Vec_SH<Body>Bods7 = Box7->GetQueries(Bod, Ext);
 	Temp.insert(Temp.end(), Bods7.begin(), Bods7.end());
-
 	return Temp;
+}
+
+Vec_SH<Body> OctoTree::GetQueries(Vec3D Pos, double Ext)
+{
+
+	Vec_SH<Body> Temp = std::vector<S_P<Body>>();
+	//check if the locatin is in the OctoTre
+	Vec3D Loc = Pos;
+	if (!InsidePar(Loc, Ext))
+		return Temp;
+	//Append all Bods in the Octo and not include current Body
+	for (auto& jj : Bodies)
+		Temp.push_back(jj);
+	if (Box0 == NULL)
+		return Temp;
+	//Get rest of Bodies
+	Vec_SH<Body> Bods0 = Box0->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), Bods0.begin(), Bods0.end());
+
+	Vec_SH<Body> Bods1 = Box1->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), Bods1.begin(), Bods1.end());
+
+	Vec_SH<Body>Bods2 = Box2->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), Bods2.begin(), Bods2.end());
+
+	Vec_SH<Body>Bods3 = Box3->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), Bods3.begin(), Bods3.end());
+
+	Vec_SH<Body>Bods4 = Box4->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), Bods4.begin(), Bods4.end());
+
+	Vec_SH<Body>Bods5 = Box5->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), Bods5.begin(), Bods5.end());
+
+	Vec_SH<Body>Bods6 = Box6->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), Bods6.begin(), Bods6.end());
+
+	Vec_SH<Body>Bods7 = Box7->GetQueries(Pos, Ext);
+	Temp.insert(Temp.end(), Bods7.begin(), Bods7.end());
+	return Temp;
+	return Vec_SH<Body>();
 }
 
 std::string OctoTree::GetAlgorType()
