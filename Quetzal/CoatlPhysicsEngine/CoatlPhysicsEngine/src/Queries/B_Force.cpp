@@ -19,6 +19,11 @@ Vec_SH<Body> B_Force::GetQueries(S_P<Body> Bod, double Ext)
 	return this->Bodies;
 }
 
+Vec_SH<Body> CoatlPhysicsEngine::B_Force::GetQueries(Vec3D Pos, double Ext)
+{
+	return this->Bodies;
+}
+
 std::string B_Force::GetAlgorType()
 {
 	return "Brute Force";

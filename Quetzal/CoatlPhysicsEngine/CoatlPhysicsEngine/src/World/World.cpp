@@ -12,6 +12,13 @@ World::~World()
 
 void World::UpdateRun(double dt)
 {
+	//update Collisions Checks
+	if (this->KinWorld)
+		this->KinWorld->UpdateBodies(dt);
+	if (this->DynWorld)
+		this->DynWorld->UpdateBodies(this->KinWorld, this->StaticWorld, dt);
+	//update Bodies
+
 }
 
 void World::SetGravity(Vec3D initGrav)

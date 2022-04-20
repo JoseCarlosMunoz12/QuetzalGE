@@ -9,5 +9,6 @@ namespace CoatlPhysicsEngine {
 	private:
 
 	public:
+		void UpdateBodies(S_P<KinematicCollisions> Kin, S_P<StaticCollisions> Static, double dt);
 	};
 }
