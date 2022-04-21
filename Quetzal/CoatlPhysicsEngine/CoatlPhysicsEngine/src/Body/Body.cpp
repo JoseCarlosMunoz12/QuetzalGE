@@ -1,7 +1,8 @@
 #include "Body.h"
 
 Body::Body(S_P<Shape> initShape, double initMass, Matrix3x3 initInert)
-	:_Shape(initShape), MassInv(initMass), InertiaInv(initInert)
+	:_Shape(initShape), MassInv(initMass), InertiaInv(initInert),
+	Force_Constraint(Vec3D()), Force_External(Vec3D())
 {
 }
 
@@ -110,19 +111,6 @@ S_P<Shape> Body::GetShape()
 	return this->_Shape;
 }
 
-void Body::Update(double dt)
-{
-	if (this->_Shape)
-	{
-		Vec3D curPos = this->_Shape->GetPosition();
-		curPos = curPos + this->Velocity * dt;
-		this->_Shape->SetPosition(curPos);
-		Matrix4x3 S(this->_Shape->GetRotation());
-		Quat S_i = S * this->AngularVelocity;
-		S_i.Multiply(dt * 0.5);
-		this->_Shape->SetRotation(S_i);
-	}
-}
 
 int Body::GetID()
 {
@@ -132,4 +120,52 @@ int Body::GetID()
 void Body::SetID(int newId)
 {
 	this->Id = newId;
+}
+
+void Body::UpdateExternal(Vec3D newForce, Vec3D newTorque)
+{
+	this->Force_External = newForce;
+	this->Torque_External = newTorque;
+}
+
+void Body::UpdateConstraint(Vec3D newForce, Vec3D newTorque)
+{
+	this->Force_Constraint = newForce;
+	this->Torque_Constraint = newTorque;
+}
+
+std::vector<Vec3D> CoatlPhysicsEngine::Body::GetTotalForce()
+{
+	Vec3D totalForce = this->Force_Constraint + this->Force_External;
+	Vec3D totalTorque = this->Torque_Constraint + this->Torque_External;
+	return { totalForce, totalTorque };
+}
+
+void Body::UpdateRotPos(double dt)
+{
+	if (this->_Shape)
+	{
+
+		Vec3D curPos = this->_Shape->GetPosition();
+		curPos = curPos + this->Velocity * dt;
+		this->_Shape->SetPosition(curPos);
+		Matrix4x3 S(this->_Shape->GetRotation());
+		Quat S_i = S * this->AngularVelocity;
+		S_i.Multiply(dt * 0.5);
+		this->_Shape->SetRotation(S_i);
+
+	}
+}
+
+void Body::UpdateVels(double dt)
+{
+	//Set New Velocity
+	std::vector<Vec3D> FT = this->GetTotalForce();
+	Matrix3x3 ident;
+	ident.Identity();
+	Vec3D newVel = ident * FT[0];
+	newVel.Multiply(this->MassInv * dt);
+	this->Velocity = this->Velocity + newVel;
+
+
 }
