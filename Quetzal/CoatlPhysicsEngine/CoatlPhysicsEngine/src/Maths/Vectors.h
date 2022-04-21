@@ -133,6 +133,9 @@ namespace CoatlPhysicsEngine {
 		void Display();
 		std::string GetStr();
 		void SetZeroDegree();
+		void Multiply(double d);
+		double GetValue(int ii);
+		void SetValue(double n, int ii);
 		double& operator[] (int loc)
 		{
 			switch (loc)

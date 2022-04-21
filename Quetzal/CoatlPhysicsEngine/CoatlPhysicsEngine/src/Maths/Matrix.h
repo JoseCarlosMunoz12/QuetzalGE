@@ -214,4 +214,23 @@ namespace CoatlPhysicsEngine {
 			return A;
 		}
 	};
+	class COATL_API Matrix4x3 : public MatrixXYD
+	{
+	public:
+		Matrix4x3(Quat initQuat);
+		~Matrix4x3();
+		Quat operator* (Vec3D R)
+		{
+			Quat ans;
+
+			for (int ii = 0; ii < 4; ii++)
+			{
+				double t = 0.0;
+				for (int jj = 0; ii < 3; jj++)
+					t += ((*this)[ii][jj] * R[jj]);
+				ans.SetValue(t, ii);
+			}
+			return ans;
+		}
+	};
 }

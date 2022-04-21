@@ -208,3 +208,54 @@ void Quat::SetZeroDegree()
 	W = 1.0;
 	X = Y = Z = 0.0;
 }
+
+void Quat::Multiply(double d)
+{
+	X = d * X;
+	Y = d * Y;
+	Z = d * Z;
+	W = d * W;
+}
+
+double Quat::GetValue(int ii)
+{
+	switch (ii)
+	{
+	case 0:
+		return X;
+		break;
+	case 1:
+		return Y;
+		break;
+	case 2:
+		return Z;
+		break;
+	case 3:
+		return W;
+		break;
+	default:
+		break;
+	}
+	return 0.0;
+}
+
+void Quat::SetValue(double n, int ii)
+{
+	switch (ii)
+	{
+	case 0:
+		X = n;
+		break;
+	case 1:
+		Y = n;
+		break;
+	case 2:
+		Z = n;
+		break;
+	case 3:
+		W = n;
+		break;
+	default:
+		break;
+	}
+}

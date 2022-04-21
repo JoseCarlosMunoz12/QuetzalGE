@@ -110,6 +110,20 @@ S_P<Shape> Body::GetShape()
 	return this->_Shape;
 }
 
+void Body::Update(double dt)
+{
+	if (this->_Shape)
+	{
+		Vec3D curPos = this->_Shape->GetPosition();
+		curPos = curPos + this->Velocity * dt;
+		this->_Shape->SetPosition(curPos);
+		Matrix4x3 S(this->_Shape->GetRotation());
+		Quat S_i = S * this->AngularVelocity;
+		S_i.Multiply(dt * 0.5);
+		this->_Shape->SetRotation(S_i);
+	}
+}
+
 int Body::GetID()
 {
 	return 0;

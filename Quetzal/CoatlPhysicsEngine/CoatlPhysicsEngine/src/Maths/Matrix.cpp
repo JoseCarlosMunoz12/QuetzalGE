@@ -487,3 +487,16 @@ Quat Matrix3x3::GetRotation()
 	Rot.Z = std::copysign(Rot.Z, T[1][0] - T[0][1]);
 	return Rot;
 }
+
+Matrix4x3::Matrix4x3(Quat initQuat)
+	:MatrixXYD(4,3)
+{
+	(*this)[0][0] = -initQuat.X; (*this)[0][1] = -initQuat.Y; (*this)[0][2] = -initQuat.Z;
+	(*this)[0][0] =  initQuat.W; (*this)[0][1] =  initQuat.Z; (*this)[0][2] = -initQuat.Y;
+	(*this)[0][0] = -initQuat.Z; (*this)[0][1] =  initQuat.W; (*this)[0][2] =  initQuat.X;
+	(*this)[0][0] =  initQuat.Y; (*this)[0][1] = -initQuat.X; (*this)[0][2] =  initQuat.W;
+}
+
+Matrix4x3::~Matrix4x3()
+{
+}

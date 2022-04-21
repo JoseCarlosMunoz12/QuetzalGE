@@ -27,6 +27,7 @@ namespace CoatlPhysicsEngine {
 		Vec3D GetAngularVelocity();
 		void SetAngularVelocity(Vec3D newVel);
 		S_P<Shape> GetShape();
+		void Update(double dt);
 		int GetID();
 	};
 }
