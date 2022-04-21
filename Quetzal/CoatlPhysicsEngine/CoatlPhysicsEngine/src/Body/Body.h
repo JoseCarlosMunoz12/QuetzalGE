@@ -5,6 +5,7 @@ namespace CoatlPhysicsEngine {
 	class COATL_API Body
 	{
 	private:
+		int Id;
 		S_P<Shape> _Shape;
 		double MassInv;
 		Matrix3x3 InertiaInv;
@@ -29,5 +30,6 @@ namespace CoatlPhysicsEngine {
 		S_P<Shape> GetShape();
 		void Update(double dt);
 		int GetID();
+		void SetID(int newId);
 	};
 }

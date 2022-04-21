@@ -126,5 +126,10 @@ void Body::Update(double dt)
 
 int Body::GetID()
 {
-	return 0;
+	return this->Id;
+}
+
+void Body::SetID(int newId)
+{
+	this->Id = newId;
 }
