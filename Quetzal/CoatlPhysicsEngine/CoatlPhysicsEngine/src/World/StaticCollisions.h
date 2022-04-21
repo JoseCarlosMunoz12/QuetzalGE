@@ -28,8 +28,10 @@ namespace CoatlPhysicsEngine {
 		~StaticCollisions();
 		void AddBody(S_P<Body> initBody);
 		void AddBodies(Vec_SH<Body> NewShapes);
-		Vec_SH<Body> GetBodies();
+		Vec_SH<Body> GetAllBodies();
+		Vec_SH<Body> GetBodies(S_P<Body> body);
 		Alg_Type GetAlgType();
 		void SetNewType(Alg_Type NewType);
+
 	};
 }
