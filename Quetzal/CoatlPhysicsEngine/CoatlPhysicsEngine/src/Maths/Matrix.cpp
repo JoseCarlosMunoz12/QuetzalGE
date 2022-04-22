@@ -497,6 +497,3 @@ Matrix4x3::Matrix4x3(Quat initQuat)
 	(*this)[0][0] =  initQuat.Y; (*this)[0][1] = -initQuat.X; (*this)[0][2] =  initQuat.W;
 }
 
-Matrix4x3::~Matrix4x3()
-{
-}

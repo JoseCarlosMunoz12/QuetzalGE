@@ -188,11 +188,9 @@ namespace CoatlPhysicsEngine {
 		Quat GetRotation();
 		Matrix3x3 operator* (Matrix3x3 L)
 		{
-			int NewRows = this->NumRows();
-			int NewCols = L.NumCols();
 			Matrix3x3 A;
 			for (int ii = 0; ii < 3; ii++)
-				for (int jj = 0; jj < 4; jj++)
+				for (int jj = 0; jj < 3; jj++)
 				{
 					double Val = 0.f;
 					for (int kk = 0; kk < 3; kk++)
@@ -213,12 +211,20 @@ namespace CoatlPhysicsEngine {
 				}
 			return A;
 		}
+		Matrix3x3 operator* (double L)
+		{
+
+			Matrix3x3 A;
+			for (int ii = 0; ii < 3; ii++)
+				for (int jj = 0; jj < 3; jj++)
+					A[ii][jj] = (*this)[ii][jj] * L;
+			return A;
+		}
 	};
 	class COATL_API Matrix4x3 : public MatrixXYD
 	{
 	public:
 		Matrix4x3(Quat initQuat);
-		~Matrix4x3();
 		Quat operator* (Vec3D R)
 		{
 			Quat ans;

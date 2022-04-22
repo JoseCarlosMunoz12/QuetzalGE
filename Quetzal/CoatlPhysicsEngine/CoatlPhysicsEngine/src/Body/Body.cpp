@@ -1,9 +1,12 @@
 #include "Body.h"
+using namespace CoatlPhysicsEngine;
 
 Body::Body(S_P<Shape> initShape, double initMass, Matrix3x3 initInert)
-	:_Shape(initShape), MassInv(initMass), InertiaInv(initInert),
-	Force_Constraint(Vec3D()), Force_External(Vec3D())
+	:_Shape(initShape), MassInv(initMass),
+	Force_Constraint(Vec3D()), Force_External(Vec3D()),
+	Torque_Constraint(Vec3D()), Torque_External(Vec3D())
 {
+	this->InertiaInv = _Shape->GetMomentOfIntertia();
 }
 
 void Body::DisplayInternals()
@@ -134,7 +137,7 @@ void Body::UpdateConstraint(Vec3D newForce, Vec3D newTorque)
 	this->Torque_Constraint = newTorque;
 }
 
-std::vector<Vec3D> CoatlPhysicsEngine::Body::GetTotalForce()
+std::vector<Vec3D> Body::GetTotalForce()
 {
 	Vec3D totalForce = this->Force_Constraint + this->Force_External;
 	Vec3D totalTorque = this->Torque_Constraint + this->Torque_External;
@@ -145,7 +148,6 @@ void Body::UpdateRotPos(double dt)
 {
 	if (this->_Shape)
 	{
-
 		Vec3D curPos = this->_Shape->GetPosition();
 		curPos = curPos + this->Velocity * dt;
 		this->_Shape->SetPosition(curPos);
@@ -153,7 +155,6 @@ void Body::UpdateRotPos(double dt)
 		Quat S_i = S * this->AngularVelocity;
 		S_i.Multiply(dt * 0.5);
 		this->_Shape->SetRotation(S_i);
-
 	}
 }
 
@@ -166,6 +167,9 @@ void Body::UpdateVels(double dt)
 	Vec3D newVel = ident * FT[0];
 	newVel.Multiply(this->MassInv * dt);
 	this->Velocity = this->Velocity + newVel;
-
-
+	//Set New Angular Velocity
+	Matrix3x3 I = this->InertiaInv * MassInv;
+	Vec3D newAngVel = I * FT[1];
+	newAngVel.Multiply(dt);
+	this->AngularVelocity = this->AngularVelocity + newAngVel;
 }

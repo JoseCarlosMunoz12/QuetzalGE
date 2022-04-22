@@ -22,6 +22,7 @@ namespace CoatlPhysicsEngine {
 		virtual std::vector<Vec3D> GetVertices();
 		virtual Vec3D Support(Vec3D Dir);
 		virtual Vec3D EPA_Support(Vec3D Dir);
+		virtual Matrix3x3 GetMomentOfIntertia();
 	};
 }
 
