@@ -60,3 +60,8 @@ Vec3D Shape::EPA_Support(Vec3D Dir)
 {
 	return Vec3D();
 }
+
+Matrix3x3 Shape::GetMomentOfIntertia()
+{
+	return Matrix3x3();
+}
