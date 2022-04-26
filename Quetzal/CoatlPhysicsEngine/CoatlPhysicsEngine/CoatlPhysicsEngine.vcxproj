@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Queries\KD_Tree.h" />
     <ClInclude Include="src\Queries\OctoTree.h" />
     <ClInclude Include="src\Queries\QuadTree.h" />
     <ClInclude Include="src\Queries\B_Force.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="src\World\StaticCollisions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Queries\KD_Tree.cpp" />
     <ClCompile Include="src\Queries\OctoTree.cpp" />
     <ClCompile Include="src\Queries\QuadTree.cpp" />
     <ClCompile Include="src\Queries\B_Force.cpp" />
