@@ -14,6 +14,7 @@ namespace CoatlPhysicsEngine {
 		//Just Collision Checks
 		//
 		bool CheckCollide(S_P<Shape> L, S_P<Shape> R);
+		bool CheckCollide(S_P<Shape> L, S_P<Shape> R, std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1);
 		//
 		bool CheckCollideBB(S_P<BB> L,S_P<BB> R);
 		bool CheckCollideCC(S_P<Capsule> L, S_P<Capsule> R);

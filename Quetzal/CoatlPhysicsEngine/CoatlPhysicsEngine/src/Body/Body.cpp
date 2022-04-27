@@ -4,7 +4,8 @@ using namespace CoatlPhysicsEngine;
 Body::Body(S_P<Shape> initShape, double initMass, Matrix3x3 initInert)
 	:_Shape(initShape), MassInv(initMass),
 	Force_Constraint(Vec3D()), Force_External(Vec3D()),
-	Torque_Constraint(Vec3D()), Torque_External(Vec3D())
+	Torque_Constraint(Vec3D()), Torque_External(Vec3D()),
+	Velocity(Vec3D()), AngularVelocity(Vec3D())
 {
 	this->InertiaInv = _Shape->GetMomentOfIntertia();
 }

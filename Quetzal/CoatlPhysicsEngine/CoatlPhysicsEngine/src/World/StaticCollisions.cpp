@@ -2,6 +2,8 @@
 
 void StaticCollisions::SetupAlgo()
 {
+	if (Algo)
+		Algo->Erase();
 	switch (AlgoType)
 	{
 	case Alg_Type::B_F:

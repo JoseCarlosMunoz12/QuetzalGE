@@ -12,6 +12,10 @@ bool CollisionManager::CheckCollide(S_P<Shape> L, S_P<Shape> R)
 {
 	return GJK_Col(L, R);
 }
+bool CollisionManager::CheckCollide(S_P<Shape> L, S_P<Shape> R, std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1)
+{
+	return GJK_Col(L, R, Seg0, Seg1);
+}
 //Same Body Collisions
 bool CollisionManager::CheckCollideSS(S_P<Sphere> L, S_P<Sphere> R)
 {
