@@ -1,5 +1,28 @@
 #include "StaticCollisions.h"
 
+void StaticCollisions::SetupAlgo()
+{
+	switch (AlgoType)
+	{
+	case Alg_Type::B_F:
+		this->Algo = std::make_unique<B_Force>();
+		break;
+	case Alg_Type::Q_T:
+		this->Algo = std::make_unique<QuadTree>(Vec3D(), Ext);
+		break;
+	case Alg_Type::O_T:
+		this->Algo = std::make_unique<OctoTree>(Vec3D(), Ext);
+		break;
+	default:
+		break;
+	}
+	//Add bodies into Algorithm
+	for (auto& jj : this->Bodies)
+	{
+		this->Algo->Insert(jj);
+	}
+}
+
 StaticCollisions::StaticCollisions()
 {
     this->Bodies = std::vector<S_P<Body>>();
@@ -34,26 +57,7 @@ Vec_SH<Body> StaticCollisions::GetAllBodies()
 
 Vec_SH<Body> StaticCollisions::GetBodies(S_P<Body> body)
 {
-
-	switch (AlgoType)
-	{
-	case Alg_Type::B_F:
-		this->Algo = std::make_unique<B_Force>();
-		break;
-	case Alg_Type::Q_T:
-		this->Algo = std::make_unique<QuadTree>(Vec3D(), Ext);
-		break;
-	case Alg_Type::O_T:
-		this->Algo = std::make_unique<OctoTree>(Vec3D(), Ext);
-		break;
-	default:
-		break;
-	}
-	//Add bodies into Algorithm
-	for (auto& jj : this->Bodies)
-	{
-		this->Algo->Insert(jj);
-	}
+	this->SetupAlgo();
 	//get queries and test them
 	return this->Algo->GetQueries(body, Ext);
 }

@@ -23,6 +23,7 @@ namespace CoatlPhysicsEngine {
 		double Ext;
 		double B_Ex;
 		Alg_Type AlgoType;
+		void SetupAlgo();
 	public:
 		StaticCollisions();
 		~StaticCollisions();
