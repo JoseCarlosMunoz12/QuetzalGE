@@ -89,8 +89,10 @@ void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics
 		break;
 	case Alg_Type::Q_T:
 		this->AlgoCheck = std::make_unique<QuadTree>(glm::vec3(0.f), Ext);
+		break;
 	case Alg_Type::O_T:
 		this->AlgoCheck = std::make_unique<OctoTree>(glm::vec3(0.f), Ext);
+		break;
 	default:
 		break;
 	}
