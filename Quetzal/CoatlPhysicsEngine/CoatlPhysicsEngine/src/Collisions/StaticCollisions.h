@@ -3,7 +3,7 @@
 
 namespace CoatlPhysicsEngine 
 {	
-	class StaticCollisions : public BaseCols
+	class COATL_API StaticCollisions : public BaseCols
 	{
 	private:
 		std::unique_ptr<Queries> AlgoCheck;

@@ -2,7 +2,7 @@
 #include "ColShapes.h"
 namespace CoatlPhysicsEngine {
 
-	class AABB_Obj :
+	class COATL_API AABB_Obj :
 		public ColShapes
 	{
 		float XLength;

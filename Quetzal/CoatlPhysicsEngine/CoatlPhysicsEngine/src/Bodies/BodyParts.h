@@ -3,7 +3,7 @@
 #include "../Shapes/ColShapes.h"
 #include "../Physics/Bod_Base.h"
 namespace CoatlPhysicsEngine {
-	class BodyParts
+	class COATL_API BodyParts
 	{
 	private:
 		std::shared_ptr<ColShapes> BodPart;

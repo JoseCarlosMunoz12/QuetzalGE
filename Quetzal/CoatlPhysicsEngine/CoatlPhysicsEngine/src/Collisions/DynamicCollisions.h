@@ -7,7 +7,7 @@
 #include <algorithm>
 
 namespace CoatlPhysicsEngine {
-	class DynamicCollisions : public BaseCols
+	class COATL_API DynamicCollisions : public BaseCols
 	{
 	private:
 		std::unique_ptr<Phy_Base> F_Manager;

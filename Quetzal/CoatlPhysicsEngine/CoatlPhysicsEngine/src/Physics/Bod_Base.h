@@ -9,7 +9,7 @@
 #include <gtc\type_ptr.hpp>
 #include <vector>
 namespace CoatlPhysicsEngine {
-	class Bod_Base
+	class COATL_API Bod_Base
 	{
 	protected:
 		int PhysicsID;

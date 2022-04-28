@@ -6,12 +6,12 @@
 #include "KinematicsCollisions.h"
 #include "../CollisionManager/CollisionManager.h"
 namespace CoatlPhysicsEngine {
-	struct CollisionWorldSetup
+	COATL_API struct CollisionWorldSetup
 	{
 		std::string Name;
 		glm::vec3 Gravity = glm::vec3(0.f, 0.f, -9.81);
 	};
-	class CollisionWorld
+	class COATL_API CollisionWorld
 	{
 	private:
 		glm::vec3 Gravity;

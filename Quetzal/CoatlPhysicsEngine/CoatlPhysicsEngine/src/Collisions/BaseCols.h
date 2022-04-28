@@ -24,13 +24,13 @@
 #include "../CollisionResolution/ContactCreation.h"
 
 namespace CoatlPhysicsEngine {
-	enum class Alg_Type
+	COATL_API enum class Alg_Type
 	{
 		B_F,
 		Q_T,
 		O_T
 	};
-	class BaseCols
+	class COATL_API BaseCols
 	{
 	private:
 		bool UpdateBodies(Sphere Sph0, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1);

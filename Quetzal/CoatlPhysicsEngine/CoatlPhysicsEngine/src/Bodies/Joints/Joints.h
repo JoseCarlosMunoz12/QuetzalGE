@@ -2,7 +2,7 @@
 #include "../BodyParts.h"
 namespace CoatlPhysicsEngine
 {
-	class ColJoints
+	class COATL_API ColJoints
 	{
 	protected:
 		std::weak_ptr<BodyParts> BodA;

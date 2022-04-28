@@ -10,7 +10,7 @@
 #include <vector>
 #include "../Bod_Base.h"
 namespace CoatlPhysicsEngine {
-	class Phy_Base
+	class COATL_API Phy_Base
 	{
 	public:
 		Phy_Base() {
