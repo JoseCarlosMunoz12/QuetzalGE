@@ -1,29 +1,36 @@
 #pragma once
-#include "GJK.h"
-#include "../Shape/Capsule.h"
-#include "../Shape/BB.h"
-#include "../Shape/Sphere.h"
-#include "../Shape/Convex.h"
+#include "SphereColSphere.h"
+#include "AABBColAABB.h"
+#include "CapsuleColCapsule.h"
+#include "OBBColOBB.h"
+
+#include "SphereColAABB.h"
+#include "CapsuleColSphere.h"
+#include "CapsuleColAABB.h"
+
+#include "TriangleColSphere.h"
+#include "TriangleColCapsule.h"
+#include "TriangleColAABB.h"
+#include "TriangleColTriangle.h"
+
+#include "ABBColOBB.h"
+#include "TriangleColOBB.h"
+#include "SphereColOBB.h"
+#include "CapsuleColOBB.h"
+
 namespace CoatlPhysicsEngine {
-	class COATL_API CollisionManager : public GJK
+	class CollisionManager
+		: public SphereColSphere,AABBColAABB,CapsuleColCapsule,
+		 SphereColAABB, CapsuleColSphere, CapsuleColAABB,
+		TriangleColSphere,TriangleColCapsule,TriangleColAABB,TriangleColTriangle,
+		OBBColOBB,ABBColOBB,TriangleColOBB,SphereColOBB,CapsuleColOBB
 	{
 	private:
-	public:
+	public:		
 		CollisionManager();
 		~CollisionManager();
-		//Just Collision Checks
-		//
-		bool CheckCollide(S_P<Shape> L, S_P<Shape> R);
-		bool CheckCollide(S_P<Shape> L, S_P<Shape> R, std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1);
-		//
-		bool CheckCollideBB(S_P<BB> L,S_P<BB> R);
-		bool CheckCollideCC(S_P<Capsule> L, S_P<Capsule> R);
-		bool CheckCollideSS(S_P<Sphere> L, S_P<Sphere> R);
-		//
-		bool CheckCollideBC(S_P<BB> L, S_P<Capsule> R);
-		bool CheckCollideBS(S_P<BB> L, S_P<Sphere> R);
-		bool CheckCollideCS(S_P<Capsule> L, S_P<Sphere> R);
-		//Collision as well as Penetration
-
+		template<typename _T,typename _N>
+		bool CheckCollide(_T R,_N N);
 	};
 }
+

@@ -1,82 +1,159 @@
 #include "CollisionManager.h"
 using namespace CoatlPhysicsEngine;
-CollisionManager::CollisionManager()
-	:GJK()
-{
-}
-CollisionManager::~CollisionManager()
-{
-}
-//GJK Collision
-bool CollisionManager::CheckCollide(S_P<Shape> L, S_P<Shape> R)
-{
-	return GJK_Col(L, R);
-}
-bool CollisionManager::CheckCollide(S_P<Shape> L, S_P<Shape> R, std::vector<Vec3D> Seg0, std::vector<Vec3D> Seg1)
-{
-	return GJK_Col(L, R, Seg0, Seg1);
-}
-//Same Body Collisions
-bool CollisionManager::CheckCollideSS(S_P<Sphere> L, S_P<Sphere> R)
-{
-	double radSum = L->GetRadius() + R->GetRadius();
-	Vec3D Dis = L->GetPosition() - R->GetPosition();
-	double dis = Dis.length();
-	return radSum > dis;
-}
-bool CollisionManager::CheckCollideCC(S_P<Capsule> L, S_P<Capsule> R)
-{
-	double cap0R = L->GetRadius();
-	double cap1R = R->GetRadius();
-	double rDis = cap0R + cap1R;
-	double dis = MATH::Distance_Seg(L->GetVertices(), R->GetVertices());
-	return rDis > dis;
-}
-bool CollisionManager::CheckCollideBB(S_P<BB> L, S_P<BB> R)
-{
-	std::vector<Vec3D> Ob0_Segs = R->GetVertices();
-	std::vector<Vec3D> Ob1_Segs = R->GetVertices();
-	std::vector<Vec3D> norms0 = L->GetNormals();
-	std::vector<Vec3D> norms1 = R->GetNormals();
-	return MATH::SATColCheck(Ob0_Segs, norms0, Ob1_Segs, norms1);
-}
-//
-//Shape Combinations
-//
-bool CollisionManager::CheckCollideBC(S_P<BB> L, S_P<Capsule> R)
-{
 
-	std::vector<int> Ind = { 0,1,1,2,2,3,3,0,
-		4,5,5,6,6,7,7,4,
-		0,4,1,5,2,6,3,7 };
-	std::vector<Vec3D> Points = L->GetVertices();
-	double rad = R->GetRadius();
-	for (int ii = 0; ii < 12; ii++)
-	{
-		int JJ = ii * 2;
-		int KK = JJ + 1;
-		double Dis = MATH::Distance_Seg(R->GetVertices(), { Points[Ind[JJ]] ,Points[Ind[KK]] });
-		if (rad > Dis)
-		{
-			return true;
-		}
-	}
+CollisionManager::CollisionManager()
+	:SphereColSphere(),AABBColAABB(),CapsuleColCapsule(),
+        SphereColAABB(), CapsuleColSphere(), CapsuleColAABB(),TriangleColSphere(),
+    TriangleColCapsule(),TriangleColAABB(),TriangleColTriangle(),
+    OBBColOBB(),ABBColOBB(),TriangleColOBB(),SphereColOBB(),CapsuleColOBB()
+{}
+CollisionManager::~CollisionManager()
+{}
+///Base Collisions
+template<typename _T, typename _N>
+ bool CollisionManager::CheckCollide(_T R, _N N)
+{
 	return false;
 }
-bool CollisionManager::CheckCollideBS(S_P<BB> L, S_P<Sphere> R)
+template<>
+bool CollisionManager::CheckCollide(ColShapes Sph0, ColShapes SPh1)
 {
-	Vec3D clsPnt = L->GetClosestPoint(R->GetPosition());
-	double rad = R->GetRadius();
-	Vec3D dif = clsPnt - R->GetPosition();
-	double dis = dif.length();
-	return dis <= rad;
+	return true;
 }
-bool CollisionManager::CheckCollideCS(S_P<Capsule> L, S_P<Sphere> R)
+ ///Same Object Collisions
+template<>
+bool CollisionManager::CheckCollide(Sphere Sph0,Sphere SPh1)
 {
-	double cpRad = L->GetRadius();
-	double spRad = R->GetRadius();
-	Vec3D T = MATH::ClosestPoint_Seg(L->GetVertices(), R->GetPosition());
-	double dis = T.length();
-	double radSum = cpRad + spRad;
-	return radSum > dis;
+	return SphereSphere(Sph0,SPh1);
 }
+ template<>
+ bool CollisionManager::CheckCollide(AABB_Obj Obj0, AABB_Obj Obj1)
+ {
+     return AABBAABB(Obj0, Obj1);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(Capsule Cap0,Capsule Cap1)
+ {
+     return CapsuleCols(Cap0, Cap1);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(Triangles Tr0, Triangles Tr1)
+ {
+     return TrColTr(Tr0, Tr1);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(OBB Ob0, OBB Ob1)
+ {
+     return OBBCol(Ob0, Ob1);
+ }
+///Different Combinations
+//Sphere X AABB
+ template<>
+ bool CollisionManager::CheckCollide(Sphere Sph0,AABB_Obj Obj)
+ {
+     return SphereColsAABB(Sph0, Obj);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(AABB_Obj obj, Sphere Sph0)
+ {
+     return SphereColsAABB(Sph0, obj);
+ }
+ //Sphere X Capsule
+ template<>
+ bool CollisionManager::CheckCollide(Capsule Cap, Sphere Sph)
+ {
+     return Collision(Cap,Sph);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(Sphere Sph,Capsule Cap)
+ {
+     return Collision(Cap, Sph);
+ }
+ //Capsule X AABB
+ template<>
+ bool CollisionManager::CheckCollide(Capsule Cap, AABB_Obj Obj)
+ {
+     return CapColAABB(Cap,Obj);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(AABB_Obj Obj, Capsule Cap)
+ {
+     return CapColAABB(Cap, Obj);
+ }
+ //Sphere X Triangles
+ template<>
+ bool CollisionManager::CheckCollide(Triangles Tr, Sphere Sph)
+ {
+     return TrColSphere(Tr, Sph);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(Sphere Sph, Triangles Tr)
+ {
+     return TrColSphere(Tr, Sph);
+ }
+ //Triangles X Capsule
+ template<>
+ bool CollisionManager::CheckCollide(Triangles Tr, Capsule Cap)
+ {
+     return TrColCap(Tr, Cap);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(Capsule Cap, Triangles Tr)
+ {
+     return TrColCap(Tr, Cap);
+ }
+ //Triangles X AABB
+ template<>
+ bool CollisionManager::CheckCollide(AABB_Obj Obj,Triangles Tr)
+ {
+     return TrColAABB(Tr, Obj);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(Triangles Tr,AABB_Obj Obj)
+ {
+     return TrColAABB(Tr, Obj);
+ }
+ //AABB X OBB
+ template<>
+ bool CollisionManager::CheckCollide(AABB_Obj AABB, OBB Obj)
+ {
+     return ABBColsOBB(AABB, Obj);
+ }
+ template<>
+ bool CollisionManager::CheckCollide( OBB Obj,AABB_Obj AABB)
+ {
+     return ABBColsOBB(AABB, Obj);
+ }
+ //Triangles X OBB
+ template<>
+ bool CollisionManager::CheckCollide(Triangles Tr, OBB Obj)
+ {
+     return TriColOBB(Tr, Obj);
+ }
+ template<>
+ bool CollisionManager::CheckCollide( OBB Obj,Triangles Tr)
+ {
+     return TriColOBB(Tr, Obj);
+ }
+ //Sphere X OBB
+ template<>
+ bool CollisionManager::CheckCollide(Sphere SPh, OBB Obj)
+ {
+     return SphColOBB(SPh,Obj);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(OBB Obj, Sphere SPh)
+ {
+     return SphColOBB(SPh, Obj);
+ }
+ //Capsule X OBB
+ template<>
+ bool CollisionManager::CheckCollide(Capsule Cap, OBB Obj)
+ {
+     return CapColOBB(Cap, Obj);
+ }
+ template<>
+ bool CollisionManager::CheckCollide(OBB Obj, Capsule Cap)
+ {
+     return CapColOBB(Cap, Obj);
+ }
