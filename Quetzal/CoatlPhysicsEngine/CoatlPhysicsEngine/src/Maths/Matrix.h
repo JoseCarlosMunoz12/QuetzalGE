@@ -1,6 +1,6 @@
 #pragma once
-
 #include "../define.h"
+
 #include "Vectors.h"
 #include <vector>
 #include <iostream>
@@ -11,6 +11,7 @@ namespace CoatlPhysicsEngine {
 	class COATL_API MatrixXYD
 	{
 	private:
+		glm::vec3 Pos;
 		std::vector<VecXD> Vec;
 		void SwapRows(int iRow, int rRow);
 		void DevideRow(int Row, double Val);
