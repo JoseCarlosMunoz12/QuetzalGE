@@ -71,11 +71,6 @@
     <ClInclude Include="src\Physics\Ph_Motion\Phy_Motion.h" />
     <ClInclude Include="src\Physics\Ph_Motion\Phy_Spring.h" />
     <ClInclude Include="src\Physics\RigidBodies.h" />
-    <ClInclude Include="src\Queries\KD_Tree.h" />
-    <ClInclude Include="src\Queries\OctoTree.h" />
-    <ClInclude Include="src\Queries\QuadTree.h" />
-    <ClInclude Include="src\Queries\B_Force.h" />
-    <ClInclude Include="src\Queries\Queries.h" />
     <ClInclude Include="src\SAT\SAT.h" />
     <ClInclude Include="src\Shapes\AABB_Obj.h" />
     <ClInclude Include="src\Shapes\Capsule.h" />
@@ -84,24 +79,10 @@
     <ClInclude Include="src\Shapes\SimpleShapes.h" />
     <ClInclude Include="src\Shapes\Sphere.h" />
     <ClInclude Include="src\Shapes\Triangles.h" />
-    <ClInclude Include="src\World\DynamicCollisions.h" />
-    <ClInclude Include="src\World\KinematicCollisions.h" />
-    <ClInclude Include="src\Body\Body.h" />
-    <ClInclude Include="src\CollisionManager\Contact.h" />
-    <ClInclude Include="src\CollisionManager\GJK.h" />
-    <ClInclude Include="src\Shape\Convex.h" />
     <ClInclude Include="src\CollisionManager\CollisionManager.h" />
-    <ClInclude Include="src\Shape\BB.h" />
-    <ClInclude Include="src\Shape\Capsule.h" />
-    <ClInclude Include="src\Shape\Sphere.h" />
-    <ClInclude Include="src\Shape\Shape.h" />
-    <ClInclude Include="src\Maths\Matrix.h" />
     <ClInclude Include="src\Maths\Maths.h" />
     <ClInclude Include="src\CoatlPhysicsEngine.h" />
     <ClInclude Include="src\define.h" />
-    <ClInclude Include="src\Maths\Vectors.h" />
-    <ClInclude Include="src\World\World.h" />
-    <ClInclude Include="src\World\StaticCollisions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Bodies\Bodies.cpp" />
@@ -152,10 +133,6 @@
     <ClCompile Include="src\Physics\Ph_Motion\Phy_Motion.cpp" />
     <ClCompile Include="src\Physics\Ph_Motion\Phy_Spring.cpp" />
     <ClCompile Include="src\Physics\RigidBodies.cpp" />
-    <ClCompile Include="src\Queries\KD_Tree.cpp" />
-    <ClCompile Include="src\Queries\OctoTree.cpp" />
-    <ClCompile Include="src\Queries\QuadTree.cpp" />
-    <ClCompile Include="src\Queries\B_Force.cpp" />
     <ClCompile Include="src\SAT\SAT.cpp" />
     <ClCompile Include="src\Shapes\AABB_Obj.cpp" />
     <ClCompile Include="src\Shapes\Capsule.cpp" />
@@ -163,22 +140,8 @@
     <ClCompile Include="src\Shapes\OBB.cpp" />
     <ClCompile Include="src\Shapes\Sphere.cpp" />
     <ClCompile Include="src\Shapes\Triangles.cpp" />
-    <ClCompile Include="src\World\DynamicCollisions.cpp" />
-    <ClCompile Include="src\World\KinematicCollisions.cpp" />
-    <ClCompile Include="src\Body\Body.cpp" />
-    <ClCompile Include="src\CollisionManager\Contact.cpp" />
-    <ClCompile Include="src\CollisionManager\GJK.cpp" />
-    <ClCompile Include="src\Shape\Convex.cpp" />
     <ClCompile Include="src\CollisionManager\CollisionManager.cpp" />
-    <ClCompile Include="src\Shape\BB.cpp" />
-    <ClCompile Include="src\Shape\Capsule.cpp" />
-    <ClCompile Include="src\Shape\Sphere.cpp" />
-    <ClCompile Include="src\Shape\Shape.cpp" />
-    <ClCompile Include="src\Maths\Matrix.cpp" />
     <ClCompile Include="src\Maths\Maths.cpp" />
-    <ClCompile Include="src\Maths\Vectors.cpp" />
-    <ClCompile Include="src\World\World.cpp" />
-    <ClCompile Include="src\World\StaticCollisions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

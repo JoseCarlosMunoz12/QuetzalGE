@@ -1,4 +1,5 @@
 #pragma once
+#include "../define.h"
 #include <string>
 #include <iostream>
 #include <glm.hpp>
@@ -28,7 +29,7 @@ namespace CoatlPhysicsEngine {
 		float Friction;
 		float Restitution;
 		//-------------
-		virtual void UpdateVel(float dt) { return; };
+		virtual void UpdateVel(float dt) {}
 		//Sleep variables
 		bool IsAwake = true;
 		bool CanSleep = true;

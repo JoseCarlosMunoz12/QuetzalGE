@@ -24,64 +24,7 @@
     <ClInclude Include="src\Maths\Maths.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Maths\Matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Maths\Vectors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Shape\Shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Shape\Sphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Shape\Capsule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Shape\BB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\CollisionManager\CollisionManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Shape\Convex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionManager\GJK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionManager\Contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Body\Body.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\StaticCollisions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\KinematicCollisions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\DynamicCollisions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Queries\Queries.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Queries\B_Force.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Queries\QuadTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Queries\OctoTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Queries\KD_Tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Bodies\Joints\J_Joint.h">
@@ -94,9 +37,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Bodies\Bodies.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Bodies\BodyParts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionManager\AABBColAABB.h">
@@ -189,9 +129,6 @@
     <ClInclude Include="src\GJK\GJK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\OptimizaAlgorithm\B_Force.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\OptimizaAlgorithm\B_Force_Self.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -264,66 +201,18 @@
     <ClInclude Include="src\Shapes\Triangles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Bodies\BodyParts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OptimizaAlgorithm\B_Force.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Maths\Maths.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Maths\Matrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Maths\Vectors.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Shape\Shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Shape\Sphere.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Shape\Capsule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Shape\BB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\CollisionManager\CollisionManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Shape\Convex.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CollisionManager\GJK.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CollisionManager\Contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Body\Body.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\StaticCollisions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\KinematicCollisions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\DynamicCollisions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Queries\B_Force.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Queries\QuadTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Queries\OctoTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Queries\KD_Tree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Bodies\Joints\J_Joint.cpp">
@@ -333,9 +222,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Bodies\Bodies.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Bodies\BodyParts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionManager\AABBColAABB.cpp">
@@ -425,13 +311,7 @@
     <ClCompile Include="src\GJK\GJK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OptimizaAlgorithm\B_Force.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\OptimizaAlgorithm\B_Force_Self.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OptimizaAlgorithm\OctoTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\OptimizaAlgorithm\QuadTree.cpp">
@@ -489,6 +369,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Shapes\Triangles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OptimizaAlgorithm\OctoTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bodies\BodyParts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OptimizaAlgorithm\B_Force.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
