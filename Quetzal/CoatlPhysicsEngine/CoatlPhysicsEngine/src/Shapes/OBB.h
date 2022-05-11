@@ -7,22 +7,16 @@ namespace CoatlPhysicsEngine {
 		glm::vec3 Ex;
 	public:
 		//Upright OBB
-		OBB(glm::vec3 Pos, float DimXYZ);
-		OBB(glm::vec3 Pos, float DimX, float DimYZ);
-		OBB(glm::vec3 Pos, float DimX, float DimY, float DimZ);
-		//Predefined Quat
-		OBB(glm::vec3 Pos, float InitAngle, glm::vec3 InitUnitVec, float DimXYZ);
-		OBB(glm::vec3 Pos, float InitAngle, glm::vec3 InitUnitVec, float DimX, float DimYZ);
-		OBB(glm::vec3 Pos, float InitAngle, glm::vec3 InitUnitVec,float  DimX, float DimY, float DimZ);
+		OBB(float DimXYZ);
+		OBB(float DimX, float DimYZ);
+		OBB(float DimX, float DimY, float DimZ);
 		~OBB();
-		std::vector<glm::vec3> GetSegments();
+		std::vector<glm::vec3> GetSegments(glm::vec3 pos, glm::quat quatAngle);
 		glm::vec3 GetLenghts();
-		glm::vec3 GetClosestPoint(glm::vec3 Point);
-		void SetQuat(glm::quat NewQuat) override;
-		glm::vec3 Support(glm::vec3 Dir) override;
-		glm::vec3 EPA_Support(glm::vec3 Dir) override;
-		std::vector<glm::vec3> GetVertices() override;
-		std::vector<glm::vec3> GetNormals() override;
-		glm::mat3 GetInertia(float Mass) override;
+		glm::vec3 GetClosestPoint(glm::vec3 Point, glm::vec3 pos, glm::quat quatAngle);
+		glm::vec3 Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle) override;
+		glm::vec3 EPA_Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle) override;
+		std::vector<glm::vec3> GetVertices(glm::vec3 pos, glm::quat quatAngle) override;
+		std::vector<glm::vec3> GetNormals(glm::vec3 pos, glm::quat quatAngle) override;
 	};
 }

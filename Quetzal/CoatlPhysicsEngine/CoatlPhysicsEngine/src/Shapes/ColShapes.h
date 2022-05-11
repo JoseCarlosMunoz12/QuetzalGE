@@ -18,9 +18,9 @@ namespace CoatlPhysicsEngine
 	public:
 		ColShapes();
 		virtual ~ColShapes();
-		virtual glm::vec3 Support(glm::vec3 Dir);
-		virtual glm::vec3 EPA_Support(glm::vec3 Dir);
-		virtual std::vector<glm::vec3> GetVertices();
-		virtual std::vector<glm::vec3> GetNormals();
+		virtual glm::vec3 Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle);
+		virtual glm::vec3 EPA_Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle);
+		virtual std::vector<glm::vec3> GetVertices( glm::vec3 pos, glm::quat quatAngle);
+		virtual std::vector<glm::vec3> GetNormals( glm::vec3 pos, glm::quat quatAngle);
 	};
 }

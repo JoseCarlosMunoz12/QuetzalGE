@@ -1,57 +1,24 @@
 #include "OBB.h"
 using namespace CoatlPhysicsEngine;
-OBB::OBB(glm::vec3 Pos, float DimXYZ)
-	:ColShapes(Pos)
+OBB::OBB(float DimXYZ)
+	:ColShapes()
 {
-	this->QuatAngle = glm::angleAxis(0.f, glm::vec3(0.f, 0.f, 1.f));
 	this->Ex.x = DimXYZ;
 	this->Ex.y = DimXYZ;
 	this->Ex.z = DimXYZ;
 }
 
-OBB::OBB(glm::vec3 Pos, float DimX, float DimYZ)
-	:ColShapes(Pos)
+OBB::OBB(float DimX, float DimYZ)
+	:ColShapes()
 {
-	this->QuatAngle = glm::angleAxis(0.f, glm::vec3(0.f, 0.f, 1.f));
 	this->Ex.x = DimX;
 	this->Ex.y = DimYZ;
 	this->Ex.z = DimYZ;
 }
 
-OBB::OBB(glm::vec3 Pos, float DimX, float DimY, float DimZ)
-	:ColShapes(Pos)
+OBB::OBB(float DimX, float DimY, float DimZ)
+	:ColShapes()
 {
-	this->QuatAngle = glm::angleAxis(0.f, glm::vec3(0.f, 0.f, 1.f));
-	this->Ex.x = DimX;
-	this->Ex.y = DimY;
-	this->Ex.z = DimZ;
-}
-
-OBB::OBB(glm::vec3 Pos, float InitAngle, glm::vec3 InitUnitVec, float DimXYZ)
-	:ColShapes(Pos)
-{
-	float InitAng = InitAngle / 180.f * glm::pi<float>();
-	this->QuatAngle = glm::angleAxis(InitAng,InitUnitVec);
-	this->Ex.x = DimXYZ ;
-	this->Ex.y = DimXYZ;
-	this->Ex.z = DimXYZ;
-}
-
-OBB::OBB(glm::vec3 Pos, float InitAngle, glm::vec3 InitUnitVec, float DimX, float DimYZ)
-	: ColShapes(Pos)
-{
-	float InitAng = InitAngle / 180.f * glm::pi<float>();
-	this->QuatAngle = glm::angleAxis(InitAng, InitUnitVec);
-	this->Ex.x = DimX ;
-	this->Ex.y = DimYZ;
-	this->Ex.z = DimYZ;
-}
-
-OBB::OBB(glm::vec3 Pos, float InitAngle, glm::vec3 InitUnitVec, float DimX, float DimY, float DimZ)
-	: ColShapes(Pos)
-{
-	float InitAng = InitAngle / 180.f * glm::pi<float>();
-	this->QuatAngle = glm::angleAxis(InitAng, InitUnitVec);
 	this->Ex.x = DimX;
 	this->Ex.y = DimY;
 	this->Ex.z = DimZ;
@@ -61,10 +28,10 @@ OBB::~OBB()
 {
 }
 
-std::vector<glm::vec3> OBB::GetSegments()
+std::vector<glm::vec3> OBB::GetSegments(glm::vec3 pos, glm::quat quatAngle)
 {
-	glm::mat4 R = glm::mat4_cast(this->QuatAngle);
-	glm::mat4 T = glm::translate(glm::mat4(1.f), Pos);
+	glm::mat4 R = glm::mat4_cast(quatAngle);
+	glm::mat4 T = glm::translate(glm::mat4(1.f), pos);
 
 	glm::vec3 Positions[] =
 	{
@@ -90,9 +57,9 @@ glm::vec3 OBB::GetLenghts()
 	return this->Ex;
 }
 
-glm::vec3 OBB::GetClosestPoint(glm::vec3 Point)
+glm::vec3 OBB::GetClosestPoint(glm::vec3 Point, glm::vec3 pos, glm::quat quatAngle)
 {
-	std::vector<glm::vec3> Segs = this->GetSegments();
+	std::vector<glm::vec3> Segs = this->GetSegments(pos, quatAngle);
 	glm::vec3 ClsPoints;
 	std::vector<int> Ind = {0,1,1,2,2,3,3,0,
 		4,5,5,6,6,7,7,4,
@@ -122,14 +89,9 @@ glm::vec3 OBB::GetClosestPoint(glm::vec3 Point)
 	return ClsPoints;
 }
 
-void OBB::SetQuat(glm::quat NewQuat)
+glm::vec3 OBB::Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle)
 {
-	this->QuatAngle = NewQuat;
-}
-
-glm::vec3 OBB::Support(glm::vec3 Dir)
-{
-	std::vector<glm::vec3> Pnts = this->GetSegments();
+	std::vector<glm::vec3> Pnts = this->GetSegments(pos, quatAngle);
 	float S = glm::dot(Pnts[0], Dir);
 	glm::vec3 MaxPnt = Pnts[0];
 	int Size = Pnts.size();
@@ -145,36 +107,21 @@ glm::vec3 OBB::Support(glm::vec3 Dir)
 	return MaxPnt;
 }
 
-glm::vec3 OBB::EPA_Support(glm::vec3 Dir)
+glm::vec3 OBB::EPA_Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle)
 {
-	return this->Support(Dir);
+	return this->Support(Dir, pos, quatAngle);
 }
 
-std::vector<glm::vec3> OBB::GetVertices()
+std::vector<glm::vec3> OBB::GetVertices( glm::vec3 pos, glm::quat quatAngle)
 {
-	return this->GetSegments();
+	return this->GetSegments(pos,quatAngle);
 }
 
-std::vector<glm::vec3> OBB::GetNormals()
+std::vector<glm::vec3> OBB::GetNormals(glm::vec3 pos, glm::quat quatAngle)
 {
-	std::vector<glm::vec3> T = this->GetSegments();
+	std::vector<glm::vec3> T = this->GetSegments(pos, quatAngle);
 	std::vector<glm::vec3> OBB_N = { glm::normalize(T[1] - T[0]),
 		glm::normalize(T[3] - T[0]) ,
 		glm::normalize(T[4] - T[0]) };
 	return OBB_N;
-}
-
-glm::mat3 OBB::GetInertia(float Mass)
-{
-	glm::vec3 Tex = 2.f * Ex;
-	float LH2 = (Tex.x * Tex.x + Tex.z * Tex.z) / 12.f;
-	float HW2 = (Tex.y * Tex.y + Tex.x * Tex.x) / 12.f;
-	float LW2 = (Tex.z * Tex.z + Tex.y * Tex.y) / 12.f;
-	float LW = 0.f;
-	float LH = 0.f;
-	float HW = 0.f;
-	glm::vec3 Col0 = glm::vec3(LH2,LW,HW);
-	glm::vec3 Col1 = glm::vec3(LW,HW2,LH);
-	glm::vec3 Col2 = glm::vec3(HW,LH,LW2);
-	return Mass * glm::mat3(Col0, Col1, Col2);
 }
