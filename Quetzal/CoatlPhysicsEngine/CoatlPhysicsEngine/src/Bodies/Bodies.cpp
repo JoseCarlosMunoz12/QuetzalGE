@@ -7,7 +7,7 @@ Bodies::Bodies(int InitID)
 	this->ID = InitID;
 }
 
-Bodies::Bodies(std::shared_ptr<ColShapes> InitShapes, int InitID)
+Bodies::Bodies(S_P<ColShapes> InitShapes, int InitID)
 	:Max(glm::vec3(0.f)), Min(glm::vec3(0.f)), Mid(glm::vec3(0.f))
 {
 	this->ID = InitID;
@@ -18,7 +18,7 @@ Bodies::~Bodies()
 {
 }
 
-void Bodies::AddShapes(std::shared_ptr<ColShapes> NewShape)
+void Bodies::AddShapes(S_P<ColShapes> NewShape)
 {
 	this->BodyInf = std::make_shared<BodyParts>(NewShape);
 }
@@ -68,7 +68,7 @@ void Bodies::SetQuat(glm::quat NewQuat)
 	this->BodyInf->SetQuat(NewQuat);
 }
 
-bool Bodies::HasId(std::shared_ptr<Bodies> OtherBod)
+bool Bodies::HasId(S_P<Bodies> OtherBod)
 {
 	return std::find(BoolId.begin(), BoolId.end(), OtherBod->GetID()) != BoolId.end();
 }
@@ -100,18 +100,18 @@ glm::quat Bodies::GetQuat()
 	return this->BodyInf->GetQuatAngle();
 }
 
-std::shared_ptr<ColShapes> Bodies::GetShapes()
+S_P<ColShapes> Bodies::GetShapes()
 {
 	return this->BodyInf->GetShape();
 }
 
-std::shared_ptr<BodyParts> Bodies::GetBodyParts()
+S_P<BodyParts> Bodies::GetBodyParts()
 {
 	return this->BodyInf;
 }
 
 
-std::shared_ptr<Bod_Base> Bodies::GetParticle()
+S_P<Bod_Base> Bodies::GetParticle()
 {
 	return this->BodyInf->GetParticle();
 }

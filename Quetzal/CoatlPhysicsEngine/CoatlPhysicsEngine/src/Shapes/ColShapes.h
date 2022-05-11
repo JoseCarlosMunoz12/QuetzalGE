@@ -15,21 +15,12 @@ namespace CoatlPhysicsEngine
 {
 	class COATL_API ColShapes
 	{
-	protected:
-		glm::vec3 Pos;
-		glm::vec3 Pivot;
-		glm::quat QuatAngle;
 	public:
-		ColShapes(glm::vec3 SetPos);
+		ColShapes();
 		virtual ~ColShapes();
-		glm::vec3 GetPos();
-		glm::quat GetQuatAngle();
-		virtual void SetPos(glm::vec3 NewPOs);
-		virtual void SetQuat(glm::quat NewQuat) { return; };
 		virtual glm::vec3 Support(glm::vec3 Dir);
 		virtual glm::vec3 EPA_Support(glm::vec3 Dir);
 		virtual std::vector<glm::vec3> GetVertices();
 		virtual std::vector<glm::vec3> GetNormals();
-		virtual glm::mat3 GetInertia(float Mass);
 	};
 }
