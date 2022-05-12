@@ -29,3 +29,8 @@ std::vector<glm::vec3> ColShapes::GetNormals(glm::vec3 pos, glm::quat quatAngle)
 {
 	return std::vector<glm::vec3>();
 }
+
+glm::mat3 ColShapes::GetInertia(float mass)
+{
+	return glm::mat3();
+}

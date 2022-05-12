@@ -22,5 +22,6 @@ namespace CoatlPhysicsEngine
 		virtual glm::vec3 EPA_Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle);
 		virtual std::vector<glm::vec3> GetVertices( glm::vec3 pos, glm::quat quatAngle);
 		virtual std::vector<glm::vec3> GetNormals( glm::vec3 pos, glm::quat quatAngle);
+		virtual glm::mat3 GetInertia(float Mass);
 	};
 }

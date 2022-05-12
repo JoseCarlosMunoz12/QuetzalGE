@@ -19,26 +19,24 @@ float AABB_Obj::LocPoint(float P, float Max, float Min)
     return 0;
 }
 
-AABB_Obj::AABB_Obj(glm::vec3 SetPos, float DimXYZ)
-    :ColShapes(SetPos)
+AABB_Obj::AABB_Obj(float DimXYZ)
+    :ColShapes()
 {
     this->XLength = DimXYZ;
     this->YLength = DimXYZ;
     this->ZLength = DimXYZ;
 }
 
-AABB_Obj::AABB_Obj(glm::vec3 SetPos,
-    float DimX, float DimYZ)
-    : ColShapes(SetPos)
+AABB_Obj::AABB_Obj(float DimX, float DimYZ)
+    : ColShapes()
 {
     this->XLength = DimX;
     this->YLength = DimYZ;
     this->ZLength = DimYZ;
 }
 
-AABB_Obj::AABB_Obj(glm::vec3 SetPos,
-    float DimX, float DimY, float DimZ)
-    : ColShapes(SetPos)
+AABB_Obj::AABB_Obj(float DimX, float DimY, float DimZ)
+    : ColShapes()
 {
     this->XLength = DimX;
     this->YLength = DimY;
@@ -56,7 +54,7 @@ glm::vec3 AABB_Obj::GetLengths()
         this->ZLength);
 }
 
-std::vector<glm::vec3> AABB_Obj::GetPoints()
+std::vector<glm::vec3> AABB_Obj::GetPoints(glm::vec3 pos, glm::quat quatAngle)
 {
     glm::vec3 L = GetLengths();
     glm::vec3 Positions[] =
@@ -71,14 +69,14 @@ std::vector<glm::vec3> AABB_Obj::GetPoints()
     std::vector<glm::vec3> Lines(std::begin(Positions),std::end(Positions));
     for (auto& jj : Lines)
     {
-        jj = jj + this->Pos;
+        jj = jj + pos;
     }
 	return Lines;
 }
 
-std::vector<glm::vec3> AABB_Obj::GetSegs()
+std::vector<glm::vec3> AABB_Obj::GetSegs(glm::vec3 pos, glm::quat quatAngle)
 {
-    return GetPoints();   
+    return GetPoints(pos, quatAngle);
 }
 
 std::vector<int> AABB_Obj::GetSegmentsID()
@@ -95,42 +93,36 @@ void AABB_Obj::SetLengths(glm::vec3 NewLengths)
     this->ZLength = NewLengths.z;
 }
 
-glm::vec3 AABB_Obj::GetClosesPoint(glm::vec3 Point)
+glm::vec3 AABB_Obj::GetClosesPoint(glm::vec3 Point, glm::vec3 pos, glm::quat quatAngle)
 {
     glm::vec3 P = Point;
     glm::vec3 L = GetLengths();
-    glm::vec3 Pos = this->GetPos();
-    P.x = this->GetPoint(P.x, Pos.x + L.x, Pos.x - L.x);
-    P.y = this->GetPoint(P.y, Pos.y + L.y, Pos.y - L.y);
-    P.z = this->GetPoint(P.z, Pos.z + L.z, Pos.z - L.z);
+    P.x = this->GetPoint(P.x, pos.x + L.x, pos.x - L.x);
+    P.y = this->GetPoint(P.y, pos.y + L.y, pos.y - L.y);
+    P.z = this->GetPoint(P.z, pos.z + L.z, pos.z - L.z);
 	return P;
 }
 
-bool AABB_Obj::Inside(glm::vec3 Point)
+bool AABB_Obj::Inside(glm::vec3 Point, glm::vec3 pos, glm::quat quatAngle)
 {
-     if (Point.x > Pos.x + XLength/2  && Point.x < Pos.x - XLength/2 )
+     if (Point.x > pos.x + XLength/2  && Point.x < pos.x - XLength/2 )
      {
          return false;
      }
-     if (Point.y > Pos.y + YLength / 2 && Point.y < Pos.y - YLength / 2)
+     if (Point.y > pos.y + YLength / 2 && Point.y < pos.y - YLength / 2)
      {
          return false;
      }
-     if (Point.z > Pos.z + ZLength / 2 && Point.z < Pos.z - ZLength / 2)
+     if (Point.z > pos.z + ZLength / 2 && Point.z < pos.z - ZLength / 2)
      {
          return false;
      }
 	return true;
 }
 
-void AABB_Obj::SetQuat(glm::quat NewQuat)
+glm::vec3 AABB_Obj::Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle)
 {
-    return;
-}
-
-glm::vec3 AABB_Obj::Support(glm::vec3 Dir)
-{
-    std::vector<glm::vec3> Pnts = this->GetPoints();
+    std::vector<glm::vec3> Pnts = this->GetPoints(pos, quatAngle);
     float S = glm::dot(Pnts[0], Dir);
     glm::vec3 MaxPnt = Pnts[0];
     int Size = Pnts.size();
@@ -146,24 +138,24 @@ glm::vec3 AABB_Obj::Support(glm::vec3 Dir)
     return MaxPnt;
 }
 
-glm::vec3 AABB_Obj::EPA_Support(glm::vec3 Dir)
+glm::vec3 AABB_Obj::EPA_Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle)
 {
-    return this->Support(Dir);
+    return this->Support(Dir, pos, quatAngle);
 }
 
-std::vector<glm::vec3> AABB_Obj::GetVertices()
+std::vector<glm::vec3> AABB_Obj::GetVertices(glm::vec3 pos, glm::quat quatAngle)
 {
-    return this->GetSegs();
+    return this->GetSegs(pos, quatAngle);
 }
 
-std::vector<glm::vec3> AABB_Obj::GetNormals()
+std::vector<glm::vec3> AABB_Obj::GetNormals(glm::vec3 pos, glm::quat quatAngle)
 {
-    std::vector<glm::vec3> T = this->GetSegs();
+    std::vector<glm::vec3> T = this->GetSegs(pos, quatAngle);
     std::vector<glm::vec3> AABB_N = {glm::vec3(1.f,0.f,0.f),glm::vec3(0.f,1.f,0.f),glm::vec3(0.f,0.f,1.f) };
     return AABB_N;
 }
 
-glm::mat3 CoatlPhysicsEngine::AABB_Obj::GetInertia(float Mass)
+glm::mat3 AABB_Obj::GetInertia(float Mass)
 {
     glm::vec3 Ex = GetLengths();
     float LH2 = (Ex.x * Ex.x + Ex.z * Ex.z) / 3.f;

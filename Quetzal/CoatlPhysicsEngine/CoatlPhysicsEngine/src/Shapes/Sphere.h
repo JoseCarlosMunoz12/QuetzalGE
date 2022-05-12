@@ -9,8 +9,9 @@ namespace CoatlPhysicsEngine {
 		~Sphere();
 		float GetRadius();
 		void SetRadius(float NewR);
-		glm::vec3 Support(glm::vec3 Dir) override;
-		glm::vec3 EPA_Support(glm::vec3 Dir) override;
-		std::vector<glm::vec3> GetVertices() override;
+		glm::vec3 Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle) override;
+		glm::vec3 EPA_Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle) override;
+		std::vector<glm::vec3> GetVertices(glm::vec3 pos, glm::quat quatAngle) override;
+		glm::mat3 GetInertia(float mass) override;
 	};
 }
