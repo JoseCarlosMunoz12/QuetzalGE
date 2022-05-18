@@ -25,28 +25,24 @@ void BodyParts::AddParticle(std::shared_ptr<Bod_Base> InitParticle)
 
 glm::vec3 BodyParts::GetPos()
 {
-	return this->BodPart->GetPos();
+	return this->BodParticle->GetPos();
 }
 
 glm::quat BodyParts::GetQuatAngle()
 {
-	return this->BodPart->GetQuatAngle();
+	return this->BodParticle->GetQuat();
 }
 
 void BodyParts::SetPos(glm::vec3 NewPos)
 {
-	this->BodPart->SetPos(NewPos);
 	if (this->BodParticle)
 		this->BodParticle->SetPos(NewPos);
 }
 
 void BodyParts::SetQuat(glm::quat Q)
 {
-	if (isnan(glm::length(Q)))
-		return;
-	this->BodPart->SetQuat(Q);
-	if (this->BodParticle)
-		this->BodParticle->SetQuat(Q);
+	if (isnan(glm::length(Q)) && (this->BodParticle))
+			this->BodParticle->SetQuat(Q);
 }
 
 std::shared_ptr<ColShapes> BodyParts::GetShape()
@@ -61,5 +57,5 @@ std::shared_ptr<Bod_Base> BodyParts::GetParticle()
 
 glm::vec3 BodyParts::Support(glm::vec3 Dir)
 {
-	return this->BodPart->Support(Dir);
+	return this->BodPart->Support(Dir, this->BodParticle->GetPos(), this->BodParticle->GetQuat());
 }
