@@ -1,8 +1,8 @@
 #include "Triangles.h"
 using namespace CoatlPhysicsEngine;
 
-Triangles::Triangles(glm::vec3 InitPos, std::vector<glm::vec3> InitPoints)
-	:ColShapes(InitPos)
+Triangles::Triangles(std::vector<glm::vec3> InitPoints)
+	:ColShapes()
 {
 	for (int ii = 0; ii < 3; ii++)
 	{
@@ -14,10 +14,10 @@ Triangles::~Triangles()
 {
 }
 
-std::vector<glm::vec3> Triangles::GetSegments()
+std::vector<glm::vec3> Triangles::GetSegments(glm::vec3 pos, glm::quat quatAngle)
 {
-	glm::mat4 R = glm::mat4_cast(this->QuatAngle);
-	glm::mat4 T = glm::translate(glm::mat4(1.f), this->Pos);
+	glm::mat4 R = glm::mat4_cast(quatAngle);
+	glm::mat4 T = glm::translate(glm::mat4(1.f), pos);
 	std::vector<glm::vec3> SegPoints;
 	for (auto& jj : Points)
 	{
@@ -27,19 +27,14 @@ std::vector<glm::vec3> Triangles::GetSegments()
 	return SegPoints;
 }
 
-glm::vec3 Triangles::GetClosestPoint(glm::vec3 Point)
+glm::vec3 Triangles::GetClosestPoint(glm::vec3 Point, glm::vec3 pos, glm::quat quatAngle)
 {	
-	return MATH::ClosestPoint_Seg(GetSegments(), Pos, Point);
+	return MATH::ClosestPoint_Seg(GetSegments(pos, quatAngle), pos, Point);
 }
 
-void Triangles::SetQuat(glm::quat NewQuat)
+glm::vec3 Triangles::Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle)
 {
-	this->QuatAngle = NewQuat;
-}
-
-glm::vec3 Triangles::Support(glm::vec3 Dir)
-{
-	std::vector<glm::vec3> Pnts = this->GetSegments();
+	std::vector<glm::vec3> Pnts = this->GetSegments(pos, quatAngle);
 	float S = glm::dot(Pnts[0], Dir);
 	glm::vec3 MaxPnt = Pnts[0];
 	int Size = Pnts.size();
@@ -55,19 +50,19 @@ glm::vec3 Triangles::Support(glm::vec3 Dir)
 	return MaxPnt;
 }
 
-glm::vec3 Triangles::EPA_Support(glm::vec3 Dir)
+glm::vec3 Triangles::EPA_Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle)
 {
-	return this->Support(Dir);
+	return this->Support(Dir,pos, quatAngle);
 }
 
-std::vector<glm::vec3> Triangles::GetVertices()
+std::vector<glm::vec3> Triangles::GetVertices(glm::vec3 pos, glm::quat quatAngle)
 {
-	return this->GetSegments();
+	return this->GetSegments(pos, quatAngle);
 }
 
-std::vector<glm::vec3> Triangles::GetNormals()
+std::vector<glm::vec3> Triangles::GetNormals(glm::vec3 pos, glm::quat quatAngle)
 {
-	std::vector<glm::vec3> T = this->GetSegments();
+	std::vector<glm::vec3> T = this->GetSegments(pos, quatAngle);
 	std::vector<glm::vec3> T_N = { glm::normalize(T[1] - T[0]),
 		glm::normalize(T[2] - T[0]) };
 	return T_N;

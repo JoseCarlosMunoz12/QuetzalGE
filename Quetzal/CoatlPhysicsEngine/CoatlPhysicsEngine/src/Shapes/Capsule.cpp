@@ -1,8 +1,8 @@
 #include "Capsule.h"
 using namespace CoatlPhysicsEngine;
 
-Capsule::Capsule(glm::vec3 Pos, float InitRadius, float InitLength)
-	:ColShapes(Pos),UnitVec(glm::vec3(0.f,0.f,1.f))
+Capsule::Capsule(float InitRadius, float InitLength)
+	:ColShapes(),UnitVec(glm::vec3(0.f,0.f,1.f))
 {
 	this->Radius = InitRadius;
 	this->BPos = glm::vec3(0.f,0.f,InitLength/2.f);
@@ -18,26 +18,26 @@ float Capsule::GetRadius()
 	return this->Radius;
 }
 
-glm::vec3 Capsule::ClosestPoint_P(glm::vec3 Point)
+glm::vec3 Capsule::ClosestPoint_P(glm::vec3 Point, glm::vec3 pos, glm::quat quatAngle)
 {
-	return MATH::ClosestPoint_Pnt({APos,BPos}, Pos, Point);
+	return MATH::ClosestPoint_Pnt(GetSegment(pos, quatAngle), pos, Point);
 }
 
-float Capsule::Distance(glm::vec3 Point)
+float Capsule::Distance(glm::vec3 Point, glm::vec3 pos, glm::quat quatAngle)
 {
-	return MATH::Distance_Pnt({ APos,BPos }, Pos, Point);
+	return MATH::Distance_Pnt(GetSegment(pos, quatAngle), pos, Point);
 }
 
-float Capsule::Distance(std::vector<glm::vec3> Segment)
+float Capsule::Distance(std::vector<glm::vec3> Segment, glm::vec3 pos, glm::quat quatAngle)
 {
-	return MATH::Distance_Seg({APos,BPos},Pos,Segment);
+	return MATH::Distance_Seg(GetSegment(pos, quatAngle), pos, Segment);
 }
 
-std::vector<glm::vec3> Capsule::GetSegment()
+std::vector<glm::vec3> Capsule::GetSegment(glm::vec3 pos, glm::quat quatAngle)
 {
 
-	glm::mat4 R = glm::mat4_cast(this->QuatAngle);
-	glm::mat4 T = glm::translate(glm::mat4(1.f), Pos);
+	glm::mat4 R = glm::mat4_cast(quatAngle);
+	glm::mat4 T = glm::translate(glm::mat4(1.f), pos);
 	std::vector<glm::vec3> Verx;
 	{
 		glm::vec4 Set = glm::vec4(APos,	1.f);
@@ -60,14 +60,9 @@ void Capsule::SetVec(glm::vec3 NewVec)
 	this->UnitVec = glm::normalize(NewVec);
 }
 
-void Capsule::SetQuat(glm::quat NewQuat)
+glm::vec3 Capsule::Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle)
 {
-	this->QuatAngle = NewQuat;
-}
-
-glm::vec3 Capsule::Support(glm::vec3 Dir)
-{
-	std::vector<glm::vec3> Pnts = this->GetSegment();
+	std::vector<glm::vec3> Pnts = this->GetSegment(pos, quatAngle);
 	float S = glm::dot(Pnts[0], Dir);
 	glm::vec3 MaxPnt = Pnts[0];
 	int Size = Pnts.size();
@@ -84,9 +79,9 @@ glm::vec3 Capsule::Support(glm::vec3 Dir)
 	return MaxPnt + (this->Radius) * Norm;
 }
 
-glm::vec3 Capsule::EPA_Support(glm::vec3 Dir)
+glm::vec3 Capsule::EPA_Support(glm::vec3 Dir, glm::vec3 pos, glm::quat quatAngle)
 {
-	std::vector<glm::vec3> Pnts = this->GetSegment();
+	std::vector<glm::vec3> Pnts = this->GetSegment(pos, quatAngle);
 	float S = glm::dot(Pnts[0], Dir);
 	glm::vec3 MaxPnt = Pnts[0];
 	int Size = Pnts.size();
@@ -102,14 +97,14 @@ glm::vec3 Capsule::EPA_Support(glm::vec3 Dir)
 	return MaxPnt;
 }
 
-std::vector<glm::vec3> Capsule::GetVertices()
+std::vector<glm::vec3> Capsule::GetVertices(glm::vec3 pos, glm::quat quatAngle)
 {
-	return this->GetSegment();
+	return this->GetSegment(pos, quatAngle);
 }
 
-std::vector<glm::vec3> Capsule::GetNormals()
+std::vector<glm::vec3> Capsule::GetNormals(glm::vec3 pos, glm::quat quatAngle)
 {
-	std::vector<glm::vec3> Pnts = this->GetSegment();
+	std::vector<glm::vec3> Pnts = this->GetSegment(pos, quatAngle);
 	glm::vec3 Norm = Pnts[1] - Pnts[0];
 	Norm = glm::normalize(Norm);
 	return {Norm};
