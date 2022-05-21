@@ -33,12 +33,12 @@ int GJK_Alg::Tr_Farthest_Point(std::vector<glm::vec3> Vec)
 	return Id;
 }
 
-glm::vec3 GJK_Alg::Support(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1, glm::vec3 Dir)
+glm::vec3 GJK_Alg::Support(S_P<Bodies> Shape0, S_P<Bodies> Shape1, glm::vec3 Dir)
 {
 	return Shape0->Support(Dir) - Shape1->Support(-Dir);
 }
 
-glm::vec3 GJK_Alg::Support(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1,
+glm::vec3 GJK_Alg::Support(S_P<Bodies> Shape0, S_P<Bodies> Shape1,
 	std::vector<glm::vec3> Seg0,std::vector<glm::vec3> Seg1, glm::vec3 Dir)
 {
 	glm::vec3 Sp0 = Support(Seg0, Dir) + Shape0->Support(Dir);
@@ -63,7 +63,7 @@ glm::vec3 GJK_Alg::Support(std::vector<glm::vec3> Seg, glm::vec3 Dir)
 	return MaxPnt;
 }
 
-bool GJK_Alg::Simplex_Maker(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1, glm::vec3 Pos0, glm::vec3 Pos1,
+bool GJK_Alg::Simplex_Maker(S_P<Bodies> Shape0, S_P<Bodies> Shape1, glm::vec3 Pos0, glm::vec3 Pos1,
 	std::vector<glm::vec3>& Verts, glm::vec3& Dir)
 {
 	int Size = Verts.size();
@@ -213,12 +213,12 @@ bool GJK_Alg::Simplex_Maker(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<C
 	return false;
 }
 
-glm::vec3 GJK_Alg::EPA_Support(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1, glm::vec3 Dir)
+glm::vec3 GJK_Alg::EPA_Support(S_P<Bodies> Shape0, S_P<Bodies> Shape1, glm::vec3 Dir)
 {
 	return Shape0->EPA_Support(Dir) - Shape1->EPA_Support(-Dir);
 }
 
-glm::vec3 GJK_Alg::EPA(std::vector<glm::vec3> Vertex, std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1, float& Pen)
+glm::vec3 GJK_Alg::EPA(std::vector<glm::vec3> Vertex, S_P<Bodies> Shape0, S_P<Bodies> Shape1, float& Pen)
 {
 	glm::vec3 Faces[EPA_MAX_NUM_FACES][4];//Array of faces, each with 3 verts and a normal	
 	//A = 3
@@ -375,7 +375,7 @@ float GJK_Alg::Cl_Dist(std::vector<glm::vec3> Verts)
 	return glm::distance(glm::vec3(0.f), Cl_P);
 }
 
-glm::vec3 GJK_Alg::C_F_E( std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1)
+glm::vec3 GJK_Alg::C_F_E( S_P<Bodies> Shape0, S_P<Bodies> Shape1)
 {
 	std::vector<glm::vec3> Verts; 
 	glm::vec3 NewDir;
@@ -404,7 +404,7 @@ glm::vec3 GJK_Alg::C_F_E( std::shared_ptr<ColShapes> Shape0, std::shared_ptr<Col
 	return this->ClosestPoint(Verts);
 }
 
-bool GJK_Alg::Simplex_Maker(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1,
+bool GJK_Alg::Simplex_Maker(S_P<Bodies> Shape0, S_P<Bodies> Shape1,
 	std::vector<glm::vec3>& Verts, glm::vec3& Dir)
 {
 	int Size = Verts.size();
@@ -608,7 +608,7 @@ std::vector<int> GJK_Alg::C_F_S(std::vector<glm::vec3>& Verts)
 	}
 }
 
-bool GJK_Alg::GJK(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1)
+bool GJK_Alg::GJK(std::shared_ptr<Bodies> Shape0, std::shared_ptr<Bodies> Shape1)
 {
 	std::vector<glm::vec3> Verts;
 	glm::vec3 Dir;
@@ -629,7 +629,7 @@ bool GJK_Alg::GJK(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> 
 	return false;
 }
 
-bool GJK_Alg::GJK(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1,
+bool GJK_Alg::GJK(std::shared_ptr<Bodies> Shape0, std::shared_ptr<Bodies> Shape1,
 	std::vector<glm::vec3> Seg0, std::vector<glm::vec3> Seg1)
 {
 	std::vector<glm::vec3> Verts;
@@ -653,7 +653,7 @@ bool GJK_Alg::GJK(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> 
 	return false;
 }
 
-bool GJK_Alg::EPA_GJK(std::shared_ptr<ColShapes> Shape0, std::shared_ptr<ColShapes> Shape1, glm::vec3& DistVec, float& Pen)
+bool GJK_Alg::EPA_GJK(S_P<Bodies> Shape0, S_P<Bodies> Shape1, glm::vec3& DistVec, float& Pen)
 {
 	std::vector<glm::vec3> Verts;
 	glm::vec3 Dir;
