@@ -115,3 +115,15 @@ S_P<Bod_Base> Bodies::GetParticle()
 {
 	return this->BodyInf->GetParticle();
 }
+
+glm::vec3 Bodies::Support(glm::vec3 Dir)
+{
+	if(!this->BodyInf->GetShape())
+		return glm::vec3();
+
+}
+
+glm::vec3 Bodies::EPA_Support(glm::vec3 Dir)
+{
+	return glm::vec3();
+}

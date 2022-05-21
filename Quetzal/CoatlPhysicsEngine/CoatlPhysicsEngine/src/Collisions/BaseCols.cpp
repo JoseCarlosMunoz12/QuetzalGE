@@ -11,7 +11,7 @@ bool BaseCols::UpdateBodies(Sphere Sph0, std::shared_ptr<Bodies> Bod0, std::shar
 	{
 		return this->ColMan->CheckCollide(Sph0, *Cap);
 	}
-	return S->GJK( Bod1->GetShapes(),Bod0->GetShapes());
+	return S->GJK(Bod1,Bod0);
 }
 
 bool BaseCols::UpdateBodies(Capsule Cap0, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
@@ -24,12 +24,12 @@ bool BaseCols::UpdateBodies(Capsule Cap0, std::shared_ptr<Bodies> Bod0, std::sha
 	{
 		return this->ColMan->CheckCollide(Cap0, *Cap);
 	}
-	return S->GJK( Bod1->GetShapes(),Bod0->GetShapes());
+	return S->GJK(Bod1,Bod0);
 }
 
 bool BaseCols::ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
 {
-	return S->GJK(Bod0->GetShapes(), Bod1->GetShapes());
+	return S->GJK(Bod0, Bod1);
 }
 
 bool BaseCols::ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1,

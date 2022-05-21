@@ -44,5 +44,9 @@ namespace CoatlPhysicsEngine {
 		glm::vec3 GetMax() { return this->Max; };
 		glm::vec3 GetMin() { return this->Min; };
 		glm::vec3 GetMid() { return this->Mid; };
+		//Support Vectors
+		glm::vec3 Support(glm::vec3 Dir);
+		glm::vec3 EPA_Support(glm::vec3 Dir);
+
 	};
 }
