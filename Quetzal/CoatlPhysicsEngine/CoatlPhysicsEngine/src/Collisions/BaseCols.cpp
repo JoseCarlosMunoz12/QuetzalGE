@@ -11,7 +11,7 @@ bool BaseCols::UpdateBodies(Sphere Sph0, std::shared_ptr<Bodies> Bod0, std::shar
 	{
 		return this->ColMan->CheckCollide(Sph0, *Cap);
 	}
-	return S->GJK(Bod1,Bod0);
+	return GJK_Alg::GJK(Bod1,Bod0);
 }
 
 bool BaseCols::UpdateBodies(Capsule Cap0, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
@@ -24,25 +24,24 @@ bool BaseCols::UpdateBodies(Capsule Cap0, std::shared_ptr<Bodies> Bod0, std::sha
 	{
 		return this->ColMan->CheckCollide(Cap0, *Cap);
 	}
-	return S->GJK(Bod1,Bod0);
+	return GJK_Alg::GJK(Bod1,Bod0);
 }
 
 bool BaseCols::ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
 {
-	return S->GJK(Bod0, Bod1);
+	return GJK_Alg::GJK(Bod0, Bod1);
 }
 
 bool BaseCols::ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1,
 	std::vector<glm::vec3> Seg0, std::vector<glm::vec3> Seg1)
 {
-	return S->GJK(Bod0, Bod1, Seg0, Seg1);
+	return GJK_Alg::GJK(Bod0, Bod1, Seg0, Seg1);
 }
 
 BaseCols::BaseCols(std::string Name, std::shared_ptr<CollisionManager> InitCols)
 {
 	this->Name = Name;
 	this->ColMan = InitCols;
-	this->S = std::make_unique<GJK_Alg>();
 	this->ColRel;
 	this->ContCrt = std::make_unique<ContactCreation>();
 }

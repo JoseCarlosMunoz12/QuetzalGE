@@ -382,7 +382,7 @@ glm::vec3 GJK_Alg::C_F_E( S_P<Bodies> Shape0, S_P<Bodies> Shape1)
 	Simplex_Maker(Shape0, Shape1, Verts, NewDir);
 	Verts.push_back(EPA_Support(Shape0, Shape1,NewDir));
 	glm::vec3 Zed = glm::vec3(0.f);
-	NewDir = this->ClosestPoint(Verts);
+	NewDir = ClosestPoint(Verts);
 	float Cl_Dis = glm::distance(Zed, NewDir);
 	glm::vec3 A = EPA_Support(Shape0, Shape1, -NewDir);
 	for(int ii = 0; ii < 20; ii++)
@@ -390,10 +390,10 @@ glm::vec3 GJK_Alg::C_F_E( S_P<Bodies> Shape0, S_P<Bodies> Shape1)
 		if (std::find(Verts.begin(), Verts.end(), A) != Verts.end())
 			break;
 		if (Verts.size() == 3)
-			Verts = this->NewSimplex(Verts, A);
+			Verts = NewSimplex(Verts, A);
 		else
 			Verts.push_back(A);
-		NewDir = this->ClosestPoint(Verts);
+		NewDir = ClosestPoint(Verts);
 		float Cur_Dis = glm::distance(Zed, NewDir);
 		if (Cur_Dis < Cl_Dis)
 			Cl_Dis = Cur_Dis;
@@ -401,7 +401,7 @@ glm::vec3 GJK_Alg::C_F_E( S_P<Bodies> Shape0, S_P<Bodies> Shape1)
 			break;
 		A = EPA_Support(Shape0, Shape1, -NewDir);
 	}
-	return this->ClosestPoint(Verts);
+	return ClosestPoint(Verts);
 }
 
 bool GJK_Alg::Simplex_Maker(S_P<Bodies> Shape0, S_P<Bodies> Shape1,
@@ -608,7 +608,7 @@ std::vector<int> GJK_Alg::C_F_S(std::vector<glm::vec3>& Verts)
 	}
 }
 
-bool GJK_Alg::GJK(std::shared_ptr<Bodies> Shape0, std::shared_ptr<Bodies> Shape1)
+bool GJK_Alg::GJK(S_P<Bodies> Shape0, S_P<Bodies> Shape1)
 {
 	std::vector<glm::vec3> Verts;
 	glm::vec3 Dir;
@@ -629,7 +629,7 @@ bool GJK_Alg::GJK(std::shared_ptr<Bodies> Shape0, std::shared_ptr<Bodies> Shape1
 	return false;
 }
 
-bool GJK_Alg::GJK(std::shared_ptr<Bodies> Shape0, std::shared_ptr<Bodies> Shape1,
+bool GJK_Alg::GJK(S_P<Bodies> Shape0, S_P<Bodies> Shape1,
 	std::vector<glm::vec3> Seg0, std::vector<glm::vec3> Seg1)
 {
 	std::vector<glm::vec3> Verts;
