@@ -6,8 +6,6 @@ namespace CoatlPhysicsEngine {
 	class COATL_API BodyParts
 	{
 	private:
-		std::shared_ptr<ColShapes> BodPart;
-		std::shared_ptr<Bod_Base> BodParticle;
 	public:
 		BodyParts();
 		BodyParts(std::shared_ptr<ColShapes> InitBodPart);

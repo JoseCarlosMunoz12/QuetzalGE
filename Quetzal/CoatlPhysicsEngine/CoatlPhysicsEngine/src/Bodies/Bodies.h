@@ -12,7 +12,8 @@ namespace CoatlPhysicsEngine {
 		std::vector<glm::vec3> Units = { glm::vec3(0.f, 0.f, 1.f),glm::vec3(0.f, 1.f, 0.f),glm::vec3(1.f, 0.f, 0.f),
 										glm::vec3(0.f, 0.f,-1.f),glm::vec3(0.f,-1.f, 0.f),glm::vec3(-1.f, 0.f, 0.f) };
 		int ID;
-		S_P<BodyParts> BodyInf;
+		std::shared_ptr<ColShapes> BodPart;
+		std::shared_ptr<Bod_Base> BodParticle;
 		std::vector<int> BoolId;
 		glm::vec3 Max;
 		glm::vec3 Min;
@@ -25,7 +26,6 @@ namespace CoatlPhysicsEngine {
 		int GetID();
 		//For base Parents
 		void SetPosition(glm::vec3 NewPos);
-		void UpdateAABB();
 		void MovePosition(glm::vec3 Add);
 		void SetParticle(int ShapeID);
 		void SetRigidBody(int ShapeID);
@@ -38,8 +38,10 @@ namespace CoatlPhysicsEngine {
 		glm::vec3 GetPos();
 		glm::quat GetQuat();
 		S_P<ColShapes> GetShapes();
-		S_P<BodyParts> GetBodyParts();
 		S_P<Bod_Base> GetParticle();
+		//Update Function
+		void UpdateAABB();
+		void UpdatePos(float dt);
 		//get AABB Hierarchy
 		glm::vec3 GetMax() { return this->Max; };
 		glm::vec3 GetMin() { return this->Min; };

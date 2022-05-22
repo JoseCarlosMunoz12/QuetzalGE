@@ -7,5 +7,5 @@ int main()
 {
 	CollisionWorldSetup l;
 	CollisionWorld ls(l);
-	ls.CreateDynamicCol("");
+	ls.CreateDynamicCol("Test Name");
 }

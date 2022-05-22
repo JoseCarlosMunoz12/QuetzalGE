@@ -4,6 +4,7 @@ using namespace CoatlPhysicsEngine;
 Bodies::Bodies(int InitID)
 	:Max(glm::vec3(0.f)), Min(glm::vec3(0.f)), Mid(glm::vec3(0.f))
 {
+	this->BodParticle = std::make_shared<RigidBodies>(glm::vec3(0.f));
 	this->ID = InitID;
 }
 
@@ -11,7 +12,8 @@ Bodies::Bodies(S_P<ColShapes> InitShapes, int InitID)
 	:Max(glm::vec3(0.f)), Min(glm::vec3(0.f)), Mid(glm::vec3(0.f))
 {
 	this->ID = InitID;
-	this->BodyInf = std::make_shared<BodyParts>(InitShapes);
+	this->BodParticle = std::make_shared<RigidBodies>(glm::vec3(0.f));
+	this->BodPart = std::make_shared<BodyParts>(InitShapes);
 }
 
 Bodies::~Bodies()
@@ -20,7 +22,7 @@ Bodies::~Bodies()
 
 void Bodies::AddShapes(S_P<ColShapes> NewShape)
 {
-	this->BodyInf = std::make_shared<BodyParts>(NewShape);
+	this->BodPart = std::make_shared<BodyParts>(NewShape);
 }
 
 int Bodies::GetID()
@@ -30,42 +32,46 @@ int Bodies::GetID()
 
 void Bodies::SetPosition(glm::vec3 NewPos)
 {
-	this->BodyInf->SetPos(NewPos);
+	this->BodParticle->SetPos(NewPos);
 }
 
 void Bodies::UpdateAABB()
 {
-	Max = this->BodyInf->Support(Units[0]);
-	Min = this->BodyInf->Support(Units[3]);
+	Max = this->Support(Units[0]);
+	Min = this->Support(Units[3]);
 	for (auto& jj : Units)
 	{
-		glm::vec3 T = this->BodyInf->Support(jj);
+		glm::vec3 T = this->Support(jj);
 		Max = MATH::SetMax(Max, T);
 		Min = MATH::SetMin(Min, T);
 	}
 	this->Mid = (Max + Min) / 2.f;
 }
 
+void Bodies::UpdatePos(float dt)
+{
+	this->BodParticle->UpdatePos(dt);
+}
+
 void Bodies::MovePosition(glm::vec3 Add)
 {
-	glm::vec3 OldPos = this->BodyInf->GetPos();
+	glm::vec3 OldPos = this->BodParticle->GetPos();
 	OldPos += Add;
 	this->SetPosition(OldPos);
 }
 
 void Bodies::SetParticle(int ShapeID)
 {
-	this->BodyInf->AddParticle(std::make_shared<Particle>(this->GetPos()));
+	this->BodPart = std::make_shared<Particle>(this->GetPos());
 }
 
 void Bodies::SetRigidBody(int ShapeID)
 {
-	this->BodyInf->AddParticle(std::make_shared<RigidBodies>(this->GetPos()));
 }
 
 void Bodies::SetQuat(glm::quat NewQuat)
 {
-	this->BodyInf->SetQuat(NewQuat);
+	this->BodParticle->SetQuat(NewQuat);
 }
 
 bool Bodies::HasId(S_P<Bodies> OtherBod)
@@ -92,38 +98,35 @@ void Bodies::RemoveID(int RevId)
 
 glm::vec3 Bodies::GetPos()
 {
-	return this->BodyInf->GetPos();	
+	return this->BodParticle->GetPos();	
 }
 
 glm::quat Bodies::GetQuat()
 {
-	return this->BodyInf->GetQuatAngle();
+	return this->BodParticle->GetQuat();
 }
 
 S_P<ColShapes> Bodies::GetShapes()
 {
-	return this->BodyInf->GetShape();
-}
-
-S_P<BodyParts> Bodies::GetBodyParts()
-{
-	return this->BodyInf;
+	return this->BodPart;
 }
 
 
 S_P<Bod_Base> Bodies::GetParticle()
 {
-	return this->BodyInf->GetParticle();
+	return this->BodParticle;
 }
 
 glm::vec3 Bodies::Support(glm::vec3 Dir)
 {
-	if(!this->BodyInf->GetShape())
-		return glm::vec3();
-
+	if (!this->BodPart)
+		return glm::vec3(0.f);
+	return this->BodPart->Support(Dir, this->GetPos(), this->GetQuat());
 }
 
 glm::vec3 Bodies::EPA_Support(glm::vec3 Dir)
 {
-	return glm::vec3();
+	if (!this->BodPart)
+		return glm::vec3(0.f);
+	return this->BodPart->EPA_Support(Dir, this->GetPos(), this->GetQuat());
 }
