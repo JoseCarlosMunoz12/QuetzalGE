@@ -13,7 +13,7 @@ Bodies::Bodies(S_P<ColShapes> InitShapes, int InitID)
 {
 	this->ID = InitID;
 	this->BodParticle = std::make_shared<RigidBodies>(glm::vec3(0.f));
-	this->BodPart = std::make_shared<BodyParts>(InitShapes);
+	this->BodPart = InitShapes;
 }
 
 Bodies::~Bodies()
@@ -22,7 +22,7 @@ Bodies::~Bodies()
 
 void Bodies::AddShapes(S_P<ColShapes> NewShape)
 {
-	this->BodPart = std::make_shared<BodyParts>(NewShape);
+	this->BodPart = NewShape;
 }
 
 int Bodies::GetID()

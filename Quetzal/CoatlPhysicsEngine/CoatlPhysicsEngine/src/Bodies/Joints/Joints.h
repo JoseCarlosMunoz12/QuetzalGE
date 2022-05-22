@@ -1,18 +1,18 @@
 #pragma once
-#include "../BodyParts.h"
+#include "../Bodies.h"
 namespace CoatlPhysicsEngine
 {
 	class COATL_API ColJoints
 	{
 	protected:
-		std::weak_ptr<BodyParts> BodA;
-		std::weak_ptr<BodyParts> BodB;
+		std::weak_ptr<Bodies> BodA;
+		std::weak_ptr<Bodies> BodB;
 		float Max;
 		float Error;
 	public:
 		ColJoints(float SetError):Max(1.f),Error(SetError) {};
 		~ColJoints() {};
-		virtual void SetBodies(std::weak_ptr<BodyParts> NewBodA, std::weak_ptr<BodyParts> NewBodB) { return; };
+		virtual void SetBodies(std::weak_ptr<Bodies> NewBodA, std::weak_ptr<Bodies> NewBodB) { return; };
 		//Sets parameters
 		virtual void SetMin(float NewMin) { return; };
 		virtual void SetMax(float NewMax) { return; };

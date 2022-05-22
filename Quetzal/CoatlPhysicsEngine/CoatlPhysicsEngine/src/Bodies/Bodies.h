@@ -3,7 +3,6 @@
 #include "../Shapes/ColShapes.h"
 #include "../Physics/Particle.h"
 #include "../Physics/RigidBodies.h"
-#include "BodyParts.h"
 #include "Joints/Joints.h"
 namespace CoatlPhysicsEngine {
 	class COATL_API Bodies
