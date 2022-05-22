@@ -63,7 +63,7 @@ void DynamicCollisions::CullManifolds(std::vector<std::shared_ptr<Contact>>& Cnt
 }
 
 DynamicCollisions::DynamicCollisions(std::string Name, std::shared_ptr<CollisionManager>InitCols)
-	:BaseCols(Name,InitCols),
+	:BaseCols(Name),
 	Ext(100.f), AlgoType(Alg_Type::O_T), B_Ex(4.f)
 {
 	this->Col_Rel = std::make_unique<Col_Resolution>(40,40);

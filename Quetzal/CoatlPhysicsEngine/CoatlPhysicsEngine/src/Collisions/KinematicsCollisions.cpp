@@ -1,8 +1,8 @@
 #include "KinematicsCollisions.h"
 using namespace CoatlPhysicsEngine;
 
-KinematicsCollisions::KinematicsCollisions(std::string Name, std::shared_ptr<CollisionManager>InitCols)
-	:BaseCols(Name,InitCols), Ext(100.f), AlgoType(Alg_Type::O_T), B_Ex(4.f)
+KinematicsCollisions::KinematicsCollisions(std::string Name)
+	:BaseCols(Name), Ext(100.f), AlgoType(Alg_Type::O_T), B_Ex(4.f)
 {
 
 }
@@ -21,8 +21,10 @@ std::vector<std::shared_ptr<Bodies>> KinematicsCollisions::GetBods(std::shared_p
 		break;
 	case Alg_Type::Q_T:
 		this->AlgoCheck = std::make_unique<QuadTree>(glm::vec3(0.f), Ext);
+		break;
 	case Alg_Type::O_T:
 		this->AlgoCheck = std::make_unique<OctoTree>(glm::vec3(0.f), Ext);
+		break;
 	default:
 		break;
 	}
@@ -38,11 +40,7 @@ std::vector<std::shared_ptr<Bodies>> KinematicsCollisions::GetBods(std::shared_p
 void KinematicsCollisions::UpdateBodies(float dt)
 {
 	for (auto& ii : this->AllBods)
-	{
-		std::shared_ptr<Bod_Base> Temp = ii->GetBodyParts()->GetParticle();
-		if (Temp)
-			Temp->UpdatePos(dt);
-	}
+		ii->UpdatePos(dt);
 }
 
 void KinematicsCollisions::AddNewBody(std::shared_ptr<ColShapes> NewShape)

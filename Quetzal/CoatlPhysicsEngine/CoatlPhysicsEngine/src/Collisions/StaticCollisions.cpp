@@ -1,8 +1,8 @@
 #include "StaticCollisions.h"
 using namespace CoatlPhysicsEngine;
 
-StaticCollisions::StaticCollisions(std::string Name, std::shared_ptr<CollisionManager>InitCols)
-	:BaseCols(Name, InitCols), Ext(100.f), AlgoType(Alg_Type::O_T), B_Ex(4.f)
+StaticCollisions::StaticCollisions(std::string Name)
+	:BaseCols(Name), Ext(100.f), AlgoType(Alg_Type::O_T), B_Ex(4.f)
 {
 }
 

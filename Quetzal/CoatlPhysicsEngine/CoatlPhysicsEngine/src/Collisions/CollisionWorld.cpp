@@ -37,7 +37,7 @@ void CollisionWorld::CreateStaticCol(std::string Name)
 {
 	if (!Statics)
 	{
-		this->Statics = std::make_shared<StaticCollisions>(Name, this->ColMan);
+		this->Statics = std::make_shared<StaticCollisions>(Name);
 		this->Statics->SetTerrain(this->Ter);
 	}
 }
@@ -46,7 +46,7 @@ void CollisionWorld::CreateDynamicCol(std::string Name)
 {
 	if (!Dynamics)
 	{
-		this->Dynamics = std::make_shared<DynamicCollisions>(Name, this->ColMan);
+		this->Dynamics = std::make_shared<DynamicCollisions>(Name);
 		this->Dynamics->SetTerrain(this->Ter);
 	}
 }
@@ -55,7 +55,7 @@ void CollisionWorld::CreateKinCol(std::string Name)
 {
 	if (!this->Kin)
 	{
-		this->Dynamics = std::make_shared<DynamicCollisions>(Name, this->ColMan);
+		this->Kin = std::make_shared<KinematicsCollisions>(Name);
 	}
 }
 

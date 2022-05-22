@@ -38,10 +38,9 @@ bool BaseCols::ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod
 	return GJK_Alg::GJK(Bod0, Bod1, Seg0, Seg1);
 }
 
-BaseCols::BaseCols(std::string Name, std::shared_ptr<CollisionManager> InitCols)
+BaseCols::BaseCols(std::string Name)
 {
 	this->Name = Name;
-	this->ColMan = InitCols;
 	this->ColRel;
 	this->ContCrt = std::make_unique<ContactCreation>();
 }

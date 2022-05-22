@@ -13,7 +13,7 @@ namespace CoatlPhysicsEngine {
 		Alg_Type AlgoType;
 		int NewCurId = 0;
 	public:
-		KinematicsCollisions(std::string Name, std::shared_ptr<CollisionManager>InitCols);
+		KinematicsCollisions(std::string Name);
 		~KinematicsCollisions();
 		std::vector<std::shared_ptr<Bodies>> GetBods(std::shared_ptr<Bodies> Bod);
 		void UpdateBodies(float dt);

@@ -13,7 +13,7 @@ namespace CoatlPhysicsEngine
 		float B_Ex;
 		Alg_Type AlgoType;
 	public:
-		StaticCollisions(std::string Name,std::shared_ptr<CollisionManager>InitCols);
+		StaticCollisions(std::string Name);
 		~StaticCollisions();
 		void UpdateCollisionCheck();
 		//Use this Function to check collision from Dynamic Objects

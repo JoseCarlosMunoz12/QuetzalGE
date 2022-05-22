@@ -42,7 +42,6 @@ namespace CoatlPhysicsEngine {
 		std::vector<std::shared_ptr<Bodies>> AllBods;
 		std::vector<std::shared_ptr<Collection>> AllCollections;
 		//Algoirthm to check collision
-		std::shared_ptr<CollisionManager> ColMan;
 		std::unique_ptr<Queries> AlgoCheck;
 		std::weak_ptr<Terrain> Ter;
 		std::unique_ptr<ContactCreation> ContCrt;
@@ -53,7 +52,7 @@ namespace CoatlPhysicsEngine {
 		bool ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1);
 		bool ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1, std::vector<glm::vec3> Seg0, std::vector<glm::vec3> S);
 	public:
-		BaseCols(std::string Name, std::shared_ptr<CollisionManager> InitCols);
+		BaseCols(std::string Name);
 		~BaseCols();
 		std::vector<std::shared_ptr<Contact>> GetColRel();
 		void SetTerrain(std::shared_ptr<Terrain> NewTer);
