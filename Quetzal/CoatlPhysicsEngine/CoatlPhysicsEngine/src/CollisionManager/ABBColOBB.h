@@ -5,7 +5,7 @@ namespace CoatlPhysicsEngine {
 	class ABBColOBB
 	{
 	protected:
-		bool ABBColsOBB(AABB_Obj ABB, OBB Obj);
+		static bool ABBColsOBB(AABB_Obj ABB, OBB Obj);
 	public:
 		ABBColOBB();
 		~ABBColOBB();

@@ -5,7 +5,7 @@ namespace CoatlPhysicsEngine {
 	class TriangleColCapsule
 	{
 	protected:
-		bool TrColCap(Triangles Tr, Capsule Cap);
+		static bool TrColCap(Triangles Tr, Capsule Cap);
 	public:
 		TriangleColCapsule();
 		~TriangleColCapsule();

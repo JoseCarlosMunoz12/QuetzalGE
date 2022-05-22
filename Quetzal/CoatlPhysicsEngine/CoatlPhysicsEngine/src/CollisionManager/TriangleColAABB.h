@@ -7,9 +7,9 @@ namespace CoatlPhysicsEngine {
 	class TriangleColAABB
 	{
 	private:
-		bool PlaneABB(Plane Pl, AABB_Obj Obj);
+		static bool PlaneABB(Plane Pl, AABB_Obj Obj);
 	protected:
-		bool TrColAABB(Triangles Tr, AABB_Obj AABB);
+		static bool TrColAABB(Triangles Tr, AABB_Obj AABB);
 	public:
 		TriangleColAABB();
 		~TriangleColAABB();

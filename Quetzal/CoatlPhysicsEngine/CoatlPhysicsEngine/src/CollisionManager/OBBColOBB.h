@@ -4,7 +4,7 @@ namespace CoatlPhysicsEngine {
 	class OBBColOBB
 	{
 	protected:
-		bool OBBCol(OBB Ob0, OBB Ob1);
+		static bool OBBCol(OBB Ob0, OBB Ob1);
 	public:
 		OBBColOBB();
 		~OBBColOBB();

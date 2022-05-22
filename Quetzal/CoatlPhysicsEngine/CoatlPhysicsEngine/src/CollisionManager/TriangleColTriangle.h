@@ -8,6 +8,6 @@ namespace CoatlPhysicsEngine {
 	public:
 		TriangleColTriangle();
 		~TriangleColTriangle();
-		bool TrColTr(Triangles Tr0, Triangles Tr1);
+		static bool TrColTr(Triangles Tr0, Triangles Tr1);
 	};
 }

@@ -6,7 +6,7 @@ namespace CoatlPhysicsEngine {
 	class TriangleColOBB
 	{
 	protected:
-		bool TriColOBB(Triangles Tr, OBB Obj);
+		static bool TriColOBB(Triangles Tr, OBB Obj);
 	public:
 		TriangleColOBB();
 		~TriangleColOBB();

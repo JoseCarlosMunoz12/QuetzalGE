@@ -45,7 +45,6 @@ namespace CoatlPhysicsEngine {
 		std::shared_ptr<CollisionManager> ColMan;
 		std::unique_ptr<Queries> AlgoCheck;
 		std::weak_ptr<Terrain> Ter;
-		std::unique_ptr<GJK_Alg> S;
 		std::unique_ptr<ContactCreation> ContCrt;
 		int NewCurID;
 		//collision manifolds

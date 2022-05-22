@@ -5,7 +5,7 @@ namespace CoatlPhysicsEngine {
 	class CapsuleColOBB
 	{
 	protected:
-		bool CapColOBB(Capsule Cap, OBB Obj);
+		static bool CapColOBB(Capsule Cap, OBB Obj);
 	public:
 		CapsuleColOBB();
 		~CapsuleColOBB();

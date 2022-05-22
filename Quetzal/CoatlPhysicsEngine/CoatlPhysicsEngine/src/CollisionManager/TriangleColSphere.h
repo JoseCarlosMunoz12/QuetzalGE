@@ -5,7 +5,7 @@ namespace CoatlPhysicsEngine {
 	class TriangleColSphere
 	{
 	protected:
-		bool TrColSphere(Triangles Tr, Sphere Sph);
+		static bool TrColSphere(Triangles Tr, Sphere Sph);
 	public:
 		TriangleColSphere();
 		~TriangleColSphere();

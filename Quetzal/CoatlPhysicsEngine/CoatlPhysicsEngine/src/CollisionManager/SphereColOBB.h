@@ -5,7 +5,7 @@ namespace CoatlPhysicsEngine {
 	class SphereColOBB
 	{
 	protected:
-		bool SphColOBB(Sphere Sph, OBB Obj);
+		static bool SphColOBB(Sphere Sph, OBB Obj);
 	public:
 		SphereColOBB();
 		~SphereColOBB();

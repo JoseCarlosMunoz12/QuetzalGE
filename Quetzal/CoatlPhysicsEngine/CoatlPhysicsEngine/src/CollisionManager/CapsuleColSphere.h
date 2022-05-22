@@ -6,7 +6,7 @@ namespace CoatlPhysicsEngine{
 class CapsuleColSphere
 {
 protected:
-	bool Collision(Capsule Cap0,Sphere Sph0);
+	static bool Collision(Capsule Cap0,Sphere Sph0);
 public:
 	CapsuleColSphere();
 };

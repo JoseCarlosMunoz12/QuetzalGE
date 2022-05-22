@@ -7,6 +7,6 @@ namespace CoatlPhysicsEngine {
 	public:
 		SphereColAABB();
 		~SphereColAABB();
-		bool  SphereColsAABB(Sphere Sph0,AABB_Obj Obj0);			
+		static bool SphereColsAABB(Sphere Sph0,AABB_Obj Obj0);			
 	};
 }
