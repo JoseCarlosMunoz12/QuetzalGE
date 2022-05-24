@@ -15,10 +15,10 @@ namespace CoatlPhysicsEngine {
 	{
 	private:
 		glm::vec3 Gravity;
-		std::shared_ptr<StaticCollisions> Statics;
-		std::shared_ptr<KinematicsCollisions> Kin;
-		std::shared_ptr<DynamicCollisions> Dynamics;
-		std::shared_ptr<CollisionManager> ColMan;
+		S_P<StaticCollisions> Statics;
+		S_P<KinematicsCollisions> Kin;
+		S_P<DynamicCollisions> Dynamics;
+		S_P<CollisionManager> ColMan;
 		std::string WorldName;
 		std::shared_ptr<Terrain> Ter;
 		bool CheckStatics = false;
@@ -32,14 +32,14 @@ namespace CoatlPhysicsEngine {
 		void CreateStaticCol(std::string Name);
 		void CreateDynamicCol(std::string Name);
 		void CreateKinCol(std::string Name);
-		std::shared_ptr<StaticCollisions> GetCollision();
-		std::shared_ptr<DynamicCollisions> GetDynCol();
-		std::shared_ptr<KinematicsCollisions> GetKinCol();
+		S_P<StaticCollisions> GetCollision();
+		S_P<DynamicCollisions> GetDynCol();
+		S_P<KinematicsCollisions> GetKinCol();
 		void DeleteStatics();
 		void DeleteDynamics();
 		void DeleteKinematics();
 		void UpdateWorld(float dt);
-		void SetTerrain(std::vector<glm::vec3>Ver, std::vector<int>Ind, float Dim);
+		void SetTerrain(Vec<glm::vec3>Ver, Vec<int>Ind, float Dim);
 		void ToggleStaticCheck();
 		bool StaticCheckStatus();
 	};

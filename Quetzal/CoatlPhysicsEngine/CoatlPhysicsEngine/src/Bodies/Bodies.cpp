@@ -74,26 +74,8 @@ void Bodies::SetQuat(glm::quat NewQuat)
 	this->BodParticle->SetQuat(NewQuat);
 }
 
-bool Bodies::HasId(S_P<Bodies> OtherBod)
-{
-	return std::find(BoolId.begin(), BoolId.end(), OtherBod->GetID()) != BoolId.end();
-}
-
 bool Bodies::HasCollided()
 {
-	return this->BoolId.size();
-}
-
-void Bodies::AddId(int NewId)
-{
-	this->BoolId.push_back(NewId);
-}
-
-void Bodies::RemoveID(int RevId)
-{
-	std::vector<int>::iterator it = std::find(this->BoolId.begin(), this->BoolId.end(), RevId);
-	if (it != this->BoolId.end())
-		this->BoolId.erase(it);
 }
 
 glm::vec3 Bodies::GetPos()

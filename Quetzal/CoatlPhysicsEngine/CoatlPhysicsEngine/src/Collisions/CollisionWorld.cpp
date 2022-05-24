@@ -59,7 +59,7 @@ void CollisionWorld::CreateKinCol(std::string Name)
 	}
 }
 
-std::shared_ptr<StaticCollisions> CollisionWorld::GetCollision()
+S_P<StaticCollisions> CollisionWorld::GetCollision()
 {
 	if (this->Statics)
 	{
@@ -68,14 +68,14 @@ std::shared_ptr<StaticCollisions> CollisionWorld::GetCollision()
 	return NULL;
 }
 
-std::shared_ptr<DynamicCollisions> CollisionWorld::GetDynCol()
+S_P<DynamicCollisions> CollisionWorld::GetDynCol()
 {
 	if (this->Dynamics)
 		return this->Dynamics;
 	return NULL;
 }
 
-std::shared_ptr<KinematicsCollisions> CollisionWorld::GetKinCol()
+S_P<KinematicsCollisions> CollisionWorld::GetKinCol()
 {
 	if (this->Kin)
 		return this->Kin;
@@ -110,7 +110,7 @@ void CollisionWorld::UpdateWorld(float dt)
 		this->Dynamics->CheckCollision(this->Statics,this->Kin,dt);
 }
 
-void CollisionWorld::SetTerrain(std::vector<glm::vec3> Ver, std::vector<int> Ind, float Dim)
+void CollisionWorld::SetTerrain(Vec<glm::vec3> Ver, Vec<int> Ind, float Dim)
 {
 	this->Ter = std::make_shared<Terrain>(Ver, Ind, Dim);
 	if (this->Statics)

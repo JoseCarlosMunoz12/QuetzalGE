@@ -26,3 +26,5 @@ template <typename T>
 using Vec_SH = std::vector<S_P<T>>;
 template <typename T>
 using Vec_UP = std::vector<U_P<T>>;
+template<typename T>
+using Vec = std::vector<T>;
