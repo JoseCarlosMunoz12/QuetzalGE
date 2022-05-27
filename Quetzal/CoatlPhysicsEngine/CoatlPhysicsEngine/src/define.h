@@ -22,9 +22,13 @@ template <typename T>
 using U_P = std::unique_ptr<T>;
 template <typename T>
 using S_P = std::shared_ptr<T>;
+template<typename T>
+using W_P = std::weak_ptr<T>;
 template <typename T>
 using Vec_SH = std::vector<S_P<T>>;
 template <typename T>
 using Vec_UP = std::vector<U_P<T>>;
+template <typename T>
+using Vec_WP = std::vector<W_P<T>>;
 template<typename T>
 using Vec = std::vector<T>;

@@ -1,7 +1,7 @@
 #include "DynamicCollisions.h"
 using namespace CoatlPhysicsEngine;
 
-bool DynamicCollisions::BinColDetection(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1,
+bool DynamicCollisions::BinColDetection(S_P<Bodies> Bod0, S_P<Bodies> Bod1,
 	glm::vec3 Vel0, glm::vec3 Vel1,
 	float t0, float t1, float& NewDt)
 {
@@ -22,7 +22,7 @@ bool DynamicCollisions::BinColDetection(std::shared_ptr<Bodies> Bod0, std::share
 	return BinColDetection(Bod0, Bod1, Vel0, Vel1, Mid, t1, NewDt);
 }
 
-bool DynamicCollisions::ContainsManifold(std::vector<std::shared_ptr<Contact>> ColRel, std::shared_ptr<Contact> NewMan)
+bool DynamicCollisions::ContainsManifold(Vec_SH<Contact> ColRel, S_P<Contact> NewMan)
 {
 	for (auto& jj : ColRel)
 	{
@@ -38,7 +38,7 @@ bool DynamicCollisions::ContainsManifold(std::vector<std::shared_ptr<Contact>> C
 	return false;
 }
 
-void DynamicCollisions::CullManifolds(std::vector<std::shared_ptr<Contact>>& Cnt )
+void DynamicCollisions::CullManifolds(Vec_SH<Contact>& Cnt )
 {
 	//Verifies that there is no repeats of later collisions.
 	//Ignores the terrain coordinates
@@ -62,7 +62,7 @@ void DynamicCollisions::CullManifolds(std::vector<std::shared_ptr<Contact>>& Cnt
 		}
 }
 
-DynamicCollisions::DynamicCollisions(std::string Name, std::shared_ptr<CollisionManager>InitCols)
+DynamicCollisions::DynamicCollisions(std::string Name, S_P<CollisionManager>InitCols)
 	:BaseCols(Name),
 	Ext(100.f), AlgoType(Alg_Type::O_T), B_Ex(4.f)
 {
@@ -76,7 +76,7 @@ DynamicCollisions::~DynamicCollisions()
 
 }
 
-void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics, std::shared_ptr<KinematicsCollisions> Kin, float dt)
+void DynamicCollisions::CheckCollision(S_P<StaticCollisions> Statics, S_P<KinematicsCollisions> Kin, float dt)
 {
 	this->ColRel.clear();
 	//make approriate Algorithm
@@ -116,7 +116,7 @@ void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics
 	//Find all Collisions and Calculate its Force Generators
 	for (auto& jj : AllBods)
 	{
-		std::shared_ptr<Bod_Base> Temp = jj->GetParticle();
+		S_P<Bod_Base> Temp = jj->GetParticle();
 		if (Temp)
 		{
 			//resetForces on the Object///////////////////////////////////////////////////////////
@@ -130,13 +130,13 @@ void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics
 			//Check Collision with The Terrain////////////////////////////////////////////////////
 			if (!this->Ter.expired())
 			{
-				std::vector<std::shared_ptr<Bodies>> Quers = Ter.lock()->GetTerrs(jj->GetPos(), 1);
+				Vec_SH<Bodies> Quers = Ter.lock()->GetTerrs(jj->GetPos(), 1);
 				for (auto& ii : Quers)
 				{
 					if (this->BinColDetection(jj, ii,Bod_Vel,glm::vec3(0.f),0.f, dt, F_dt))
 					{
 						jj->MovePosition(F_dt * Bod_Vel);
-						std::vector <std::shared_ptr<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
+						std::vector <S_P<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
 						if(T.size() != 0)
 							if (!this->ContainsManifold(ColRel, T[0]))
 								for(auto& pp : T)
@@ -150,12 +150,12 @@ void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics
 			//Check Collision with Static Bodies//////////////////////////////////////////////////
 			if (Statics)
 			{
-				std::vector<std::shared_ptr<Bodies>> Que = Statics->GetBods(jj);
+				Vec_SH<Bodies> Que = Statics->GetBods(jj);
 				for (auto& ii : Que)
 				{
 					if (this->BinColDetection(jj, ii, Bod_Vel,glm::vec3(0.f), 0.f, dt, F_dt))
 					{
-						std::vector <std::shared_ptr<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
+						std::vector <S_P<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
 						if (T.size() != 0)
 							if (!this->ContainsManifold(ColRel, T[0]))
 								for(auto& pp : T)
@@ -168,7 +168,7 @@ void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics
 			//Check Collision with Kinematic Bodies///////////////////////////////////////////////
 			if (Kin)
 			{
-				std::vector<std::shared_ptr<Bodies>> Que = Kin->GetBods(jj);
+				Vec_SH<Bodies> Que = Kin->GetBods(jj);
 				for (auto& ii : Que)
 				{
 					glm::vec3 KinVel = ii->GetParticle()->GetVel();
@@ -177,7 +177,7 @@ void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics
 					{
 						jj->MovePosition(F_dt * Bod_Vel);
 						ii->MovePosition(F_dt* KinVel);
-						std::vector <std::shared_ptr<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
+						std::vector <S_P<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
 						if (T.size() != 0)
 							if (!this->ContainsManifold(ColRel, T[0]))
 								for (auto& pp : T)
@@ -188,7 +188,7 @@ void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics
 				}
 			}
 			//Check Collision with othe Dynamics//////////////////////////////////////////////////
-			std::vector<std::shared_ptr<Bodies>> Quer = this->AlgoCheck->GetQueries(jj, B_Ex);
+			Vec_SH<Bodies> Quer = this->AlgoCheck->GetQueries(jj, B_Ex);
 			for (auto& ii : Quer)
 			{
 				if (ii->GetParticle())
@@ -222,13 +222,13 @@ void DynamicCollisions::CheckCollision(std::shared_ptr<StaticCollisions> Statics
 	}
 }
 
-void DynamicCollisions::AddNewBody(std::shared_ptr<ColShapes> NewShape)
+void DynamicCollisions::AddNewBody(S_P<ColShapes> NewShape)
 {
 	this->AllBods.push_back(std::make_shared<Bodies>(NewShape, this->NewCurId));
 	this->NewCurId++;
 }
 
-void DynamicCollisions::AddNewBody(std::vector<std::shared_ptr<ColShapes>> NewShapes)
+void DynamicCollisions::AddNewBody(Vec_SH<ColShapes> NewShapes)
 {
 	for (auto& jj : NewShapes)
 		AddNewBody(jj);
@@ -239,7 +239,7 @@ std::string DynamicCollisions::GetName()
 	return this->Name;
 }
 
-std::vector<std::weak_ptr<Bodies>> DynamicCollisions::GetAllBodies()
+Vec_WP<Bodies> DynamicCollisions::GetAllBodies()
 {
 	std::vector<std::weak_ptr<Bodies>> Temp;
 	for (auto& jj : this->AllBods)
@@ -249,9 +249,9 @@ std::vector<std::weak_ptr<Bodies>> DynamicCollisions::GetAllBodies()
 	return Temp;
 }
 
-std::shared_ptr<Bodies> DynamicCollisions::GetABody(int ID)
+S_P<Bodies> DynamicCollisions::GetABody(int ID)
 {
-	std::shared_ptr<Bodies> Temp;
+	S_P<Bodies> Temp;
 	for (auto& ii : this->AllBods)
 	{
 		if (ii->GetID() == ID)
@@ -273,7 +273,7 @@ void DynamicCollisions::SetNewType(Alg_Type NewType)
 	this->AlgoType = NewType;
 }
 
-void DynamicCollisions::SetTerrain(std::shared_ptr<Terrain> NewTer)
+void DynamicCollisions::SetTerrain(S_P<Terrain> NewTer)
 {
 	this->Ter = NewTer;
 }

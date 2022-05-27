@@ -5,11 +5,11 @@ bool BaseCols::UpdateBodies(Sphere Sph0, std::shared_ptr<Bodies> Bod0, std::shar
 {	
 	if (std::shared_ptr<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
 	{
-		return this->ColMan->CheckCollide(Sph0, *Sphere0);
+		return CollisionManager::CheckCollide(Sph0, *Sphere0);
 	}
 	else if (std::shared_ptr<Capsule> Cap = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
 	{
-		return this->ColMan->CheckCollide(Sph0, *Cap);
+		return CollisionManager::CheckCollide(Sph0, *Cap);
 	}
 	return GJK_Alg::GJK(Bod1,Bod0);
 }
@@ -18,11 +18,11 @@ bool BaseCols::UpdateBodies(Capsule Cap0, std::shared_ptr<Bodies> Bod0, std::sha
 {
 	if (std::shared_ptr<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
 	{
-		return this->ColMan->CheckCollide(Cap0, *Sphere0);
+		return CollisionManager::CheckCollide(Cap0, *Sphere0);
 	}
 	else if (std::shared_ptr<Capsule> Cap = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
 	{
-		return this->ColMan->CheckCollide(Cap0, *Cap);
+		return CollisionManager::CheckCollide(Cap0, *Cap);
 	}
 	return GJK_Alg::GJK(Bod1,Bod0);
 }

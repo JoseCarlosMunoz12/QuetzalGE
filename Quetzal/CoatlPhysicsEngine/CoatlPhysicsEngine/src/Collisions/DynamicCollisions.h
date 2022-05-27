@@ -10,11 +10,11 @@ namespace CoatlPhysicsEngine {
 	class COATL_API DynamicCollisions : public BaseCols
 	{
 	private:
-		std::unique_ptr<Phy_Base> F_Manager;
-		std::unique_ptr<Phy_Base> Grav_F_Manager;
-		std::unique_ptr<Queries> AlgoCheck;
-		std::unique_ptr<Col_Resolution> Col_Rel;
-		std::weak_ptr<Terrain> Ter;
+		U_P<Phy_Base> F_Manager;
+		U_P<Phy_Base> Grav_F_Manager;
+		U_P<Queries> AlgoCheck;
+		U_P<Col_Resolution> Col_Rel;
+		W_P<Terrain> Ter;
 		glm::vec3 Gravity;
 		int NewCurId = 100;
 		float Ext;
@@ -22,26 +22,26 @@ namespace CoatlPhysicsEngine {
 		Alg_Type AlgoType;
 		const float EPSILON = 0.00015f;
 		bool it = true;
-		bool BinColDetection(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1,
+		bool BinColDetection(S_P<Bodies> Bod0, S_P<Bodies> Bod1,
 			glm::vec3 Vel0, glm::vec3 Vel1,
 			float t0, float t1,
 			float& NewDt);
-		bool ContainsManifold(std::vector<std::shared_ptr<Contact>> ColRel, std::shared_ptr<Contact> NewMan);
-		void CullManifolds(std::vector<std::shared_ptr<Contact>>& Cnt );
+		bool ContainsManifold(Vec_SH<Contact> ColRel, S_P<Contact> NewMan);
+		void CullManifolds(Vec_SH<Contact>& Cnt );
 	public:
-		DynamicCollisions(std::string Name, std::shared_ptr<CollisionManager>InitCols);
+		DynamicCollisions(std::string Name, S_P<CollisionManager>InitCols);
 		~DynamicCollisions();
-		void CheckCollision(std::shared_ptr<StaticCollisions> Statics,std::shared_ptr<KinematicsCollisions> Kin,float dt);
+		void CheckCollision(S_P<StaticCollisions> Statics,S_P<KinematicsCollisions> Kin,float dt);
 		//Body information of Class
-		void AddNewBody(std::shared_ptr<ColShapes> NewShape);
-		void AddNewBody(std::vector<std::shared_ptr<ColShapes>> NewShapes);
+		void AddNewBody(S_P<ColShapes> NewShape);
+		void AddNewBody(Vec_SH<ColShapes> NewShapes);
 		std::string GetName();
-		std::vector<std::weak_ptr<Bodies>> GetAllBodies();
-		std::shared_ptr<Bodies> GetABody(int ID);
+		Vec_WP<Bodies> GetAllBodies();
+		S_P<Bodies> GetABody(int ID);
 		//change and check type of CollisionCheckAlgoritm
 		Alg_Type GetType();
 		void SetNewType(Alg_Type NewType);
-		void SetTerrain(std::shared_ptr<Terrain> NewTer);
+		void SetTerrain(S_P<Terrain> NewTer);
 		int IterTook() { return this->Col_Rel->GetTook(); };
 		int VelIter() { return this->Col_Rel->GetVelTook(); };
 	};
