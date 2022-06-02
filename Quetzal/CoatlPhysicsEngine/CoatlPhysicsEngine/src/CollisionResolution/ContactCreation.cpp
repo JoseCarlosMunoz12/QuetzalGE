@@ -6,14 +6,14 @@ std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(Sphere Sph0
 	std::vector<std::shared_ptr<Contact>> Temp;
 	if (std::shared_ptr<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
 	{
-		Temp = this->S_Res->GetContacts(Sph0, *Sphere0);
+		Temp = ShapeResolution::GetContacts(Sph0, *Sphere0);
 		Temp[0]->Bods[0] = Bod0;
 		Temp[0]->Bods[1] = Bod1;
 		return Temp;
 	}
 	else if (std::shared_ptr<Capsule> Cap0 = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
 	{
-		Temp = this->S_Res->GetContacts(Sph0, *Cap0);
+		Temp = ShapeResolution::GetContacts(Sph0, *Cap0);
 		Temp[0]->Bods[0] = Bod0;
 		Temp[0]->Bods[1] = Bod1;
 		return Temp;
@@ -21,7 +21,7 @@ std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(Sphere Sph0
 	std::shared_ptr<Contact> Cont = std::make_shared<Contact>();
 	glm::vec3 Vec;
 	float Dis;
-	if (!this->GJK_->EPA_GJK(Bod0->GetShapes(), Bod1->GetShapes(), Vec, Dis))
+	if (!GJK_->EPA_GJK(Bod0, Bod1, Vec, Dis))
 	{
 		float R = Sph0.GetRadius();
 		float Pen = glm::abs(R - Dis);
@@ -39,7 +39,7 @@ std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(Sphere Sph0
 	{
 		glm::vec3 Norm;
 		float R = Sph0.GetRadius();
-		float Pen = this->SAT_->GetPenetrationContacts(Bod0->GetShapes(), Bod1->GetShapes(), Norm);
+		float Pen = SAT_->GetPenetrationContacts(Bod0->GetShapes(), Bod1->GetShapes(), Norm);
 		Norm = -Norm;
 		Cont->Bods[0] = Bod0;
 		Cont->Bods[1] = Bod1;
@@ -58,21 +58,21 @@ std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(Capsule Cap
 	std::vector<std::shared_ptr<Contact>> Temp;
 	if (std::shared_ptr<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
 	{
-		Temp = this->S_Res->GetContacts(Cap, *Sphere0);
+		Temp = ShapeResolution::GetContacts(Cap, *Sphere0);
 		Temp[0]->Bods[0] = Bod1;
 		Temp[0]->Bods[1] = Bod0;
 		return Temp;
 	}
 	else if (std::shared_ptr<Capsule> Cap0 = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
 	{
-		Temp = this->S_Res->GetContacts(Cap, *Cap0);
+		Temp = ShapeResolution::GetContacts(Cap, *Cap0);
 		Temp[0]->Bods[0] = Bod0;
 		Temp[0]->Bods[1] = Bod1;
 		return Temp;
 	}
 	glm::vec3 vec;
 	float Pen;
-	if (!this->GJK_->EPA_GJK(Bod0->GetShapes(), Bod1->GetShapes(), vec, Pen))
+	if (!GJK_->EPA_GJK(Bod0, Bod1, vec, Pen))
 	{
 		float R = Cap.GetRadius();
 		Pen = glm::distance(glm::vec3(0.f), vec);
@@ -114,7 +114,7 @@ std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(Capsule Cap
 		std::shared_ptr<Contact> Cont = std::make_shared<Contact>();
 		glm::vec3 Norm;
 		float R = Cap.GetRadius();
-		float Pen = this->SAT_->GetPenetrationContacts(Bod0->GetShapes(), Bod1->GetShapes(), Norm) + R;
+		float Pen = SAT_->GetPenetrationContacts(Bod0->GetShapes(), Bod1->GetShapes(), Norm) + R;
 		Cont->Bods[0] = Bod0;
 		Cont->Bods[1] = Bod1;
 		Cont->Penetration = Pen;
@@ -129,20 +129,20 @@ std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(std::shared
 {
 	if (std::shared_ptr<Sphere> Sph = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
 	{
-		return this->ContactCreate(*Sph, Bod1, Bod0);
+		return ContactCreate(*Sph, Bod1, Bod0);
 	}
 	else if (std::shared_ptr<Capsule> Cap = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
 	{
-		return this->ContactCreate(*Cap, Bod1, Bod0);
+		return ContactCreate(*Cap, Bod1, Bod0);
 	}
 	float Pen = 0.f;
 	glm::vec3 Norm = glm::vec3(0.f);
 	//Uses GJK to get penetration and Direction
-	this->GJK_->EPA_GJK(Bod0->GetShapes(), Bod1->GetShapes(), Norm, Pen);
+	GJK_->EPA_GJK(Bod0, Bod1, Norm, Pen);
 	if (Norm == glm::vec3(0.f) || isnan(glm::length(Norm)))
-		Pen = this->SAT_->GetPenetrationContacts(Bod0->GetShapes(), Bod1->GetShapes(), Norm);
+		Pen = SAT_->GetPenetrationContacts(Bod0->GetShapes(), Bod1->GetShapes(), Norm);
 	//uses SAT to get contact points in one shot
-	std::vector<std::shared_ptr<Contact>> Temp = this->SAT_->SAT_CreateContacts(Bod0->GetShapes(), Bod1->GetShapes(),
+	std::vector<std::shared_ptr<Contact>> Temp = SAT_->SAT_CreateContacts(Bod0->GetShapes(), Bod1->GetShapes(),
 		Norm, Pen);
 	Temp[0]->Bods[0] = Bod0;
 	Temp[0]->Bods[1] = Bod1;
@@ -153,13 +153,13 @@ std::vector<std::shared_ptr<Contact>> ContactCreation::MakeContacts(std::shared_
 {
 	if (std::shared_ptr<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod0->GetShapes()))
 	{
-		return this->ContactCreate(*Sphere0, Bod0, Bod1);
+		return ContactCreate(*Sphere0, Bod0, Bod1);
 	}
 	else if (std::shared_ptr<Capsule> Cap0 = std::dynamic_pointer_cast<Capsule>(Bod0->GetShapes()))
 	{
-		return this->ContactCreate(*Cap0, Bod0, Bod1);
+		return ContactCreate(*Cap0, Bod0, Bod1);
 	}
-	return this->ContactCreate(Bod0, Bod1);
+	return ContactCreate(Bod0, Bod1);
 }
 
 float ContactCreation::GetLowestFric(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
@@ -180,9 +180,7 @@ float ContactCreation::GetLowestRest(std::shared_ptr<Bodies> Bod0, std::shared_p
 
 ContactCreation::ContactCreation()
 {
-	this->S_Res = std::make_unique<ShapeResolution>();
-	this->GJK_ = std::make_unique<GJK_Alg>();
-	this->SAT_ = std::make_unique<SAT>();
+	SAT_ = std::make_unique<SAT>();
 }
 
 ContactCreation::~ContactCreation()

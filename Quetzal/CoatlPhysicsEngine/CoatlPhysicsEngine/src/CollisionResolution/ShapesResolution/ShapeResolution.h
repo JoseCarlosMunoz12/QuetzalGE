@@ -11,7 +11,7 @@ namespace CoatlPhysicsEngine
 		ShapeResolution();
 		~ShapeResolution();
 		template<typename _T, typename _N>
-		std::vector<std::shared_ptr<Contact>> GetContacts(_T T,_N N);
+		static std::vector<std::shared_ptr<Contact>> GetContacts(_T T,_N N);
 	};
 
 

@@ -20,7 +20,6 @@ namespace CoatlPhysicsEngine {
 		S_P<DynamicCollisions> Dynamics;
 		S_P<CollisionManager> ColMan;
 		std::string WorldName;
-		std::shared_ptr<Terrain> Ter;
 		bool CheckStatics = false;
 	public:
 		CollisionWorld(std::string SetWName);
@@ -39,7 +38,6 @@ namespace CoatlPhysicsEngine {
 		void DeleteDynamics();
 		void DeleteKinematics();
 		void UpdateWorld(float dt);
-		void SetTerrain(Vec<glm::vec3>Ver, Vec<int>Ind, float Dim);
 		void ToggleStaticCheck();
 		bool StaticCheckStatus();
 	};

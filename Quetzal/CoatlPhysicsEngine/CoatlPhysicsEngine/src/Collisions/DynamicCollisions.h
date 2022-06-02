@@ -14,7 +14,6 @@ namespace CoatlPhysicsEngine {
 		U_P<Phy_Base> Grav_F_Manager;
 		U_P<Queries> AlgoCheck;
 		U_P<Col_Resolution> Col_Rel;
-		W_P<Terrain> Ter;
 		glm::vec3 Gravity;
 		int NewCurId = 100;
 		float Ext;
@@ -41,7 +40,6 @@ namespace CoatlPhysicsEngine {
 		//change and check type of CollisionCheckAlgoritm
 		Alg_Type GetType();
 		void SetNewType(Alg_Type NewType);
-		void SetTerrain(S_P<Terrain> NewTer);
 		int IterTook() { return this->Col_Rel->GetTook(); };
 		int VelIter() { return this->Col_Rel->GetVelTook(); };
 	};

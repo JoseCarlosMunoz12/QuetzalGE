@@ -127,26 +127,6 @@ void DynamicCollisions::CheckCollision(S_P<StaticCollisions> Statics, S_P<Kinema
 			glm::vec3 Bod_Vel= Temp->GetVel();
 			glm::vec3 Bod_RotVel = Temp->GetRotVel();
 			float F_dt = dt;
-			//Check Collision with The Terrain////////////////////////////////////////////////////
-			if (!this->Ter.expired())
-			{
-				Vec_SH<Bodies> Quers = Ter.lock()->GetTerrs(jj->GetPos(), 1);
-				for (auto& ii : Quers)
-				{
-					if (this->BinColDetection(jj, ii,Bod_Vel,glm::vec3(0.f),0.f, dt, F_dt))
-					{
-						jj->MovePosition(F_dt * Bod_Vel);
-						std::vector <S_P<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
-						if(T.size() != 0)
-							if (!this->ContainsManifold(ColRel, T[0]))
-								for(auto& pp : T)
-									ColRel.push_back(pp);
-						//Temp->AcumForce(-Gravity * Temp->GetMass());							
-						jj->SetPosition(PrevPos);
-						this->it = false;
-					}
-				}
-			}
 			//Check Collision with Static Bodies//////////////////////////////////////////////////
 			if (Statics)
 			{
@@ -271,9 +251,4 @@ Alg_Type DynamicCollisions::GetType()
 void DynamicCollisions::SetNewType(Alg_Type NewType)
 {
 	this->AlgoType = NewType;
-}
-
-void DynamicCollisions::SetTerrain(S_P<Terrain> NewTer)
-{
-	this->Ter = NewTer;
 }

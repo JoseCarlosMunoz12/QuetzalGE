@@ -33,29 +33,27 @@ namespace CoatlPhysicsEngine {
 	class COATL_API BaseCols
 	{
 	private:
-		bool UpdateBodies(Sphere Sph0, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1);
-		bool UpdateBodies(Capsule Cap0, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1);
+		bool UpdateBodies(Sphere Sph0, S_P<Bodies> Bod0, S_P<Bodies> Bod1);
+		bool UpdateBodies(Capsule Cap0, S_P<Bodies> Bod0, S_P<Bodies> Bod1);
 	protected:
 		//name
 		std::string Name;
 		// bodies in the collision world and Collections in this world
-		std::vector<std::shared_ptr<Bodies>> AllBods;
-		std::vector<std::shared_ptr<Collection>> AllCollections;
+		Vec_SH<Bodies> AllBods;
+		Vec_SH<Collection> AllCollections;
 		//Algoirthm to check collision
-		std::unique_ptr<Queries> AlgoCheck;
-		std::weak_ptr<Terrain> Ter;
-		std::unique_ptr<ContactCreation> ContCrt;
+		U_P<Queries> AlgoCheck;
+		U_P<ContactCreation> ContCrt;
 		int NewCurID;
 		//collision manifolds
-		std::vector<std::shared_ptr<Contact>> ColRel;
+		Vec_SH<Contact> ColRel;
 		// other functions
-		bool ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1);
-		bool ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1, std::vector<glm::vec3> Seg0, std::vector<glm::vec3> S);
+		bool ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1);
+		bool ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1, Vec<glm::vec3> Seg0, Vec<glm::vec3> S);
 	public:
 		BaseCols(std::string Name);
 		~BaseCols();
-		std::vector<std::shared_ptr<Contact>> GetColRel();
-		void SetTerrain(std::shared_ptr<Terrain> NewTer);
-		std::vector<std::shared_ptr<Collection>> GetCollections();
+		Vec_SH<Contact> GetColRel();
+		Vec_SH<Collection> GetCollections();
 	};
 }

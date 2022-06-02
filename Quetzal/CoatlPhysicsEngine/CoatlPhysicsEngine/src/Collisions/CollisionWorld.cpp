@@ -38,7 +38,6 @@ void CollisionWorld::CreateStaticCol(std::string Name)
 	if (!Statics)
 	{
 		this->Statics = std::make_shared<StaticCollisions>(Name);
-		this->Statics->SetTerrain(this->Ter);
 	}
 }
 
@@ -47,7 +46,6 @@ void CollisionWorld::CreateDynamicCol(std::string Name)
 	if (!Dynamics)
 	{
 		this->Dynamics = std::make_shared<DynamicCollisions>(Name);
-		this->Dynamics->SetTerrain(this->Ter);
 	}
 }
 
@@ -108,17 +106,6 @@ void CollisionWorld::UpdateWorld(float dt)
 	//Does Physics Maths and Dynamic Collisions
 	if (this->Dynamics)
 		this->Dynamics->CheckCollision(this->Statics,this->Kin,dt);
-}
-
-void CollisionWorld::SetTerrain(Vec<glm::vec3> Ver, Vec<int> Ind, float Dim)
-{
-	this->Ter = std::make_shared<Terrain>(Ver, Ind, Dim);
-	if (this->Statics)
-		this->Statics->SetTerrain(Ter);
-	if (this->Dynamics)
-		this->Dynamics->SetTerrain(Ter);
-	if (this->Kin)
-		this->Kin->SetTerrain(Ter);
 }
 
 void CollisionWorld::ToggleStaticCheck()

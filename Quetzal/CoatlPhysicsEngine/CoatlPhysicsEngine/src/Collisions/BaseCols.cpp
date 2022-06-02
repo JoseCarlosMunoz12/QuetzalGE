@@ -1,39 +1,39 @@
 #include "BaseCols.h"
 using namespace CoatlPhysicsEngine;
 
-bool BaseCols::UpdateBodies(Sphere Sph0, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+bool BaseCols::UpdateBodies(Sphere Sph0, S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {	
-	if (std::shared_ptr<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
+	if (S_P<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
 	{
 		return CollisionManager::CheckCollide(Sph0, *Sphere0);
 	}
-	else if (std::shared_ptr<Capsule> Cap = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
+	else if (S_P<Capsule> Cap = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
 	{
 		return CollisionManager::CheckCollide(Sph0, *Cap);
 	}
 	return GJK_Alg::GJK(Bod1,Bod0);
 }
 
-bool BaseCols::UpdateBodies(Capsule Cap0, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+bool BaseCols::UpdateBodies(Capsule Cap0, S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
-	if (std::shared_ptr<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
+	if (S_P<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod1->GetShapes()))
 	{
 		return CollisionManager::CheckCollide(Cap0, *Sphere0);
 	}
-	else if (std::shared_ptr<Capsule> Cap = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
+	else if (S_P<Capsule> Cap = std::dynamic_pointer_cast<Capsule>(Bod1->GetShapes()))
 	{
 		return CollisionManager::CheckCollide(Cap0, *Cap);
 	}
 	return GJK_Alg::GJK(Bod1,Bod0);
 }
 
-bool BaseCols::ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+bool BaseCols::ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
 	return GJK_Alg::GJK(Bod0, Bod1);
 }
 
-bool BaseCols::ColBods(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1,
-	std::vector<glm::vec3> Seg0, std::vector<glm::vec3> Seg1)
+bool BaseCols::ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1,
+	Vec<glm::vec3> Seg0, Vec<glm::vec3> Seg1)
 {
 	return GJK_Alg::GJK(Bod0, Bod1, Seg0, Seg1);
 }
@@ -49,17 +49,12 @@ BaseCols::~BaseCols()
 {
 }
 
-std::vector<std::shared_ptr<Contact>> CoatlPhysicsEngine::BaseCols::GetColRel()
+Vec_SH<Contact> CoatlPhysicsEngine::BaseCols::GetColRel()
 {
 	return this->ColRel;
 }
 
-void BaseCols::SetTerrain(std::shared_ptr<Terrain> NewTer)
-{
-	this->Ter = NewTer;
-}
-
-std::vector<std::shared_ptr<Collection>> BaseCols::GetCollections()
+Vec_SH<Collection> BaseCols::GetCollections()
 {
 	return this->AllCollections;
 }
