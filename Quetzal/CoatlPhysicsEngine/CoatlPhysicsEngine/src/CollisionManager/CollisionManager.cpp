@@ -11,149 +11,149 @@ CollisionManager::~CollisionManager()
 {}
 ///Base Collisions
 template<typename _T, typename _N>
- bool CollisionManager::CheckCollide(_T R, _N N)
+ bool CollisionManager::CheckCollide(_T R, _N N,  glm::vec3 Pos0, glm::quat Rot, glm::vec3 Pos1, glm::quat Rot1)
 {
 	return false;
 }
 template<>
-bool CollisionManager::CheckCollide(ColShapes Sph0, ColShapes SPh1)
+bool CollisionManager::CheckCollide(S_P<ColShapes> Sph0, S_P<ColShapes> SPh1,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
 {
 	return true;
 }
  ///Same Object Collisions
 template<>
-bool CollisionManager::CheckCollide(Sphere Sph0,Sphere SPh1)
+bool CollisionManager::CheckCollide( S_P<Sphere> Sph0, S_P<Sphere> SPh1,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
 {
-	return SphereSphere(Sph0,SPh1);
+	return SphereSphere(Sph0,SPh1, Pos0, Rot0, Pos1, Rot1);
 }
  template<>
- bool CollisionManager::CheckCollide(AABB_Obj Obj0, AABB_Obj Obj1)
+ bool CollisionManager::CheckCollide(AABB_Obj Obj0, AABB_Obj Obj1,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return AABBAABB(Obj0, Obj1);
+     return AABBAABB(Obj0, Obj1,  Pos0, Rot0, Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(Capsule Cap0,Capsule Cap1)
+ bool CollisionManager::CheckCollide(Capsule Cap0,Capsule Cap1,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return CapsuleCols(Cap0, Cap1);
+     return CapsuleCols(Cap0, Cap1,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(Triangles Tr0, Triangles Tr1)
+ bool CollisionManager::CheckCollide(Triangles Tr0, Triangles Tr1,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TrColTr(Tr0, Tr1);
+     return TrColTr(Tr0, Tr1,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(OBB Ob0, OBB Ob1)
+ bool CollisionManager::CheckCollide(OBB Ob0, OBB Ob1,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return OBBCol(Ob0, Ob1);
+     return OBBCol(Ob0, Ob1,  Pos0,  Rot0,  Pos1, Rot1);
  }
 ///Different Combinations
-//Sphere X AABB
+// S_P<Sphere> X AABB
  template<>
- bool CollisionManager::CheckCollide(Sphere Sph0,AABB_Obj Obj)
+ bool CollisionManager::CheckCollide(S_P<Sphere> Sph0, AABB_Obj Obj,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return SphereColsAABB(Sph0, Obj);
+     return SphereColsAABB(Sph0, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(AABB_Obj obj, Sphere Sph0)
+ bool CollisionManager::CheckCollide(AABB_Obj obj,  S_P<Sphere> Sph0,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return SphereColsAABB(Sph0, obj);
+     return SphereColsAABB(Sph0, obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
- //Sphere X Capsule
+ // S_P<Sphere> X Capsule
  template<>
- bool CollisionManager::CheckCollide(Capsule Cap, Sphere Sph)
+ bool CollisionManager::CheckCollide(Capsule Cap,  S_P<Sphere> Sph,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return Collision(Cap,Sph);
+     return Collision(Cap,Sph,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(Sphere Sph,Capsule Cap)
+ bool CollisionManager::CheckCollide( S_P<Sphere> Sph,Capsule Cap,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return Collision(Cap, Sph);
+     return Collision(Cap, Sph,  Pos0,  Rot0,  Pos1, Rot1);
  }
  //Capsule X AABB
  template<>
- bool CollisionManager::CheckCollide(Capsule Cap, AABB_Obj Obj)
+ bool CollisionManager::CheckCollide(Capsule Cap, AABB_Obj Obj,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return CapColAABB(Cap,Obj);
+     return CapColAABB(Cap,Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(AABB_Obj Obj, Capsule Cap)
+ bool CollisionManager::CheckCollide(AABB_Obj Obj, Capsule Cap,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return CapColAABB(Cap, Obj);
+     return CapColAABB(Cap, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
- //Sphere X Triangles
+ // S_P<Sphere> X Triangles
  template<>
- bool CollisionManager::CheckCollide(Triangles Tr, Sphere Sph)
+ bool CollisionManager::CheckCollide(Triangles Tr,  S_P<Sphere> Sph,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TrColSphere(Tr, Sph);
+     return TrColSphere(Tr, Sph,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(Sphere Sph, Triangles Tr)
+ bool CollisionManager::CheckCollide( S_P<Sphere> Sph, Triangles Tr,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TrColSphere(Tr, Sph);
+     return TrColSphere(Tr, Sph,  Pos0,  Rot0,  Pos1, Rot1);
  }
  //Triangles X Capsule
  template<>
- bool CollisionManager::CheckCollide(Triangles Tr, Capsule Cap)
+ bool CollisionManager::CheckCollide(Triangles Tr, Capsule Cap,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TrColCap(Tr, Cap);
+     return TrColCap(Tr, Cap,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(Capsule Cap, Triangles Tr)
+ bool CollisionManager::CheckCollide(Capsule Cap, Triangles Tr,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TrColCap(Tr, Cap);
+     return TrColCap(Tr, Cap,  Pos0,  Rot0,  Pos1, Rot1);
  }
  //Triangles X AABB
  template<>
- bool CollisionManager::CheckCollide(AABB_Obj Obj,Triangles Tr)
+ bool CollisionManager::CheckCollide(AABB_Obj Obj,Triangles Tr,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TrColAABB(Tr, Obj);
+     return TrColAABB(Tr, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(Triangles Tr,AABB_Obj Obj)
+ bool CollisionManager::CheckCollide(Triangles Tr,AABB_Obj Obj,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TrColAABB(Tr, Obj);
+     return TrColAABB(Tr, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  //AABB X OBB
  template<>
- bool CollisionManager::CheckCollide(AABB_Obj AABB, OBB Obj)
+ bool CollisionManager::CheckCollide(AABB_Obj AABB, OBB Obj,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return ABBColsOBB(AABB, Obj);
+     return ABBColsOBB(AABB, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide( OBB Obj,AABB_Obj AABB)
+ bool CollisionManager::CheckCollide( OBB Obj,AABB_Obj AABB,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return ABBColsOBB(AABB, Obj);
+     return ABBColsOBB(AABB, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  //Triangles X OBB
  template<>
- bool CollisionManager::CheckCollide(Triangles Tr, OBB Obj)
+ bool CollisionManager::CheckCollide(Triangles Tr, OBB Obj,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TriColOBB(Tr, Obj);
+     return TriColOBB(Tr, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide( OBB Obj,Triangles Tr)
+ bool CollisionManager::CheckCollide( OBB Obj,Triangles Tr,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return TriColOBB(Tr, Obj);
+     return TriColOBB(Tr, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
- //Sphere X OBB
+ // S_P<Sphere> X OBB
  template<>
- bool CollisionManager::CheckCollide(Sphere SPh, OBB Obj)
+ bool CollisionManager::CheckCollide( S_P<Sphere> SPh, OBB Obj,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return SphColOBB(SPh,Obj);
+     return SphColOBB(SPh,Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(OBB Obj, Sphere SPh)
+ bool CollisionManager::CheckCollide(OBB Obj,  S_P<Sphere> SPh,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return SphColOBB(SPh, Obj);
+     return SphColOBB(SPh, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  //Capsule X OBB
  template<>
- bool CollisionManager::CheckCollide(Capsule Cap, OBB Obj)
+ bool CollisionManager::CheckCollide(Capsule Cap, OBB Obj,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return CapColOBB(Cap, Obj);
+     return CapColOBB(Cap, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
- bool CollisionManager::CheckCollide(OBB Obj, Capsule Cap)
+ bool CollisionManager::CheckCollide(OBB Obj, Capsule Cap,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return CapColOBB(Cap, Obj);
+     return CapColOBB(Cap, Obj,  Pos0,  Rot0,  Pos1, Rot1);
  }

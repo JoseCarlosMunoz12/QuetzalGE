@@ -30,7 +30,9 @@ namespace CoatlPhysicsEngine {
 		CollisionManager();
 		~CollisionManager();
 		template<typename _T,typename _N>
-		static bool CheckCollide(_T R,_N N);
+		static bool CheckCollide(_T R,_N N,
+			glm::vec3 Pos0, glm::quat Rot0,
+			glm::vec3 Pos1, glm::quat Rot1);
 	};
 }
 

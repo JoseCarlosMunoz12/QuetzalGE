@@ -33,8 +33,8 @@ namespace CoatlPhysicsEngine {
 	class COATL_API BaseCols
 	{
 	private:
-		bool UpdateBodies(Sphere Sph0, S_P<Bodies> Bod0, S_P<Bodies> Bod1);
-		bool UpdateBodies(Capsule Cap0, S_P<Bodies> Bod0, S_P<Bodies> Bod1);
+		bool UpdateBodies(S_P<Sphere> Sph0, S_P<Bodies> Bod0, S_P<Bodies> Bod1);
+		bool UpdateBodies(S_P<Capsule> Cap0, S_P<Bodies> Bod0, S_P<Bodies> Bod1);
 	protected:
 		//name
 		std::string Name;
