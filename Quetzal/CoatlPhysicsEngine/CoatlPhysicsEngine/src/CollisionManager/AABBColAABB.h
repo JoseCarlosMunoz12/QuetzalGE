@@ -5,7 +5,8 @@ namespace CoatlPhysicsEngine {
 	class AABBColAABB
 	{
 	protected:
-		static bool AABBAABB(AABB_Obj Obj0, AABB_Obj Obj1);
+		static bool AABBAABB(S_P<AABB_Obj> Obj0, S_P<AABB_Obj> Obj1,
+			glm::vec3 Pos0, glm::vec3 Pos1);
 	public:
 		AABBColAABB();
 		~AABBColAABB();		

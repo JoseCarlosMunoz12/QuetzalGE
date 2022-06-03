@@ -4,7 +4,9 @@ namespace CoatlPhysicsEngine {
 	class CapsuleColCapsule
 	{
 	protected:
-		static bool CapsuleCols(Capsule Cap0, Capsule Cap1);
+		static bool CapsuleCols(S_P<Capsule> Cap0, S_P<Capsule> Cap1,
+			glm::vec3 Pos0, glm::quat Rot0,
+			glm::vec3 Pos1, glm::quat Rot1);
 	public:
 		CapsuleColCapsule();
 	};

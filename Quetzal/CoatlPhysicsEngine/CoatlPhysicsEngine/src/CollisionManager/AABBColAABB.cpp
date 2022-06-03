@@ -1,12 +1,13 @@
 #include "AABBColAABB.h"
 using namespace CoatlPhysicsEngine;
 
-bool AABBColAABB::AABBAABB(AABB_Obj Obj0, AABB_Obj Obj1)
+bool AABBColAABB::AABBAABB(S_P<AABB_Obj> Obj0, S_P<AABB_Obj> Obj1,
+	glm::vec3 Pos0, glm::vec3 Pos1)
 {
-	glm::vec3 A = Obj0.GetLengths();
-	glm::vec3 A_Pos = Obj0.GetPos();
-	glm::vec3 B = Obj1.GetLengths();
-	glm::vec3 B_Pos = Obj1.GetPos();
+	glm::vec3 A = Obj0->GetLengths();
+	glm::vec3 A_Pos = Pos0;
+	glm::vec3 B = Obj1->GetLengths();
+	glm::vec3 B_Pos = Pos1;
 	if (glm::abs(A_Pos.x - B_Pos.x) > (A.x + B.x))
 	{
 		return false;
