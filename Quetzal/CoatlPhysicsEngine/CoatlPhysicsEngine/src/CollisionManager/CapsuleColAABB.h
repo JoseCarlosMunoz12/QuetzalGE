@@ -8,7 +8,8 @@ namespace CoatlPhysicsEngine {
 	{
 	private:
 	protected:
-		static bool CapColAABB(Capsule Cap,AABB_Obj Obj);
+		static bool CapColAABB(S_P<Capsule> Cap, S_P<AABB_Obj> Obj, 
+			glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1);
 	public:
 		CapsuleColAABB();
 		~CapsuleColAABB();

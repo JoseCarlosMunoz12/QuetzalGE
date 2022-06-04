@@ -1,9 +1,9 @@
 #include "TriangleColAABB.h"
 using namespace CoatlPhysicsEngine;
 
-bool CoatlPhysicsEngine::TriangleColAABB::PlaneABB(Plane Pl, AABB_Obj Obj)
+bool TriangleColAABB::PlaneABB(Plane Pl, S_P<AABB_Obj> Obj)
 {
-	glm::vec3 Ex = Obj.GetLengths();
+	glm::vec3 Ex = Obj->GetLengths();
 	glm::vec3 N = Pl.Normal;
 	Ex.x = Ex.x / 2;
 	Ex.y = Ex.y / 2;
@@ -16,17 +16,18 @@ bool CoatlPhysicsEngine::TriangleColAABB::PlaneABB(Plane Pl, AABB_Obj Obj)
 	return true;
 }
 
-bool TriangleColAABB::TrColAABB(Triangles Tr, AABB_Obj AABB)
+bool TriangleColAABB::TrColAABB(S_P<Triangles> Tr, S_P<AABB_Obj> AABB,
+	glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
 {
 	float P0, P1, P2, R;
 
-	glm::vec3 C = AABB.GetPos();
-	glm::vec3 Ex = AABB.GetLengths();
+	glm::vec3 C = Pos1;
+	glm::vec3 Ex = AABB->GetLengths();
 	Ex.x = Ex.x / 2;
 	Ex.y = Ex.y / 2;
 	Ex.z = Ex.z / 2;
-	glm::vec3 TrPos = Tr.GetPos();
-	std::vector<glm::vec3> TrPnt = Tr.GetSegments();
+	glm::vec3 TrPos = Pos0;
+	std::vector<glm::vec3> TrPnt = Tr->GetSegments(Pos0, Rot1);
 
 	glm::vec3 V0 = (TrPnt[0] + TrPos) - C;
 	glm::vec3 V1 = (TrPnt[1] + TrPos) - C;

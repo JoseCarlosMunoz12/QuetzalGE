@@ -1,16 +1,16 @@
 #include "CapsuleColAABB.h"
 using namespace CoatlPhysicsEngine;
 
-bool CapsuleColAABB::CapColAABB(Capsule Cap, AABB_Obj Obj)
+bool CapsuleColAABB::CapColAABB(S_P<Capsule> Cap, S_P<AABB_Obj> Obj,
+	glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
 {
-	std::vector<int> ID = Obj.GetSegmentsID();
+	std::vector<int> ID = Obj->GetSegmentsID();
 	int Size = ID.size() / 2;
-	glm::vec3 Pos = Obj.GetPos();
-	std::vector<glm::vec3> Points = Obj.GetSegs();
-	float R = Cap.GetRadius();
+	std::vector<glm::vec3> Points = Obj->GetSegs(Pos1, Rot1);
+	float R = Cap->GetRadius();
 	glm::vec3 Pos0;
 	glm::vec3 Pos1;
-	MATH::ClosestSeg_Seg(Cap.GetSegment(), { Points[ID[0]], Points[ID[1]] },Pos0,Pos1);
+	MATH::ClosestSeg_Seg(Cap->GetSegment(Pos0, Rot1), { Points[ID[0]], Points[ID[1]] },Pos0,Pos1);
 	glm::vec3 Cls_Pnt = Pos0;
 	float TempDis = glm::distance(Pos0, Pos1);
 	float Dis;
@@ -18,7 +18,7 @@ bool CapsuleColAABB::CapColAABB(Capsule Cap, AABB_Obj Obj)
 	{
 		int JJ = ii * 2;
 		int KK = JJ + 1;
-		MATH::ClosestSeg_Seg(Cap.GetSegment(), { Points[ID[JJ]], Points[ID[KK]] }, Pos0, Pos1);
+		MATH::ClosestSeg_Seg(Cap->GetSegment(Pos0, Rot0), { Points[ID[JJ]], Points[ID[KK]] }, Pos0, Pos1);
 		Dis = glm::distance(Pos0, Pos1);
 		if (Dis < TempDis)
 		{
@@ -26,8 +26,8 @@ bool CapsuleColAABB::CapColAABB(Capsule Cap, AABB_Obj Obj)
 			Cls_Pnt = Pos0;
 		}
 	}
-	glm::vec3 ClsPoint = Obj.GetClosesPoint(Cls_Pnt);
-	float Rad = Cap.GetRadius();
+	glm::vec3 ClsPoint = Obj->GetClosesPoint(Cls_Pnt,Pos1, Rot1);
+	float Rad = Cap->GetRadius();
 	float Dot = glm::distance(ClsPoint, Cls_Pnt);
 	return  Dot <= Rad;
 
