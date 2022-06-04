@@ -135,7 +135,7 @@ void DynamicCollisions::CheckCollision(S_P<StaticCollisions> Statics, S_P<Kinema
 				{
 					if (this->BinColDetection(jj, ii, Bod_Vel,glm::vec3(0.f), 0.f, dt, F_dt))
 					{
-						std::vector <S_P<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
+						std::vector <S_P<Contact>> T = ContactCreation::MakeManifold(jj, ii, F_dt, dt - F_dt);
 						if (T.size() != 0)
 							if (!this->ContainsManifold(ColRel, T[0]))
 								for(auto& pp : T)
@@ -157,7 +157,7 @@ void DynamicCollisions::CheckCollision(S_P<StaticCollisions> Statics, S_P<Kinema
 					{
 						jj->MovePosition(F_dt * Bod_Vel);
 						ii->MovePosition(F_dt* KinVel);
-						std::vector <S_P<Contact>> T = this->ContCrt->MakeManifold(jj, ii, F_dt, dt - F_dt);
+						std::vector <S_P<Contact>> T = ContactCreation::MakeManifold(jj, ii, F_dt, dt - F_dt);
 						if (T.size() != 0)
 							if (!this->ContainsManifold(ColRel, T[0]))
 								for (auto& pp : T)
@@ -186,7 +186,7 @@ void DynamicCollisions::CheckCollision(S_P<StaticCollisions> Statics, S_P<Kinema
 	}
 	//Get Manifold from Joints
 	for (auto& jj : AllCollections)
-		this->ContCrt->MakeJointManifold(this->ColRel, jj->GetJoints());
+		ContactCreation::MakeJointManifold(this->ColRel, jj->GetJoints());
 	//Cull Manifolds and get rid of repeats
 	this->CullManifolds(this->ColRel);
 	//Fix Resolution

@@ -8,6 +8,7 @@ namespace CoatlPhysicsEngine {
 	public:
 		TriangleColTriangle();
 		~TriangleColTriangle();
-		static bool TrColTr(Triangles Tr0, Triangles Tr1);
+		static bool TrColTr(S_P<Triangles> Tr0, S_P<Triangles> Tr1,
+			glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1);
 	};
 }

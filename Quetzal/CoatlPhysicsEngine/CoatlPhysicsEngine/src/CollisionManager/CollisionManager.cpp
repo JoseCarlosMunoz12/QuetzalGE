@@ -62,12 +62,12 @@ bool CollisionManager::CheckCollide(S_P<Sphere> Sph0, S_P<Sphere> SPh1,  glm::ve
  template<>
  bool CollisionManager::CheckCollide(S_P<Capsule> Cap,  S_P<Sphere> Sph,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return Collision(Cap,Sph,  Pos0,  Rot0,  Pos1, Rot1);
+     return CapColSphere(Cap,Sph,  Pos0,  Rot0,  Pos1, Rot1);
  }
  template<>
  bool CollisionManager::CheckCollide( S_P<Sphere> Sph,S_P<Capsule> Cap,  glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
  {
-     return Collision(Cap, Sph,  Pos0,  Rot0,  Pos1, Rot1);
+     return CapColSphere(Cap, Sph,  Pos0,  Rot0,  Pos1, Rot1);
  }
  //S_P<Capsule> X AABB
  template<>

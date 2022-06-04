@@ -76,6 +76,7 @@ void Bodies::SetQuat(glm::quat NewQuat)
 
 bool Bodies::HasCollided()
 {
+	return this->IsCollided;
 }
 
 glm::vec3 Bodies::GetPos()

@@ -1,10 +1,11 @@
 #include "OBBColOBB.h"
 using namespace CoatlPhysicsEngine;
 
-bool OBBColOBB::OBBCol(OBB Ob0, OBB Ob1)
+bool OBBColOBB::OBBCol(S_P<OBB> Ob0, S_P<OBB> Ob1,
+	glm::vec3 Pos0, glm::quat Rot0, glm::vec3 Pos1, glm::quat Rot1)
 {
-	std::vector<glm::vec3> Ob0_Segs = Ob0.GetSegments();
-	std::vector<glm::vec3> Ob1_Segs = Ob1.GetSegments();
+	std::vector<glm::vec3> Ob0_Segs = Ob0->GetSegments(Pos0,Rot0);
+	std::vector<glm::vec3> Ob1_Segs = Ob1->GetSegments(Pos1, Rot1);
 
 	std::vector<glm::vec3> Ob0_N = { glm::normalize(Ob0_Segs[1] - Ob0_Segs[0]),
 		glm::normalize(Ob0_Segs[3] - Ob0_Segs[0]) ,
