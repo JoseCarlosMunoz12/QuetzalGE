@@ -7,7 +7,7 @@ namespace CoatlPhysicsEngine
 	class CapsuleRelSphere
 	{
 	protected:
-		std::vector<std::shared_ptr<Contact>> CapRelSph(Capsule Cap, Sphere Sph0);
+		static std::vector<std::shared_ptr<Contact>> CapRelSph(Capsule Cap, Sphere Sph0);
 	public:
 		CapsuleRelSphere();
 		~CapsuleRelSphere();

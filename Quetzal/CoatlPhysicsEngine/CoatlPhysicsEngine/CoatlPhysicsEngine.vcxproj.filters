@@ -120,9 +120,6 @@
     <ClInclude Include="src\Collisions\StaticCollisions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Collisions\Terrain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Constraints\ContactConstraint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -297,9 +294,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Collisions\StaticCollisions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Collisions\Terrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Constraints\ContactConstraint.cpp">

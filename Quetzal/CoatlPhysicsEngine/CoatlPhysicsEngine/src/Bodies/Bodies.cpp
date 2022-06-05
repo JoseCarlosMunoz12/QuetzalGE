@@ -62,7 +62,7 @@ void Bodies::MovePosition(glm::vec3 Add)
 
 void Bodies::SetParticle(int ShapeID)
 {
-	this->BodPart = std::make_shared<Particle>(this->GetPos());
+	this->BodParticle = std::make_shared<Particle>(this->GetPos());
 }
 
 void Bodies::SetRigidBody(int ShapeID)

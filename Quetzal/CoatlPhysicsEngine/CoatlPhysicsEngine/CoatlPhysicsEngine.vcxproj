@@ -50,7 +50,6 @@
     <ClInclude Include="src\Collisions\DynamicCollisions.h" />
     <ClInclude Include="src\Collisions\KinematicsCollisions.h" />
     <ClInclude Include="src\Collisions\StaticCollisions.h" />
-    <ClInclude Include="src\Collisions\Terrain.h" />
     <ClInclude Include="src\Constraints\ContactConstraint.h" />
     <ClInclude Include="src\GJK\GJK.h" />
     <ClInclude Include="src\OptimizaAlgorithm\B_Force.h" />
@@ -113,7 +112,6 @@
     <ClCompile Include="src\Collisions\DynamicCollisions.cpp" />
     <ClCompile Include="src\Collisions\KinematicsCollisions.cpp" />
     <ClCompile Include="src\Collisions\StaticCollisions.cpp" />
-    <ClCompile Include="src\Collisions\Terrain.cpp" />
     <ClCompile Include="src\Constraints\ContactConstraint.cpp" />
     <ClCompile Include="src\GJK\GJK.cpp" />
     <ClCompile Include="src\OptimizaAlgorithm\B_Force.cpp" />

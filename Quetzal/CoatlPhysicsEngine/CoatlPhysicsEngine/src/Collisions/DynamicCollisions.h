@@ -28,7 +28,7 @@ namespace CoatlPhysicsEngine {
 		bool ContainsManifold(Vec_SH<Contact> ColRel, S_P<Contact> NewMan);
 		void CullManifolds(Vec_SH<Contact>& Cnt );
 	public:
-		DynamicCollisions(std::string Name, S_P<CollisionManager>InitCols);
+		DynamicCollisions(std::string Name);
 		~DynamicCollisions();
 		void CheckCollision(S_P<StaticCollisions> Statics,S_P<KinematicsCollisions> Kin,float dt);
 		//Body information of Class

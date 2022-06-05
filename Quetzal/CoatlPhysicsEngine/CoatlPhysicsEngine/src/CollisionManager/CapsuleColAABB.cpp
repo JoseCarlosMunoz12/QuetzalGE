@@ -8,18 +8,18 @@ bool CapsuleColAABB::CapColAABB(S_P<Capsule> Cap, S_P<AABB_Obj> Obj,
 	int Size = ID.size() / 2;
 	std::vector<glm::vec3> Points = Obj->GetSegs(Pos1, Rot1);
 	float R = Cap->GetRadius();
-	glm::vec3 Pos0;
-	glm::vec3 Pos1;
-	MATH::ClosestSeg_Seg(Cap->GetSegment(Pos0, Rot1), { Points[ID[0]], Points[ID[1]] },Pos0,Pos1);
+	glm::vec3 PosA;
+	glm::vec3 PosB;
+	MATH::ClosestSeg_Seg(Cap->GetSegment(Pos0, Rot1), { Points[ID[0]], Points[ID[1]] },PosA,PosB);
 	glm::vec3 Cls_Pnt = Pos0;
-	float TempDis = glm::distance(Pos0, Pos1);
+	float TempDis = glm::distance(PosA, PosB);
 	float Dis;
 	for (int ii = 0; ii < Size; ii++)
 	{
 		int JJ = ii * 2;
 		int KK = JJ + 1;
-		MATH::ClosestSeg_Seg(Cap->GetSegment(Pos0, Rot0), { Points[ID[JJ]], Points[ID[KK]] }, Pos0, Pos1);
-		Dis = glm::distance(Pos0, Pos1);
+		MATH::ClosestSeg_Seg(Cap->GetSegment(Pos0, Rot0), { Points[ID[JJ]], Points[ID[KK]] }, PosA, PosB);
+		Dis = glm::distance(PosA, PosB);
 		if (Dis < TempDis)
 		{
 			Dis = TempDis;

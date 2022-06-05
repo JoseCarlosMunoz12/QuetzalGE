@@ -7,7 +7,6 @@ namespace CoatlPhysicsEngine
 	{
 	private:
 		std::unique_ptr<Queries> AlgoCheck;
-		std::weak_ptr<Terrain> Ter;
 		int NewCurId = 0;
 		float Ext;
 		float B_Ex;
@@ -27,7 +26,6 @@ namespace CoatlPhysicsEngine
 		//change and check type of CollisionCheckAlgoritm
 		Alg_Type GetType();
 		void SetNewType(Alg_Type NewType);
-		void SetTerrain(std::shared_ptr<Terrain> NewTer);
 	};
 }
 

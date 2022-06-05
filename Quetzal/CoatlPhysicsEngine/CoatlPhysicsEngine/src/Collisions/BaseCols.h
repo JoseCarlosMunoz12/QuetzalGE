@@ -15,7 +15,6 @@
 #include "../Bodies/Joints/Joints.h"
 #include "../CollisionManager/CollisionManager.h"
 #include "../CollisionResolution/Col_Resolution.h"
-#include "Terrain.h"
 #include "../OptimizaAlgorithm/QuadTree.h"
 #include "../OptimizaAlgorithm/OctoTree.h"
 #include "../OptimizaAlgorithm/B_Force.h"

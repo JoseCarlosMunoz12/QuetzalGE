@@ -62,11 +62,10 @@ void DynamicCollisions::CullManifolds(Vec_SH<Contact>& Cnt )
 		}
 }
 
-DynamicCollisions::DynamicCollisions(std::string Name, S_P<CollisionManager>InitCols)
+DynamicCollisions::DynamicCollisions(std::string Name)
 	:BaseCols(Name),
 	Ext(100.f), AlgoType(Alg_Type::O_T), B_Ex(4.f)
 {
-	this->Col_Rel = std::make_unique<Col_Resolution>(40,40);
 	this->Gravity = glm::vec3(0.f, 0.f, -9.81f);
 	this->Grav_F_Manager = std::make_unique<Phy_Grav>(this->Gravity);
 }

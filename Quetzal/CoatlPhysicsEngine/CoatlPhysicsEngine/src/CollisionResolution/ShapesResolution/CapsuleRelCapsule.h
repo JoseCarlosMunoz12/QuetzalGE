@@ -8,7 +8,7 @@ namespace CoatlPhysicsEngine {
 	private:
 
 	public:
-		std::vector<std::shared_ptr<Contact>> CapRel(Capsule Cap0, Capsule Cap1);
+		static std::vector<std::shared_ptr<Contact>> CapRel(Capsule Cap0, Capsule Cap1);
 		CapsuleRelCapsule();
 		~CapsuleRelCapsule();
 	};	
