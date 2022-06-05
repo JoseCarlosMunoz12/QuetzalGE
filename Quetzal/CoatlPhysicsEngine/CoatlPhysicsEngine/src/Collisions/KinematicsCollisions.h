@@ -7,7 +7,6 @@ namespace CoatlPhysicsEngine {
 	{
 	private:
 		std::unique_ptr<Queries> AlgoCheck;
-		std::weak_ptr<Terrain> Ter;
 		float Ext;
 		float B_Ex;
 		Alg_Type AlgoType;
@@ -21,7 +20,6 @@ namespace CoatlPhysicsEngine {
 		void AddNewBody(std::vector<std::shared_ptr<ColShapes>> NewShapes);
 		Alg_Type GetType();
 		void SetNewType(Alg_Type NewType);
-		void SetTerrain(std::shared_ptr<Terrain> NewTer);
 	};
 }
 

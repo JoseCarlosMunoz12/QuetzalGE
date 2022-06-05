@@ -12,18 +12,6 @@ StaticCollisions::~StaticCollisions()
 
 void StaticCollisions::UpdateCollisionCheck()
 {
-	//This is to determine where the Static Bodies are at in the Terrain
-	if (!this->Ter.expired())
-	{
-		for (auto& jj : AllBods)
-		{
-			std::vector<std::shared_ptr<Bodies>> Quer = Ter.lock()->GetTerrs(jj->GetPos(), 1);
-			for (auto& ii : Quer)
-			{
-				this->ColBods(jj, ii );
-			}
-		}
-	}
 }
 
 void StaticCollisions::CheckCol(std::shared_ptr<Bodies> Bod)
@@ -130,9 +118,4 @@ Alg_Type StaticCollisions::GetType()
 void StaticCollisions::SetNewType(Alg_Type NewType)
 {
 	this->AlgoType = NewType;
-}
-
-void StaticCollisions::SetTerrain(std::shared_ptr<Terrain> NewTer)
-{
-	this->Ter = NewTer;
 }

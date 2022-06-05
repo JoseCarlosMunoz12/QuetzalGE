@@ -4,7 +4,6 @@ using namespace CoatlPhysicsEngine;
 KinematicsCollisions::KinematicsCollisions(std::string Name)
 	:BaseCols(Name), Ext(100.f), AlgoType(Alg_Type::O_T), B_Ex(4.f)
 {
-
 }
 
 KinematicsCollisions::~KinematicsCollisions()
@@ -68,7 +67,3 @@ void KinematicsCollisions::SetNewType(Alg_Type NewType)
 	this->AlgoType = NewType;
 }
 
-void KinematicsCollisions::SetTerrain(std::shared_ptr<Terrain> NewTer)
-{
-	this->Ter = NewTer;
-}

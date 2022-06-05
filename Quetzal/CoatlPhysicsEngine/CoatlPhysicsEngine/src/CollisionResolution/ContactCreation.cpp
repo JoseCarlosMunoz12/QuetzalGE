@@ -50,7 +50,6 @@ float ContactCreation::GetLowestRest(std::shared_ptr<Bodies> Bod0, std::shared_p
 
 ContactCreation::ContactCreation()
 {
-	SAT_ = std::make_unique<SAT>();
 }
 
 ContactCreation::~ContactCreation()
