@@ -39,10 +39,8 @@ namespace CoatlPhysicsEngine {
 		std::string Name;
 		// bodies in the collision world and Collections in this world
 		Vec_SH<Bodies> AllBods;
-		Vec_SH<Collection> AllCollections;
 		//Algoirthm to check collision
 		U_P<Queries> AlgoCheck;
-		U_P<ContactCreation> ContCrt;
 		int NewCurID;
 		//collision manifolds
 		Vec_SH<Contact> ColRel;

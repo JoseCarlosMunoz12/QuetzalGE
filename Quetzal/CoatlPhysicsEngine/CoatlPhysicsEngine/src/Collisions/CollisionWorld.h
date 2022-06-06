@@ -18,7 +18,6 @@ namespace CoatlPhysicsEngine {
 		S_P<StaticCollisions> Statics;
 		S_P<KinematicsCollisions> Kin;
 		S_P<DynamicCollisions> Dynamics;
-		S_P<CollisionManager> ColMan;
 		std::string WorldName;
 		bool CheckStatics = false;
 	public:
@@ -38,7 +37,5 @@ namespace CoatlPhysicsEngine {
 		void DeleteDynamics();
 		void DeleteKinematics();
 		void UpdateWorld(float dt);
-		void ToggleStaticCheck();
-		bool StaticCheckStatus();
 	};
 }

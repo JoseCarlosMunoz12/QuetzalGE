@@ -8,6 +8,7 @@
 
 namespace CoatlPhysicsEngine {
 	class COATL_API DynamicCollisions : public BaseCols
+
 	{
 	private:
 		U_P<Phy_Base> F_Manager;

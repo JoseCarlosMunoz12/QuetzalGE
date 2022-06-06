@@ -43,8 +43,6 @@ bool BaseCols::ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1,
 BaseCols::BaseCols(std::string Name)
 {
 	this->Name = Name;
-	this->ColRel;
-	this->ContCrt = std::make_unique<ContactCreation>();
 }
 
 BaseCols::~BaseCols()
