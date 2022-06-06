@@ -50,7 +50,5 @@ namespace CoatlPhysicsEngine {
 	public:
 		BaseCols(std::string Name);
 		~BaseCols();
-		Vec_SH<Contact> GetColRel();
-		Vec_SH<Collection> GetCollections();
 	};
 }

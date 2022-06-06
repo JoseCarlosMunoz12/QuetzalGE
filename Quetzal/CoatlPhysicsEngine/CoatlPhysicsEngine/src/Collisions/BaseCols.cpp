@@ -48,13 +48,3 @@ BaseCols::BaseCols(std::string Name)
 BaseCols::~BaseCols()
 {
 }
-
-Vec_SH<Contact> CoatlPhysicsEngine::BaseCols::GetColRel()
-{
-	return this->ColRel;
-}
-
-Vec_SH<Collection> BaseCols::GetCollections()
-{
-	return this->AllCollections;
-}

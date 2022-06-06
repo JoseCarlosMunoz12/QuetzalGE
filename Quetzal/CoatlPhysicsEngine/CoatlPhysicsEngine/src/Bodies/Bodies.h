@@ -35,6 +35,7 @@ namespace CoatlPhysicsEngine {
 		glm::quat GetQuat();
 		S_P<ColShapes> GetShapes();
 		S_P<Bod_Base> GetParticle();
+		bool IsValid();
 		//Update Function
 		void UpdateAABB();
 		void UpdatePos(float dt);

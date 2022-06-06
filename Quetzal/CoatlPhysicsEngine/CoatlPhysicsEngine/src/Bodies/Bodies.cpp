@@ -23,6 +23,12 @@ Bodies::~Bodies()
 void Bodies::AddShapes(S_P<ColShapes> NewShape)
 {
 	this->BodPart = NewShape;
+	if (this->BodParticle)
+	{
+		float mass = this->BodParticle->GetMass();
+		glm::mat3 inertia = this->BodPart->GetInertia(mass);
+		this->BodParticle->SetInertia(inertia);
+	}
 }
 
 int Bodies::GetID()
@@ -98,6 +104,11 @@ S_P<ColShapes> Bodies::GetShapes()
 S_P<Bod_Base> Bodies::GetParticle()
 {
 	return this->BodParticle;
+}
+
+bool Bodies::IsValid()
+{
+	return this->BodPart && this->BodParticle;
 }
 
 glm::vec3 Bodies::Support(glm::vec3 Dir)

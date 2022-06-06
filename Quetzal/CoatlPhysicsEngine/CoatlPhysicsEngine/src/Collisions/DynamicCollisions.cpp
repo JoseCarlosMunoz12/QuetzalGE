@@ -183,22 +183,6 @@ void DynamicCollisions::CheckCollision(S_P<StaticCollisions> Statics, S_P<Kinema
 			}
 		}
 	}
-	//Get Manifold from Joints
-	for (auto& jj : AllCollections)
-		ContactCreation::MakeJointManifold(this->ColRel, jj->GetJoints());
-	//Cull Manifolds and get rid of repeats
-	this->CullManifolds(this->ColRel);
-	//Fix Resolution
-	this->Col_Rel->ResolveContacts(this->ColRel, dt);
-	//Move non contact bodies
-	for (auto& jj : AllBods)
-	{
-		if (jj->GetParticle() && !jj->HasCollided())
-		{
-			glm::vec3 Vel = jj->GetParticle()->GetVel();
-			jj->SetPosition(jj->GetPos() + Vel * dt);
-		}
-	}
 }
 
 void DynamicCollisions::AddNewBody(S_P<ColShapes> NewShape)
