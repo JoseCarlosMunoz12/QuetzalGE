@@ -31,7 +31,7 @@ namespace CoatlPhysicsEngine {
 	public:
 		DynamicCollisions(std::string Name);
 		~DynamicCollisions();
-		void CheckCollision(S_P<StaticCollisions> Statics,S_P<KinematicsCollisions> Kin,float dt);
+		void CheckCollision(S_P<StaticCollisions> Statics,S_P<KinematicsCollisions> Kin,Vec_SH<Contact>& Conts ,float dt);
 		//Body information of Class
 		void AddNewBody(S_P<ColShapes> NewShape);
 		void AddNewBody(Vec_SH<ColShapes> NewShapes);

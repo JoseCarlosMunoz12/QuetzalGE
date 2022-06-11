@@ -2,6 +2,11 @@
 
 using namespace CoatlPhysicsEngine;
 
+void CollisionWorld::ResolveContacts()
+{
+
+}
+
 CollisionWorld::CollisionWorld(std::string SetWName)
 	:WorldName(SetWName),Gravity(glm::vec3(0.f,0.f,-9.81f))
 {
@@ -87,10 +92,9 @@ void CollisionWorld::DeleteKinematics()
 
 void CollisionWorld::UpdateWorld(float dt)
 {
-	//moves Kinematic objects
-	if (this->Kin)
-		this->Kin->UpdateBodies(dt);
 	//Does Physics Maths and Dynamic Collisions
 	if (this->Dynamics)
-		this->Dynamics->CheckCollision(this->Statics,this->Kin,dt);
+		this->Dynamics->CheckCollision(this->Statics,this->Kin,this->AllContacts,dt);
+	//Solves All Collision Resolution
+	this->ResolveContacts();
 }

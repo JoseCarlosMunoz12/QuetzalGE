@@ -18,8 +18,10 @@ namespace CoatlPhysicsEngine {
 		S_P<StaticCollisions> Statics;
 		S_P<KinematicsCollisions> Kin;
 		S_P<DynamicCollisions> Dynamics;
+		Vec_SH<Contact> AllContacts;
 		std::string WorldName;
 		bool CheckStatics = false;
+		void ResolveContacts();
 	public:
 		CollisionWorld(std::string SetWName);
 		CollisionWorld(CollisionWorldSetup SetUp);
