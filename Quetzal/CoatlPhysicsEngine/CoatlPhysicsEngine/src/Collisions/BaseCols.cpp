@@ -40,6 +40,25 @@ bool BaseCols::ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1,
 	return GJK_Alg::GJK(Bod0, Bod1, Seg0, Seg1);
 }
 
+bool BaseCols::BinColDetection(S_P<Bodies> Bod0, S_P<Bodies> Bod1, glm::vec3 Vel0, glm::vec3 Vel1, float t0, float t1, float& NewDt)
+{
+	if ((t1 - t0) < EPSILON)
+	{
+		NewDt = t1;
+		return true;
+	}
+	float Mid = t0 + (t1 - t0) / 2.f;
+	if (!this->ColBods(Bod0, Bod1, { Vel0 * t0, Vel0 * t1 }, { Vel1 * t0, Vel1 * t1 }))
+	{
+		return false;
+	}
+	if (BinColDetection(Bod0, Bod1, Vel0, Vel1, t0, Mid, NewDt))
+	{
+		return true;
+	}
+	return BinColDetection(Bod0, Bod1, Vel0, Vel1, Mid, t1, NewDt);
+}
+
 BaseCols::BaseCols(std::string Name)
 {
 	this->Name = Name;

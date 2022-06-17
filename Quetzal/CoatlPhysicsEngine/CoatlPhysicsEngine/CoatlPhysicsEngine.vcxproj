@@ -81,6 +81,7 @@
     <ClInclude Include="src\Maths\Maths.h" />
     <ClInclude Include="src\CoatlPhysicsEngine.h" />
     <ClInclude Include="src\define.h" />
+    <ClInclude Include="src\Collisions\WorldCollisionHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Bodies\Bodies.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="src\Shapes\Triangles.cpp" />
     <ClCompile Include="src\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="src\Maths\Maths.cpp" />
+    <ClCompile Include="src\Collisions\WorldCollisionHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

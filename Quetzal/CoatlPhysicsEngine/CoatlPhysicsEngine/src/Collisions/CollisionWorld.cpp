@@ -7,13 +7,23 @@ void CollisionWorld::ResolveContacts()
 
 }
 
+void CollisionWorld::StepCollisionCheck(float dt)
+{
+	
+}
+
+void CollisionWorld::ContinousCollisionCheck(float)
+{
+
+}
+
 CollisionWorld::CollisionWorld(std::string SetWName)
-	:WorldName(SetWName),Gravity(glm::vec3(0.f,0.f,-9.81f))
+	:WorldName(SetWName),Gravity(0.f,0.f,-9.81f), IsStep(true)
 {
 }
 
 CollisionWorld::CollisionWorld(CollisionWorldSetup SetUp)
-	:WorldName(SetUp.Name),Gravity(SetUp.Gravity)
+	:WorldName(SetUp.Name),Gravity(SetUp.Gravity), IsStep(SetUp.IsStep)
 {
 }
 
@@ -93,6 +103,10 @@ void CollisionWorld::DeleteKinematics()
 void CollisionWorld::UpdateWorld(float dt)
 {
 	//Does Physics Maths and Dynamic Collisions
+	if (IsStep)
+		this->StepCollisionCheck(dt);
+	else
+		this->ContinousCollisionCheck(dt);
 	if (this->Dynamics)
 		this->Dynamics->CheckCollision(this->Statics,this->Kin,this->AllContacts,dt);
 	//Solves All Collision Resolution

@@ -10,6 +10,7 @@ namespace CoatlPhysicsEngine {
 	{
 		std::string Name;
 		glm::vec3 Gravity = glm::vec3(0.f, 0.f, -9.81);
+		bool IsStep;
 	};
 	class COATL_API CollisionWorld
 	{
@@ -21,7 +22,10 @@ namespace CoatlPhysicsEngine {
 		Vec_SH<Contact> AllContacts;
 		std::string WorldName;
 		bool CheckStatics = false;
+		bool IsStep;
 		void ResolveContacts();
+		void StepCollisionCheck(float dt);
+		void ContinousCollisionCheck(float dt);
 	public:
 		CollisionWorld(std::string SetWName);
 		CollisionWorld(CollisionWorldSetup SetUp);
