@@ -92,6 +92,11 @@ S_P<Bodies> DynamicCollisions::GetABody(int ID)
 	return Temp;
 }
 
+Vec_SH<Bodies> DynamicCollisions::GetAllBods()
+{
+	return this->AllBods;
+}
+
 Alg_Type DynamicCollisions::GetType()
 {
 	return this->AlgoType;

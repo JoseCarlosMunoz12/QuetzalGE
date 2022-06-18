@@ -9,10 +9,40 @@ void CollisionWorld::ResolveContacts()
 
 void CollisionWorld::StepCollisionCheck(float dt)
 {
+	// Update Bodies
 	if (this->Kin)
 		this->Kin->UpdateBodies(dt);
 	if (this->Dynamics)
 		this->Dynamics->UpdateBodies(dt);
+	//Detect Collision
+	if (this->Dynamics)
+	{
+		auto bods = this->Dynamics->GetAllBods();
+		for (auto jj : bods)
+		{
+			if (this->Statics)
+			{
+				auto sBods = this->Statics->GetBods(jj);
+			}
+
+			if (this->Kin)
+			{
+				auto kBods = this->Kin->GetBods(jj);
+
+			}
+		}
+
+		for (auto iter0 = bods.begin(); iter0 != bods.end(); iter0++)
+		{
+			for (auto iter1 = iter0 + 1; iter1 != bods.end(); iter1++)
+			{
+				if (this->ColBods(*iter0, *iter1))
+				{
+
+				}
+			}
+		}
+	}
 
 }
 
