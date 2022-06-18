@@ -9,7 +9,11 @@ void CollisionWorld::ResolveContacts()
 
 void CollisionWorld::StepCollisionCheck(float dt)
 {
-	
+	if (this->Kin)
+		this->Kin->UpdateBodies(dt);
+	if (this->Dynamics)
+		this->Dynamics->UpdateBodies(dt);
+
 }
 
 void CollisionWorld::ContinousCollisionCheck(float)
@@ -18,12 +22,14 @@ void CollisionWorld::ContinousCollisionCheck(float)
 }
 
 CollisionWorld::CollisionWorld(std::string SetWName)
-	:WorldName(SetWName),Gravity(0.f,0.f,-9.81f), IsStep(true)
+	:WorldName(SetWName),Gravity(0.f,0.f,-9.81f), IsStep(true),
+	WorldCollisionHandler()
 {
 }
 
 CollisionWorld::CollisionWorld(CollisionWorldSetup SetUp)
-	:WorldName(SetUp.Name),Gravity(SetUp.Gravity), IsStep(SetUp.IsStep)
+	:WorldName(SetUp.Name),Gravity(SetUp.Gravity), IsStep(SetUp.IsStep),
+	WorldCollisionHandler()
 {
 }
 
@@ -107,8 +113,6 @@ void CollisionWorld::UpdateWorld(float dt)
 		this->StepCollisionCheck(dt);
 	else
 		this->ContinousCollisionCheck(dt);
-	if (this->Dynamics)
-		this->Dynamics->CheckCollision(this->Statics,this->Kin,this->AllContacts,dt);
 	//Solves All Collision Resolution
 	this->ResolveContacts();
 }

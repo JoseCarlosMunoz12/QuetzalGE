@@ -57,3 +57,8 @@ bool WorldCollisionHandler::BinColDetection(S_P<Bodies> Bod0, S_P<Bodies> Bod1, 
 	}
 	return BinColDetection(Bod0, Bod1, Vel0, Vel1, Mid, t1, NewDt);
 }
+
+bool WorldCollisionHandler::StepCollision(S_P<Bodies> Bod0, S_P<Bodies> Bod1, float t0)
+{
+	return false;
+}

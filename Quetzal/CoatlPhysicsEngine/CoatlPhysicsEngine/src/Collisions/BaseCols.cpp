@@ -9,3 +9,9 @@ BaseCols::BaseCols(std::string Name)
 BaseCols::~BaseCols()
 {
 }
+
+void BaseCols::UpdateBodies(float dt)
+{
+	for (auto& ii : this->AllBods)
+		ii->UpdatePos(dt);
+}

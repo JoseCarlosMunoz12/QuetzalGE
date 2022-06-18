@@ -5,6 +5,8 @@
 #include "StaticCollisions.h"
 #include "KinematicsCollisions.h"
 #include "../CollisionManager/CollisionManager.h"
+#include "WorldCollisionHandler.h"
+
 namespace CoatlPhysicsEngine {
 	COATL_API struct CollisionWorldSetup
 	{
@@ -12,7 +14,7 @@ namespace CoatlPhysicsEngine {
 		glm::vec3 Gravity = glm::vec3(0.f, 0.f, -9.81);
 		bool IsStep;
 	};
-	class COATL_API CollisionWorld
+	class COATL_API CollisionWorld : public WorldCollisionHandler
 	{
 	private:
 		glm::vec3 Gravity;

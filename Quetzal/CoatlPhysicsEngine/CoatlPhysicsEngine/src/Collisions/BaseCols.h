@@ -44,5 +44,6 @@ namespace CoatlPhysicsEngine {
 	public:
 		BaseCols(std::string Name);
 		~BaseCols();
+		void UpdateBodies(float dt);
 	};
 }

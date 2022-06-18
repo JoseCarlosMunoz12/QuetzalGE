@@ -21,8 +21,9 @@
 #include "../OptimizaAlgorithm/B_Force_Self.h"
 #include "../GJK/GJK.h"
 #include "../CollisionResolution/ContactCreation.h"
+
 namespace CoatlPhysicsEngine {
-	class WorldCollisionHandler
+	class COATL_API WorldCollisionHandler
 	{
 	private:
 		const float EPSILON = 0.00015f;
@@ -32,8 +33,10 @@ namespace CoatlPhysicsEngine {
 		// other functions
 		bool ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1);
 		bool ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1, Vec<glm::vec3> Seg0, Vec<glm::vec3> Seg1);
+		//
 		bool BinColDetection(S_P<Bodies> Bod0, S_P<Bodies> Bod1, glm::vec3 Vel0, glm::vec3 Vel1,
 			float t0, float t1, float& NewDt);
+		bool StepCollision(S_P<Bodies> Bod0, S_P<Bodies> Bod1,float t0);
 
 	};
 }

@@ -36,12 +36,6 @@ std::vector<std::shared_ptr<Bodies>> KinematicsCollisions::GetBods(std::shared_p
 	return this->AlgoCheck->GetQueries(Bod, Ext);
 }
 
-void KinematicsCollisions::UpdateBodies(float dt)
-{
-	for (auto& ii : this->AllBods)
-		ii->UpdatePos(dt);
-}
-
 void KinematicsCollisions::AddNewBody(std::shared_ptr<ColShapes> NewShape)
 {
 	this->AllBods.push_back(std::make_shared<Bodies>(NewShape, this->NewCurId));
