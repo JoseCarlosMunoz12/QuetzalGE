@@ -23,6 +23,8 @@ void CollisionWorld::StepCollisionCheck(float dt)
 			if (this->Statics)
 			{
 				auto sBods = this->Statics->GetBods(jj);
+				for (auto kk : sBods)
+					this->ColBods(jj, kk);
 			}
 
 			if (this->Kin)

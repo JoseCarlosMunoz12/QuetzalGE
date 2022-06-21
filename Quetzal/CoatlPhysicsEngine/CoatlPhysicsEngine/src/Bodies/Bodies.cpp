@@ -80,9 +80,19 @@ void Bodies::SetQuat(glm::quat NewQuat)
 	this->BodParticle->SetQuat(NewQuat);
 }
 
+void Bodies::SetColliderType(bool isCollider)
+{
+	this->Collider = isCollider;
+}
+
 bool Bodies::HasCollided()
 {
 	return this->IsCollided;
+}
+
+bool Bodies::IsCollider()
+{
+	return this->Collider;
 }
 
 glm::vec3 Bodies::GetPos()
@@ -99,7 +109,6 @@ S_P<ColShapes> Bodies::GetShapes()
 {
 	return this->BodPart;
 }
-
 
 S_P<Bod_Base> Bodies::GetParticle()
 {

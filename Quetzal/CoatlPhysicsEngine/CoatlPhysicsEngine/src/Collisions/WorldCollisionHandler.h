@@ -30,6 +30,7 @@ namespace CoatlPhysicsEngine {
 		bool UpdateBodies(S_P<Sphere> Sph0, S_P<Bodies> Bod0, S_P<Bodies> Bod1);
 		bool UpdateBodies(S_P<Capsule> Cap0, S_P<Bodies> Bod0, S_P<Bodies> Bod1);
 	protected:
+		std::vector<Contact> ContactPoints;
 		// other functions
 		bool ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1);
 		bool ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1, Vec<glm::vec3> Seg0, Vec<glm::vec3> Seg1);

@@ -17,6 +17,7 @@ namespace CoatlPhysicsEngine {
 		glm::vec3 Min;
 		glm::vec3 Mid;
 		bool IsCollided;
+		bool Collider;
 	public:
 		Bodies(int InitID);
 		Bodies(S_P<ColShapes> InitShapes, int InitID);
@@ -30,7 +31,9 @@ namespace CoatlPhysicsEngine {
 		void SetPosition(glm::vec3 NewPos);
 		void MovePosition(glm::vec3 Add);
 		void SetQuat(glm::quat NewQuat);
+		void SetColliderType(bool isCollider);
 		bool HasCollided();
+		bool IsCollider();
 		glm::vec3 GetPos();
 		glm::quat GetQuat();
 		S_P<ColShapes> GetShapes();

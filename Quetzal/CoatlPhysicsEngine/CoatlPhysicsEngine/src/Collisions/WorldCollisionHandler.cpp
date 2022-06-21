@@ -31,6 +31,16 @@ bool WorldCollisionHandler::UpdateBodies(S_P<Capsule> Cap0, S_P<Bodies> Bod0, S_
 
 bool WorldCollisionHandler::ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
+	if (Bod0->IsCollider() && Bod1->IsCollider())
+	{
+		glm::vec3 d;
+		float pen;
+		if (GJK_Alg::EPA_GJK(Bod0, Bod1, d, pen))
+		{
+			return true;
+		}
+		return false;
+	}
 	return GJK_Alg::GJK(Bod0, Bod1);
 }
 
