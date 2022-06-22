@@ -1,38 +1,38 @@
 #include "ContactCreation.h"
 using namespace CoatlPhysicsEngine;
 
-std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(Sphere Sph0, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+std::vector<S_P<Contact>> ContactCreation::ContactCreate(S_P<Sphere> Sph0, S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
-	std::vector<std::shared_ptr<Contact>> Temp;
+	std::vector<S_P<Contact>> Temp;
 	return Temp;
 }
 
-std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(Capsule Cap, std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+std::vector<S_P<Contact>> ContactCreation::ContactCreate(S_P<Capsule> Cap, S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
-	std::vector<std::shared_ptr<Contact>> Temp;
+	std::vector<S_P<Contact>> Temp;
 	return Temp;
 }
 
-std::vector<std::shared_ptr<Contact>> ContactCreation::ContactCreate(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+std::vector<S_P<Contact>> ContactCreation::ContactCreate(S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
-	std::vector<std::shared_ptr<Contact>> Temp;
+	std::vector<S_P<Contact>> Temp;
 	return Temp;
 }
 
-std::vector<std::shared_ptr<Contact>> ContactCreation::MakeContacts(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+std::vector<S_P<Contact>> ContactCreation::MakeContacts(S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
-	if (std::shared_ptr<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod0->GetShapes()))
+	if (S_P<Sphere> Sphere0 = std::dynamic_pointer_cast<Sphere>(Bod0->GetShapes()))
 	{
-		return ContactCreate(*Sphere0, Bod0, Bod1);
+		return ContactCreate(Sphere0, Bod0, Bod1);
 	}
-	else if (std::shared_ptr<Capsule> Cap0 = std::dynamic_pointer_cast<Capsule>(Bod0->GetShapes()))
+	else if (S_P<Capsule> Cap0 = std::dynamic_pointer_cast<Capsule>(Bod0->GetShapes()))
 	{
-		return ContactCreate(*Cap0, Bod0, Bod1);
+		return ContactCreate(Cap0, Bod0, Bod1);
 	}
 	return ContactCreate(Bod0, Bod1);
 }
 
-float ContactCreation::GetLowestFric(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+float ContactCreation::GetLowestFric(S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
 	if (!Bod1->GetParticle())
 		return Bod0->GetParticle()->GetFriction();
@@ -40,7 +40,7 @@ float ContactCreation::GetLowestFric(std::shared_ptr<Bodies> Bod0, std::shared_p
 	return (Fric[0] < Fric[1] ? Fric[0] : Fric[1]);
 }
 
-float ContactCreation::GetLowestRest(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1)
+float ContactCreation::GetLowestRest(S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 {
 	if (!Bod1->GetParticle())
 		return Bod0->GetParticle()->GetRestitution();
@@ -56,21 +56,21 @@ ContactCreation::~ContactCreation()
 {
 }
 
-std::vector<std::shared_ptr<Contact>>ContactCreation::MakeManifold(std::shared_ptr<Bodies> Bod0, std::shared_ptr<Bodies> Bod1, float dt0, float dt1)
+std::vector<S_P<Contact>>ContactCreation::MakeManifold(S_P<Bodies> Bod0, S_P<Bodies> Bod1, float dt0, float dt1)
 {
 	float Fric = GetLowestFric(Bod0, Bod1);
 	float Rest = GetLowestRest(Bod0, Bod1);
-	std::vector<std::shared_ptr<Contact>> T = MakeContacts(Bod0, Bod1);
+	std::vector<S_P<Contact>> T = MakeContacts(Bod0, Bod1);
 	for (auto& ii : T)
 	{
 		ii->Friction = Fric;
-		ii->Restituion = Rest;
+		ii->Restitution = Rest;
 		ii->dt0 = dt0;
 		ii->dt1 = dt1;
 	}
 	return T;
 }
 
-void ContactCreation::MakeJointManifold(std::vector<std::shared_ptr<Contact>>& R, std::vector<std::shared_ptr<ColJoints>> BodJoints)
+void ContactCreation::MakeJointManifold(std::vector<S_P<Contact>>& R, std::vector<S_P<ColJoints>> BodJoints)
 {
 }

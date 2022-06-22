@@ -14,24 +14,14 @@ namespace CoatlPhysicsEngine {
 	class Contact
 	{
 	public:
-		std::shared_ptr<Bodies> Bods[2];
-		std::vector<glm::vec3> ContactPoint;
-		//relative contact Locations
-		std::vector<glm::vec3> R0;
-		std::vector<glm::vec3> R1;
-		float dt0;//Time of Contact
-		float dt1;//TIme left in frame
-		glm::vec3 Normal;
-		float Penetration;
+		S_P<Bodies> BodA;
+		S_P<Bodies> BodB;
+		glm::vec3 ContactPoint;
+		glm::vec3 Dir;
+		float Pen;
 		float Friction;
-		float Restituion;
-		inline bool operator< (const Contact& B)
-		{
-			int IDA = Bods[0]->GetID();
-			int IDB = B.Bods[0]->GetID();
-			if (IDA == IDB)
-				return dt0 < B.dt0;
-			return IDA < IDB;
-		}
+		float Restitution;
+		float dt0;
+		float dt1;
 	};
 }

@@ -37,6 +37,7 @@ bool WorldCollisionHandler::ColBods(S_P<Bodies> Bod0, S_P<Bodies> Bod1)
 		float pen;
 		if (GJK_Alg::EPA_GJK(Bod0, Bod1, d, pen))
 		{
+			Contact r;
 			return true;
 		}
 		return false;
