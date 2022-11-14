@@ -6,6 +6,7 @@
 #define COATL_API __declspec(dllimport)
 #endif
 
+#include <algorithm>
 #include <iostream>
 #include <string.h>
 #include <string>

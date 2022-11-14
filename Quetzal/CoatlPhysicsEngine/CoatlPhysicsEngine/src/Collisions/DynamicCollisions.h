@@ -4,7 +4,6 @@
 #include "KinematicsCollisions.h"
 #include "../Maths/Maths.h"
 #include "../Physics/Phys_Libs.h"
-#include <algorithm>
 
 namespace CoatlPhysicsEngine {
 	class COATL_API DynamicCollisions : public BaseCols

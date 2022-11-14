@@ -1,6 +1,4 @@
 #pragma once
-#include <string>
-#include <vector>
 #include "DynamicCollisions.h"
 #include "StaticCollisions.h"
 #include "KinematicsCollisions.h"

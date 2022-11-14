@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include "../Shapes/ColShapes.h"
 #include "../Physics/Particle.h"
 #include "../Physics/RigidBodies.h"
