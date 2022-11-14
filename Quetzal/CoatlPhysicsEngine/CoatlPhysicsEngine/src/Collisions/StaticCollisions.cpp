@@ -24,8 +24,10 @@ void StaticCollisions::CheckCol(std::shared_ptr<Bodies> Bod)
 		break;
 	case Alg_Type::Q_T:
 		this->AlgoCheck = std::make_unique<QuadTree>(glm::vec3(0.f), Ext);
+		break;
 	case Alg_Type::O_T:
 		this->AlgoCheck = std::make_unique<OctoTree>(glm::vec3(0.f), Ext);
+		break;
 	default:
 		break;
 	}
@@ -38,7 +40,6 @@ void StaticCollisions::CheckCol(std::shared_ptr<Bodies> Bod)
 	std::vector<std::shared_ptr<Bodies>> Quer = this->AlgoCheck->GetQueries(Bod, Ext);
 	for (auto& kk : Quer)
 	{
-		this->ColBods(Bod, kk);
 	}
 }
 
@@ -81,18 +82,19 @@ std::vector<std::shared_ptr<Bodies>> StaticCollisions::GetBods(std::shared_ptr<B
 		this->AlgoCheck = std::make_unique<B_Force_Self>();
 		break;
 	case Alg_Type::Q_T:
+		break;
 		this->AlgoCheck = std::make_unique<QuadTree>(glm::vec3(0.f), Ext);
 	case Alg_Type::O_T:
 		this->AlgoCheck = std::make_unique<OctoTree>(glm::vec3(0.f), Ext);
+		break;
 	default:
 		break;
 	}
 	//Add bodies into Algorithm
 	for (auto& jj : AllBods)
-	{
 		this->AlgoCheck->Insert(jj);
-	}
 	//get queries and test them
+
 	return this->AlgoCheck->GetQueries(Bod, Ext);
 }
 

@@ -1,13 +1,4 @@
 #pragma once
-#include <string>
-#include <iostream>
-#include <glm.hpp>
-#include <vec2.hpp>
-#include <vec3.hpp>
-#include <vec4.hpp>
-#include <mat4x4.hpp>
-#include <gtc\type_ptr.hpp>
-#include <vector>
 #include "../Bodies/Bodies.h"
 #include "../Bodies/Bod_Collection.h"
 namespace CoatlPhysicsEngine {

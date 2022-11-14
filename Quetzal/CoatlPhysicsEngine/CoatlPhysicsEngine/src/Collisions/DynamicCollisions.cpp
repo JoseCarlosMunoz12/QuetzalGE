@@ -7,9 +7,10 @@ bool DynamicCollisions::ContainsManifold(Vec_SH<Contact> ColRel, S_P<Contact> Ne
 	{
 		bool F_Same = false;
 		bool S_Same = false;
-		if (jj->Bods[0]->GetID() == NewMan->Bods[0]->GetID() || jj->Bods[1]->GetID() == NewMan->Bods[0]->GetID())
+
+		if (jj->BodA->GetID() == NewMan->BodA->GetID() || jj->BodB->GetID() == NewMan->BodA->GetID())
 			F_Same = true;
-		if (jj->Bods[0]->GetID() == NewMan->Bods[1]->GetID() || jj->Bods[1]->GetID() == NewMan->Bods[1]->GetID())
+		if (jj->BodA->GetID() == NewMan->BodB->GetID() || jj->BodB->GetID() == NewMan->BodB->GetID())
 			S_Same = true;
 		if (S_Same && F_Same)
 			return true;
@@ -26,8 +27,8 @@ void DynamicCollisions::CullManifolds(Vec_SH<Contact>& Cnt )
 	for (auto jj = Cnt.begin(); jj != Cnt.end();++jj)
 		for (auto ii = jj + 1; ii != Cnt.end();)
 		{
-			int ID0 = (*jj)->Bods[0]->GetID();
-			int ID1 = (*ii)->Bods[0]->GetID();
+			int ID0 = (*jj)->BodA->GetID();
+			int ID1 = (*ii)->BodA->GetID();
 			if (ID0 == ID1)
 			{
 				float s = glm::abs((*jj)->dt0 - (*ii)->dt0);
