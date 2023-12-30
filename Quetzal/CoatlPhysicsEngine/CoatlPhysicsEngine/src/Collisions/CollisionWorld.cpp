@@ -18,12 +18,12 @@ void CollisionWorld::StepCollisionCheck(float dt)
 	if (this->Dynamics)
 	{
 		auto bods = this->Dynamics->GetAllBods();
-		for (auto jj : bods)
+		for (auto& jj : bods)
 		{
 			if (this->Statics)
 			{
 				auto sBods = this->Statics->GetBods(jj);
-				for (auto kk : sBods)
+				for (auto& kk : sBods)
 					this->ColBods(jj, kk);
 			}
 
@@ -36,6 +36,7 @@ void CollisionWorld::StepCollisionCheck(float dt)
 
 		for (auto iter0 = bods.begin(); iter0 != bods.end(); iter0++)
 		{
+			auto dBods = this->Dynamics->GetBods(*iter0);
 			for (auto iter1 = iter0 + 1; iter1 != bods.end(); iter1++)
 			{
 				if (this->ColBods(*iter0, *iter1))
@@ -45,6 +46,7 @@ void CollisionWorld::StepCollisionCheck(float dt)
 			}
 		}
 	}
+	//Resolve Collision
 
 }
 

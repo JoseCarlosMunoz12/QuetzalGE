@@ -98,6 +98,11 @@ Vec_SH<Bodies> DynamicCollisions::GetAllBods()
 	return this->AllBods;
 }
 
+std::vector<std::shared_ptr<Bodies>> CoatlPhysicsEngine::DynamicCollisions::GetBods(std::shared_ptr<Bodies> Bod)
+{
+	return std::vector<std::shared_ptr<Bodies>>();
+}
+
 Alg_Type DynamicCollisions::GetType()
 {
 	return this->AlgoType;

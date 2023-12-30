@@ -30,6 +30,7 @@ namespace CoatlPhysicsEngine {
 		Vec_WP<Bodies> GetAllBodies();
 		S_P<Bodies> GetABody(int ID);
 		Vec_SH<Bodies> GetAllBods();
+		std::vector<std::shared_ptr<Bodies>> GetBods(std::shared_ptr<Bodies>Bod) override;
 		//change and check type of CollisionCheckAlgoritm
 		Alg_Type GetType();
 		void SetNewType(Alg_Type NewType);

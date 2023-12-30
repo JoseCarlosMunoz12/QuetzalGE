@@ -13,9 +13,11 @@ Col_Resolution::~Col_Resolution()
 void Col_Resolution::ResolveContacts(std::vector<std::shared_ptr<Contact>> Cnt,float dt)
 {
 	for (auto& jj : Cnt)
-		if(jj->BodA->GetParticle()->GetAwakeStatus())
+	{
+		if (jj->BodA->GetParticle()->GetAwakeStatus())
 		{
 		}
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////

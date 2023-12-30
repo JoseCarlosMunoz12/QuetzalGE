@@ -42,6 +42,7 @@ namespace CoatlPhysicsEngine {
 		//collision manifolds
 		Vec_SH<Contact> ColRel;
 	public:
+		virtual std::vector<std::shared_ptr<Bodies>> GetBods(std::shared_ptr<Bodies>Bod) { return {}; };
 		BaseCols(std::string Name);
 		~BaseCols();
 		void UpdateBodies(float dt);
